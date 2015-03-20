@@ -8,6 +8,7 @@
 3. 按照模板[template.md](template.md)中的格式翻译内容,完成翻译后将状态修改为"校对中",提交pull request到本项目;
 4. 管理员校对完成之后便会发布.   
 
+**QQ交流群(Android框架设计交流群) : 413864859.**
 
 ## 微信订阅号
 ![weixin](http://img.blog.csdn.net/20150320083829337)
