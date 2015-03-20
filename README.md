@@ -34,10 +34,9 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 ## 翻译任务跟踪和管理
 
-有人从issue列表中认领翻译任务之后， 将issue assign 给相应翻译者。 翻译者及时更新翻译状态，状态通过标签跟踪:
+有人从issue列表中认领翻译任务之后， 在issue中添加一个评论，将自己的github账户添加到评论中，管理员会将该issue的标签设置为翻译中。翻译者及时更新翻译状态，状态通过标签跟踪:
 
-* 认领中
-* 认领完成
+* 待认领
 * 翻译中
 * 翻译完成
 * 校对中
