@@ -25,16 +25,16 @@ RAMÔ¤Ëã¾ÍÊÇÒ»ÇĞÄãµÄÓ¦ÓÃ¹¤×÷Ê±ËùÄÜ»ñµÃµÄÈ«²¿ÁË£¬ÕâÒâÎ¶×Å£¬Ëü±ØĞëÂú×ã¼ÓÔØÀà¡¢Ïß³Ì¡
 
 ÒªÀí½âÎªÊ²Ã´AndroidÌá³öÁËÕâĞ©ÏŞÖÆÒÔ¼°Ìá¹©ÁËÊ²Ã´½â¾ö·½°¸À´Ó¦¶ÔËûÃÇ,ÎÒÃÇĞèÒªÖªµÀÒ»µãµãÔÚÕâ±³ºóÖ®ºó·¢ÉúÁËĞ©Ê²Ã´¡£
 
-Android processes: explained!
+Àí½âAndroid½ø³Ì
 ---
 
-What¡¯s cool about having multiple processes
+Ê¹ÓÃ¶à½ø³ÌÓĞÉ¶ºÃ´¦
 ---
 
-Ê¹ÓÃ¶à½ø³ÌÊ±ÄÇĞ©ÔãÍ¸µÄÊÂÇé
+Ê¹ÓÃ¶à½ø³ÌÊ±µÄÄÇĞ©¿Ó  
 ---
 
-ÎÒĞèÒªÊ¹ÓÃ¶à½ø³ÌÂğ?
+ÎÒĞèÒªÊ¹ÓÃ¶à½ø³ÌÂğ
 ---
 
 µ±È»,ÕâÈ¡¾öÓÚÄãĞèÒª²é¿´µ½µÄ¼£Ïó¡£Èç¹ûÄãµÄÓÃ»§ÕıÔÚ¾­ÀúÔ½À´Ô½Æµ·±OutOfMemory´íÎó»òÕßËûÃÇ±§Ô¹ÄãµÄÓ¦ÓÃ³ÌĞòÊÇ¼«ÆäÏûºÄRAM,Äã¿ÉÄÜĞèÒª¿¼ÂÇÊ¹ÓÃÒ»¸ö»ò¶à¸ö¶ÀÁ¢µÄ½ø³Ì¡£
@@ -53,7 +53,7 @@ What¡¯s cool about having multiple processes
 
 ÎÒÖªµÀÎÒ½ö½ö´¥¼°µ½Õâ¸öÎÊÌâµÄ±íÃæ£¬ÎÒÖ»ÊÇÏë¸øÄãÒ»Ğ©ÊµÓÃµÄ½¨Òé£¬¶ø²»ÊÇ¸æËßÄãÔÚ²Ù×÷ÏµÍ³²ãµ÷¿Ø½ø³ÌµÄÈ«²¿ÀíÂÛÓë¹¤×÷»úÖÆ¡£
 
-»¹ÊÇÄÇ¾ä»°£¬Èç¹ûÄã¶Ô´Ë¸ĞĞËÈ¤²¢Ô¸Òâ¼ÌĞøÉîÈëÆäÖĞ£¬ÄÇÃ´¾ÍÁôÑÔÈÃÎÒÖªµÀ£¡Í¬Ê±£¬²»ÒªÍü¼ÇÎÄµµÊÇÄã×îºÃµÄÅóÓÑ[[1]](http://developer.android.com/guide/components/processes-and-threads.html#Processes) [[2]](https://developer.android.com/training/articles/memory.html) [[3]](https://developer.android.com/tools/debugging/debugging-memory.html)
+»¹ÊÇÄÇ¾ä»°£¬Èç¹ûÄã¶Ô´Ë¸ĞĞËÈ¤²¢Ô¸ÒâÉîÈëÆäÖĞ£¬ÄÇ¾ÍÁôÑÔÈÃÎÒÖªµÀ£¡Í¬Ê±£¬²»ÒªÍü¼ÇÎÄµµÊÇÄã×îºÃµÄÅóÓÑ[[1]](http://developer.android.com/guide/components/processes-and-threads.html#Processes) [[2]](https://developer.android.com/training/articles/memory.html) [[3]](https://developer.android.com/tools/debugging/debugging-memory.html)
 
 ## Ô­ÎÄÁ´½Ó
 [Going multiprocess on Android](https://medium.com/@rotxed/going-multiprocess-on-android-52975ed8863c)
