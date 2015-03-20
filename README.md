@@ -22,3 +22,20 @@
 | [Android Blog](android-blog) | Android官方技术博客[Android Dev Blog](http://android-developers.blogspot.com/) |
 | [Others](others) | 其他来源的优秀文章 |
 
+
+## 待翻译文章
+|   标题    |   来源     |   推荐人   |   推荐理由   |
+|----------|-------------|
+| [android-mvp-an-alternate-approach](http://blog.cainwong.com/android-mvp-an-alternate-approach/) | [AndroidWeekly](http://androidweekly.net/) | [Tiny-Times](https://github.com/tiny-times)| Android MVP模式的优秀文章 | 
+
+
+## 翻译中的文章
+|   标题    |   来源     |   翻译人   | 
+|----------|-------------|
+| [android-mvp-an-alternate-approach](http://blog.cainwong.com/android-mvp-an-alternate-approach/) | [AndroidWeekly](http://androidweekly.net/) | [Tiny-Times](https://github.com/tiny-times)| 
+
+
+## 已完成文章
+|   标题    |   来源     |   翻译人   | 
+|----------|-------------|
+| [android-mvp-an-alternate-approach](http://blog.cainwong.com/android-mvp-an-alternate-approach/) | [AndroidWeekly](http://androidweekly.net/) | [Tiny-Times](https://github.com/tiny-times)| 
