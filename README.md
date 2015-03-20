@@ -16,7 +16,7 @@
 ## 文章分类
 |   来源    |   介绍     |
 |----------|-------------|
-| [AndroidWeekly](androidweekly) | 每周更新国外的技术咨询、开源库等信息 |
-| [Android Blog](android-blog) | Android官方技术博客 |
+| [AndroidWeekly](androidweekly) | 每周更新国外的技术咨询、开源库等信息[AndroidWeekly](http://androidweekly.net/) |
+| [Android Blog](android-blog) | Android官方技术博客[Android Dev Blog](http://android-developers.blogspot.com/) |
 | [Others](others) | 其他来源的优秀文章 |
 
