@@ -44,3 +44,8 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 * 已发布
 
 发布之后校对人将issue 关闭。
+
+## 已完成列表
+| 文章名称 |   译者  |  出处  |
+|---------|--------|-------|
+|         |        |       |
