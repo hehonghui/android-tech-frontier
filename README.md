@@ -22,21 +22,26 @@
 | [Android Blog](android-blog) | Android官方技术博客[Android Dev Blog](http://android-developers.blogspot.com/) |
 | [Others](others) | 其他来源的优秀文章 |
 
+## 推荐文章
+如果您有好的文章推荐我们翻译，请在 在[bboyfeiyu/android-tech-frontier](https://github.com/bboyfeiyu/android-tech-frontier/issues) 下提一个issue，Issue 模板: 
+https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
-## 待翻译文章
-|   标题    |   来源     |   推荐人   |   推荐理由   |
-|----------|-------------|---------|-------------|
-| [android-mvp-an-alternate-approach](http://blog.cainwong.com/android-mvp-an-alternate-approach/) | [AndroidWeekly](http://androidweekly.net/) | [Tiny-Times](https://github.com/tiny-times)| Android MVP模式的优秀文章 | 
-| [architecting-android-the-clean-way](http://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/) | [fernandocejas.com](http://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/) | [allenlsy](https://github.com/allenlsy)| Android 洋葱架构 | 
-
-
-## 翻译中的文章
-|   标题    |   来源     |   翻译人   | 
-|----------|-------------|-------------|
-| [android-mvp-an-alternate-approach](http://blog.cainwong.com/android-mvp-an-alternate-approach/) | [AndroidWeekly](http://androidweekly.net/) | [Tiny-Times](https://github.com/tiny-times)| 
+* issue 标题: `推荐: XXXXXXX`
+* issue 内容: 写明 url 和 推荐理由
+* 标签: `推荐`, 来源，如`androidweekly`,`android-blog`等
+* milestone: 设置为当月，如`2015/03`
 
 
-## 已完成文章
-|   标题    |   来源     |   翻译人   | 
-|----------|-------------|-------------|
-| [android-mvp-an-alternate-approach](http://blog.cainwong.com/android-mvp-an-alternate-approach/) | [AndroidWeekly](http://androidweekly.net/) | [Tiny-Times](https://github.com/tiny-times)| 
+## 翻译任务跟踪和管理
+
+有人从issue列表中认领翻译任务之后， 将issue assign 给相应翻译者。 翻译者及时更新翻译状态，状态通过标签跟踪:
+
+* 认领中
+* 认领完成
+* 翻译中
+* 翻译完成
+* 校对中
+* 校对完成
+* 已发布
+
+发布之后校对人将issue 关闭。
