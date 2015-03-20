@@ -27,6 +27,7 @@
 |   标题    |   来源     |   推荐人   |   推荐理由   |
 |----------|-------------|---------|-------------|
 | [android-mvp-an-alternate-approach](http://blog.cainwong.com/android-mvp-an-alternate-approach/) | [AndroidWeekly](http://androidweekly.net/) | [Tiny-Times](https://github.com/tiny-times)| Android MVP模式的优秀文章 | 
+| [architecting-android-the-clean-way](http://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/) | [fernandocejas.com](http://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/) | [allenlsy](https://github.com/allenlsy)| Android 洋葱架构 | 
 
 
 ## 翻译中的文章
