@@ -2,6 +2,11 @@
 一个定期翻译、发布国内外Android优质的技术、开源库、软件架构设计、测试等文章的开源项目,让我们的技术跟上国际步伐。
 
 
+## 目录
+* [文章分类](#category)
+* [优秀推荐文章](#recommend)
+* [已完成文章列表](#articles)
+
 ## 参与步骤
 1. 将该项目fork到自己的github;
 2. 在对应分类里面创建一个文件夹，文件夹命名格式为: 中文标题名，比如Android MVP模式与实践;
@@ -14,7 +19,7 @@
 ## 微信订阅号 ( 最新文章，及时推送 )
 ![weixin](http://img.blog.csdn.net/20150320083829337)
 
-
+<b id="category" />
 ## 文章分类
 |   来源    |   介绍     |
 |----------|-------------|
@@ -22,19 +27,20 @@
 | [Android Blog](android-blog) | Android官方技术博客[Android Dev Blog](http://android-developers.blogspot.com/) |
 | [Others](others) | 其他来源的优秀文章 |
 
+<b id="recommend" />
 ## 推荐文章
 如果您有好的文章推荐我们翻译，请在 在[bboyfeiyu/android-tech-frontier](https://github.com/bboyfeiyu/android-tech-frontier/issues) 下提一个issue，Issue 模板: 
 https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
-* issue 标题: `推荐: XXXXXXX`
-* issue 内容: 写明 url 和 推荐理由
+* 推荐理由: `这是一篇关于XXXXXXX的优秀文章`
+* 原文链接: 写明原始链接
 * 标签: `推荐`, 来源，如`androidweekly`,`android-blog`等
 * milestone: 设置为当月，如`2015/03`
 
 
 ## 翻译任务跟踪和管理
 
-有人从issue列表中认领翻译任务之后， 在issue中添加一个评论，将自己的github账户添加到评论中，管理员会将该issue的标签设置为翻译中。翻译者及时更新翻译状态，状态通过标签跟踪:
+有想要翻译文章的朋友情从issue列表中选择一个翻译任务，然后在issue中添加一个评论，将自己的github账户添加到评论中( ( 比如 : @Mr.Simple认领该翻译任务 ))，管理员会将该issue的标签设置为翻译中。翻译者及时更新翻译状态，状态通过标签跟踪:
 
 * 待认领
 * 翻译中
@@ -43,8 +49,10 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 * 校对完成
 * 已发布
 
-发布之后校对人将issue 关闭。
+译者翻译完成之后想本项目发布pull request，校对完成之后会合并您的提交，并且将对应的issue关闭。
 
+
+<b id="articles" />
 ## 已完成列表
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|
