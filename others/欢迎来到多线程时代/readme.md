@@ -2,10 +2,11 @@
 ---
 
 >
+* 原文标题 : Going multiprocess on Android
+* 原文链接 : [Going multiprocess on Android](https://medium.com/@rotxed/going-multiprocess-on-android-52975ed8863c)
 * 译者 : [Lollypo](https://github.com/Lollypo) 
-* 校对者: [Mr.Simple](https://github.com/bboyfeiyu)  
+* 校对者: [Mr.Simple](https://github.com/bboyfeiyu)   
 * 状态 :  校对中
-
 
 ###That moment when one Dalvik alone is no longer enough.
 
@@ -13,11 +14,11 @@
 生活在内存限制中
 ---
 
-有很多方面使得Android作为一个独特的移动操作系统,但有时是非常难以接触,特别是从开发人员角度来看。
+有很多方面使得Android成为一个独特的移动平台操作系统，但有时候却让人觉得难以融入，特别是从开发人员的角度看。
 
 例如,把内存限制。iOS应用程序提供几乎没有限制的内存预算(200 MB不是什么大不了的事),Android有严重的局限性,从最近设备的24/32/48 MB以及旧设备极小的16 MB便可以看出。
 
-RAM预算就是一切你的应用工作时所能获得的全部了，这意味着，它必须满足加载类、线程、服务、资源和你的应用程序想要显示的内容。想象一个通过网格视图展示优美图片的照片浏览应用,或一个需要在后台播放的音乐播放器:这太恐怖了
+RAM预算就是一切你的应用运行时所能获得的全部了，这意味着，它必须满足加载类、线程、服务、资源和你的应用程序想要显示的内容。想象一个通过网格视图展示优美图片的照片浏览应用,或一个需要在后台播放的音乐播放器:这太恐怖了
 
 > 那时候你的体会应该是这样的
 
@@ -28,9 +29,9 @@ RAM预算就是一切你的应用工作时所能获得的全部了，这意味�
 理解Android进程
 ---
 
-你应该已经知道了,安卓系统是基于Linux的。因此,每个应用程序都运行在其本身的进程(拥有一个独一无二的PID)中:这允许应用生活在一个相互隔离的环境中,不能由其他应用程序/进程干扰。通常来说,当你想启动一个应用程序,Android创建一个进程(从Zygote中fork出来的),附着在主线程中和开始运行MainActivity。
+你应该已经知道了,安卓系统是基于Linux的。因此,每个应用程序都运行在其本身的进程(拥有一个独一无二的PID)中:这允许应用运行在一个相互隔离的环境中,不能被其他应用程序/进程干扰。通常来说,当你想启动一个应用程序,Android创建一个进程(从Zygote中fork出来的),并创建一个主线程，然后开始运行Main Activity。
 
-你可能不知道的是,你可以指定应用程序的一些组件运行在一个不同的进程中，而不是那个被用于启动应用程序的。看一下这个可爱的属性:
+你可能不知道的是,你可以指定应用程序的一些组件运行在不同的进程中，而不是那个被用于启动应用程序的。先来看一下这个Nice的属性:
 <center>
 ```xml
 android:process
@@ -84,9 +85,9 @@ android:process
 
 不幸的是,坑有很多。事实上,你要学习拥有多个进程不是一下子就能完成的事
 
-首先,进程是被设计成独立的(如安全特性),这意味着每一个过程将有自己的Dalvik VM实例。反过来,这意味着你不能通过这些实例共享数据,至少不是传统意义上的。例如,静态字段在每个进程都有自己的值,而不是你倾向于相信的只有一个值。并且这延伸到应用程序每一个的状态。
+首先,进程是被设计成独立的(如安全特性),这意味着每一个进程将有自己的Dalvik VM实例。反过来,这意味着你不能通过这些实例共享数据,至少不是传统意义上的。例如,静态字段在每个进程都有自己的值,而不是你倾向于相信的只有一个值。并且这延伸到应用程序每一个的状态。
 
-这是否意味着两个独立的进程之间互相交流是不可能的吗?不,实际上是可能的,有几种方法可以做到。最值得注意的是,Intent可以跨进程“旅行”,所以可以处理Handlers和Messengers。你也可以依靠AIDL(Android接口定义语言)和Binder,和你通常声明一个bound service茶不错(但你可以做更多的事!)。
+这是否意味着两个独立的进程之间互相交流是不可能的吗?不,实际上是可能的,有几种方法可以做到。最值得注意的是,Intent可以跨进程“旅行”,Handlers和Messengers也可以。。你也可以依靠AIDL(Android接口定义语言)和Binder,和你通常声明一个bound service茶不错(但你可以做更多的事!)。
 
 我需要使用多进程吗
 ---
@@ -100,7 +101,7 @@ android:process
 
 ![This happens when you first realize what “isolation between processes” really means.](https://raw.githubusercontent.com/Lollypo/android-tech-frontier/master/others/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%97%B6%E4%BB%A3/images/img04.gif)
 
-如果你认为你需要它,那么我建议你先玩一个小试验台应用:只有通过实际体验使用多个进程的优势和内在的复杂性，你才能够决定你是否真的需要它,如果是这样,什么是最好的处理它的方式而不至于把我们逼疯。
+如果你认为你需要它,那么我建议你先玩一个小试验台应用:只有通过实际体验过使用多个进程的优势和其内在的复杂性，你才能够决定你是否真的需要它,如果是这样,什么是最好的处理它的方式而不至于把我们逼疯。
 
 结语
 ---
@@ -108,6 +109,3 @@ android:process
 我知道我仅仅触及到这个问题的表面，我只是想给你一些实用的建议，而不是告诉你在操作系统层调控进程的全部理论与工作机制。
 
 还是那句话，如果你对此感兴趣并愿意深入其中，那就留言让我知道！同时，不要忘记文档是你最好的朋友[[1]](http://developer.android.com/guide/components/processes-and-threads.html#Processes) [[2]](https://developer.android.com/training/articles/memory.html) [[3]](https://developer.android.com/tools/debugging/debugging-memory.html)
-
-## 原文链接
-[Going multiprocess on Android](https://medium.com/@rotxed/going-multiprocess-on-android-52975ed8863c)
