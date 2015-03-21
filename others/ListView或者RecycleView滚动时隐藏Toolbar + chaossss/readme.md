@@ -32,7 +32,7 @@ ListView或者RecycleView滚动时隐藏Toolbar
 
 接着我们就要创建我们activity中显示的布局：
 
-这只是一个简单的布局，里面有RecycleView，Toolbar和ImageButton。我们需要把它们放在一个FrameLayout里，因为Toolbar需要被覆盖在RecycleView上。如果我们不这样做的话，会有一个空白区域在list上，当我们隐藏Toolbar。
+这只是一个简单的布局，里面有RecycleView，Toolbar和ImageButton。我们需要把它们放在一个FrameLayout里，因为Toolbar需要被覆盖在RecycleView上。如果我们不这样做的话，当我们隐藏Toolbar时list上方会出现一个空白区域，这显然不会是我们想要的效果。
 
 现在来看看我们MainActivity代码吧：
 
@@ -40,7 +40,7 @@ ListView或者RecycleView滚动时隐藏Toolbar
 
 1. 初始化Toolbar
 
-1. 获得我们控件的引用
+1. 获取mFabButton的引用
 
 1. 初始化RecycleView
 
@@ -56,7 +56,7 @@ ListView或者RecycleView滚动时隐藏Toolbar
 
 ![](http://mzgreen.github.io/images/1/clipped.png)
 
-等会……这是什么？就像你应该注意到的那样，Toolbar把我们的子item挡住了，或许你已经发现这是因为我们在activity_main.xml里使用了FrameLayout。这就是我开头提到的问题之一了。第一个解决办法是为我们的RecycleView增加一个PaddingTop，并且让这个PaddingTop的值称为我们Toolbar的高度。但我们必须很谨慎，因为RecycleView会默认把它的子item裁剪如padding，所以我们必须把这个特性关掉。那么我们的布局就会如下所示：
+等会……这是什么？就像你应该注意到的那样，Toolbar把我们的子item挡住了，或许你已经发现这是因为我们在activity_main.xml里使用了FrameLayout。这就是我开头提到的问题之一了。第一个解决办法是为我们的RecycleView增加一个PaddingTop，并将PaddingTop的值设置为Toolbar的值。但我们必须很谨慎，因为RecyclerView会默认裁剪到子View的padding区域，所以我们必须把这个特性关掉。那么我们的布局就会如下所示：
 
 然后这样就能实现我们想要的效果了，也就是我们所说的第一种方法。但正如我告诉你的那样，我想教给你其他更复杂的方法去实现同样的效果，也就是为list添加一个header，让你在实现这个效果的同时能学到更多的知识。
 
@@ -67,7 +67,7 @@ ListView或者RecycleView滚动时隐藏Toolbar
 
 下面是其实现原理：
 
-我们需要定义Recycler展现出来的子布局类型。RecyclerView是一个非常灵活的组件。当你想要让你的list子布局有多种不一样的layout时，item的类型就会被利用到。而这就是我们想要的——让Header称为RecyclerView的第一个子布局，显然这会与其余的子布局不一样。（第3-4行）
+我们需要定义Recycler展现出来的子布局类型。RecyclerView是一个非常灵活的组件。当你想要让你的list子布局有多种不一样的layout时，item的类型就会被利用到。而这就是我们想要的——让Header成为RecyclerView的第一个子布局，显然这会与其余的子布局不一样。（第3-4行）
 
 我们需要让Recycler知道它需要展示的子布局是这几个（第49-54行）
 
@@ -90,7 +90,7 @@ ListView或者RecycleView滚动时隐藏Toolbar
 
 为了实现这个效果，我们只需要为RecyclerView再创建一个类——OnScrollListener
 
-就像你看到的，我们只需要一个实现一个方法就能让这个美妙的效果称为应用中的黑魔法，它就是——onScrolled()方法。它的参数——dx,dy分别是水平和垂直方向上的滚动距离。但事实上它们并不是代表屏幕上的物理距离，而是两个事件间的距离。
+就像你看到的，我们只需要一个实现一个方法就能让这个美妙的效果成为应用中的黑魔法，它就是——onScrolled()方法。它的参数——dx,dy分别是水平和垂直方向上的滚动距离。但事实上它们并不是代表屏幕上的物理距离，而是两个事件间的距离。
 
 而它的算法大致上是这么实现我们要的效果的：
 
