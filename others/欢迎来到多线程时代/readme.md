@@ -4,7 +4,7 @@
 >
 * 译者 : [Lollypo](https://github.com/Lollypo) 
 * 校对者: [Mr.Simple](https://github.com/bboyfeiyu)  
-* 状态 :  未完成
+* 状态 :  校对中
 
 
 ###That moment when one Dalvik alone is no longer enough.
