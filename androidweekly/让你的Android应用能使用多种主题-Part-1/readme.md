@@ -1,18 +1,17 @@
-文章标题
+在你的Android App中支持多主题
 ---
 
 >
+* 原文链接 : [Supporting multiple themes in your Android app (Part 1)](http://www.hidroh.com/2015/02/16/support-multiple-themes-android-app/)
 * 译者 : [chaossss](https://github.com/chaossss) 
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  校对中
+* 校对者: [Mr.Simple](https://github.com/bboyfeiyu)  
+* 状态 :  完成
 
 
+![](images/multiple-theme-dark.png)
+![](images/multiple-theme-light.png)
 
-
-![](http://www.hidroh.com/assets/img/multiple-theme-dark.png)
-![](http://www.hidroh.com/assets/img/multiple-theme-light.png)
-
-我最近一直在忙着整我的黑客资讯App——Materialistic，今天难得有空，就让我来给大家分享一下我在Materialistic里使用的一个有趣的功能吧～
+我最近一直在忙着整我的黑客资讯App——Materialistic，今天难得有空，就让我来给大家分享一下我在Materialistic里使用的一个有趣的功能吧。
 
 纵观现在的主流阅读类App，用户最常见的需求就是能够基于自己的阅读习惯选择明亮/灰暗两种风格的主题。为了用户的使用体验，我当然要为Materialistic添加这样的功能啦，要不然没人用我会很伤心的！而且很幸运的是，在Android里支持多种主题的切换并不麻烦（如果你的代码没有问题的话），实现这个功能蛮顺利的。所以今天我打算通过这篇博客给大家介绍我在Materialistic里面为了支持多种主题切换所使用的方法。
 
@@ -70,7 +69,7 @@ theme 中涉及的各种属性的含义可以在[Android Developers blog](http:/
 
 ## 贴心小提示 ##
 
-Google 有在 [material-design-icons - Github](https://github.com/google/material-design-icons "Github") 上提供一些开源的Material Design图标哦
+> Google 有在 [material-design-icons - Github](https://github.com/google/material-design-icons "Github") 上提供一些开源的Material Design图标哦。
 
 ## menu/my_menu.xml ##
 
@@ -93,9 +92,4 @@ Google 有在 [material-design-icons - Github](https://github.com/google/materia
     ...
     </style>
 
-我相信通过今天在上面所介绍的这些内容已经足够让我们实现一个符合Material Design的明亮风格的主题了，下一篇博文我将会给大家介绍如何实现一个符合Material Design的灰暗风格的主题，以及如何在运行App的过程中切换主题。希望大家继续关注我的博客哦
-
-
-
-## 原文链接
-[Supporting multiple themes in your Android app (Part 1)](http://www.hidroh.com/2015/02/16/support-multiple-themes-android-app/)
+我相信通过今天在上面所介绍的这些内容已经足够让我们实现一个符合Material Design的明亮风格的主题了，下一篇博文我将会给大家介绍如何实现一个符合Material Design的灰暗风格的主题，以及如何在运行App的过程中切换主题。希望大家继续关注我的博客哦。

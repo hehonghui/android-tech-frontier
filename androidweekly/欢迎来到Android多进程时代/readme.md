@@ -1,18 +1,16 @@
-欢迎来到多线程时代
+欢迎来到Android多进程时代
 ---
 
 >
-* 原文标题 : Going multiprocess on Android
 * 原文链接 : [Going multiprocess on Android](https://medium.com/@rotxed/going-multiprocess-on-android-52975ed8863c)
 * 译者 : [Lollypo](https://github.com/Lollypo) 
 * 校对者: [Mr.Simple](https://github.com/bboyfeiyu)   
-* 状态 :  校对中
+* 状态 :  完成
 
-###That moment when one Dalvik alone is no longer enough.
+**That moment when one Dalvik alone is no longer enough.**
 
 
-生活在内存限制中
----
+## 生活在内存限制中
 
 有很多方面使得Android成为一个独特的移动平台操作系统，但有时候却让人觉得难以融入，特别是从开发人员的角度看。
 
@@ -26,8 +24,7 @@ RAM预算就是一切你的应用运行时所能获得的全部了，这意味�
 
 要理解为什么Android提出了这些限制以及提供了什么解决方案来应对他们,我们需要知道一点点在这背后之后发生了些什么。
 
-理解Android进程
----
+## 理解Android进程
 
 你应该已经知道了,安卓系统是基于Linux的。因此,每个应用程序都运行在其本身的进程(拥有一个独一无二的PID)中:这允许应用运行在一个相互隔离的环境中,不能被其他应用程序/进程干扰。通常来说,当你想启动一个应用程序,Android创建一个进程(从Zygote中fork出来的),并创建一个主线程，然后开始运行Main Activity。
 
@@ -65,8 +62,7 @@ android:process
 
 让我们看看这种方法将是一件好事还是坏事。(剧透:两者都是)
 
-使用多进程有啥好处
----
+## 使用多进程有啥好处
 
 正如我刚才提到的,一个独立的进程可以充分利用自己的RAM预算,使其主进程拥有更多的空间处理资源。
 
@@ -80,8 +76,7 @@ android:process
 ![](https://raw.githubusercontent.com/Lollypo/android-tech-frontier/master/others/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%97%B6%E4%BB%A3/images/img03.png)
 
 
-使用多进程时的那些坑  
----
+## 使用多进程时的那些坑  
 
 不幸的是,坑有很多。事实上,你要学习拥有多个进程不是一下子就能完成的事
 
@@ -89,8 +84,7 @@ android:process
 
 这是否意味着两个独立的进程之间互相交流是不可能的吗?不,实际上是可能的,有几种方法可以做到。最值得注意的是,Intent可以跨进程“旅行”,Handlers和Messengers也可以。。你也可以依靠AIDL(Android接口定义语言)和Binder,和你通常声明一个bound service茶不错(但你可以做更多的事!)。
 
-我需要使用多进程吗
----
+## 我需要使用多进程吗
 
 当然,这取决于你需要查看到的迹象。如果你的用户正在经历越来越频繁OutOfMemory错误或者他们抱怨你的应用程序是极其消耗RAM,你可能需要考虑使用一个或多个独立的进程。
 
@@ -103,8 +97,7 @@ android:process
 
 如果你认为你需要它,那么我建议你先玩一个小试验台应用:只有通过实际体验过使用多个进程的优势和其内在的复杂性，你才能够决定你是否真的需要它,如果是这样,什么是最好的处理它的方式而不至于把我们逼疯。
 
-结语
----
+## 结语
 
 我知道我仅仅触及到这个问题的表面，我只是想给你一些实用的建议，而不是告诉你在操作系统层调控进程的全部理论与工作机制。
 

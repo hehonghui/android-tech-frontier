@@ -4,8 +4,8 @@
 
 ## 参与步骤
 1. 将该项目fork到自己的github;
-2. 在对应分类里面创建一个文件夹，文件夹命名格式为: 中文标题名 + 你的github用户名;比如Android MVP - Mr.simple;
-3. 在该文件夹中创建readme.md和images文件夹(存放文章图片);
+2. 在对应分类里面创建一个文件夹，文件夹命名格式为: 中文标题名，比如Android MVP模式与实践;
+3. 在该文件夹中创建readme.md和images文件夹(存放文章图片,宽度尽量控制在400 px左右);
 3. 将模板[template.md](template.md)中的内容拷贝到readme.md，按照模板填写、翻译完内容,完成翻译后将状态修改为"校对中",提交pull request到本项目;
 4. 管理员校对完成之后便会发布.   
 
@@ -48,4 +48,5 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 ## 已完成列表
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|
-|         |        |       |
+| [欢迎来到Android多进程时代](androidweekly/欢迎来到Android多进程时代)  | [Lollypo](https://github.com/Lollypo)       |   [AndroidWeekly issue #144](http://androidweekly.net/issues/issue-144)    |
+| [让你的Android应用能使用多种主题 (Part 1)](androidweekly/让你的Android应用能使用多种主题-Part-1) | [chaossss](https://github.com/chaossss) |   [AndroidWeekly issue #144](http://androidweekly.net/issues/issue-144)    |
