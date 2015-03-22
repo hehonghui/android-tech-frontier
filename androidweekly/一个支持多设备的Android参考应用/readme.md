@@ -7,10 +7,10 @@
 锁屏时的播放控制和专辑封面
 应用toolbar上的Google Cast 图标
 
-![auto](http://img.blog.csdn.net/20150322111453169)
+![auto](http://img.blog.csdn.net/20150322111453169)     
 使用Android Auto控制播放
 
-![watch](http://img.blog.csdn.net/20150322111518047)
+![watch](http://img.blog.csdn.net/20150322111518047)      
 通过Android Wear Watch控制播放
 
 
