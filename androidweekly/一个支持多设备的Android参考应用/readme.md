@@ -1,5 +1,8 @@
 一个支持多设备的Android参考应用
 ---
+>
+* 原文链接 : [a-new-reference-app-for-multi-device](http://android-developers.blogspot.com/2015/03/a-new-reference-app-for-multi-device.html)
+* 译者 : [Mr.Simple & Sophie.Ping](https://www.github.com/bboyfeiyu)
 
 现在你可以把你的app的好用之处分享给你的用户，不管他们身处何地，手上拿着何种设备。今儿我们会发布一个参考示例，展示一下如何把这种服务运用到一个在多个Android form-Factor运作的app上。这个示例叫做Universal Music Player，它是一个准系统但是参考功能齐全，在单个代码库里支持多种设备和形式因素。它能与Android Auto、Android Wear和Google Cast设备兼容。你可以试试把你的app适配到你的用户，无论他在哪里，无论他手上拿的是手机，手表，电视，汽车还是其他的设备。
 ![android](http://img.blog.csdn.net/20150322112056022)  
