@@ -10,18 +10,34 @@ Square 开源库Flow和Mortar的介绍
 
 
 
-`这里是翻译原文，注意翻译时英文和译文都要留在该文档中，并且是一段英文原文下面直接跟着写译文，便于校对。如下示例 : `
+Fragments have started to garner a negative reputation in the Android community, despite being officially supported by the Android team at Google, and there are a host of reasons why:
 
-Over the last months and after having friendly discussions at Tuenti with colleagues like @pedro_g_s and @flipper83 (by the way 2 badass of android development), I have decided that was a good time to write an article about architecting android applications.
-The purpose of it is to show you a little approach I had in mind in the last few months plus all the stuff I have learnt from investigating and implementing it.
+- We have to rely solely on [default constructors](http://developer.android.com/reference/android/app/Fragment.html), rather than custom constructors.
 
-过去几个月以来，通过在Tuenti网站上与@pedro_g_s和@flipper83（安卓开发两位大牛）进行友好讨论之后，我决定写这篇关于架构安卓应用的文章。     
-我写这篇文章的目的是想把我在过去几个月体悟到的小方法以及在调查和应用中学到的有用的东西分享给大家。
-Getting Started
-We know that writing quality software is hard and complex: It is not only about satisfying requirements, also should be robust, maintainable, testable, and flexible enough to adapt to growth and change. This is where “the clean architecture” comes up and could be a good approach for using when developing any software application.
-The idea is simple: clean architecture stands for a group of practices that produce systems that are:
+- Nested Fragments are prone to [bugs](http://blog.shamanland.com/2014/01/nested-fragments-for-result.html) and [limitations](http://developer.android.com/about/versions/android-4.2.html#NestedFragments).
 
-## 入门指南大家都知道要写一款精品软件是有难度且很复杂的：不仅要满足特定要求，而且软件还必须具有稳健性，可维护、可测试性强，并且能够灵活适应各种发展与变化。这时候，“清晰架构”就应运而生了，这一架构在开发任何软件应用的时候用起来非常顺手。这个思路很简单：简洁架构 意味着产品系统中遵循一系列的习惯原则：
+- The Fragment lifecycle is [complex](http://staticfree.info/~steve/complete_android_fragment_lifecycle.png).
+
+“在 App 开发过程中尽可能使用 Fragment 替代 Activity”，Google 官方的这个建议无疑让万千 Android 开发者开始关注 Fragment，使用 Fragment 。但随着使用 Fragment 的人数增多，Fragment 存在的各种问题也开始暴露，在各种 Android 社区中，已经开始有人质疑用 Fragment 替代 Activity 在应用开发中是否真的像 Google 说的那样有益。质疑 Fragment 的理由大体如下：
+
+- 在使用 Fragment 时，我们只能选择使用默认的构造方法，而不能自由地构造我们想要的构造方法。
+
+- 嵌套使用 Fragment 很容易出现各种奇奇怪怪的 Bug，抑或是受到种种让人郁闷的限制。
+
+- Fragment 自身的生命周期非常复杂。
+
+But perhaps most importantly, Android developers simply don’t seem to enjoy using Fragments, viewing them more as a hindrance than as a help.
+
+更让人哭笑不得的是，让这部分开发者坚定地站在“反 Fragment”队伍中的原因竟然是：在开发过程中使用 Fragment 完全不能让这部分 Android 开发者感受到使用 Fragment 能给他们带来的便利，和愉悦；相反，使用 Fragment 给他们带来的是无尽的困然和烦恼。真不知道 Google 看到这些批评 Fragment 的帖子会想什么…………
+
+Here on the Ranch, we teach in our [Android bootcamp](https://training.bignerdranch.com/classes/android-bootcamp) that using Fragments is the right way to go (especially for beginners), and we also use Fragments extensively on all of our [consulting projects](http://www.bignerdranch.com/we-develop).
+
+但在我们的 Android 学习社区中，我们制作的 [Android bootcamp](https://training.bignerdranch.com/classes/android-bootcamp) 课程一直坚持使用 Fragment ，并且为大家介绍 Fragment 给我们带来的种种便利和好处（特别是 Android 开发的新手），此外，我们还在我们做的 [资讯 App](http://www.bignerdranch.com/we-develop) 中广泛地使用了 Fragment。
+
+However, we encourage a mindset of constant exploration and continual learning, so I began investigating the most popular alternatives to Fragments.
+
+然而，虽然我们是 Fragment 的忠实粉丝，但我们还是对现有的 Android 库进行了相当多的研究和探索，以求能够找到 Fragment 的最佳替代物，帮助这些备受煎熬的 Android 开发者早日脱离苦海，走向 Android 开发的美丽新世界。
+
 
 
 
