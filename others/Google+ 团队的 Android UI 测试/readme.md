@@ -1,7 +1,11 @@
-# Google+ 团队的 Android UI 测试
+Google+ 团队的 Android UI 测试
+---
 
-> 原文网址：[How the Google+ Team Tests Mobile Apps](http://googletesting.blogspot.sg/2013/08/how-google-team-tests-mobile-apps.html)
-> 译者原文地址：[allenlsy](http://allenlsy.com/android-ui-tests-in-google-plus-team/)
+>
+* 原文链接：[How the Google+ Team Tests Mobile Apps](http://googletesting.blogspot.sg/2013/08/how-google-team-tests-mobile-apps.html)
+* 译者：[allenlsy](http://allelsy.com)
+* 译者博文地址：[http://allenlsy.com/android-ui-tests-in-google-plus-team/]()
+* 校对者:
 
 Android 测试主要分为3个类型：
 
