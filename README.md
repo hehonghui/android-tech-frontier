@@ -16,7 +16,7 @@
 
 **翻译群: 399424408, Android框架设计交流群 : 413864859.**
 
-## 微信订阅号 ( 最新文章，及时推送 )
+## 微信订阅号 ( 最新文章，及时推送，赶紧扫描关注吧！ )
 ![weixin](http://img.blog.csdn.net/20150320083829337)
 
 <b id="category" />
@@ -40,7 +40,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 ## 翻译任务跟踪和管理
 
-有想要翻译文章的朋友情从issue列表中选择一个翻译任务，然后在issue中添加一个评论，将自己的github账户添加到评论中( ( 比如 : @Mr.Simple认领该翻译任务 ))，管理员会将该issue的标签设置为翻译中。翻译者及时更新翻译状态，状态通过标签跟踪:
+有想要翻译文章的朋友情从issue列表中选择一个翻译任务，然后在issue中添加一个评论，将自己的github账户添加到评论中( 比如 : @Mr.Simple认领该翻译任务 )，管理员会将该issue的标签设置为翻译中。翻译者及时更新翻译状态，状态通过标签跟踪:
 
 * 待认领
 * 翻译中
@@ -54,7 +54,15 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" />
 ## 已完成列表
+### 2015.3.27 ( 第二期)
+
+
+
+### 2015.3.22 ( 第一期)
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|
-| [欢迎来到Android多进程时代](androidweekly/欢迎来到Android多进程时代)  | [Lollypo](https://github.com/Lollypo)       |   [AndroidWeekly issue #144](http://androidweekly.net/issues/issue-144)    |
+| [一种在android中实现MVP模式的新思路](androidweekly/一种在android中实现MVP模式的新思路)  | [FTExplore](https://github.com/FTExplore)       |   [AndroidWeekly issue #144](http://blog.cainwong.com/android-mvp-an-alternate-approach/)    |
+| [一种更清晰的Android架构](others/一种更清晰的Android架构)  | [Mr.Simple](https://github.com/bboyfeiyu)       |   [http://fernandocejas.com](http://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/)    |
+| [一个支持多设备的Android参考应用](androidweekly/一个支持多设备的Android参考应用) | [Mr.Simple](https://github.com/bboyfeiyu) |   [AndroidWeekly issue #144](http://androidweekly.net/issues/issue-144)    |
 | [让你的Android应用能使用多种主题 (Part 1)](androidweekly/让你的Android应用能使用多种主题-Part-1) | [chaossss](https://github.com/chaossss) |   [AndroidWeekly issue #144](http://androidweekly.net/issues/issue-144)    |
+| [欢迎来到Android多进程时代](androidweekly/欢迎来到Android多进程时代)  | [Lollypo](https://github.com/Lollypo)       |   [AndroidWeekly issue #144](http://androidweekly.net/issues/issue-144)    |

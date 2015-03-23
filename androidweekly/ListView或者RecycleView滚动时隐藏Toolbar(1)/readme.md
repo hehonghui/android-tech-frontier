@@ -1,12 +1,11 @@
-ListView或者RecycleView滚动时隐藏Toolbar
+ListView或者RecycleView滚动时隐藏Toolbar (1)
 ---
 
 >
+* 原文链接 : [How to hide/show Toolbar when list is scroling (part 1)](http://mzgreen.github.io/2015/02/15/How-to-hideshow-Toolbar-when-list-is-scroling%28part1%29/)
 * 译者 : [chaossss](https://github.com/chaossss) 
 * 校对者: [这里校对者的github用户名](github链接)  
 * 状态 :  校对中
-
-
 
 
 今天我打算写一篇博文给大家介绍Google+ App的一个酷炫效果——向上/向下滚动ListView/RecyclerView时，Toolbar和FAB（屏幕右下方的小按钮）会隐藏/出现。这个效果也被Google视为符合 Material Design 规范的效果哦，详情参见： [Material Design Checklist](http://android-developers.blogspot.com/2014/10/material-design-on-android-checklist.html) 。
@@ -25,7 +24,7 @@ ListView或者RecycleView滚动时隐藏Toolbar
 
 就我个人而言，我更想用第二种方法去实现，因为在设计代码的过程中我发现：为RecyclerView添加Header会产生几个问题，这给了我很好的机会去思考如何解决它，与此同时，在这个思考和解决问题的过程中我还能学习到更多的知识，何乐而不为呢？不过我还是会给大家简要地介绍如何使用第一种方法实现的啦！
 
-## 那就让我们开始今天的讲解吧！ ##
+## 那就让我们开始今天的讲解吧！ 
 
 首先，我们需要创建一个工程和添加必要的工具库：
 
@@ -65,7 +64,7 @@ WTF，谁能告诉我这是什么鬼……？
 
 经过这些修改之后，我们就能实现我们想要的效果，这就是我所说的第一种方法。但如我所说，我写这篇博文的目的，不仅仅只是教你实现这个效果，然后就完了。我想教给你实现同一个效果各种各样的方法，并且为你介绍其中的思想，让你接触到平常很难接触到的问题并教你如何解决它。有些方法固然会更加复杂（在本文中是为list添加一个Header），但你在实现过程中也能学到更多的知识，毕竟授人以鱼不如授人以渔嘛。
 
-## 为RecycleView添加一个Header： ##
+## 为RecycleView添加一个Header
 
 
 要用第二种方法去实现这个效果，首先我们要做的就是稍微修改一下我们的Adapter：
@@ -88,7 +87,7 @@ WTF，谁能告诉我这是什么鬼……？
 
 所以总的来说，我们为RecyclerView添加了一个和Toolbar有相同高度的Header，而现在我们的Toolbar把header隐藏起来了（因为header现在是一个空的view)，同时，我们所有的普通item都是可见的。那么现在就让我们来实现滚动时改变Toolbar和FAB的出现和隐藏吧！
 
-## 滚动时控制Toolbar和FAB的出现和隐藏 ##
+## 滚动时控制Toolbar和FAB的出现和隐藏 
 
 
 为了实现这个效果，我们为RecyclerView再创建一个——OnScrollListener类就够了你敢信？
@@ -129,16 +128,10 @@ WTF，谁能告诉我这是什么鬼……？
 
 如果你有什么疑问的话，可以在评论区问我哦，我都会尽我所能为你解答的！
 
-## 源码 ##
+## 源码 
 
 整个项目的源码在GitHub上面都有，大家可以在这看 [repo](https://github.com/mzgreen/HideOnScrollExample)
 
 感谢Mirek Stanek帮我校对文章，么么哒！爱你的好基友Michal Z～
 
 如果你喜欢这篇博文的话，你可以[在Twitter上分享给你的小伙伴](https://twitter.com/intent/tweet?url=http://mzgreen.github.io/2015/02/15/How-to-hideshow-Toolbar-when-list-is-scroling(part1)/&text=How%20to%20hide/show%20Toolbar%20when%20list%20is%20scroling%20(part%201)&via=mzmzgreen)或者[在Twitter上关注我哦](https://twitter.com/mzmzgreen)!
-
-
-
-
-## 原文链接
-[How to hide/show Toolbar when list is scroling (part 1)](http://mzgreen.github.io/2015/02/15/How-to-hideshow-Toolbar-when-list-is-scroling%28part1%29/)
