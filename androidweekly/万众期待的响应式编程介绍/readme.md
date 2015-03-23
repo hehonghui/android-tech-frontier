@@ -21,14 +21,17 @@ Learning it is hard, even harder by the lack of good material. When I started, I
 
 > Projects each element of an observable sequence into a new sequence of observable sequences by incorporating the element's index and then transforms an observable sequence of observable sequences into an observable sequence producing values only from the most recent observable sequence.
 
-学习的过程是艰辛的，而缺少好的资料会让学习变得更加艰辛。起初，我试图寻找一些教程。却只找到了少量的实践指南，但它们都讲的很浅显，却从来不去透析它的架构之美。而图书馆文献通常也不能完全帮助你理解某些函数。真心的，不信你看这里：
+学习的响应式编程是个非常困难的过程，尤其是在当前缺乏优秀资料的前提下。起初，我试图寻找一些教程，却只找到了少量的实践指南而已，并且它们讲的都非常浅显，却从来没人愿意尝试围绕着响应式编程来建立一个完整知识体系的挑战。而官方文档通常也并不能完全地帮助你理解某些函数，它们通常看起来很绕，不信看看这里：
 
 > **Rx.Observable.prototype.flatMapLatest(selector, [thisArg])**
 
-> 根据元素下标，将序列中每个元素映射到一个新的序列当中，
+> 根据元素下标，将可观察序列中每个元素一一映射到一个新的充满可观察序列的序列表当中，然后
 
 > 译者：OMG，这简直太绕了
 
+天呐！
+
+我读过两本相关的书，一本只是在给你描绘伟大的景象，而另一本却只是深入到如何使用响应式库而已。
 
 
 
