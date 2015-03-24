@@ -58,6 +58,7 @@ Mortar是一个专注拖拽和依赖注入的库，Mortar将一个应用通过�
 ![blueprint](http://www.bignerdranch.com/img/blog/2015/02/blueprint.png)
 
 Flow和Mortar结合在一起效果很好，我们只需要调节我们的Screen类实现Mortar提供的Blueprint接口，它给我们一个免费的Dagger范围。
+
 ![presenters](http://www.bignerdranch.com/img/blog/2015/02/presenters.png)
 
 
