@@ -39,6 +39,12 @@ The hardest part of the learning journey is thinking in Reactive. It's a lot abo
 
 学习RP最难的部分是 **如何以RP的方式来思考**，那么更多的意味着你要放弃那些老旧的、命令式和状态式的典型编程习惯，并且强迫自己的大脑以不同的方式来运作。目前我还没有在网络上找到任何一个教程是从这个层面来剖析的，我想这个世界非常值得拥有这样一个优秀的实践教程来教你 **如何以RP的方式来思考**，以便能够让你快速进入 **RP思维** 的世界，然后再去看各种库文档才可以给你更多的指引。希望这篇文章就能够帮助你进入 **RP思维** 的世界。
 
+## "What is Reactive Programming?"
 
+There are plenty of bad explanations and definitions out there on the internet. [Wikipedia](https://en.wikipedia.org/wiki/Reactive_programming) is too generic and theoretical as usual. [Stackoverflow](http://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming)'s canonical answer is obviously not suitable for newcomers. [Reactive Manifesto](http://www.reactivemanifesto.org/) sounds like the kind of thing you show to your project manager or the businessmen at your company. Microsoft's [Rx terminology](https://rx.codeplex.com/) "Rx = Observables + LINQ + Schedulers" is so heavy and Microsoftish that most of us are left confused. Terms like "reactive" and "propagation of change" don't convey anything specifically different to what your typical MV* and favorite language already does. Of course my framework views react to the models. Of course change is propagated. If it wouldn't, nothing would be rendered.
+
+So let's cut the bullshit. 
+
+## 什是RP?
 
 
