@@ -93,9 +93,9 @@ X is an error
 ```
 --a---b-c---d---X---|->
 
-a, b, c, d are emitted values
-X is an error
-| is the 'completed' signal
----> is the timeline
+a, b, c, d 是值事件
+X 是错误事件
+| 是完成事件
+---> 是时间线(轴)
 ```
 
