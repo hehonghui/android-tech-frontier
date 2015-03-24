@@ -57,7 +57,9 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 <b id="articles" />
 ## 已完成列表
 ### 2015.3.27 ( 第二期)
-
+| 文章名称 |   译者  |  出处  |
+|---------|--------|-------|
+| [Google+ 团队的 Android UI 测试](others/Google+ 团队的 Android UI 测试)  | [allenlsy](http://allelsy.com)       |   [Android Dev Blog](http://googletesting.blogspot.sg/2013/08/how-google-team-tests-mobile-apps.html)    |
 
 
 ### 2015.3.22 ( 第一期)
