@@ -6,7 +6,7 @@
 * 原文链接 : [Going multiprocess on Android](https://medium.com/@rotxed/going-multiprocess-on-android-52975ed8863c)
 * 译者 : [Lollypo](https://github.com/Lollypo) 
 * 校对者: [Mr.Simple](https://github.com/bboyfeiyu)   
-* 状态 :  已发布
+* 状态 :  完成
 
 ###That moment when one Dalvik alone is no longer enough.
 
