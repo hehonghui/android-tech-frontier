@@ -47,6 +47,6 @@ So let's cut the bullshit.
 
 ## "什是RP?"
 
-网络上有一大堆糟糕的解释和定义，[Wikipedia](https://en.wikipedia.org/wiki/Reactive_programming) 上通常都是些非常笼统和理论的解释，[Stackoverflow](http://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming)上的一些标准答案显然也不适合一些新手来参考
+网络上有一大堆糟糕的解释和定义，[Wikipedia](https://en.wikipedia.org/wiki/Reactive_programming)上通常都是些非常笼统和理论的解释，[Stackoverflow](http://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming)上的一些标准答案显然也不适合一些新手来参考
 
 
