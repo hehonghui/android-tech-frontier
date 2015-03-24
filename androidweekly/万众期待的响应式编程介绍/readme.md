@@ -61,6 +61,14 @@ In a way, this isn't anything new. Event buses or your typical click events are 
 
 **On top of that, you are given an amazing toolbox of functions to combine, create and filter any of those streams.** That's where the "functional" magic kicks in. A stream can be used as an input to another one. Even multiple streams can be used as inputs to another stream. You can _merge_ two streams. You can _filter_ a stream to get another one that has only those events you are interested in. You can _map_ data values from one stream to another new one.
 
+If streams are so central to Reactive, let's take a careful look at them, starting with our familiar "clicks on a button" event stream.
+
+![Click event stream](http://i.imgur.com/cL4MOsS.png)
+
 **最重要的是，你会有一些令人惊艳的函数去结合、创建和过滤任何一组事件流。** 这就是“函数式编程”的魔力所在。一个事件流可以作为另一个事件流的输入，甚至多个事件流可以作为另一个事件流的输入。你可以_合并(merge)_两个事件流，可以_过滤(filter)_一个你感兴趣的事件流，可以_映射(map)_一个事件流的值到一个新的事件流里。
+
+如果事件流对于响应式编程如此重要，那不妨就让我们来仔细的看看，先从我们熟悉的"点击一个按钮"的事件流开始
+
+![Click event stream](http://i.imgur.com/cL4MOsS.png)
 
 
