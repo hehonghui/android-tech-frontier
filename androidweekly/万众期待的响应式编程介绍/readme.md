@@ -45,6 +45,8 @@ There are plenty of bad explanations and definitions out there on the internet. 
 
 So let's cut the bullshit. 
 
-## 什是RP?
+## "什是RP?"
+
+网络上有一大堆糟糕的解释和定义了。[Wikipedia](https://en.wikipedia.org/wiki/Reactive_programming) 上的通常都是些非常笼统和理论的解释。
 
 
