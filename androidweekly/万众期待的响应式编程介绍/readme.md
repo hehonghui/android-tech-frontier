@@ -69,6 +69,16 @@ A stream is a sequence of **ongoing events ordered in time**. It can emit three 
 
 We capture these emitted events only **asynchronously**, by defining a function that will execute when a value is emitted, another function when an error is emitted, and another function when 'completed' is emitted. Sometimes these last two can be omitted and you can just focus on defining the function for values. The "listening" to the stream is called **subscribing**. The functions we are defining are observers. The stream is the subject (or "observable") being observed. This is precisely the [Observer Design Pattern](https://en.wikipedia.org/wiki/Observer_pattern).
 
+An alternative way of drawing that diagram is with ASCII, which we will use in some parts of this tutorial:
+```
+--a---b-c---d---X---|->
+
+a, b, c, d are emitted values
+X is an error
+| is the 'completed' signal
+---> is the timeline
+```
+
 **最重要的是，你会有一些令人惊艳的函数去结合、创建和过滤任何一组事件流。** 这就是“函数式编程”的魔力所在。一个**事件流**可以作为另一个**事件流**的输入，甚至多个**事件流**可以作为另一个**事件流**的输入。你可以_合并(merge)_两个**事件流**，也可以_过滤(filter)_一个你感兴趣的**事件流**，还可以_映射(map)_一个**事件流**的值到一个新的**事件流**里。
 
 如果**事件流**对于响应式编程如此重要，那不妨就让我们来仔细的看看，先从我们熟悉的"点击一个按钮"的**事件流**开始
@@ -78,4 +88,14 @@ We capture these emitted events only **asynchronously**, by defining a function 
 一个**事件流**是一个 **按时间排序的即将发生的事件(Ongoing events ordered in time)序列**。如上图，一个**事件流**可以发出3种不同的事件：某种类型的**值事件**，**错误事件**和**完成事件**。当一个**完成事件**发生时，在某些情况下，我们可能会做这样的操作：关闭包含那个按钮的窗口或者视图组件。
 
 我们可以**异步的**的去捕捉这些将要发出的事件，这样我们就可以在发出一个**值事件**时执行一个函数，发出**错误事件**时执行一个函数，发出**完成事件**执行另一个函数。有的时候你只需聚焦于如何定义和设计**值事件**要执行的函数，而忽略后两个事件。我们可以把监听这个**事件流**的过程叫做**订阅**，而我们定义的函数可以叫做**观察者**，而事件流就可以叫做被观察的**主题**(或者叫可观测的对象)。你应该察觉到了，对的，它就是[**观察者模式**](https://en.wikipedia.org/wiki/Observer_pattern)。
+
+上面的示意图我们也可以用ASCII码的形式重新画一遍，请注意，下面的部分教程中我们会继续使用这幅图：
+```
+--a---b-c---d---X---|->
+
+a, b, c, d are emitted values
+X is an error
+| is the 'completed' signal
+---> is the timeline
+```
 
