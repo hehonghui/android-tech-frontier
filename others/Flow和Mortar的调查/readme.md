@@ -14,7 +14,7 @@ Fragment在android社区已经开始有负面名声，即便是官方支持的Go
 在牧场，我们在android训练营教学时，使用Fragment是一个正确的方式，尤其对于初学者，与此同时我们使用Fragment广泛的在我们的咨询项目中。
 然而，我们鼓励不断探索和不断学习的心态，所以我开始调查最受欢迎的Fragment。
 
-##进入流和砂浆
+##Flow和Mortar
 大概一年前，Square介绍两个新的库，一个叫Flow，另一个叫Mortar。为了永远消灭android世界的Fragment，Square在开源社区久负盛名，已经建立一些令人赞不绝口的库：
 *	[Dagger](http://square.github.io/dagger/)
 *	[Retrofit](http://square.github.io/retrofit/)
