@@ -3,7 +3,7 @@
 
 >
 * 译者 : [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang) 
-* 校对者: [这里校对者的github用户名](github链接)  
+* 校对者: [chaossss](https://github.com/chaossss)  
 * 状态 :  校对中 
 
 
@@ -58,7 +58,7 @@ AsyncTask是在Android里面默认的处理工具，开发者可以做里面一些长时间的处理工作，而
 如果要并行运行，你必须创建一个自定义的executor然后传递给AsyncTaskTask，因为默认的AsyncTask不支持并行。并且为了协调并行线程，你需要使用像是CountDownLatchs, Threads, Executors 和 Futures去降低更复杂的同步模式。
 
 ###可测试性
-抛开这些不说，如果你喜欢测试你的代码，AsyncTask也不会帮助你。如果我们不做额外的工作，测试AsyncTask是很难的，它很脆弱并且难以维持。这里是一篇获得成功的一些方法的[帖子](http://www.making-software.com/2012/10/31/testable-android-asynctask/)。
+抛开这些不说，如果你喜欢测试你的代码，AsyncTask并不能给你带来什么帮助。如果我们不做额外的工作，测试AsyncTask非常困难，它很脆弱并且难以维持。这是一篇有关如何成功测试AsyncTask的[帖子](http://www.making-software.com/2012/10/31/testable-android-asynctask/)。
 
 ##更好的解决方案：RxJava’s Observable
 
@@ -74,7 +74,7 @@ AsyncTask是在Android里面默认的处理工具，开发者可以做里面一些长时间的处理工作，而
     );
 	
 ###错误处理
-你可能会注意到，没有做额外的工作，我们已经处理了AsyncTask不会处理的成功和错误的情况，并且我们写了很少的代码。你看到的额外的组件是我们想要Observer 在UI主线程中处理结果。这样可以让我们前进一点点。并且如果你的sebService对象不想在后台线程中运行，在这里你也可以使用.subscribeOn(...) 声明。(注意：这些例子是使用Java 8的lambda语法，使用[Retrolambda](https://github.com/orfjackal/retrolambda)就可以在Android项目中进行使用了，在我看来是回报高于风险的，和写这篇文章相比，我们更喜欢在我们的项目中使用。)
+你可能会注意到，没有做额外的工作，我们已经处理了AsyncTask不会处理的成功和错误的情况，并且我们写了很少的代码。你看到的额外的组件是我们想要Observer 在UI主线程中处理的结果。这样可以让我们前进一点点。并且如果你的sebService对象不想在后台线程中运行，你也可以在这里通过使用.subscribeOn(...) 声明。(注意：这些例子是使用Java 8的lambda语法，使用[Retrolambda](https://github.com/orfjackal/retrolambda)就可以在Android项目中进行使用了，但在我看来，这样做的回报是高于风险的，和写这篇文章相比，我们更喜欢在我们的项目中使用。)
 
 ###Activity和Fragment的生命周期
 现在，我们想在这里利用RxAndroid解决上面提到的生命周期的问题，我们不需要指定mainThread() scheduler(顺便说一句，你只需要导入RxAndroid)。就像下面这样
@@ -98,7 +98,7 @@ AsyncTask是在Android里面默认的处理工具，开发者可以做里面一些长时间的处理工作，而
 所以，这解决了首要的两个问题，但是下面这一个才是RxJava大发神威的地方。
 
 ###组合的多个Web Server调用
-在这里我不会详细的说明，因为这是一个[很深的问题](http://reactivex.io/documentation/observable.html)，但是通过使用Observables，你可以用非常简单和易于理解的方式完成复杂的事情。这里是一个链式Web Service调用的例子，这些请求互相依赖，在线程池中运行第二批并行调用，然后在将结果返回给Observer之前，对数据进行合并和排序。为了更好的测量，我甚至在里面放置了一个过滤器。所有的业务逻辑都在下面这短短五行代码里面...
+在这里我不会详细的说明，因为这是一个[复杂的问题](http://reactivex.io/documentation/observable.html)，但是通过使用Observables，你可以用非常简单和易于理解的方式完成复杂的事情。这里是一个链式Web Service调用的例子，这些请求互相依赖，在线程池中运行第二批并行调用，然后在将结果返回给Observer之前，对数据进行合并和排序。为了更好的测量，我甚至在里面放置了一个过滤器。所有的业务逻辑都在下面这短短五行代码里面...
 
 	public Observable<List<CityWeather>> getWeatherForLargeUsCapitals() {
     return cityDirectory.getUsCapitals() 
