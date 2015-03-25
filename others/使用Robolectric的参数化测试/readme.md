@@ -5,12 +5,12 @@
 * 原文标题 : Parameterized testing with Robolectric
 * 原文链接 : [Parameterized testing with Robolectric](http://www.jayway.com/2015/03/19/parameterized-testing-with-robolectric/)
 * 译者 : [Lollypo](https://github.com/Lollypo) 
-* 校对者: [Mr.Simple](https://github.com/bboyfeiyu)   
-* 状态 :  校对中
+* 校对者: [Chaos](https://github.com/chaossss)   
+* 状态 :  校对完成
 
-在目前的项目中我们使用Robolectric为Android应用程序编写单元测试,它一直都干的不错。最近我需要编写一个测试用例,执行一个操作若干次,但每次使用不同的测试数据, 并断言正确的动作发生取决于数据。
+在目前的项目中我们使用Robolectric为Android应用程序编写单元测试,它一直都干的不错。最近我需要编写一个测试用例,通过每次使用不同的测试数据，将同一个操作执行若干次，并由此断言：正确的动作能否发生是由数据决定的。
 
-JUnit对于这个情况提供了一个易于使用的选项，它叫做参数化测试-一个定义了测试数据，,然后使用参数化测试运行器来执行测试。这将创建一个该测试类的实例用来将测试数据中的每个元素传递到构造函数的参数中。
+JUnit对于这个情况提供了一个易于使用的选项，它叫做参数化测试-先定义测试数据，,然后使用参数化测试运行器来执行测试。这将创建一个该测试类的实例把测试数据中的每个元素传递到构造函数的参数中。
 
 事实证明，Robolectric有一个完全相同的`ParameterizedRobolectricTestRunner`(稍微调整以适应Robolectric)，而且它对于我的测试：验证应用程序从外部服务提供者接收到不同的错误代码的行为，做的非常好
 
