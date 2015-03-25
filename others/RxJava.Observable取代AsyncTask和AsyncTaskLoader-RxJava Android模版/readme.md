@@ -2,6 +2,7 @@
 ---
 
 >
+* 原文链接 : [Replace AsyncTask and AsyncTaskLoader with rx.Observable – RxJava Android Patterns](http://stablekernel.com/blog/replace-asynctask-asynctaskloader-rx-observable-rxjava-android-patterns/)
 * 译者 : [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang) 
 * 校对者: [chaossss](https://github.com/chaossss)  
 * 状态 :  校对中 
@@ -74,7 +75,7 @@ AsyncTask是在Android里面默认的处理工具，开发者可以做里面一�
     );
 	
 ###错误处理
-你可能会注意到，没有做额外的工作，我们已经处理了AsyncTask不会处理的成功和错误的情况，并且我们写了很少的代码。你看到的额外的组件是我们想要Observer 在UI主线程中处理的结果。这样可以让我们前进一点点。并且如果你的sebService对象不想在后台线程中运行，你也可以在这里通过使用.subscribeOn(...) 声明。(注意：这些例子是使用Java 8的lambda语法，使用[Retrolambda](https://github.com/orfjackal/retrolambda)就可以在Android项目中进行使用了，但在我看来，这样做的回报是高于风险的，和写这篇文章相比，我们更喜欢在我们的项目中使用。)
+你可能会注意到，没有做额外的工作，我们已经处理了AsyncTask不会处理的成功和错误的情况，并且我们写了很少的代码。你看到的额外的组件是我们想要Observer 在UI主线程中处理的结果。这样可以让我们前进一点点。并且如果你的webService对象不想在后台线程中运行，你也可以在这里通过使用.subscribeOn(...) 声明。(注意：这些例子是使用Java 8的lambda语法，使用[Retrolambda](https://github.com/orfjackal/retrolambda)就可以在Android项目中进行使用了，但在我看来，这样做的回报是高于风险的，和写这篇文章相比，我们更喜欢在我们的项目中使用。)
 
 ###Activity和Fragment的生命周期
 现在，我们想在这里利用RxAndroid解决上面提到的生命周期的问题，我们不需要指定mainThread() scheduler(顺便说一句，你只需要导入RxAndroid)。就像下面这样
@@ -177,7 +178,3 @@ AsyncTask是在Android里面默认的处理工具，开发者可以做里面一�
 更新：我已经创建了一对简单的项目来演示[AsyncTask风格](https://github.com/rosshambrick/AsyncExamples)和[AsyncTaskLoader](https://github.com/rosshambrick/rain-or-shine)风格。
 
 RxJava，你值得拥有。我们使用rx.Observable来替换AsyncTask和AsyncTaskLoader可实现更加强大和清晰的代码。使用RxJava Observables很快乐，而且我期待能够呈现更多的Android问题的解决方案。
-
-
-## 原文链接
-[Replace AsyncTask and AsyncTaskLoader with rx.Observable – RxJava Android Patterns](http://stablekernel.com/blog/replace-asynctask-asynctaskloader-rx-observable-rxjava-android-patterns/)
