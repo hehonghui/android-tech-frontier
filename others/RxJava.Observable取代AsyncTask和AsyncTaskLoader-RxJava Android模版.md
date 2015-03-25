@@ -17,7 +17,7 @@ Android¿ª·¢ÕßÊ×ÏÈÓöµ½µÄÌôÕ½¾ÍÊÇÈçºÎÓÐÐ§µÄÔÚºóÌ¨Ïß³ÌÖÐ¹¤×÷£¬È»ºóÔÚUIÏß³ÌÖÐ¸üÐÂUI¡
 ##Ä¬ÈÏµÄ½â¾ö·½°¸£ºAsyncTask
 AsyncTaskÊÇÔÚAndroidÀïÃæÄ¬ÈÏµÄ´¦Àí¹¤¾ß£¬¿ª·¢Õß¿ÉÒÔ×öÀïÃæÒ»Ð©³¤Ê±¼äµÄ´¦Àí¹¤×÷£¬¶ø²»»á×èÈûÓÃ»§½çÃæ¡£(×¢Òâ£º×î½ü£¬AsyncTaskLoaderÓÃÀ´´¦ÀíÒ»Ð©¸ü¼Ó¾ßÌåµÄÊý¾Ý¼ÓÔØÈÎÎñ£¬ÎÒÃÇÒÔºó»áÔÙÌ¸Ì¸Õâ¸ö)
 
-±íÃæÉÏ£¬ÕâËÆºõºÜ¼òµ¥£¬Äã¶¨ÒåÒ»Ð©´úÂëÔÚºóÌ¨Ïß³ÌÖÐÔËÐÐ£¬È»ºó¶¨ÒåÒ»Ð©´úÂëÔËÐÐÔÚUIÏß³ÌÖÐ£¬µ±ºóÌ¨Ïß³Ì´¦ÀíÖ®ºó£¬UIÏß³Ì¸ºÔð´ÓÃ¿¸öºóÌ¨ÈÎÎñÖÐÈ¡³öÊý¾Ý¡£
+±íÃæÉÏ£¬ÕâËÆºõºÜ¼òµ¥£¬Äã¶¨ÒåÒ»Ð©´úÂëÔÚºóÌ¨Ïß³ÌÖÐÔËÐÐ£¬È»ºó¶¨ÒåÒ»Ð©´úÂëÔËÐÐÔÚUIÏß³ÌÖÐ£¬ÔÚºóÌ¨ÈÎÎñ´¦ÀíÍêÖ®ºó£¬ËüÔÚUIÏß³Ì»á´¦Àí´ÓºóÌ¨ÈÎÎñ´«µÝ¹ýÀ´µÄÖ´ÐÐ½á¹û¡£
 
 	private class CallWebServiceTask extends AsyncTask<String, Result, Void> {
     
