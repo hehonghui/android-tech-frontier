@@ -14,6 +14,8 @@
 3. 将模板[template.md](template.md)中的内容拷贝到readme.md，按照模板填写、翻译完内容,完成翻译后将状态修改为"校对中",提交pull request到本项目;
 4. 管理员校对完成之后便会发布.   
 
+[参与翻译、校对的流程](翻译项目协作流程.md)
+
 **翻译群: 399424408, Android框架设计交流群 : 413864859.**
 
 ## 微信订阅号 ( 最新文章，及时推送，赶紧扫描关注吧！ )
@@ -55,7 +57,9 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 <b id="articles" />
 ## 已完成列表
 ### 2015.3.27 ( 第二期)
-
+| 文章名称 |   译者  |  出处  |
+|---------|--------|-------|
+| [Google+ 团队的 Android UI 测试](others/Google+ 团队的 Android UI 测试)  | [allenlsy](http://allelsy.com)       |   [Android Dev Blog](http://googletesting.blogspot.sg/2013/08/how-google-team-tests-mobile-apps.html)    |
 
 
 ### 2015.3.22 ( 第一期)
