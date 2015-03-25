@@ -10,7 +10,7 @@
 ## 参与步骤
 1. 将该项目fork到自己的github;
 2. 在对应分类里面创建一个文件夹，文件夹命名格式为: 中文标题名，比如Android MVP模式与实践;
-3. 在该文件夹中创建readme.md和images文件夹(存放文章图片,宽度尽量控制在400 px左右);
+3. 在该文件夹中创建readme.md(文章所需图片请存放到图床上，不要放在仓库中,图片宽度尽量控制在400 px左右);
 3. 将模板[template.md](template.md)中的内容拷贝到readme.md，按照模板填写、翻译完内容,完成翻译后将状态修改为"校对中",提交pull request到本项目;
 4. 管理员校对完成之后便会发布.   
 
@@ -60,6 +60,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|
 | [Google+ 团队的 Android UI 测试](others/Google+ 团队的 Android UI 测试)  | [allenlsy](http://allelsy.com)       |   [Android Dev Blog](http://googletesting.blogspot.sg/2013/08/how-google-team-tests-mobile-apps.html)    |
+| [使用Robolectric的参数化测试](others/使用Robolectric的参数化测试)  | [Lollypo](https://github.com/Lollypo)       |    [AndroidWeekly issue #145](http://androidweekly.net/issues/issue-145)    |
 
 
 ### 2015.3.22 ( 第一期)
