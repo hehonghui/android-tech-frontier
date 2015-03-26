@@ -33,7 +33,7 @@ Kotlin是一个拥有很多函数编程特点的面向对象的编程语言。
 
 ###Kotlin的优点
 
-####1. Expressiveness
+####1. 可读性更高，更简洁
 使用Kotlin，可以更容易的避免创建模版型代码，因为大多数经典的情景都默认包含在Kotlin中。       
 例如，在java中，我们想要创建一个典型的data class时需要这样做：    
 
@@ -98,7 +98,7 @@ Kotlin是一个拥有很多函数编程特点的面向对象的编程语言。
     var mbid: String)
 ```
 
-####2. Null safety
+####2. 空指针安全
 当我们用java开发时，我们的大多数代码是要进行类型检查的，如果我们不想出现**unexpected
 NullPointerException**的话,我们就要在运行代码之前持续的检查是否有对象为null。Kotlin，和其它语
 言一样，是空指针安全的，因为我们可以通过安全的调用操作来准确的声明一个object可以为null。
@@ -131,7 +131,7 @@ NullPointerException**的话,我们就要在运行代码之前持续的检查是
 	val name = artist?.name ?: "empty"
 ```
 
-####3. Extension functions
+####3. 扩展方法
 我们可以给任何类添加新方法。这比我们在project中使用的工具类可读性更高。例如：我们可以给Fragment添加一个新方法来显示Toast。
 
 ```java
@@ -145,7 +145,7 @@ fun Fragment.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
 	fragment.toast("Hello world!")
 ```
 
-####4. Functional support (Lambdas)
+####4. 支持函数式编程
 如果我们可以不用在我们需要的时候每一次都创建一个listener，就像创建一个click listener那样的操作，
 而是仅仅定义我们想要做什么？这种想法的确可以实现，它的实现得益于**lambda**d的使用：  
 
