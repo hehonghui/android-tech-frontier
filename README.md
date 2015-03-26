@@ -62,6 +62,9 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | [Google+ 团队的 Android UI 测试](others/Google+ 团队的 Android UI 测试)  | [allenlsy](http://allelsy.com)       |   [Android Dev Blog](http://googletesting.blogspot.sg/2013/08/how-google-team-tests-mobile-apps.html)    |
 | [使用Robolectric的参数化测试](others/使用Robolectric的参数化测试)  | [Lollypo](https://github.com/Lollypo)       |    [AndroidWeekly issue #145](http://androidweekly.net/issues/issue-145)    |
 | [kotlin-for-android简介](androidweekly/kotlin-for-android简介)  | [canglangwenyue](https://github.com/canglangwenyue)       |    [AndroidWeekly issue #144](http://androidweekly.net/issues/issue-144)    |
+|[ListView或者RecycleView滚动时隐藏Toolbar(1)](androidweekly/ListView或者RecycleView滚动时隐藏Toolbar-part-1)  | [chaossss](https://github.com/chaossss)       |    [http://mzgreen.github.io/](http://mzgreen.github.io/2015/02/15/How-to-hideshow-Toolbar-when-list-is-scroling(part1)/)    
+|[ListView或者RecycleView滚动时隐藏Toolbar(2)](androidweekly/ListView或者RecycleView滚动时隐藏Toolbar-part-2)  | [chaossss](https://github.com/chaossss)       |    [http://mzgreen.github.io/](http://mzgreen.github.io/2015/02/28/How-to-hideshow-Toolbar-when-list-is-scrolling(part2)/)    |
+
 
 ### 2015.3.22 ( 第一期)
 | 文章名称 |   译者  |  出处  |
