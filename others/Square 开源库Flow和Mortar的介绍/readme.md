@@ -103,24 +103,91 @@ Flow divides an application into a logical collection of “Screens.” Screens 
 
 Flow 将一个应用分成一个逻辑上的 Screen 组合，Screen 不是任何形式的特殊的库对象，而是一个被创造来代表我们应用视图的普通java对象（POJO）。每一个Screen是这个app里面自包含的段，他们有自己的功能和意图。一个Screen的用处和传统Activity的用处没有什么不同，应用程序中的每一个Screen都对应于一个特定的位置，有点像一个 Android 中的 URL 网页或者是特定的隐式 Intent。所以，Screen类可以被看作是应用中某个部分自带的可读定义。
 
-我们应用中每一个Activity将会成为一个“Flow”对象，Flow对象在返回栈中包含了Screen的记录，和Activity的堆栈或者FragmentManager的有点类似，允许我们在Screen之间通过简单地实例化就可以轻松的切换。而不是应用中包含很多Activity，这里很小数量（理想上是一个）Activity来包含许多屏幕。看起来就像：
+Each Activity in our application will own a “Flow” object. The Flow object holds the history of Screens in a backstack, similar to the Activity backstack or the FragmentManager’s backstack of Fragments, allowing us to navigate between Screens by simply instantiating where we want to go. Instead of an application having a bunch of Activities, there exists a small number (ideally one) Activity that hosts multiple Screens. It looks something like this:
+
+我们应用中的每一个Activity将会成为一个 Flow 对象，Flow对象在返回栈中保存了 Screen 的记录，和 Activity 或者 FragmentManager 的返回栈有些类似，通过这样的设计允许我们在 Screen 之间通过简单地实例化就可以轻松的切换，而不需要在应用中包含很多Activity。这里有一小部分 Activity（最好是一个）来持有这些 Screen。他们之间的关系下图类似：
 ![screen](http://www.bignerdranch.com/img/blog/2015/02/screen.png)
 
-我们我们想去一个新的屏幕，我们仅需简单实例化这个屏幕就可以了，并且告诉我们Flow对象怎么到这里。Flow里面的goBack()和goUp()方法，将会如你所期待的的那样表现，同时java中的goto语句的方式可能会被借鉴使用，它并没有特别糟糕。
+If we want to go to a new Screen, we simply instantiate it and tell our Flow object to take us there. In addition, Flow comes with goBack() and goUp() methods, which behave as expected. While the introduction of goto statements in Java might scare some folk, it’s not so terribly evil.
+
+我们我们想切换到一个新的 Screen，我们只需简单地实例化这个 Screen，并且告诉我们 Flow 对象帮助我们切换为这个 Screen。除此以外，正如我们所期待的，Flow 被实例化后也会实现 goBack() 和 goUp() 方法。然而，许多开发者都把 Java 中的 goto 语句看作洪水猛兽，但事实上 Java 中的 goto 语句并没有它听起来那么恐怖。
 ![flow](http://www.bignerdranch.com/img/blog/2015/02/flow.png)
 
-在本质上，在我们的应用程序里使用Flow，好处是让我们通过一个简单地方式就可以在不同自定义View下面导航，让我们不用担心Activity或者Fragment，我们仅仅处理View，它创造一个简单，干净，以View为中心的世界。
+In essence, Flow tells us where to go in our app. The advantage of using Flow is that it gives us a simple way to navigate around various custom Views that we’ve defined (i.e., Screens), freeing us to not worry about Activities or Fragments—we deal solely with Views. It creates a simpler, cleaner, View-centric world.
+
+从本质上看，Flow 的作用仅仅是在 App 中告诉我们将要切换到哪一个 Screen。而这样设计的好处在于，Flow 通过这样的设计让我们能够方便地在我们定义的各种不同的自定义 View 中切换，并使我们免受在 Activity 或 Fragment 需要考虑的种种麻烦，让我们把注意力都集中在处理 View上。Flow 为我们创造了一个简单，方便，以 View 为中心的应用架构。
+
+## Mortar ##
+
+Mortar is a library focused around Dagger and its associated dependency injection. Mortar divides an application into composable modules using a few distinct parts: Blueprints, Presenters and a boatload of custom Views.
 
 ##Mortar
-Mortar是一个专注拖拽和依赖注入的库，Mortar将一个应用通过不同的部分分为可组合的部分。Blueprints,Presenters和许多自定义View。每一个Moortar应用通过Blueprint定义，这是一个考虑其个人的Dragger模块。有点像这样结束：
+Mortar是一个专注拖拽和依赖注入的库，Mortar 用以下几个不同的部分将一个应用分为可组合的模块：Blueprints, Presenters and a boatload of custom Views。
+
+Each section of a Mortar app (that is, each Screen, since we’re also using Flow) is defined by a Blueprint, which is given its own personal Dagger module. It ends up looking a bit like this:
+
+Mortar App里的每一个部分（在这里指的是每一个 Screen，因为我们在使用 Flow）都由 Blueprint 定义，并赋予他们一个私有的 Dagger 模块。它看起来有点像是下面这样的
+
 ![blueprint](http://www.bignerdranch.com/img/blog/2015/02/blueprint.png)
 
-Flow和Mortar结合在一起效果很好，我们只需要调节我们的Screen类实现Mortar提供的Blueprint接口，它给我们一个免费的Dagger范围。
+Flow and Mortar play well together. All we have to do is adjust our Screen class to also implement the Blueprint interface (provided by Mortar), and it gives us the Dagger scoping for free.
+
+Flow 和 Mortar 结合在一起使用的效果很好，我们只需要调节我们的 Screen 类实现去 Mortar 提供的 Blueprint 接口，然后它就会给我们一个可以自由使用的 Dagger 作用域。
 
 ![presenters](http://www.bignerdranch.com/img/blog/2015/02/presenters.png)
 
+The Presenter is a singleton object that functions as a view-controller with a simple lifecycle and persistence bundle. Each View has an associated Presenter, which lives inside the associated Screen (with a Blueprint). Since the Presenter is scoped to just the Screen that it lives in, the Presenter (our heavy-duty controller object) will be garbage collected if we go to a new Screen using Flow. The Dagger scoping of Mortar combined with automatic garbage collection allow our app to be more memory efficient, since any of our controller objects that aren’t currently being used are GC-ed away. In Activity-land, there are fewer guarantees of garbage collection when switching between Fragments and Activities.
 
+Custom Views are used liberally so that we can simply inject all of the important model data through Dagger, and then use the associated Presenter to control the View itself. Presenters survive configuration changes, but have enough Activity lifecycle knowledge to be restored after process death. The Presenter actually hooks into the Activity’s onSavedInstanceState() bundle, using the same mechanism for saving and loading data on configuration change as an Activity would. The Presenter life cycle is a simple one with only four callbacks:
 
+- onEnterScope(MortarScope scope)
+- onLoad(Bundle savedInstanceState)
+- onSave(Bundle outState)
+- onExitScope()
 
+Not nearly as confusing a lifecycle as Fragments, if I do say so myself!
 
+There are a lot of moving parts and new terms and classes and all sorts of room for confusion. So in sum, we have the following pieces of the puzzle:
 
+- **Screen**: A particular location in the application’s navigation hierarchy
+- **Blueprint**: A section of an application with its own Dagger module
+- **Presenter**: A View-controller object
+- **Custom Views**: Views defined by Java and usually some XML
+
+Here’s what our final Mortar and Flow architecture looks like:
+
+![](https://www.bignerdranch.com/img/blog/2015/02/mortar-and-flow.png)
+
+Instead of sticking with Model View Controller, the architecture has morphed into more of a Model View Presenter style. The big difference concerns the handling of runtime configuration changes like rotation. In MVC, our Controller (Activities and Fragments) will be destroyed alongside our Views, whereas in MVP, only our View will be destroyed and recreated. Nifty.
+
+![](https://www.bignerdranch.com/img/blog/2015/02/mvp.png)
+
+## Positives ##
+
+- With all of this work and redesign, there needs to be some payoff, so let’s talk about the good things.
+- 
+- Using Mortar and Flow forces us to create a modular architecture with a Model View Presenter design, which is useful for maintaining a clean codebase.
+- 
+- Testing becomes easier through the dependency injection of our custom views and Presenters.
+- 
+- Animation can be dealt with on a View level, as opposed to worrying about Fragment and Activities as much.
+- 
+- Mortar scoping means the application will be more memory efficient, with garbage collection occurring on the View and Presenter level automatically.
+
+And, of course, we no longer have to worry about Fragments and their various quirks.
+
+## Room for Improvement ##
+
+Flow and Mortar do have some issues:
+
+**There is a steep learning curve**. The patterns are complex and require a lot of exploration and experimentation before you can really understand them, and these libraries are certainly not for beginners. Even for an expert, there is a steep design pattern investment.
+
+**If you’re going to use Mortar and Flow, you really have to go all the way with it**. It would be difficult to interplay “standard” Android with the Fragment-less Android style. If you want to convert an existing project to Mortar and Flow, the process, while certainly possible, will be long and arduous.
+
+**There’s a mountain of boilerplate and configuration to deal with**. This is my biggest complaint. With all of these new classes and interfaces, I often felt like I was drowning in uninteresting code that was required solely to hook everything together, which just isn’t as much fun.
+
+## What’s next ##
+
+Both Mortar and Flow are in the pre-release stages of their development, with no official release in sight. This means dealing with issues and changes and updates, with the libraries shifting from beneath us, but this also means there is plenty of time for improvement.
+
+Working with Mortar and Flow was a fun experiment. I enjoyed trying out some new libraries and seeking alternatives to the standard Fragment-oriented architecture, but I don’t think Mortar and Flow are the solutions the Android world are seeking. That could change in a few months or years. I hope that these projects will garner more attention and love and continue to improve, and I’ll definitely be keeping an eye on them.
