@@ -47,8 +47,8 @@ Kotlin library is small compared to others. This is important because Android me
 >#####Highly interoperable: 
 It works extremely well with any other Java libraries, and the interoperability is very simple. That´s one of the main ideas the Kotlin team kept in mind while developing this new language. They want to use it to continue developing their current projects written in Java without having to rewrite the whole code. So Kotlin needs to be extremely interoperable wih Java code.
 
-高交互性：Kotlin和其它java Librarys协调使用的特别好，并且交互操作很简。这是Kotlin team
-在开发新语言是的主要观点之一。他们想在使用Kotlin开发时并不用重写前所有的java写的代码，所以，	Kotlin必须具有非常高的和java的交互能力。
+高交互性：Kotlin和其它java库协调使用的特别好，并且交互操作很简单。这是Kotlin团队
+在开发新语言是的主要理念之一。他们想在使用Kotlin开发时并不用重写之前所有用java写的代码，所以，Kotlin和java交互的能力必须非常高。
 
 >#####Perfectly integrated with Android Studio and Gradle: 
 we have one plugin for the IDE and another one for Gradle, so it won´t be difficult to start an Android project using Kotlin (this is what I´ll talk about in th next article).
