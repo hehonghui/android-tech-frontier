@@ -213,9 +213,9 @@ Libraries。
 
 >**No easy way to declare custom views:** Kotlin classes can only declare one constructor, while custom views usually need three. This won´t be a problem if we use classes programmatically, but won´t be enough for XML usage. The easiest workaround is to declare those classes in Java and use them in Kotlin. Kotlin team has promised to have it ready for M11 release. Update: Kotlin M11 is out and now includes secondary constructors
 
-声明自定义View比较困难：Kotlin类只能声明一个constructor，然后custom View通常需要三个。如果我
-们使用类变成的话，这不是一个问题，但对于使用XML文件来说并不足够。最容易的变通方式是用java来声明这些
-custom View的实现类，然后通过Kotlin来使用它们。Kotlin团队许诺将在M11 release解决这个问题。
+声明自定义View比较困难：Kotlin类只能声明一个构造函数，然而自定义View通常需要三个。如果我
+们使用类型编程的话可以避免这个问题，但对于使用XML文件来说并不足够。最容易的变通方式是用java来声明这些
+自定义View的实现类，然后通过Kotlin来使用它们。Kotlin团队许诺将在M11 release解决这个问题。
 **Update: Kotlin M11 is out and now includes [secondary constructors](http://kotlinlang.org/docs/reference/classes.html#constructors)**
 
 >**jUnit testing in Android projects:** the new feature introduced in Android Studio 1.1 is not yet possible in Kotlin. Instrumentation tests and jUnit testing in pure Kotlin projects are fully functional by the way.
