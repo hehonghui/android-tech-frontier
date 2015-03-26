@@ -176,12 +176,10 @@ new method to fragments to show a toast:
 
 我们可以给任何类添加新方法。这比我们在project中使用的工具类可读性更高。例如：我们可以给Fragment添加一个新方法来显示Toast。
 
-'
-
-	fun Fragment.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
+```java
+fun Fragment.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(getActivity(), message, duration).show()
-	}
-
+}
 ```
 我们可以这样使用：
 
