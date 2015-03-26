@@ -20,6 +20,7 @@ AsyncTask是在Android里面默认的处理工具，开发者可以做里面一�
 
 表面上，这似乎很简单，你定义一些代码在后台线程中运行，然后定义一些代码运行在UI线程中，在后台任务处理完之后，它在UI线程会处理从后台任务传递过来的执行结果。
 
+```java
 	private class CallWebServiceTask extends AsyncTask<String, Result, Void> {
     
 	    protected Result doInBackground(String... someData) {
@@ -33,6 +34,7 @@ AsyncTask是在Android里面默认的处理工具，开发者可以做里面一�
 	        }
 	    }
 	}
+```  
 
 使用AsyncTask的最大的问题是在细节的处理上，让我们谈谈这个问题。
 
@@ -67,40 +69,47 @@ AsyncTask是在Android里面默认的处理工具，开发者可以做里面一�
 
 下面我们将会使用Observables写一个请求代码来替代上面的AsyncTask方式。(如果你使用Retrofit，那么你应该很容易使用，其次它还支持Observable 返回值，并且它工作在一个后台的线程池，无需你额外的工作)
 
+```java
 	webService.doSomething(someData)
     .observeOn(AndroidSchedulers.mainThread())
     .subscribe(
         result -> resultText.setText("It worked!")),
         e -> handleError(e)
     );
-	
+```
+
 ###错误处理
 你可能会注意到，没有做额外的工作，我们已经处理了AsyncTask不会处理的成功和错误的情况，并且我们写了很少的代码。你看到的额外的组件是我们想要Observer 在UI主线程中处理的结果。这样可以让我们前进一点点。并且如果你的webService对象不想在后台线程中运行，你也可以在这里通过使用.subscribeOn(...) 声明。(注意：这些例子是使用Java 8的lambda语法，使用[Retrolambda](https://github.com/orfjackal/retrolambda)就可以在Android项目中进行使用了，但在我看来，这样做的回报是高于风险的，和写这篇文章相比，我们更喜欢在我们的项目中使用。)
 
 ###Activity和Fragment的生命周期
 现在，我们想在这里利用RxAndroid解决上面提到的生命周期的问题，我们不需要指定mainThread() scheduler(顺便说一句，你只需要导入RxAndroid)。就像下面这样
 
+```java
 	AppObservable.bindFragment(this, webService.doSomething(someData))
     .subscribe(
         result -> resultText.setText("It worked!")),
         e -> handleError(e)
     );
-	
+```
+
 我通常的做法是在应用的Base Fragment里面创建一个帮助方法来简化这一点，你可以参考我维护的一个[Base RxFragment](https://github.com/rosshambrick/standardlib/blob/master/src/main/java/com/rosshambrick/standardlib/RxFragment.java) 获得一些指导。
 
+```java
 	bind(webService.doSomething(someData))
     .subscribe(
         result -> resultText.setText("It worked!")),
         e -> handleError(e)
     );
-	
-如果我们的Activity或者是Fragment不再是可达状态，那么AppObservable.bindFragment()可以在调用链中插入一个垫片，来阻止onNext()运行。如果当Task试图运行的时候，Activity、Fragment是不可达状态，subscription 将会取消订阅并且停止运行，所以不会存在空指针的风险，程序也不会崩溃。一个需要注意的是，当我们离开Activity和Fragment时，我们会暂时或者是永久的泄露，这取决于问题中的Observable 的行为。所以在bind()方法中，我也会调用LifeCycleObservable机制，当Fragment销毁的时候自动取消。这样做的好处是一劳永逸。
+```
+
+如果我们的Activity或者是Fragment不再是可见状态，那么AppObservable.bindFragment()可以在调用链中插入一个垫片，来阻止onNext()运行。如果当Task试图运行的时候，Activity、Fragment是不可达状态，subscription 将会取消订阅并且停止运行，所以不会存在空指针的风险，程序也不会崩溃。一个需要注意的是，当我们离开Activity和Fragment时，我们会暂时或者是永久的泄露，这取决于问题中的Observable 的行为。所以在bind()方法中，我也会调用LifeCycleObservable机制，当Fragment销毁的时候自动取消。这样做的好处是一劳永逸。
 
 所以，这解决了首要的两个问题，但是下面这一个才是RxJava大发神威的地方。
 
 ###组合的多个Web Server调用
 在这里我不会详细的说明，因为这是一个[复杂的问题](http://reactivex.io/documentation/observable.html)，但是通过使用Observables，你可以用非常简单和易于理解的方式完成复杂的事情。这里是一个链式Web Service调用的例子，这些请求互相依赖，在线程池中运行第二批并行调用，然后在将结果返回给Observer之前，对数据进行合并和排序。为了更好的测量，我甚至在里面放置了一个过滤器。所有的业务逻辑都在下面这短短五行代码里面...
 
+```java
 	public Observable<List<CityWeather>> getWeatherForLargeUsCapitals() {
     return cityDirectory.getUsCapitals() 
         .flatMap(cityList -> Observable.from(cityList))
@@ -108,10 +117,12 @@ AsyncTask是在Android里面默认的处理工具，开发者可以做里面一�
         .flatMap(city -> weatherService.getCurrentWeather(city)) //each runs in parallel
         .toSortedList((cw1,cw2) -> cw1.getCityName().compare(cw2.getCityName()));
 	}
+```
 
 ###旋转时的缓存(或是其他情况)
 既然这是一个加载的数据，那么我们可能需要将数据进行缓存，这样当我们旋转设备的时候，就不会触发再次调用全部web service的事件。一种实现的方式是保留Fragment，并且保存一个对Observable 的缓存的引用，就像下面这样：
 
+```java
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,11 +135,13 @@ AsyncTask是在Android里面默认的处理工具，开发者可以做里面一�
         super.onViewCreated(...)
         bind(weatherObservable).subscribe(this);
     }
+```
 
 在旋转之后，订阅者的缓存实例就会立即发出和第一次请求相同的请求，防止真实的Web Service请求发生。
 
-如果你想要避免缓存的Fragment(并且有很充足的理由去避免它)，我们可以通过使用AsyncSubject实现缓存。无论何时被订阅，AsyncSubject 都会重新发出最后的项目。或者我们可以使用BehaviorSubject获得最后的值和新值改变整个应用程序。
+如果你想要避免缓存的Fragment(并且有很充足的理由去避免它)，我们可以通过使用AsyncSubject实现缓存。无论何时被订阅，AsyncSubject 都会重新发出最后的事件。或者我们可以使用BehaviorSubject获得最后的值和新值改变整个应用程序。
 
+```java
  WeatherListFragment.java 
 	
 	public void onViewCreated() {
@@ -151,16 +164,18 @@ AsyncTask是在Android里面默认的处理工具，开发者可以做里面一�
     }
     return weatherSubject;
 	}
+```
 
 因为“缓存”是由Manager单独管理的，它不会与Fragment/Activity的周期绑定，并且在Activity/Fragment中将持续存在。如果你想强迫刷新基于以类似的方式来保留Fragment缓存实例的生命周期事件，你可以这样做：
 
-
+```java
 	public void onCreate() {
     super.onCreate()
     if (savedInstanceState == null) {
         weatherManager.invalidate(); //invalidate cache on fresh start
     }
 	}
+```
 
 这件事情的伟大之处在于，它不像是Loaders，我们可以很灵活的缓则缓存很多Activity和Services中的结果。只需要去掉oncreate()中的invalidate()调用，并让你的Manager对象决定何时发出新的气象数据就可以了。可能是一个Timer，或者是用户定位改变，或者是其他任何时刻，这真的没关系。你现在可以控制什么时候如何去更新缓存和重新加载。并且当你的缓存策略发生改变的时候，Fragment和你的Manager对象之间的接口不需要进行改变。它只不过是一个 List<WeatherData>的Observer。
 
@@ -169,8 +184,10 @@ AsyncTask是在Android里面默认的处理工具，开发者可以做里面一�
 
 幸运的是，Observables给我们一个简单的方式来将一个异步方法变成同步，你要做的就是使用toblocking()方法。我们看一个测试例子。
 
+```java
 	List results = getWeatherForLargeUsCapitals().toBlocking().first();
 	assertEquals(12, results.size());
+```
 
 就像这样，我们没有必要去使用Futures或者是CountDownLatchs让做一些脆弱的操作，比如线程睡眠或者是让我们的测试变得很复杂，我们的测试现在是简单、干净、可维护的。
 
