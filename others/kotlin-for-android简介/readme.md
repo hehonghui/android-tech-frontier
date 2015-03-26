@@ -5,7 +5,7 @@ kotlin-for-android简介(1)
 * 原文链接 : [Kotlin for Android (I): Introduction
 ](http://antonioleiva.com/kotlin-for-android-introduction/)
 * 译者 : [canglangwenyue](https://github.com/canglangwenyue) 
-* 校对者: [这里校对者的github用户名](github链接)  
+* 校对者: [Mr.Simple](https://github.com/bboyfeiyu)  
 * 状态 :  完成
 
 Kotlin是众多基于JVM的语言之一，它一开始是作为android 开发中java语言的可能的代替者出现的。java是世界上使用最多的语言之一，而伴随着其他语言的发展使得程序员编程越来越容易，但是java并没有尽快地向预期目标发展。
