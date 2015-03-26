@@ -82,7 +82,7 @@ Since this feels so familiar already, and I don't want you to get bored, let's d
 
 **最重要的是，你会有一些令人惊艳的函数去结合、创建和过滤任何一组事件流。** 这就是“函数式编程”的魔力所在。一个**事件流**可以作为另一个**事件流**的输入，甚至多个**事件流**可以作为另一个**事件流**的输入。你可以_合并(merge)_两个**事件流**，也可以_过滤(filter)_一个你感兴趣的**事件流**，还可以_映射(map)_一个**事件流**的值到一个新的**事件流**里。
 
-如果**事件流**对于响应式编程如此重要，那不妨就让我们来仔细的看看，先从我们熟悉的"点击一个按钮"的**事件流**开始
+如果**事件流**对于RP如此重要，那不妨就让我们来仔细的看看，先从我们熟悉的"点击一个按钮"的**事件流**开始
 
 ![Click event stream](http://i.imgur.com/cL4MOsS.png)
 
@@ -137,8 +137,28 @@ Grey boxes are functions transforming one stream into another. First we accumula
 
 I hope you enjoy the beauty of this approach. This example is just the tip of the iceberg: you can apply the same operations on different kinds of streams, for instance, on a stream of API responses; on the other hand, there are many other functions available.
 
-为了展示响应式编程真正的魅力，我们假设你有一个"双击"事件流，为了让它更有趣，我们假设这个事件流同时处理"三次点击"或者"多次点击"事件，然后深吸一口气想想如何用传统的命令式和状态式的方式来处理，我敢打赌，这么做其实会相当的令人厌烦，其中会涉及到一些变量来保存状态，并且还得做一些时间间隔的调整
+为了展示RP真正的魅力，我们假设你有一个"双击"事件流，为了让它更有趣，我们假设这个事件流同时处理"三次点击"或者"多次点击"事件，然后深吸一口气想想如何用传统的命令式和状态式的方式来处理，我敢打赌，这么做其实会相当的令人厌烦，其中会涉及到一些变量来保存状态，并且还得做一些时间间隔的调整
 
-而我们用响应式编程的方式处理起来确实那么的简洁，实际上，逻辑代码只需要[四行代码](http://jsfiddle.net/staltz/4gGgs/27/)而已。但是，当前阶段让我们现忽略代码的部分，无论你是新手还是专家，看着图表来思考将是一个非常棒的途径来理解和建立事件流。
+而我们用RP的方式处理起来确是那么的简洁，实际上，逻辑代码只需要[四行代码](http://jsfiddle.net/staltz/4gGgs/27/)而已。但是，当前阶段让我们现忽略代码的部分，无论你是新手还是专家，看着图表来理解和建立事件流将是一个非常棒的途径。
 
 ![多次点击事件流](http://i.imgur.com/HMGWNO5.png)
+
+图中，灰色盒子表示将上面的事件流转换下面的事件流的**函数**过程，首先根据250毫秒的间隔时间或者叫无事件发生的时间段(event silence, 译者:上一个事件发生到下一个事件发生的间隔事件)把点击事件流一段一隔开，再将每一段的一个或多个点击事件添加到列表中(`buffer(stream.throttle(250ms))`)。别担心这些细节，我们现在就是在演示RP的过程。那么，到现在得到的是多个含有事件流的列表， 接下来我们使用了`map()`中的函数来算出每一个列表的长度整数数值映射到下一个事件流当中。最后我们使用了过滤`filter(x >= 2)` 函数忽略掉了小于`1` 的整数。就这样，我们用了3步操作生成了我们想要的事件流，接下来，我们就可以订阅("监听")这个事件并作出我们想要的反应了。
+
+我希望你能感受到这个示例的优雅之处。当然了，这个示例也只是RP能产生的效果的冰山一角而已，你同样可以使用这3步操作应用到不同种类的事件流中去，例如，一串API响应的事件流。另一方面，你还有非常多的函数可以使用。
+
+## "Why should I consider adopting RP?"
+
+Reactive Programming raises the level of abstraction of your code so you can focus on the interdependence of events that define the business logic, rather than having to constantly fiddle with a large amount of implementation details. Code in RP will likely be more concise.
+
+The benefit is more evident in modern webapps and mobile apps that are highly interactive with a multitude of UI events related to data events. 10 years ago, interaction with web pages was basically about submitting a long form to the backend and performing simple rendering to the frontend. Apps have evolved to be more real-time: modifying a single form field can automatically trigger a save to the backend, "likes" to some content can be reflected in real time to other connected users, and so forth.
+
+Apps nowadays have an abundancy of real-time events of every kind that enable a highly interactive experience to the user. We need tools for properly dealing with that, and Reactive Programming is an answer.
+
+## "我为什么要采用RP？"
+
+RP可以提高你的代码抽象级别，好让你可以专注于定义与事件相互依存的业务逻辑，而不是把大量精力放在实现细节，使用RP会让你的代码变得更加简洁。
+
+特别对于现在流行的webapps和mobile apps这些频繁的与数据事件相关的众多UI事件交互的程序，好处就更加的明显了。十年前，web页面的交互是提交一个很长的表单数据到后端，然后再做一些简单的前端界面渲染操作。而现在的Apps则演变的更具有实时性：仅仅修改一个单独的表单域就能自动的触发保存到后端的代码，就像某一个用户对一些内容点了赞，就能够实时反映到其他已连接的用户一样，等等。
+
+当今的Apps含有丰富的实时事件来保证一个高效的用户体验，我们需要采用一个合适的工具来处理，那么RP就正好是我们想的答案。
