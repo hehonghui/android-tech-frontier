@@ -12,22 +12,20 @@ kotlin-for-android简介(1)
 possible Java successor in Android development. Java is one of the most used 
 languages in the world, and while many other languages evolve to make programmers lives easier, Java has not been able to keep their track as fast as expected.
 
-Kotlin是众多基于JVM的语言之一，它一开始是作为android 开发中java的可能的代替者出现的。java	是世
-	界上使用最多的语言之一，而伴随着其他语言的发展使得程序员的编程越来越容易，但是java并没有尽	快德向预期
-目标发展。
+Kotlin是众多基于JVM的语言之一，它一开始是作为android 开发中java语言的可能的代替者出现的。java是世界上使用最多的语言之一，而伴随着其他语言的发展使得程序员编程越来越容易，但是java并没有尽快地向预期目标发展。
 
 ###What´s Kotlin?
 >Kotlin is a JVM based language created by JetBrains, the team behind IntelliJ,
  which is the base for Android Studio. It´s an object oriented language that 
  includes many ideas from functional programming.
 
-Kotlin是被JetBrains创造的基于JVM的语言，它背后JetBrains团队是android studio诞生的基础。	
+Kotlin是JetBrains创造的基于JVM的语言，JetBrains是IntelliJ的缔造团队。	
 Kotlin是一个拥有很多函数编程特点的面向对象的编程语言。
 
 ###Why Kotlin?
 >My first disclaimer is that I haven´t used Kotlin for a long time, I´m almost learning as I write these articles. I haven´t tried any other alternatives such as Go or Scala, so I recommend searching what other people thinks about those languages if you are really thinking on switching to another language. An awesome example of Android using Scala can be found in [47deg Github site](http://47deg.github.io/translate-bubble-android/).
 
-我首先声明我并没有使用Kotlin很长时间，我几乎是在学习的同时写些文章的。我并没有尝试任何其它的替	代语言，例如Go和Scala，所以如果你是真的考虑换一种开发语言的话，我建议你去搜索一下其他人对这些	语言的评价。一个使用Scala开发android的例子可以在	[47deg Github site](http:/	
+我首先声明我并没有使用Kotlin很长时间，我几乎是在学习的同时写了这些文章的。我并没有尝试任何其它的替	代语言，例如Go和Scala，所以如果你是真的考虑换一种开发语言的话，我建议你去搜索一下其他人对这些	语言的评价。一个使用Scala开发android的例子可以在	[47deg Github site](http:/	
 47deg.github.io/translate-bubble-android/)找到。
 
 >######These are the reasons why I chose Kotlin as a study case:
@@ -36,15 +34,14 @@ Kotlin是一个拥有很多函数编程特点的面向对象的编程语言。
 
 >Relatively fast learning curve: compared to Scala for instance, we are moving in a much simpler scope. Kotlin is much more limited, but it´s easier to start if you´ve never used a modern language before.
 
-学习曲线相对较快：以Scala作为例子进行比较，我们是向着更简单的方向移动。Kotlin有更多的限制，但是入左你没有学习过一门现代编程语言的话，Kotlin更容易学习。
+学习曲线相对较快：以Scala作为例子进行比较，我们是向着更简单的方向前进。Kotlin有更多的限制，但是如果你没有学习过一门现代编程语言的话，Kotlin更容易学习。
 
 >#####Lightweight: 
 Kotlin library is small compared to others. This is important because Android method limit is always a problem, and though there are some options to solve it such as proguard or multidexing, all of these solutions will add complexity and will be time consuming when debugging. Kotlin adds less than 7000 methods, more or less the same as suppot-v4.
 
-轻量：与其他语言相比Kotlin的Library更小。这很重要，因为android method数限是一个问题，虽
-然有一些选择来解决这个问题，例如proguard or multidexing，但是这些解决方案会加复杂度，并导
-致debugging的时间花销增多。Kotlin可以添加不少于7000 methods，大致和support－v4
-一样。
+轻量：与其他语言相比Kotlin的核心库更小。这很重要，因为android函数数量限制(函数数量不能大于64k)是一个问题，虽
+然有一些选择来解决这个问题，例如proguard 或 multidexing，但是这些解决方案会加复杂度，并导
+致调试时花费更多的时间。引入Kotlin核心库添加了不到7000个方法，大致和support－v4一样。
 
 
 >#####Highly interoperable: 
