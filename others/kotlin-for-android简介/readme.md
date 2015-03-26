@@ -1,4 +1,4 @@
-`kotlin-for-android简介(1)`
+kotlin-for-android简介(1)
 ---
 
 >
@@ -76,8 +76,7 @@ With Kotlin, it´s much easier to avoid boilerplate because most typical situati
 write (or at least generate) this code:
 例如，在java中，我们想要创建一个典型的data class时需要这样做：
 
-’
-	
+```java	
 	public class Artist {
     private long id;
     private String name;
@@ -125,21 +124,18 @@ write (or at least generate) this code:
                 '}';
     }
 }
-
-
-‘
+```
 
 那么在Kotlin需要多少代码呢？仅仅是下面这个简单的数据类：
 
-'
+```java
 
 	data class Artist(
     var id: Long, 
     var name: String, 
     var url: String, 
     var mbid: String)
-
-'
+```
 
 ####2. Null safety
 >When we develop using Java, most of our code is defensive. We need to check continuously if something is null before using it if we don´t want to find unexpected NullPointerException. Kotlin, as many other languages, is null safe because we need to explicitly specify if an object can be null by using the safe call operator.
@@ -150,7 +146,7 @@ NullPointerException**的话,我们就要在运行代码之前持续的检查是
 
 我们可以这样做：
 
-'
+```java
 	
 	//This won´t compile. Artist can´t be null
 	var notNullArtist: Artist = null
@@ -174,8 +170,7 @@ NullPointerException**的话,我们就要在运行代码之前持续的检查是
  
 	// Use Elvis operator to give an alternative in case the object is null
 	val name = artist?.name ?: "empty"
-
-'
+```
 
 ####3. Extension functions
 >We can add new functions to any class. It´s a much more readable substitute to the 
@@ -190,19 +185,23 @@ new method to fragments to show a toast:
     Toast.makeText(getActivity(), message, duration).show()
 	}
 
-'
+```
 我们可以这样使用：
 
+```java
 	fragment.toast("Hello world!")
+```
 
 ####4. Functional support (Lambdas)
 
 >What if instead of having to write the creation of a new listener every time we need to declare what a click should do, we could just define what we want to do? We can indeed. This (and many more interesting things) is what we get thanks to lambda usage:
 
 如果我们可以不用在我们需要的时候每一次都创建一个listener，就像创建一个click listener那样的操作，
-而是仅仅定义我们想要做什么？这种想法的确可以实现，它的实现得益于**lambda**d的使用：
+而是仅仅定义我们想要做什么？这种想法的确可以实现，它的实现得益于**lambda**d的使用：  
 
+```java
 	view.setOnClickListener({ toast("Hello world!") })
+```	
 	
 ###Current limitations
 
