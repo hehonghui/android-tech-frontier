@@ -33,13 +33,13 @@ Assume that you need to pass a map of values as an extra in an Intent. This migh
 If you are using a HashMap, the most common type of Map, and you didn’t create a custom class that contains “extra” information, you’re lucky. You can put in:
 
     
-    Java intent.putExtra("map", myHashMap);
+   intent.putExtra("map", myHashMap);
 
 如果你在Intent对象中附加的是一个Map最常见的接口实现类HashMap，而不是包含附加信息的自定义类，你是幸运的，你可以用以下方法将map附加到Intent对象:
 
 And in your receiving Activity, you’ll get your nice map back out of the Intent’s extras:
 
-    Java HashMap map = (HashMap) getIntent().getSerializableExtra("map");
+    HashMap map = (HashMap) getIntent().getSerializableExtra("map");
 
 
 在你接收的Activity里,你可以用以下方法毫无问题地取出之前在Intent中附加的Map
@@ -47,7 +47,7 @@ And in your receiving Activity, you’ll get your nice map back out of the Inten
 
 But what if you need to pass another kind of Map in the intent extras — say, a TreeMap (or any custom implementation)? Well, when you retrieve it:
 
-    Java TreeMap map = (TreeMap) getIntent().getSerializableExtra("map");
+     TreeMap map = (TreeMap) getIntent().getSerializableExtra("map");
 
 Then you get this:
 
@@ -55,7 +55,7 @@ Then you get this:
 
 但是，当你要向Intent对象附加另一种类型的Map,比如：一个TreeMap（或者其他的自定义Map接口实现类）,当你在Intent中取出之前附加的TreeMap时，你用如下方法：
 
-    `Java TreeMap map = (TreeMap) getIntent().getSerializableExtra("map");`
+    ` TreeMap map = (TreeMap) getIntent().getSerializableExtra("map");`
     
 你获得一个类转换异常，因为你的Map（TreeMap）试图转换成一个HashMap
 
@@ -385,6 +385,8 @@ Well, with the exception of the TreeMap becoming an HashMap, of course.
 Ok, the picture here is pretty clear by now. Maps completely lose their type when they’re written to a Parcel, so there’s no way to recover that information when they get read back.
 
 ####黑洞启示录：
+
+
 
 在这里已经非常清楚了，当Map写入到一个Parcel时，Map丢失了它们的类型，所以当我们再次读时是没办法来复原原来的信息。
 
