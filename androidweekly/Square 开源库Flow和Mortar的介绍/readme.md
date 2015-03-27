@@ -3,8 +3,13 @@ Flow和Mortar的调查
 >
 * 原文链接 : [Architecting An Investigation into Flow and Mortar](http://www.bignerdranch.com/blog/an-investigation-into-flow-and-mortar/)
 * 译者 : [sundroid](https://github.com/sundroid)( [chaossss](https://github.com/chaossss) 协同翻译)
+<<<<<<< HEAD
+* 校对者: [这里校对者的github用户名](github链接)  
+* 状态 :  校对中
+=======
 * 校对者: [chaossss](https://github.com/chaossss)、[Mr.Simple](https://github.com/bboyfeiyu)  
 * 状态 :  完成
+>>>>>>> origin/master
 
 “在 App 开发过程中尽可能使用 Fragment 替代 Activity”，Google 官方的这个建议无疑让万千 Android 开发者开始关注、使用 Fragment。但随着使用 Fragment 的人数增多，Fragment 存在的各种问题也开始暴露，在各种 Android 社区中，已经开始有人质疑用 Fragment 替代 Activity 在应用开发中是否真的像 Google 说的那样有益。质疑 Fragment 的理由大体如下：
 
@@ -34,7 +39,12 @@ Flow和Mortar的调查
 在我们深入了解这些库之前我想提醒大家的是，Square只在他们内部的一小部分项目中使用这些库，并且我在写本文章时这些库还在预发布阶段。也就是说，这两个库在最近几个月取得了积极的进展，这预示着一个值得尊敬的未来，虽然库就像流沙，随时可能改变，崩溃甚至停止发布，但库所依赖的核心架构原则是一成不变的。
 
 ##体系架构
+<<<<<<< HEAD
+
+ 首先，我们先来看下 Android 应用的体系架构，在 Android  Honeycomb 被使用之前，甚至在Fragment 出现之前，开发 Android 应用的标准模式是创建许多 Activity。在那个时候最常见的现象是：大多数开发者都没有规范地遵循 MVC 模式进行开发，不过这也很正常。因为模型依赖于数据，传统的一些数据库或者是以 JSON 的形式存储的 Web 请求，抑或是各种各样的java对象枚举。开发者们很高兴地通过 XML 布局去为 Activity 设置 View ，而且 View 的控制器就是每一个 Screen 显示的 Actvitiy 自身。
+=======
  首先，我们先来看下 Android 应用的体系架构，在 Android  Honeycomb 被使用之前，甚至在Fragment 出现之前，开发 Android 应用的标准模式是创建许多 Activity。在那个时候最常见的现象是：大多数开发者都没有规范地遵循 MVC模式进行开发，不过这也很正常。因为模型(Model)依赖于数据，传统的一些数据库或者是以 JSON 的形式存储的 Web 请求，抑或是各种各样的java对象枚举。开发者们很高兴地通过 XML 布局去为 Activity 设置 View ，而且 View 的控制器就是每一个屏幕显示的 Actvitiy 自身。
+>>>>>>> origin/master
 
 虽然这只是一个简要的概述，但是你能从中了解到 Android 与 MVC 模式是如何自然契合的。
 ![mvc-pre](http://www.bignerdranch.com/img/blog/2015/02/mvc-pre.png)
@@ -91,7 +101,12 @@ There are a lot of moving parts and new terms and classes and all sorts of room 
 - Presenter: A View-controller object
 - Custom Views: Views defined by Java and usually some XML
 
-文章写到这里，你会发现我们提出了许多
+文章写到这里，你会发现我们提出了许多可组合使用的“零件”，新的概念和类，还有各种各样容易混淆的域。所以为了方便大家的理解，我把刚刚讲的知识总结为以下几点：
+
+- Screen: 在应用导航层次结构中的一个特殊存在，用来代表我们视图的对象
+- Blueprint: 应用中具有私有的 Dagger 模块的部分
+- Presenter: 一个 View 控制器对象
+- Custom Views: 通过 Java 代码定义的 View，当然，用 XML 定义也是很常见的
 
 Here’s what our final Mortar and Flow architecture looks like:
 
@@ -101,7 +116,8 @@ Here’s what our final Mortar and Flow architecture looks like:
 
 Instead of sticking with Model View Controller, the architecture has morphed into more of a Model View Presenter style. The big difference concerns the handling of runtime configuration changes like rotation. In MVC, our Controller (Activities and Fragments) will be destroyed alongside our Views, whereas in MVP, only our View will be destroyed and recreated. Nifty.
 
-
+抛弃了对 MVC 模式的执念，这个架构在完成之后变得更像 MVP 模式。这样巨大的转变使得新的架构需要关注如何处理应用在运行时配置信息改变的问题，例如：旋转。在 MVC 模式中，我们的控制器（Activity 和 Fragment）会随着我们的 View 一起被杀死。然而，在 MVP 模式中，我们只有 View 
+被杀死，又在需要它的时候重现它。挺有趣的对吧？
 
 ![](https://www.bignerdranch.com/img/blog/2015/02/mvp.png)
 
