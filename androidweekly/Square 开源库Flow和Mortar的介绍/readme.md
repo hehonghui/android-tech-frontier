@@ -101,7 +101,7 @@ There are a lot of moving parts and new terms and classes and all sorts of room 
 - Presenter: A View-controller object
 - Custom Views: Views defined by Java and usually some XML
 
-文章写到这里，你会发现我们提出了许多可组合使用的“零件”，新的概念和类，还有各种各样容易混淆的域。所以为了方便大家的理解，我把刚刚讲的知识总结为以下几点：
+文章写到这里，你会发现在 Flow 和 Mortar 中有许多发生改变的部分，新的术语和类，还有新的使用规范，这难免会让人一头雾水。所以为了方便大家的理解，总的来说，我们需要重视的是下面几个部分：
 
 - Screen: 在应用导航层次结构中的一个特殊存在，用来代表我们视图的对象
 - Blueprint: 应用中具有私有的 Dagger 模块的部分
