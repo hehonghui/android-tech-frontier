@@ -174,3 +174,61 @@ I picked **JavaScript** and **[RxJS](https://github.com/Reactive-Extensions/RxJS
 让我们深入到一些真实的例子，一个能够一步一步的教你如何以RP的方式思考的例子，没有虚构的示例，没有一知半解的概念。在这个教程的末尾我们将产生一些真实的函数代码，并能够知道每一步为什么要这么做。
 
 我选了**JavaScript**和**[RxJS](https://github.com/Reactive-Extensions/RxJS)**来作为本教程的编程语言，原因是：JavaScript是目前最多人熟悉的语言，而[Rx系列的库](http://www.reactivex.io)对于很多语言和平台的运用是非常广泛的，例如([.NET](https://rx.codeplex.com/), [Java](https://github.com/Netflix/RxJava), [Scala](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-scala), [Clojure](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-clojure),  [JavaScript](https://github.com/Reactive-Extensions/RxJS), [Ruby](https://github.com/Reactive-Extensions/Rx.rb), [Python](https://github.com/Reactive-Extensions/RxPy), [C++](https://github.com/Reactive-Extensions/RxCpp), [Objective-C/Cocoa](https://github.com/ReactiveCocoa/ReactiveCocoa), [Groovy](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-groovy)等等。所以，无论你用的是什么语言、库、工具，你都能从下面这个教程中学到东西。
+
+## Implementing a "Who to follow" suggestions box
+
+In Twitter there is this UI element that suggests other accounts you could follow:
+
+![Twitter Who to follow suggestions box](http://i.imgur.com/eAlNb0j.png)
+
+We are going to focus on imitating its core features, which are:
+
+* On startup, load accounts data from the API and display 3 suggestions
+* On clicking "Refresh", load 3 other account suggestions into the 3 rows
+* On click 'x' button on an account row, clear only that current account and display another
+* Each row displays the account's avatar and links to their page
+
+We can leave out the other features and buttons because they are minor. And, instead of Twitter, which recently closed its API to the unauthorized public, let's build that UI for following people on Github. There's a [Github API for getting users](https://developer.github.com/v3/users/#get-all-users).
+
+The complete code for this is ready at http://jsfiddle.net/staltz/8jFJH/48/ in case you want to take a peak already.
+
+# 实现一个推荐关注的功能
+
+在Twitter里有一个UI元素向你展示和推荐可以去关注谁，如下图：
+
+![Twitter Who to follow suggestions box](http://i.imgur.com/eAlNb0j.png)
+
+我们将聚焦于模仿它的主要功能，它们是：
+
+* 开始阶段，从API加载要推荐关注的用户账户数据，然后显示三个推荐用户
+* 点击刷新，加载另外三个推荐用户到当前的三行中显示
+* 点击每一行的推荐用户上的'x'按钮，清楚当前被点击的用户，并显示新的一个用户到当前行
+* 每一行显示一个用户的头像并且在点击之后可以链接到他们的主页。
+
+我们可以先不管其他的功能和按钮，因为它们是次要的。因为Twitter最近关闭了未经授权的公共API，我们用[Github获取用户的API](https://developer.github.com/v3/users/#get-all-users)代替，并且以此来构建我们的UI。
+
+如果你想先看一下最终效果，这里有完成后的[代码](http://jsfiddle.net/staltz/8jFJH/48/)。
+
+## Request and response
+
+**How do you approach this problem with Rx?** Well, to start with, (almost) _everything can be a stream_. That's the Rx mantra. Let's start with the easiest feature: "on startup, load 3 accounts data from the API". There is nothing special here, this is simply about (1) doing a request, (2) getting a response, (3) rendering the response. So let's go ahead and represent our requests as a stream. At first this will feel like overkill, but we need to start from the basics, right?
+
+On startup we need to do only one request, so if we model it as a data stream, it will be a stream with only one emitted value. Later, we know we will have many requests happening, but for now, it is just one.
+
+```
+--a------|->
+
+Where a is the string 'https://api.github.com/users'
+```
+
+This is a stream of URLs that we want to request. Whenever a request event happens, it tells us two things: when and what. "When" the request should be executed is when the event is emitted. And "what" should be requested is the value emitted: a string containing the URL.
+
+To create such stream with a single value is very simple in Rx*. The official terminology for a stream is "Observable", for the fact that it can be observed, but I find it to be a silly name, so I call it _stream_.
+
+```javascript
+var requestStream = Rx.Observable.just('https://api.github.com/users');
+```
+
+## Request和response
+
+**在RP中你该怎么处理这个问题呢？** 
