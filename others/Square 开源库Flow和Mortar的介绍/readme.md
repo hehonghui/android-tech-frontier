@@ -2,7 +2,9 @@ Flow和Mortar的调查
 ---
 >
 * 原文链接 : [Architecting An Investigation into Flow and Mortar](http://www.bignerdranch.com/blog/an-investigation-into-flow-and-mortar/)
-* 译者 : [sundroid](https://www.github.com/sundroid)
+* 译者 : [sundroid](https://github.com/sundroid)( [chaossss](https://github.com/chaossss) 协同翻译)
+* 校对者: [这里校对者的github用户名](github链接)  
+* 状态 :  未完成
 
 Fragments have started to garner a negative reputation in the Android community, despite being officially supported by the Android team at Google, and there are a host of reasons why:
 
@@ -138,7 +140,16 @@ Flow 和 Mortar 结合在一起使用的效果很好，我们只需要调节我�
 
 The Presenter is a singleton object that functions as a view-controller with a simple lifecycle and persistence bundle. Each View has an associated Presenter, which lives inside the associated Screen (with a Blueprint). Since the Presenter is scoped to just the Screen that it lives in, the Presenter (our heavy-duty controller object) will be garbage collected if we go to a new Screen using Flow. The Dagger scoping of Mortar combined with automatic garbage collection allow our app to be more memory efficient, since any of our controller objects that aren’t currently being used are GC-ed away. In Activity-land, there are fewer guarantees of garbage collection when switching between Fragments and Activities.
 
+Presenter 是一个拥有简单生命周期和伴随其生命周期的 Bundle 的 View 私有对象，主要被用作该 View 的控制器。每一个 View 都有存在于对应的 Screen （还有 Blueprint）中，与 View 自身相关联的 Presenter。因为 Presenter 只能作用于他所在的 Screen，所以当我们使用 Flow 进入一个新的 Screen，Presenter（在我们这个架构中非常重要的一环） 很可能会被 Java 的垃圾回收机制自动回收掉。此外，在 Mortar 作用域中的 Dagger 将与自动垃圾回收机制结合在一起，使得我们 App 能更好的管理、使用其内存——其中原因当然是：当前没有被使用的控制器对象都被我们回收掉了。而在传统的 Activity 开发中，Fragment 和 Activity 的切换过程中，不经意的垃圾回收并不能很好的被注意和提防。
+
 Custom Views are used liberally so that we can simply inject all of the important model data through Dagger, and then use the associated Presenter to control the View itself. Presenters survive configuration changes, but have enough Activity lifecycle knowledge to be restored after process death. The Presenter actually hooks into the Activity’s onSavedInstanceState() bundle, using the same mechanism for saving and loading data on configuration change as an Activity would. The Presenter life cycle is a simple one with only four callbacks:
+
+- onEnterScope(MortarScope scope)
+- onLoad(Bundle savedInstanceState)
+- onSave(Bundle outState)
+- onExitScope()
+
+由于自定义 View 在我们的架构中被频繁地使用，以至于我们只需要通过 Dagger 简单地注入所有重要的模型数据，然后使用与 View 关联的 Presenter 去控制 View 本身。即使配置被改变，Presenters 也不会消失，而且我们还非常了解与 Activity 生命周期相关的知识，使得 Presenters 在进程被杀死之后还能被恢复。事实上，Presenter 与 Activity onSavedInstanceState() 方法的 bundle 钩连在一起，使得它能够用与 Activity 相同的机制储存和读取配置改变后产生的数据。而 Presenter 的生命周期非常简单，只有四个回调方法：
 
 - onEnterScope(MortarScope scope)
 - onLoad(Bundle savedInstanceState)
@@ -147,34 +158,54 @@ Custom Views are used liberally so that we can simply inject all of the importan
 
 Not nearly as confusing a lifecycle as Fragments, if I do say so myself!
 
+完全没有 Fragment 那样复杂的生命周期，这可不是我吹的！
+
 There are a lot of moving parts and new terms and classes and all sorts of room for confusion. So in sum, we have the following pieces of the puzzle:
 
-- **Screen**: A particular location in the application’s navigation hierarchy
-- **Blueprint**: A section of an application with its own Dagger module
-- **Presenter**: A View-controller object
-- **Custom Views**: Views defined by Java and usually some XML
+- Screen: A particular location in the application’s navigation hierarchy
+- Blueprint: A section of an application with its own Dagger module
+- Presenter: A View-controller object
+- Custom Views: Views defined by Java and usually some XML
+
+文章写到这里，你会发现我们提出了许多
 
 Here’s what our final Mortar and Flow architecture looks like:
+
+我们 Mortar 和 Flow 整个体系架构将会如下所示：
 
 ![](https://www.bignerdranch.com/img/blog/2015/02/mortar-and-flow.png)
 
 Instead of sticking with Model View Controller, the architecture has morphed into more of a Model View Presenter style. The big difference concerns the handling of runtime configuration changes like rotation. In MVC, our Controller (Activities and Fragments) will be destroyed alongside our Views, whereas in MVP, only our View will be destroyed and recreated. Nifty.
+
+
 
 ![](https://www.bignerdranch.com/img/blog/2015/02/mvp.png)
 
 ## Positives ##
 
 - With all of this work and redesign, there needs to be some payoff, so let’s talk about the good things.
-- 
+
 - Using Mortar and Flow forces us to create a modular architecture with a Model View Presenter design, which is useful for maintaining a clean codebase.
-- 
+
 - Testing becomes easier through the dependency injection of our custom views and Presenters.
-- 
+
 - Animation can be dealt with on a View level, as opposed to worrying about Fragment and Activities as much.
-- 
+
 - Mortar scoping means the application will be more memory efficient, with garbage collection occurring on the View and Presenter level automatically.
 
 And, of course, we no longer have to worry about Fragments and their various quirks.
+
+## 积极的反馈 ##
+
+为了摆脱 Fragment，Square 付出了无数的汗水去进行重新架构和设计，并完成了 Mortar 和 Flow库，他们当然会获得相应的回报，接下来我就给大家介绍这两个库给我们带来的好处吧。
+
+使用 Mortar 和 Flow 库强迫我们创建了一个符合 MVP 模式设计的模块化 App 结构，通过这样做能有效地帮助我们保持代码的整洁。
+
+通过对我们自定义 View 和 Presenters 的依赖注入，测试变得更简单了
+
+动画能够在 View 层被处理，而不用像从前在 Activity 和 Fragment 中使用时那样担心动画会出现Bug
+
+Mortar 在 View 和 Presenter 层中自动进行垃圾回收以处理其作用域，意味着应用能更有效地利用内存
 
 ## Room for Improvement ##
 
@@ -186,8 +217,24 @@ Flow and Mortar do have some issues:
 
 **There’s a mountain of boilerplate and configuration to deal with**. This is my biggest complaint. With all of these new classes and interfaces, I often felt like I was drowning in uninteresting code that was required solely to hook everything together, which just isn’t as much fun.
 
+## 可优化的空间 ##
+
+尽管 Flow 和 Mortar 给我们带来了许多好处，但是它们也还存在一些问题：
+
+**想要熟练使用 Flow 和 Mortar，需要面对一条陡峭的学习曲线。**在你真正理解这两个库的设计思想和原理之前，它们的使用模式看起来非常复杂，如果你想要将他们用的得心应手，无疑需要大量的探索和实验，此外，这些库并不是为初学者提供的，我们更建议初学者先学习如何正确和有效地使用 Activity 和 Fragment，我可不是吓唬你们，这样跟你们说吧，就算是 Android 开发大神，在面对这些库时仍需要花费大量的精力和时间去学习有关设计模式的知识，才能真正理解这个库。
+
+**如果你正准备使用 Mortar 和 Flow 库，你真的要全面了解它们的用法。**因为让它和标准的“少使用 Fragment”开发模式相互作用是很困难的。如果你想修改一个已经写好的项目，让它使用 Mortar 和 Flow，虽然不是不可能的，但是完成这个目标的过程会是非常漫长和艰难的。
+
+**这里还存在无数的模板和配置信息需要被处理。**而这正是我最大的担忧，在使用这些新的类和接口时，我常常觉得被淹没在无趣的代码海洋里，因为这些代码都被设计成和其中的各个类、接口钩连在一起，而这也的设计让我觉得这两个库并没有像我期待的那样有趣。
+
 ## What’s next ##
 
 Both Mortar and Flow are in the pre-release stages of their development, with no official release in sight. This means dealing with issues and changes and updates, with the libraries shifting from beneath us, but this also means there is plenty of time for improvement.
 
+## 接下来呢 ##
+
+不过现在 Mortar 和 Flow 库都处于预发布阶段，现在也没有官方发布的版本。这意味着 Square 还在处理这两个库存在的问题，改动和更新，但这同样也意味着它们还需要许多时间作改进，才能真正投入到使用中。
+
 Working with Mortar and Flow was a fun experiment. I enjoyed trying out some new libraries and seeking alternatives to the standard Fragment-oriented architecture, but I don’t think Mortar and Flow are the solutions the Android world are seeking. That could change in a few months or years. I hope that these projects will garner more attention and love and continue to improve, and I’ll definitely be keeping an eye on them.
+
+使用 Mortar 和 Flow 库是个有趣的体验，我非常享受使用各种新的库和寻找官方以 Fragment 为导向的应用结构的替代品，但我并不认为 Mortar 和 Flow 是 Android 寻找的替代 Fragment 的办法，毕竟 Fragment 可能在接下来的几个月或者几年中被修改。但我仍然希望这些项目能够引起更多人关注，并且继续优化，我肯定会继续关注他们的最新进展的，希望大家继续关注我的博客哦。
