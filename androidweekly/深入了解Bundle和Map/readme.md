@@ -5,7 +5,7 @@
 * 原文链接 : [The mysterious case of the Bundle and the Map](https://medium.com/the-wtf-files/the-mysterious-case-of-the-bundle-and-the-map-7b15279a794e)
 * 译者 : [yinna317](https://github.com/yinna317) 
 * 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  未完成
+* 状态 :  寻找校对中
 
 
 Because putting Maps in a Bundle is harder than it looks.
