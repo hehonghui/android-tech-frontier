@@ -15,7 +15,7 @@ ListView或者RecycleView滚动时隐藏Toolbar (1)
 
 我们做出来的最终效果应该是下面这样的：
 
-![](http://mzgreen.github.io/images/1/demo_gif.gif)
+![](http://img.my.csdn.net/uploads/201503/27/1427447324_1070.gif)
 
 在这篇博文的讲解中，我们将会用RecyclerView作为我们的list，但这不代表其他可滚动的容器就不能实现这样的效果了，只是其他的可滚动容器（如：ListView）需要要多花一些功夫才能实现这个效果。那么我们要怎么去实现呢？我想到了两个办法：
 
@@ -54,7 +54,7 @@ list的每一个item只需要一个text用来显示文字，非常简单！
 
 经过上面的努力，我们已经把车子的小零件组装的七七八八啦，是时候让小车子上路跑一跑，展现真正的技术了！
 
-![](http://mzgreen.github.io/images/1/clipped.png)
+![](http://img.my.csdn.net/uploads/201503/27/1427447324_5421.png)
 
 WTF，谁能告诉我这是什么鬼……？
 
@@ -83,7 +83,7 @@ WTF，谁能告诉我这是什么鬼……？
 
 那么这样我们就把布局弄好啦～不信你看图！
 
-![](http://mzgreen.github.io/images/1/clipping_fixed.png)
+![](http://img.my.csdn.net/uploads/201503/27/1427447325_8379.png)
 
 所以总的来说，我们为RecyclerView添加了一个和Toolbar有相同高度的Header，而现在我们的Toolbar把header隐藏起来了（因为header现在是一个空的view)，同时，我们所有的普通item都是可见的。那么现在就让我们来实现滚动时改变Toolbar和FAB的出现和隐藏吧！
 
@@ -110,7 +110,7 @@ WTF，谁能告诉我这是什么鬼……？
 
 是骡子是马，让我们拉出来溜一溜！
 
-![](http://mzgreen.github.io/images/1/broken_gif.gif)
+![](http://img.my.csdn.net/uploads/201503/27/1427447325_8449.gif)
 
 虽然现在看起来已经很nice了，但其实这里有一个小小的bug——如果你在list的顶部，此时临界值非常小，因而你能隐藏Toolbar，但你在list的顶部会看到有一个空白的区域。不过幸好这里有一个很简单的方法可以解决这个bug：我们可以通过检测当前list的第一个item是否为可见的，只有当它不可见，才使用我们设计的展示/隐藏逻辑。
 
@@ -118,7 +118,7 @@ WTF，谁能告诉我这是什么鬼……？
 
 各位观众，接下来，就是见证奇迹的时刻：
 
-![](http://mzgreen.github.io/images/1/demo_gif.gif)
+![](http://img.my.csdn.net/uploads/201503/27/1427447326_5458.gif)
 
 太棒了思密达！感觉之前的失败都如雨后甘霖温润我脆弱的心灵呐～
 
