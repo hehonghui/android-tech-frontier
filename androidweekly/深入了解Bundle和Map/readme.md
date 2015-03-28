@@ -352,6 +352,7 @@ readMapInternal()这个方法只是将我们从Parcel中读取的map重新进行
 Eugenio迅速写了个通用的wrapper类解决了这个问题。
 
 >MapWrapper.java
+
 ```java
   public class MapWrapper<T extends Map & Serializable> implements Serializable {
  
@@ -377,7 +378,6 @@ Eugenio迅速写了个通用的wrapper类解决了这个问题。
   }
 }
   }
-
 ```  
 
 
