@@ -48,8 +48,6 @@
 因为编译器认为你的Map(TreeMap)正试图转换成一个HashMap
 
 
-稍后我们将明白为什么我们用getSerializableExtra()这个方法来取出我们附加到Intent中的Map。从目前来看，是因为所有Map接口实现类都实现了Serializable接口，并且putExtra()/getExtra()没有被用于接收他们的对应作用域。
-
 稍后我会详细地为大家讲解我为什么用 getSerializableExtra() 这个方法来取出附加到Intent中的Map。现在我可以先给大家一个通俗易懂的解释：因为所有默认的 Map 接口实现类都是Serializable,并且 putExtra()/getExtra() 方法接受的参数几乎都是“键-值”对，而其中值的类型非常广泛，Serializable就是其中之一，因此我们能够使用 getSerializableExtra() 来取得我们传递的Map。
 
 
