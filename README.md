@@ -65,6 +65,8 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 |[ListView或者RecycleView滚动时隐藏Toolbar(1)](androidweekly/ListView或者RecycleView滚动时隐藏Toolbar-part-1)  | [chaossss](https://github.com/chaossss)       |    [http://mzgreen.github.io] [scroll-part-1] |  
 |[ListView或者RecycleView滚动时隐藏Toolbar(2)](androidweekly/ListView或者RecycleView滚动时隐藏Toolbar-part-2)  | [chaossss](https://github.com/chaossss)       |    [http://mzgreen.github.io] [scroll-part-2]    |
 |[让你的Android应用能使用多种主题-Part-2](androidweekly/让你的Android应用能使用多种主题-Part-2)  | [chaossss](https://github.com/chaossss)       |    [AndroidWeekly Issue#144](http://androidweekly.net/issues/issue-144)    |
+| [清晰的软件架构 ( Bob大叔 )](others/清晰的软件架构)  | [zimoguo](https://github.com/zimoguo)       | [The Clean Architecture](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html)    |
+
 
 
 [scroll-part-1]: http://mzgreen.github.io/2015/02/15/How-to-hideshow-Toolbar-when-list-is-scroling%28part1%29/
