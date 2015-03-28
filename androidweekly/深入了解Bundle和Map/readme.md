@@ -77,13 +77,6 @@ Parcels 能处理很多类型，包括：本地类型，字符串类型，数组
 让我们来了解下是什么原因使我们得到了ClassCastException异常。
 从我们的代码中可以看到，我们对Intent中putExtras()的调用实际上是传入了一个String值和一个Serializable的对象，而不是传入一个Map值。因为Map接口实现类都是Serializable的，而不是Parcelable的。
 
-```java
-	public Intent putExtra(String name, Serializable value) {
-      // ...
-      mExtras.putSerializable(name, value);
-      return this;
-}
-```  
 
 ###第一步：找到第一个突破口
 
