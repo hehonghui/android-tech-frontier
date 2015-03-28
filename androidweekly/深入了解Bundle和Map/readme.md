@@ -40,7 +40,12 @@
  TreeMap map = (TreeMap) getIntent().getSerializableExtra("map");`
 ```
     
-然后就会出现一个类转换异常，因为编译器认为你的Map(TreeMap)正试图转换成一个HashMap
+然后就会出现一个类转换异常:
+```java
+ java.lang.ClassCastException: java.util.HashMap cannot be cast to java.util.TreeMap`
+```
+
+因为编译器认为你的Map(TreeMap)正试图转换成一个HashMap
 
 
 稍后我们将明白为什么我们用getSerializableExtra()这个方法来取出我们附加到Intent中的Map。从目前来看，是因为所有Map接口实现类都实现了Serializable接口，并且putExtra()/getExtra()没有被用于接收他们的对应作用域。
@@ -144,6 +149,22 @@ public Intent putExtra(String name, Serializable value) {
 
 如果我们观察下是怎样写入Parcel的，我们看到，实际上是调BaseBundle中的writeToParcelInner()方法。
 
+>BaseBundle.java
+
+```java
+ 	void writeToParcelInner(Parcel parcel, int flags) {
+  if (mParcelledData != null) {
+    // ...
+  } else {
+    // ...
+    int startPos = parcel.dataPosition();
+    parcel.writeArrayMapInternal(mMap);
+    int endPos = parcel.dataPosition();
+    // ...
+  }
+}
+```  
+
 
 跳过所有不相干的代码，我们看到在Parcel的writeArrayMapInternal()方法中做了大量的事（mMap 是一个 ArrayMap类型）
 
@@ -232,7 +253,7 @@ JavaDoc文档对这个方法的解释非常清楚：即Map必须是String类型�
 
 尽管我们可能传入一个key值不为String的Map,类型擦除也使我们不会获得运行时错误。(这是完全非法的)
 
-事实上，看一下Parzcel中的writeMapInternal()方法，这更打击我们。
+事实上，看一下Parcel中的writeMapInternal()方法，这更打击我们。
 
 >Parcel.java
 
@@ -339,6 +360,36 @@ readMapInternal()这个方法只是将我们从Parcel中读取的map重新进行
 当我和 Eugenio谈话时，我想到的第一个想法是将map包裹成一个Serializable的容器，这个想法是丑陋的但是有效的。
 Eugenio迅速写了个通用的wrapper类解决了这个问题。
 
+>MapWrapper.java
+```java
+  public class MapWrapper<T extends Map & Serializable> implements Serializable {
+ 
+  private final T map;
+
+  public MapWrapper(T map) {
+    this.map = map;
+  }
+
+  public T getMap() {
+    return map;  public static <T extends Map & Serializable> Intent
+         putMapExtra(Intent intent, String name, T map) {
+
+    return intent.putExtra(name, new MapWrapper<>(map));
+  }
+
+  public static <T extends Map & Serializable> T
+         getMapExtra(Intent intent, String name)
+         throws ClassCastException {
+
+    Serializable s = intent.getSerializableExtra(name);
+    return s == null ? null : ((MapWrapper<T>)s).getMap();
+  }
+}
+  }
+
+```  
+
+
 ##另一个可行的解决方案：
 
 另一个解决方法是，在你将Map附加到Intent前，将Map转成byte array的。然后调用getByteArrayExtra()方法。但是这种方法你必须处理序列化与反序列化的问题。
@@ -367,7 +418,7 @@ AOSP代码是我们的巨大财富，这在移动开发领域几乎是独一无�
 
 
 
-最后：
+##最后：
 
 感谢[chaossss](https://github.com/chaossss)  帮我校对文章，感谢闺蜜们在某些用词上给我提供灵感。
 
