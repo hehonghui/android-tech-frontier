@@ -64,6 +64,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | [使用RxJava.Observable取代AsyncTask和AsyncTaskLoader](others/使用RxJava.Observable取代AsyncTask和AsyncTaskLoader)  | [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang)       |   [stablekernel.com](http://stablekernel.com/blog/replace-asynctask-asynctaskloader-rx-observable-rxjava-android-patterns/)  |
 
 
+
 ### 2015.3.27 ( 第二期)
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|
