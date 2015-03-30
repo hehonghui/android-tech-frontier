@@ -4,8 +4,8 @@
 >
 * 原文链接 : [android ui development made easy](http://zserge.com/blog/android-mvx.html)
 * 译者 : [chaossss](https://github.com/chaossss) 
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  校对中
+* 校对者: [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang)  
+* 状态 :  校对完成
 
 
 
@@ -38,7 +38,7 @@ Android UI 开发的代码往往是支离破碎的，写出来的代码通常都
 
 - Android UI 开发很少符合 MVC 模式（或者是 M-V-其他任何东西）
 
-- XMLS 常常包含了许多复制-粘帖的代码，糟糕的代码重用
+- XML文件通常包含了很多重复的代码，在代码复用方面比较糟糕
 
 - XMLS 非常脆弱，这使得你在写 XML 文件时，即使输入了 TextVeiw ，在编译过程中编译器也不会警告你，但在 App 运行时又会抛出 InflateException 异常
 

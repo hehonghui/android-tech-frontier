@@ -4,17 +4,13 @@
 >
 * 原文链接 : [Android Uploading Camera Image, Video to Server with Progress Bar](http://www.androidhive.info/2014/12/android-uploading-camera-image-video-to-server-with-progress-bar/)
 * 译者 : [chaossss](https://github.com/chaossss) 
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  校对中
+* 校对者: [Mr.Simple](https://github.com/bboyfeiyu)  
+* 状态 :  校对完成
 
 
 
-
-My previous tutorial explains how to download a file by showing a progress bar. In this article I am going to explain how to upload a file to server by showing the progress bar. Using this tutorial you can build an app like Instagram where you can capture image or record a video using camera and then upload to a server. On the server side, I used PHP language to read the file and moved it to a particular location.
 
 我在上一篇教程中给大家讲解了怎么通过进度条下载文件，今天，我将在这篇文章中给大家讲解如果在弹出进度条的同时上传一个文件到服务器。通过阅读这篇文章，并学习其中的知识，你能做出一个类似 Instagram 的App，在你做出的 App 里，你能够像在 Instagram 里那样用摄像头拍照/视频，然后把它们上传到服务器。在服务器端，我使用 PHP 读取上传的文件，并把文件移动到一个特殊的位置。
-
-The best thing about this article is, it works well with larger file uploads too without any out of memory errors. I have tested the app by uploading 50MB file flawlessly.
 
 这篇文章最精华的部分在于：即使是上传大文件，它也能很好地运行，而不是产生许多内存不足的错误。我能有这样的自信，是因为我进行了许多的测试。在测试过程中，即便我上传了一个 50MB 的文件，这个功能仍然运行得很完美，不会出现错误。
 
@@ -22,36 +18,7 @@ The best thing about this article is, it works well with larger file uploads too
 
 ## 准备工作 ##
 
-As this article uploads the image/video taken from camera, you need to have knowledge over android camera module. So I recommend you go through my previous tutorial Android Working with Camera which gives you an overview of integrating camera in your android apps.
-
 由于这篇文章需要上传摄像头拍下来的照片/视频，因此你需要先了解有关 Android 摄像头模块的知识。所以我建议你最好先去阅读我之前的一篇有关 Android 是如何操作摄像头的讲解文章，通过阅读这篇文章你能大概了解怎么在你的 Android App 中使用摄像头。
-
-## Creating Android Project ##
-
-1. In Eclipse create a new android project by navigating to File ⇒ New ⇒ Android Application Project and fill out all the required details.
-
-2. Open strings.xml located under res ⇒ values and add below string values.
-
-3. Add below color values in colors.xml located under res ⇒ values folder.
-
-4. Now under src folder create a new class named Config.java. This class file contains file upload URL and image directory name to save the image/video on mobile memory. You will have to replace the file upload url with yours while testing.
-
-5. Create a class named AndroidMultiPartEntity.java and paste below code. This class is a custom MultipartEntity class which provides very important functionality required for this project such as progress bar incrementation.
-
-Now we’ll add camera support in our app by creating a simple screen with two buttons to invoke camera app to capture image or record video.
-
-6. Open your AndroidManifest.xml file and add required permissions. You can notice that UploadActivity also added in below manifest file. We’ll create it in few minutes.
-
-7. Open the layout file of your main activity (activity_main.xml) and add below code. This creates a layout with two buttons.
-
-8. Add below camera related code in your MainActivity.java class. This code is directly taken from this tutorial.
-
-In brief what this activity will do is,
-
-> Camera app will be launched on tapping take picture or record video button.
-> Once the image / video is captured, it will be stored on to mobile SDCard.
-> Finally UploadActivity will be launched by passing the SDCard path of the media that is captured. The process of uploading will be done in UploadActivity.
-
 
 ## 创建 Android 工程 ##
 
@@ -76,16 +43,17 @@ In brief what this activity will do is,
 
 **colors.xml**
 
-    <?xml version="1.0" encoding="utf-8"?>
-    <resources>
-     
-    	<color name="view_background">#e8ecfa</color>
-    	<color name="btn_bg">#277bec</color>
-    	<color name="white">#ffffff</color>
-    	<color name="txt_font">#4e5572</color>
-    	<color name="action_bar">#1f2649</color>
-     
-    </resources>
+
+	<?xml version="1.0" encoding="utf-8"?>
+	<resources>
+	 
+		<color name="view_background">#e8ecfa</color>
+		<color name="btn_bg">#277bec</color>
+		<color name="white">#ffffff</color>
+		<color name="txt_font">#4e5572</color>
+		<color name="action_bar">#1f2649</color>
+	 
+	</resources>
 
 4、 在 src 目录下创建一个叫做 Config 的类。这个类用于保存文件上传所送到的 URL 地址，还有在移动设备中存储图片/视频的目录名称。你可能需要在测试 App 时使用你自己的 URL 地址进行上传操作。
 
@@ -162,17 +130,15 @@ In brief what this activity will do is,
    	  }
 	}
 
-Now we’ll add camera support in our app by creating a simple screen with two buttons to invoke camera app to capture image or record video.
-
 现在我们需要通过在 App 中添加一个简单的页面来添加摄像头功能，在这里我们将使用两个 Button 来调用我们的摄像头为我们的 App 拍照/视频。
 
 6、 在你的 AndroidManifest.xml 中添加相应的权限。你会注意到 UploadActivity 也需要被添加到 AndroidManifest.xml 文件中，我们会在后面提到这个。
 
-**INTERNET** – Required to make network calls
+**INTERNET** – 联网权限
 
-**WRITE_EXTERNAL_STORAGE** – Required to store image/video on to storage
+**WRITE_EXTERNAL_STORAGE** – 存储照片/视频到本地的权限
 
-**RECORD_AUDIO** – Required to record audio along with video
+**RECORD_AUDIO** – 拍摄权限
 
 **AndroidManifest.xml**
 
@@ -216,6 +182,7 @@ Now we’ll add camera support in our app by creating a simple screen with two b
 7、打开你 MainActivity 的布局文件（activity_main.xml)，并添加下面的代码，这样做能让你的布局拥有两个 Button。
 
 **activity_main.xml**
+
 	<?xml version="1.0" encoding="utf-8"?>
 		<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	    xmlns:tools="http://schemas.android.com/tools"
@@ -849,14 +816,6 @@ Now we’ll add camera support in our app by creating a simple screen with two b
 
 到这里，我们已经把 Android 项目构建好了，现在让我们来快速地创建一个 PHP工程以用于接收我们 App 发送过来的文件，就能看到这个项目的实际想过啦。但在那之前，我们可能需要为 WAMP Server做一点点简单的配置。
 
-## 2. Installing & Configuring WAMP Server ##
-
-1. Download and install WAMP software. On windows machine, WAMP will be installed at C:\wamp location.
-
-2. Open php.ini and modify below values. By default wamp server allows maximum of 2MB file only to upload. After changing the below values, you can upload the files upto 50MB size.
-
-3. Now restart the WAMP server.
-
 ## 2.安装与配置 WAMP Server ##
 
 1、下载并安装 WAMP，在 Windows 系统中，WAMP 将会被安装在 C:\wamp location。
@@ -871,14 +830,6 @@ Now we’ll add camera support in our app by creating a simple screen with two b
 > max_execution_time = 300
 
 3、配置完成后重启 WAMP Server 即可。
-
-## 3. Creating PHP Project ##
-
-1. Go inside C:\wamp\www and create a folder named AndroidFileUpload. This will be the root directory of our project.
-
-2. Now go into AndroidFileUpload folder and create a folder named uploads to keep all the uploaded files.
-
-3. Create a file named fileUpload.php and paste below content. Below php code takes care of receiving the files from android app and store them in uploads folder. Upon the processing the file, server responds with a JSON message.
 
 ## 3.创建一个 PHP 项目 ##
  
@@ -956,20 +907,6 @@ Below is the sample JSON response if the file is uploaded successfully. You can 
 	    "file_path": "http://192.168.0.104/AndroidFileUpload/uploads/DSC_0021.JPG"
 	}
 
-4. Testing the File Upload (localhost)
-
-The following steps shows you how to test the both apps together locally.
-
-1. Connect the both the devices (machine running the wamp server & android mobile) to same wifi network.
-
-2. Start the WAMP server.
-
-3. Get the ip address of the machine that is running the PHP project. You can get the ip address by typing ipconfig in command prompt. (On mac os, use ifconfig to get the ip address)
-
-4. Replace the ip address in Config.java (check 4th step in android project) with your ip address.
-
-5. Deploy & run the android app on the mobile.
-
 ## 4.测试上传文件功能（本地） ##
 
 你可以通过完成下面的步骤在本地测试 App 的功能
@@ -989,12 +926,6 @@ The following steps shows you how to test the both apps together locally.
 ![](http://cdn2.androidhive.info/wp-content/uploads/2014/12/android-uploading-camera-picture-to-server1.jpg?6141f6)
 
 ![](http://cdn2.androidhive.info/wp-content/uploads/2014/12/android-uploading-camera-picture-to-server2.jpg?6141f6)
-
-## References ##
-
-1. [Stackoverflow](http://stackoverflow.com/questions/22874735/upload-large-file-with-progress-bar-and-without-outofmemory-error-in-android) Question about file upload with progress bar.
-
-2. [Icon](https://www.iconfinder.com/icons/66782/file_upload_icon#size=128) that I used as app icon.
 
 ## 引用 ##
 
