@@ -60,6 +60,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|
 | [深入了解Bundle和Map](androidweekly/深入了解Bundle和Map)  | [yinna317](https://github.com/yinna317)       |   [medium.com](https://medium.com/the-wtf-files/the-mysterious-case-of-the-bundle-and-the-map-7b15279a794e)    |
+ [Square 开源库Flow和Mortar的介绍](androidweekly/Square 开源库Flow和Mortar的介绍)  | [sundroid](https://github.com/sundroid)( [chaossss](https://github.com/chaossss) 协同翻译) |  [bignerdranch.com](http://www.bignerdranch.com/blog/an-investigation-into-flow-and-mortar/)  | [使用RxJava.Observable取代AsyncTask和AsyncTaskLoader](others/使用RxJava.Observable取代AsyncTask和AsyncTaskLoader)  | [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang) |  [stablekernel.com](http://stablekernel.com/)  | [通过进度条上传拍下的照片、视频到服务器](others/通过进度条上传拍下的照片、视频到服务器)  | [chaossss](https://github.com/chaossss) |  [http://www.androidhive.info](http://www.androidhive.info/)  |
 
 
 
