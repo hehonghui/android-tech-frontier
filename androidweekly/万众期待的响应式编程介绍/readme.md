@@ -1,4 +1,4 @@
-## 万众期待的响应式编程介绍
+## 你所期盼的响应式编程介绍
 (by [@andrestaltz](https://twitter.com/andrestaltz))
 ---
 
@@ -344,6 +344,10 @@ var responseMetastream = requestStream
   });
 ```
 
+Then we will have created a beast called "_metastream_": a stream of streams. Don't panic yet. A metastream is a stream where each emitted value is yet another stream. You can think of it as [pointers](https://en.wikipedia.org/wiki/Pointer_(computer_programming)): each emitted value is a _pointer_ to another stream. In our example, each request URL is mapped to a pointer to the promise stream containing the corresponding response.
+
+![Response metastream](http://i.imgur.com/HHnmlac.png)
+
 是的。
 
 Promise++就是可观察的对象(Observable)，在Rx家族里，你可以用这样的操作：`var stream = Rx.Observable.fromPromise(promise)`，就可以很轻松的将Promise转换成一个可观察的对象(Observable)，这么方便，让我们现在就开始使用它吧。不同的是，这些可观察的对象(Observables)都不能和[Promises/A+](http://promises-aplus.github.io/promises-spec/)兼容的，但理论上讲，这并不冲突。一个Promise就是一个简单的，只有一个值的可观察对象。而Rx就远超于Promise，它允许多个值返回。
@@ -359,5 +363,95 @@ var responseMetastream = requestStream
   .map(function(requestUrl) {
     return Rx.Observable.fromPromise(jQuery.getJSON(requestUrl));
   });
+```
+
+然后，我们将会创造一个叫做"_metastream_"的怪兽：一个装载事件流的事件流。先别惊慌，一个metastream就是一个从另一个事件流发出的值的事件流。你看把它想象成一个[指针(pointers)]((https://en.wikipedia.org/wiki/Pointer_(computer_programming))集合:每一个单独发出的值就是一个_指针_，它指向另一个事件流。在我们的实例里，每一个请求URL都映射到一个指向包含响应数据的promise数据流。
+
+![Response metastream](http://i.imgur.com/HHnmlac.png)
+
+A metastream for responses looks confusing, and doesn't seem to help us at all. We just want a simple stream of responses, where each emitted value is a JSON object, not a 'Promise' of a JSON object. Say hi to [Mr. Flatmap](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypeflatmapselector-resultselector): a version of `map()` than "flattens" a metastream, by emitting on the "trunk" stream everything that will be emitted on "branch" streams. Flatmap is not a "fix" and metastreams are not a bug, these are really the tools for dealing with asynchronous responses in Rx.
+
+```javascript
+var responseStream = requestStream
+  .flatMap(function(requestUrl) {
+    return Rx.Observable.fromPromise(jQuery.getJSON(requestUrl));
+  });
+```
+
+![Response stream](http://i.imgur.com/Hi3zNzJ.png)
+
+Nice. And because the response stream is defined according to request stream, **if** we have later on more events happening on request stream, we will have the corresponding response events happening on response stream, as expected:
+
+```
+requestStream:  --a-----b--c------------|->
+responseStream: -----A--------B-----C---|->
+
+(lowercase is a request, uppercase is its response)
+```
+
+Now that we finally have a response stream, we can render the data we receive:
+
+```javascript
+responseStream.subscribe(function(response) {
+  // render `response` to the DOM however you wish
+});
+```
+
+Joining all the code until now, we have:
+
+```javascript
+var requestStream = Rx.Observable.just('https://api.github.com/users');
+
+var responseStream = requestStream
+  .flatMap(function(requestUrl) {
+    return Rx.Observable.fromPromise(jQuery.getJSON(requestUrl));
+  });
+
+responseStream.subscribe(function(response) {
+  // render `response` to the DOM however you wish
+});
+```
+
+一个响应的metastream，看起来确实让人容易困惑，看样子对我们一点帮助也没有。我们只想要一个简单的响应数据流，就只是每一个发出的值是一个简单的JSON对象就行，不用是一个'Promise' 的JSON对象。ok，让我们来见识一下另一个函数：[Flatmap](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypeflatmapselector-resultselector)，它是一个版本的`map()`函数，它比metastream扁平。一切在"主躯干"事件流发出的事件都将在"分支"事件流中发出。Flatmap并不是metastreams的修复，metastreams也不是一个bug。它俩在Rx中都是处理异步响应事件的好工具、好帮手。
+
+```javascript
+var responseStream = requestStream
+  .flatMap(function(requestUrl) {
+    return Rx.Observable.fromPromise(jQuery.getJSON(requestUrl));
+  });
+```
+
+![Response stream](http://i.imgur.com/Hi3zNzJ.png)
+
+很赞，因为我们的响应事件流是根据请求事件流定义的，**如果**我们之后还会有更多来自请求事件流的事件要发生的话，我们也将会在相应的响应事件流收到响应事件，就如所期待的那样：
+
+```
+requestStream:  --a-----b--c------------|->
+responseStream: -----A--------B-----C---|->
+
+(小写的是请求事件流, 大写的是响应事件流)
+```
+
+现在，我们终于有响应的事件流了，并且可以用来渲染我们收到的数据了：
+
+```javascript
+responseStream.subscribe(function(response) {
+  // render `response` to the DOM however you wish
+});
+```
+
+让我们把所有代码合起来，看一下：
+
+```javascript
+var requestStream = Rx.Observable.just('https://api.github.com/users');
+
+var responseStream = requestStream
+  .flatMap(function(requestUrl) {
+    return Rx.Observable.fromPromise(jQuery.getJSON(requestUrl));
+  });
+
+responseStream.subscribe(function(response) {
+  // render `response` to the DOM however you wish
+});
 ```
 
