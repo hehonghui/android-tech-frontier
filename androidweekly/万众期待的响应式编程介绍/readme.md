@@ -270,3 +270,94 @@ requestStream.subscribe(function(requestUrl) {
   });
 }
 ```
+
+Notice we are using a jQuery Ajax callback (which we assume you [should know already](http://devdocs.io/jquery/jquery.getjson)) to handle the asynchronicity of the request operation. But wait a moment, Rx is for dealing with **asynchronous** data streams. Couldn't the response for that request be a stream containing the data arriving at some time in the future? Well, at a conceptual level, it sure looks like it, so let's try that.
+
+```javascript
+requestStream.subscribe(function(requestUrl) {
+  // execute the request
+  var responseStream = Rx.Observable.create(function (observer) {
+    jQuery.getJSON(requestUrl)
+    .done(function(response) { observer.onNext(response); })
+    .fail(function(jqXHR, status, error) { observer.onError(error); })
+    .always(function() { observer.onCompleted(); });
+  });
+  
+  responseStream.subscribe(function(response) {
+    // do something with the response
+  });
+}
+```
+
+What [`Rx.Observable.create()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservablecreatesubscribe) does is create your own custom stream by explicitly informing each observer (or in other words, a "subscriber") about data events (`onNext()`) or errors (`onError()`). What we did was just wrap that jQuery Ajax Promise. **Excuse me, does this mean that a Promise is an Observable?**
+
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+
+![Amazed](http://www.myfacewhen.net/uploads/3324-amazed-face.gif)
+
+注意，我们这里使用的JQuery的AJAX回调方法([我们假设你已经很了解JQuery和AJAX了](http://devdocs.io/jquery/jquery.getjson))来的处理这个异步的请求操作。但是，请稍等一下，Rx家族是用来处理**异步数据流**的，难道它就不能处理请求(request)在未来某个时间点响应(response)的数据流吗？好吧，理论上讲是可以的，让我们尝试一下。
+
+```javascript
+requestStream.subscribe(function(requestUrl) {
+  // execute the request
+  var responseStream = Rx.Observable.create(function (observer) {
+    jQuery.getJSON(requestUrl)
+    .done(function(response) { observer.onNext(response); })
+    .fail(function(jqXHR, status, error) { observer.onError(error); })
+    .always(function() { observer.onCompleted(); });
+  });
+  
+  responseStream.subscribe(function(response) {
+    // do something with the response
+  });
+}
+```
+
+[`Rx.Observable.create()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservablecreatesubscribe)操作就是在显示的通知每一个观察者(或者叫订阅者)对于数据事件(`onNext()`)和错误事件(`onError()`)来创建自己的事件流，而我们做的只是小小的封装了jQuery Ajax Promise一下而已。**等一下，这是否意味者jQuery Ajax Promise本质上就是一个可观察的对象(Observable)？**
+
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+
+![Amazed](http://www.myfacewhen.net/uploads/3324-amazed-face.gif)
+
+Yes.
+
+Observable is Promise++. In Rx you can easily convert a Promise to an Observable by doing `var stream = Rx.Observable.fromPromise(promise)`, so let's use that. The only difference is that Observables are not [Promises/A+](http://promises-aplus.github.io/promises-spec/) compliant, but conceptually there is no clash. A Promise is simply an Observable with one single emitted value. Rx streams go beyond promises by allowing many returned values.
+
+This is pretty nice, and shows how Observables are at least as powerful as Promises. So if you believe the Promises hype, keep an eye on what Rx Observables are capable of.
+
+Now back to our example, if you were quick to notice, we have one `subscribe()` call inside another, which is somewhat akin to callback hell. Also, the creation of `responseStream` is dependent on `requestStream`. As you heard before, in Rx there are simple mechanisms for transforming and creating new streams out of others, so we should be doing that. 
+
+The one basic function that you should know by now is [`map(f)`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypemapselector-thisarg), which takes each value of stream A, applies `f()` on it, and produces a value on stream B. If we do that to our request and response streams, we can map request URLs to response Promises (disguised as streams). 
+
+```javascript
+var responseMetastream = requestStream
+  .map(function(requestUrl) {
+    return Rx.Observable.fromPromise(jQuery.getJSON(requestUrl));
+  });
+```
+
+是的。
+
+Promise++就是可观察的对象(Observable)，在Rx家族里，你可以用这样的操作：`var stream = Rx.Observable.fromPromise(promise)`，就可以很轻松的将Promise转换成一个可观察的对象(Observable)，这么方便，让我们现在就开始使用它吧。不同的是，这些可观察的对象(Observables)都不能和[Promises/A+](http://promises-aplus.github.io/promises-spec/)兼容的，但理论上讲，这并不冲突。一个Promise就是一个简单的，只有一个值的可观察对象。而Rx就远超于Promise，它允许多个值返回。
+
+这样更好，这样更突出可观察的对象(Observables)至少比Promise强大，所以如果你相信Promise宣传的那些东西，那么也请留意一下RP能胜任些什么。
+
+现在回到示例当中，如果你能快速发现，我们在`subscribe()`方法的内部，再次调用了`subscribe()`方法，这就有点类似于回调了。当然，`responseStream`的创建也是依赖于`requestStream`的，在之前我们说过，在Rx里，有很多很简单的机制来从其他事件流的转化并创建出一些新的事件流，那么，我们应该这样做试试。
+
+现在你应该要了解的一个最基本的函数是[`map(f)`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypemapselector-thisarg)，它可以作用到每一个事件流上，并执行`f()`函数，然后产生出一个全新的事件流。如果我们将它应用到我们的请求和响应(request and response)的事件流当中，那样我们就可以将请求的URL映射到一个响应(response)Promises上(伪装成数据流)。
+
+```javascript
+var responseMetastream = requestStream
+  .map(function(requestUrl) {
+    return Rx.Observable.fromPromise(jQuery.getJSON(requestUrl));
+  });
+```
+
