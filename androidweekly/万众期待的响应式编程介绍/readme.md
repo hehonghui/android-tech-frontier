@@ -229,6 +229,17 @@ To create such stream with a single value is very simple in Rx*. The official te
 var requestStream = Rx.Observable.just('https://api.github.com/users');
 ```
 
+But now, that is just a stream of strings, doing no other operation, so we need to somehow make something happen when that value is emitted. That's done by [subscribing](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypesubscribeobserver--onnext-onerror-oncompleted) to the stream.
+
+```javascript
+requestStream.subscribe(function(requestUrl) {
+  // execute the request
+  jQuery.getJSON(requestUrl, function(responseData) {
+    // ...
+  });
+}
+```
+
 ## Request和response
 
 **在Rx(RP的一种/一个分子)中是怎么处理这个问题呢？** ok，在开始之前，我们要明白，(几乎)_一切都可以成为一个事件流_，这就是Rx的准则。让我们从最简单的功能开始："开始阶段，从API加载要推荐关注的用户账户数据，然后显示三个推荐用户"。其实这个功能没什么特殊的，简单的步骤分为： (1)发出一个请求，(2)获取响应的数据，(3)渲染响应的数据。ok，继续，让我们把请求作为一个事件流，一开始你可能会觉得咋简单的处理这样做有些夸张，但别急，让我们从最基本的开始，好吗？
@@ -243,9 +254,19 @@ a就是一个字符串： 'https://api.github.com/users'
 
 这是一个我们要请求的URL事件流。每当一个发生一个请求时，它将会告诉我们两件事："什么时候"和"做了什么事"。"什么时候"请求被执行，什么时候事件就被发出。"做了什么"，就是发出请求的URL
 
-在Rx家族中，创建一个单值的事件流是非常简单的。其实事件流在Rx家族里的术语叫"可观察的对象"，也就是说它是可以被观察的，但是我发现这名字很傻，所以我把它叫做_事件流_。
+在Rx家族中，创建一个单值的事件流是非常简单的。其实事件流在Rx家族里的术语是叫"可观察的对象"，也就是说它是可以被观察的，但是我发现这名字比较傻，所以我更喜欢把它叫做_事件流_。
 
 ```javascript
 var requestStream = Rx.Observable.just('https://api.github.com/users');
 ```
 
+但是现在，这只是一个字符串的事件流而已，并没有做其他操作，所以我们要在发出这个值的时候做一些我们要做的操作，我们可以通过[订阅(subscribing)](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypesubscribeobserver--onnext-onerror-oncompleted) 这个事件来实现。
+
+```javascript
+requestStream.subscribe(function(requestUrl) {
+  // execute the request
+  jQuery.getJSON(requestUrl, function(responseData) {
+    // ...
+  });
+}
+```
