@@ -1,4 +1,4 @@
-用RxJava.Observable取代AsyncTask和AsyncTaskLoader-RxJava Android模版
+使用RxJava.Observable取代AsyncTask和AsyncTaskLoader
 ---
 
 >
