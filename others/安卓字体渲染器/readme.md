@@ -1,5 +1,7 @@
+安卓字体渲染器
+---
 
-id font renderer](https://medium.com/@romainguy/androids-font-renderer-c368bbde87d9)
+* 原文：[android font renderer](https://medium.com/@romainguy/androids-font-renderer-c368bbde87d9)
 * 译者：[7heaven](http://github.com/7heaven)
 * 校对者：
 * 状态：翻译完成
