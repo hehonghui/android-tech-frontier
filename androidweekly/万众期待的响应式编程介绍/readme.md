@@ -245,3 +245,7 @@ a就是一个字符串： 'https://api.github.com/users'
 
 在Rx家族中，创建一个单值的事件流是非常简单的。其实事件流在Rx家族里的术语叫"可观察的对象"，也就是说它是可以被观察的，但是我发现这名字很傻，所以我把它叫做_事件流_。
 
+```javascript
+var requestStream = Rx.Observable.just('https://api.github.com/users');
+```
+
