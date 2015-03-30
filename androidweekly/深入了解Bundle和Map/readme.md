@@ -407,11 +407,14 @@ AOSP代码是我们的巨大财富，这在移动开发领域几乎是独一无�
 
 当你知道了底层代码执行了什么，你也就能够成为一个更好的开发人员。
 
+记住：凡事要嘛就是成功，要嘛就是失败
+
+![](https://d262ilb51hltx0.cloudfront.net/max/800/0*40IPQ7jhknFGYKNR.)
 
 
 ##最后：
 
-感谢[chaossss](https://github.com/chaossss)  帮我校对文章，感谢闺蜜们在某些用词上给我提供灵感。
+感谢[chaossss](https://github.com/chaossss)  帮我校对文章
 
 初次翻译，Android也是刚接触，翻译不好的地方，请大家多多指教。
 
