@@ -64,6 +64,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | [使用RxJava.Observable取代AsyncTask和AsyncTaskLoader](others/使用RxJava.Observable取代AsyncTask和AsyncTaskLoader)  | [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang)       |   [stablekernel.com](http://stablekernel.com/blog/replace-asynctask-asynctaskloader-rx-observable-rxjava-android-patterns/)  |
 | [上传拍下的照片、视频到服务器](others/上传拍下的照片、视频到服务器)  | [chaossss](https://github.com/chaossss)       |   [http://www.androidhive.info/](http://www.androidhive.info/2014/12/android-uploading-camera-image-video-to-server-with-progress-bar/)    |
 | [简化Android的UI开发](others/简化Android的UI开发)  | [chaossss](https://github.com/chaossss)       |   [zserge.com](http://zserge.com/blog/android-mvx.html)    |
+| [安卓字体渲染器](others/安卓字体渲染器)  | [7heaven](http://github.com/7heaven)       |   [medium.com](https://medium.com/@romainguy/androids-font-renderer-c368bbde87d9)    |
 
 
 
