@@ -1,4 +1,4 @@
-## 你所期盼的响应式编程介绍
+## 前所未有的响应式编程介绍
 (by [@andrestaltz](https://twitter.com/andrestaltz))
 ---
 
@@ -454,4 +454,50 @@ responseStream.subscribe(function(response) {
   // render `response` to the DOM however you wish
 });
 ```
+
+## The refresh button
+
+I did not yet mention that the JSON in the response is a list with 100 users. The API only allows us to specify the page offset, and not the page size, so we're using just 3 data objects and wasting 97 others. We can ignore that problem for now, since later on we will see how to cache the responses.
+
+Everytime the refresh button is clicked, the request stream should emit a new URL, so that we can get a new response. We need two things: a stream of click events on the refresh button (mantra: anything can be a stream), and we need to change the request stream to depend on the refresh click stream. Gladly, RxJS comes with tools to make Observables from event listeners.
+
+```javascript
+var refreshButton = document.querySelector('.refresh');
+var refreshClickStream = Rx.Observable.fromEvent(refreshButton, 'click');
+```
+
+Since the refresh click event doesn't itself carry any API URL, we need to map each click to an actual URL. Now we change the request stream to be the refresh click stream mapped to the API endpoint with a random offset parameter each time.
+
+```javascript
+var requestStream = refreshClickStream
+  .map(function() {
+    var randomOffset = Math.floor(Math.random()*500);
+    return 'https://api.github.com/users?since=' + randomOffset;
+  });
+```
+
+Because I'm dumb and I don't have automated tests, I just broke one of our previously built features. A request doesn't happen anymore on startup, it happens only when the refresh is clicked. Urgh. I need both behaviors: a request when _either_ a refresh is clicked _or_ the webpage was just opened.
+
+## 刷新按钮
+
+我还没提到本次响应的JSON数据是含有100个用户数据的list，这个API只允许指定页面偏移量(page offset)，而不能指定每页大小(page size)，这样我们只用到了3个用户数据而浪费了其他97个，我们现在可以先忽略这个问题，稍后我们将会学习如何缓存响应的数据。
+
+每当刷新按钮被点击，请求事件流就会发出一个新的URL值，这样我们就可以获取新的响应数据。这里我们需要两个东西：点击刷新按钮的事件流(原则：一切都能作为事件流)，我们需要将请求事件流和刷新按钮的点击事件流建立依赖(联系/关联)。幸运的是，RxJS已经有了从点击事件监听转换成可观察者对象的方法了。
+
+```javascript
+var refreshButton = document.querySelector('.refresh');
+var refreshClickStream = Rx.Observable.fromEvent(refreshButton, 'click');
+```
+
+因为刷新按钮点击事件不会自带API的URL，我们需要将每次的点击映射到一个实际的URL上，现在我们将请求事件流转换成了一个点击事件流，并将每次的点击映射成一个随机的页面偏移量(offset)参数来组成API的URL。
+
+```javascript
+var requestStream = refreshClickStream
+  .map(function() {
+    var randomOffset = Math.floor(Math.random()*500);
+    return 'https://api.github.com/users?since=' + randomOffset;
+  });
+```
+
+因为我比较笨而且也没有使用自动化测试，所以我刚把之前做好的一个特性搞烂了。这样请求在一开始的时候并不会执行，而只有在点击事件发生时才会执行。我们需要的是两种情况都要执行：是一开始打开网页和点击刷新按钮都会执行的请求。
 
