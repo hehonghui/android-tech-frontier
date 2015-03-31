@@ -858,3 +858,243 @@ var requestStream = refreshClickStream.startWith('startup click')
 
 That does not work. It will close and reload _all_ suggestions, rather than just only the one we clicked on. There are a couple of different ways of solving this, and to keep it interesting, we will solve it by reusing previous responses. The API's response page size is 100 users while we were using just 3 of those, so there is plenty of fresh data available. No need to request more.
 
+## 推荐关注的关闭和使用已缓存的响应数据(responses)
+
+只剩这一个功能没有实现了，每个推荐关注的用户数据UI会有一个自己的'x'按钮来关闭自己，然后在当前的用户数据UI中加载另一个推荐关注的用户数据。最初的想法是：点击任何关闭按钮时都需要发起一个新的请求：
+
+```javascript
+var close1Button = document.querySelector('.close1');
+var close1ClickStream = Rx.Observable.fromEvent(close1Button, 'click');
+// and the same for close2Button and close3Button
+
+var requestStream = refreshClickStream.startWith('startup click')
+  .merge(close1ClickStream) // we added this
+  .map(function() {
+    var randomOffset = Math.floor(Math.random()*500);
+    return 'https://api.github.com/users?since=' + randomOffset;
+  });
+```
+
+这样没什么效果，这样会关闭并且重新加载_全部_的推荐关注的用户数据，而不是仅仅处理我们点击的那一个。这里有几种方式来解决这个问题，并且让它变得有趣，我们将重用之前的请求数据来解决这个问题。这个API响应的每页的数据大小是100个用户数据，而我们只使用了其中三个，所以还剩一大堆未使用的数据，不用去请求更多数据了。
+
+Again, let's think in streams. When a 'close1' click event happens, we want to use the _most recently emitted_ response on `responseStream` to get one random user from the list in the response. As such:
+
+```
+    requestStream: --r--------------->
+   responseStream: ------R----------->
+close1ClickStream: ------------c----->
+suggestion1Stream: ------s-----s----->
+```
+
+In Rx* there is a combinator function called [`combineLatest`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypecombinelatestargs-resultselector) that seems to do what we need. It takes two streams A and B as inputs, and whenever either stream emits a value, `combineLatest` joins the two most recently emitted values `a` and `b` from both streams and outputs a value `c = f(x,y)`, where `f` is a function you define. It is better explained with a diagram:
+
+```
+stream A: --a-----------e--------i-------->
+stream B: -----b----c--------d-------q---->
+          vvvvvvvv combineLatest(f) vvvvvvv
+          ----AB---AC--EC---ED--ID--IQ---->
+
+where f is the uppercase function
+```
+
+ok，再来，我们继续用事件流的方式来思考。当'close1'点击事件发生时，我们想要使用_最近发出的_响应数据，并执行`responseStream`函数来从响应列表里随机的抽出一个用户数据来，就像下面这样：
+
+```
+    requestStream: --r--------------->
+   responseStream: ------R----------->
+close1ClickStream: ------------c----->
+suggestion1Stream: ------s-----s----->
+```
+
+在Rx家族中一个组合函叫做[`combineLatest`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypecombinelatestargs-resultselector)应该是我们需要的。这个函数会把两个事件流A和B作为输入，并且无论哪一个事件流发出一个值了，`combineLatest` 函数就会将两个从两个事件流最近发出的值`a`和`b`联合起来，并执行你定义的`f`函数的算法`c = f(x,y)`将两个值组成一个输入值，下面用图表来解释会更加清晰：
+
+```
+stream A: --a-----------e--------i-------->
+stream B: -----b----c--------d-------q---->
+          vvvvvvvv combineLatest(f) vvvvvvv
+          ----AB---AC--EC---ED--ID--IQ---->
+
+f是转换成大写的函数
+```
+
+We can apply combineLatest() on `close1ClickStream` and `responseStream`, so that whenever the close 1 button is clicked, we get the latest response emitted and produce a new value on `suggestion1Stream`. On the other hand, combineLatest() is symmetric: whenever a new response is emitted on `responseStream`, it will combine with the latest 'close 1' click to produce a new suggestion. That is interesting, because it allows us to simplify our previous code for `suggestion1Stream`, like this:
+
+```javascript
+var suggestion1Stream = close1ClickStream
+  .combineLatest(responseStream,             
+    function(click, listUsers) {
+      return listUsers[Math.floor(Math.random()*listUsers.length)];
+    }
+  )
+  .merge(
+    refreshClickStream.map(function(){ return null; })
+  )
+  .startWith(null);
+```
+
+One piece is still missing in the puzzle. The combineLatest() uses the most recent of the two sources, but if one of those sources hasn't emitted anything yet, combineLatest() cannot produce a data event on the output stream. If you look at the ASCII diagram above, you will see that the output has nothing when the first stream emitted value `a`. Only when the second stream emitted value `b` could it produce an output value.
+
+There are different ways of solving this, and we will stay with the simplest one, which is simulating a click to the 'close 1' button on startup:
+
+```javascript
+var suggestion1Stream = close1ClickStream.startWith('startup click') // we added this
+  .combineLatest(responseStream,             
+    function(click, listUsers) {l
+      return listUsers[Math.floor(Math.random()*listUsers.length)];
+    }
+  )
+  .merge(
+    refreshClickStream.map(function(){ return null; })
+  )
+  .startWith(null);
+```
+
+这样，我们就可以把`combineLatest()`函数用在`close1ClickStream` and `responseStream`上了，所以只要关闭按钮被点击，我们就可以获得最近的响应数据，并在`suggestion1Stream`函数中产生出一个新值。另一方面，`combineLatest()`函数也是相对的：每当在`responseStream`上一个新的响应被发出，它将会结合一次新的点击关闭按钮事件来产生一个新的推荐关注的用户数据，这非常有趣，因为它允许我们为`suggestion1Stream`来简化我们的代码：
+
+```javascript
+var suggestion1Stream = close1ClickStream
+  .combineLatest(responseStream,             
+    function(click, listUsers) {
+      return listUsers[Math.floor(Math.random()*listUsers.length)];
+    }
+  )
+  .merge(
+    refreshClickStream.map(function(){ return null; })
+  )
+  .startWith(null);
+```
+
+One piece is still missing in the puzzle. The combineLatest() uses the most recent of the two sources, but if one of those sources hasn't emitted anything yet, combineLatest() cannot produce a data event on the output stream. If you look at the ASCII diagram above, you will see that the output has nothing when the first stream emitted value `a`. Only when the second stream emitted value `b` could it produce an output value.
+
+There are different ways of solving this, and we will stay with the simplest one, which is simulating a click to the 'close 1' button on startup:
+
+```javascript
+var suggestion1Stream = close1ClickStream.startWith('startup click') // we added this
+  .combineLatest(responseStream,             
+    function(click, listUsers) {l
+      return listUsers[Math.floor(Math.random()*listUsers.length)];
+    }
+  )
+  .merge(
+    refreshClickStream.map(function(){ return null; })
+  )
+  .startWith(null);
+```
+
+现在，我们还缺一小块地方，`combineLatest()`函数使用了最近的两个数据源，但是如果某一个数据源并没有发出任何东西，`combineLatest()`函数又不能产生出一个输出的数据事件。如果你看了上面的ASCII图标，你会明白当第一个数据量发出一个`a`值时并没有任何的输出，只有当第二个数据量发出一个`b`值的时候才会产生处一个输出值。
+
+哲理有很多种方法来解决这个问题，我们来使用最简单的一种，也就是在启动的时候来模拟'close 1'的点击事件：
+
+```javascript
+var suggestion1Stream = close1ClickStream.startWith('startup click') // we added this
+  .combineLatest(responseStream,             
+    function(click, listUsers) {l
+      return listUsers[Math.floor(Math.random()*listUsers.length)];
+    }
+  )
+  .merge(
+    refreshClickStream.map(function(){ return null; })
+  )
+  .startWith(null);
+```
+
+## Wrapping up
+
+And we're done. The complete code for all this was:
+
+```javascript
+var refreshButton = document.querySelector('.refresh');
+var refreshClickStream = Rx.Observable.fromEvent(refreshButton, 'click');
+
+var closeButton1 = document.querySelector('.close1');
+var close1ClickStream = Rx.Observable.fromEvent(closeButton1, 'click');
+// and the same logic for close2 and close3
+
+var requestStream = refreshClickStream.startWith('startup click')
+  .map(function() {
+    var randomOffset = Math.floor(Math.random()*500);
+    return 'https://api.github.com/users?since=' + randomOffset;
+  });
+
+var responseStream = requestStream
+  .flatMap(function (requestUrl) {
+    return Rx.Observable.fromPromise($.ajax({url: requestUrl}));
+  });
+
+var suggestion1Stream = close1ClickStream.startWith('startup click')
+  .combineLatest(responseStream,             
+    function(click, listUsers) {
+      return listUsers[Math.floor(Math.random()*listUsers.length)];
+    }
+  )
+  .merge(
+    refreshClickStream.map(function(){ return null; })
+  )
+  .startWith(null);
+// and the same logic for suggestion2Stream and suggestion3Stream
+
+suggestion1Stream.subscribe(function(suggestion) {
+  if (suggestion === null) {
+    // hide the first suggestion DOM element
+  }
+  else {
+    // show the first suggestion DOM element
+    // and render the data
+  }
+});
+```
+
+## 封装起来
+
+最后我们完成了，下面是完整的示例代码：
+
+```javascript
+var refreshButton = document.querySelector('.refresh');
+var refreshClickStream = Rx.Observable.fromEvent(refreshButton, 'click');
+
+var closeButton1 = document.querySelector('.close1');
+var close1ClickStream = Rx.Observable.fromEvent(closeButton1, 'click');
+// and the same logic for close2 and close3
+
+var requestStream = refreshClickStream.startWith('startup click')
+  .map(function() {
+    var randomOffset = Math.floor(Math.random()*500);
+    return 'https://api.github.com/users?since=' + randomOffset;
+  });
+
+var responseStream = requestStream
+  .flatMap(function (requestUrl) {
+    return Rx.Observable.fromPromise($.ajax({url: requestUrl}));
+  });
+
+var suggestion1Stream = close1ClickStream.startWith('startup click')
+  .combineLatest(responseStream,             
+    function(click, listUsers) {
+      return listUsers[Math.floor(Math.random()*listUsers.length)];
+    }
+  )
+  .merge(
+    refreshClickStream.map(function(){ return null; })
+  )
+  .startWith(null);
+// and the same logic for suggestion2Stream and suggestion3Stream
+
+suggestion1Stream.subscribe(function(suggestion) {
+  if (suggestion === null) {
+    // hide the first suggestion DOM element
+  }
+  else {
+    // show the first suggestion DOM element
+    // and render the data
+  }
+});
+```
+
+**You can see this working example at http://jsfiddle.net/staltz/8jFJH/48/**
+
+That piece of code is small but dense: it features management of multiple events with proper separation of concerns, and even caching of responses. The functional style made the code look more declarative than imperative: we are not giving a sequence of instructions to execute, we are just **telling what something is** by defining relationships between streams. For instance, with Rx we told the computer that _`suggestion1Stream` **is** the 'close 1' stream combined with one user from the latest response, besides being `null` when a refresh happens or program startup happened_.
+
+Notice also the impressive absence of control flow elements such as `if`, `for`, `while`, and the typical callback-based control flow that you expect from a JavaScript application. You can even get rid of the `if` and `else` in the `subscribe()` above by using `filter()` if you want (I'll leave the implementation details to you as an exercise). In Rx, we have stream functions such as `map`, `filter`, `scan`, `merge`, `combineLatest`, `startWith`, and many more to control the flow of an event-driven program. This toolset of functions gives you more power in less code.
+
+**你在[这里](http://jsfiddle.net/staltz/8jFJH/48/)可以看到可演示的示例工程**
+
