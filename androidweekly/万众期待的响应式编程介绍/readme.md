@@ -1124,4 +1124,4 @@ If this tutorial helped you, [tweet it forward](https://twitter.com/intent/tweet
 
 而Rx对于像前端和App这样需要处理大量的编程效果是非常棒的。但是它不只是可以用在客户端，它还可以用在后端或者接近数据库的地方。事实上，[RxJava就是Netflix服务端API用来处理并行的组件](http://techblog.netflix.com/2013/02/rxjava-netflix-api.html)。Rx并不是局限于某种应用程序或者编程语言的框架，它真的是，当你编写任何的事件驱动程序，可以遵循的一个非常棒的编程范式。
 
-如果这篇教程对你有帮助, [(那么请来转发一下吧)tweet it forward](https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fgist.github.com%2Fstaltz%2F868e7e9bc2a7b8c1f754%2F&amp;text=The%20introduction%20to%20Reactive%20Programming%20you%27ve%20been%20missing&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fgist.github.com%2Fstaltz%2F868e7e9bc2a7b8c1f754&amp;via=andrestaltz).
+如果这篇教程对你有帮助, [那么就请来转发一下吧(tweet it forward)](https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fgist.github.com%2Fstaltz%2F868e7e9bc2a7b8c1f754%2F&amp;text=The%20introduction%20to%20Reactive%20Programming%20you%27ve%20been%20missing&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fgist.github.com%2Fstaltz%2F868e7e9bc2a7b8c1f754&amp;via=andrestaltz).
