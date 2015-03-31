@@ -27,6 +27,7 @@
 
 ## values/styles.xml ##
 
+```xml
     <style name="AppTheme" parent="Theme.AppCompat.Light">
    		 <item name="colorPrimary">@color/colorPrimary</item>
    		 <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -38,9 +39,11 @@
    		 <!-- some other theme configurations for actionbar, overflow menu etc. -->
    		 ...
     </style>
+```
 
 ## values/colors.xml ##
 
+```xml
     <!-- brand color: orange -->
     <color name="colorPrimary">#FF9800</color>
     <color name="colorPrimaryDark">#F57C00</color>
@@ -53,11 +56,15 @@
     <!-- inverse text color: 87% black -->
     <color name="textColorPrimaryInverse">#DE000000</color>
     <color name="textColorSecondaryInverse">#9E9E9E</color>
+```
 
 ## AndroidManifest.xml ##
+
+```xml
     <application android:name=".Application" android:theme="@style/AppTheme">
     ...
     </application>
+```
 
 theme 中涉及的各种属性的含义可以在[Android Developers blog](http://android-developers.blogspot.sg/2014/10/appcompat-v21-material-design-for-pre.html "Android Developers blog") 里面找到解释
 
@@ -73,6 +80,7 @@ theme 中涉及的各种属性的含义可以在[Android Developers blog](http:/
 
 ## menu/my_menu.xml ##
 
+```xml
     <menu xmlns:android="http://schemas.android.com/apk/res/android">
     	<item android:id="@id/menu_comment"
     android:icon="@drawable/ic_mode_comment_white_24dp" />
@@ -81,15 +89,18 @@ theme 中涉及的各种属性的含义可以在[Android Developers blog](http:/
     	<item android:id="@id/menu_share"
     app:actionProviderClass="android.support.v7.widget.ShareActionProvider" />
     </menu>
+```
 
 为了使颜色一致，并且能让我们的Views和Texts能够在多个主题下被使用，最好的解决办法就是把颜色变成资源的引用，例如：android:textColor="@color/textColorPrimary；又或者是通过设置style来改变，例如：在textEmptyStyle.xml文件下，我们只使用被选中的颜色
 
 ## values/styles.xml ##
 
+```xml
     <style name="textEmptyStyle">
    		 <item name="android:textColor">@color/textColorSecondary</item>
    		 <item name="android:textSize">@dimen/abc_text_size_headline_material</item>
     ...
     </style>
+```
 
 我相信通过今天在上面所介绍的这些内容已经足够让我们实现一个符合Material Design的明亮风格的主题了，下一篇博文我将会给大家介绍如何实现一个符合Material Design的灰暗风格的主题，以及如何在运行App的过程中切换主题。希望大家继续关注我的博客哦。
