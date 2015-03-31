@@ -1098,3 +1098,30 @@ Notice also the impressive absence of control flow elements such as `if`, `for`,
 
 **你在[这里](http://jsfiddle.net/staltz/8jFJH/48/)可以看到可演示的示例工程**
 
+以上的代码片段虽小但却做了很多功能：它适当的使用关注分离(separation of concerns)的实现了对多个事件流的管理，甚至做到了响应数据的缓存。这种函数式的风格使得代码看起来更像是声明式编程而非命令式编程：我们并不是在给一组指令去执行，我们只是定义了事件流之间关系来**告诉它这是什么**。例如，我们用Rx来告诉计算机_`suggestion1Stream`**是**'close 1'事件结合从最新的响应数据中拿到的一个用户数据的事件流，除此之外，当刷新事件发生时和程序启动时，它就是`null`_。
+
+留意一下代码中并未出现例如`if`, `for`, `while`流程控制语句，或者像JavaScript那样典型的基于回调(callback-based)的流程控制。如果可以的话(稍候会给你留一些实现细节来作为一次练习)，你甚至可以在`subscribe()`上使用 `filter()`函数来摆脱`if`和`else`。在Rx里，我们有例如： `map`, `filter`, `scan`, `merge`, `combineLatest`, `startWith`等事件流的函数，还有很多函数可以用来控制**事件驱动编程(event-driven program)**的流程。这些函数的集合可以让你使用更少的代码实现更强大的功能。
+
+## What comes next
+
+If you think Rx* will be your preferred library for Reactive Programming, take a while to get acquainted with the [big list of functions](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md) for transforming, combining, and creating Observables. If you want to understand those functions in diagrams of streams, take a look at [RxJava's very useful documentation with marble diagrams](https://github.com/Netflix/RxJava/wiki/Creating-Observables). Whenever you get stuck trying to do something, draw those diagrams, think on them, look at the long list of functions, and think more. This workflow has been effective in my experience.
+
+Once you start getting the hang of programming with Rx*, it is absolutely required to understand the concept of [Cold vs Hot Observables](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md#cold-vs-hot-observables). If you ignore this, it will come back and bite you brutally. You have been warned. Sharpen your skills further by learning real functional programming, and getting acquainted with issues such as side effects that affect Rx*.
+
+But Reactive Programming is not just Rx*. There is [Bacon.js](http://baconjs.github.io/) which is intuitive to work with, without the quirks you sometimes encounter in Rx*. The [Elm Language](http://elm-lang.org/) lives in its own category: it's a Functional Reactive Programming **language** that compiles to JavaScript + HTML + CSS, and features a [time travelling debugger](http://debug.elm-lang.org/). Pretty awesome.
+
+Rx works great for event-heavy frontends and apps. But it is not just a client-side thing, it works great also in the backend and close to databases. In fact, [RxJava is a key component for enabling server-side concurrency in Netflix's API](http://techblog.netflix.com/2013/02/rxjava-netflix-api.html). Rx is not a framework restricted to one specific type of application or language. It really is a paradigm that you can use when programming any event-driven software.
+
+If this tutorial helped you, [tweet it forward](https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fgist.github.com%2Fstaltz%2F868e7e9bc2a7b8c1f754%2F&amp;text=The%20introduction%20to%20Reactive%20Programming%20you%27ve%20been%20missing&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fgist.github.com%2Fstaltz%2F868e7e9bc2a7b8c1f754&amp;via=andrestaltz).
+
+## 接下来
+
+如果你认为Rx家族将会成为你首选的响应式编程库，接下来则需要花一些时间来熟悉[一大批的函数](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md)用来变形、联合、创建可观察者。如果你想在事件流的图表当中熟悉这些函数，那就来看一下这个：[RxJava's very useful documentation with marble diagrams](https://github.com/Netflix/RxJava/wiki/Creating-Observables)。请记住，无论何时你遇到问题，画一下这些图，思考一下，看一下这一大串函数，然后继续思考。以我个人经验，这样效果很明显。
+
+一旦你开始使用掌握Rx编程的编程，请记住，理解[Cold vs Hot Observables](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md#cold-vs-hot-observables)的概念是非常必要的，如果你忽视了这一点，它就会反弹回来并残忍的反咬你一口。我这里已经警告你了，学习函数式编程可以提高你的技能，熟悉一些常见问题，例如Rx带来的副作用
+
+但是RP并不仅仅是Rx家族，还有相对容易理解的，没有Rx那些怪癖的[Bacon.js](http://baconjs.github.io/)。[Elm Language](http://elm-lang.org/)则以它自己的方式支持RP：它是一门会编译成Javascript + HTML + CSS的RP语言，并有一个[time travelling debugger](http://debug.elm-lang.org/)功能，很棒吧。
+
+而Rx对于像前端和App这样需要处理大量的编程效果是非常棒的。但是它不只是可以用在客户端，它还可以用在后端或者接近数据库的地方。事实上，[RxJava就是Netflix服务端API用来处理并行的组件](http://techblog.netflix.com/2013/02/rxjava-netflix-api.html)。Rx并不是局限于某种应用程序或者编程语言的框架，它真的是，当你编写任何的事件驱动程序，可以遵循的一个非常棒的编程范式。
+
+如果这篇教程对你有帮助, [(那么请来转发一下吧)tweet it forward](https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fgist.github.com%2Fstaltz%2F868e7e9bc2a7b8c1f754%2F&amp;text=The%20introduction%20to%20Reactive%20Programming%20you%27ve%20been%20missing&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fgist.github.com%2Fstaltz%2F868e7e9bc2a7b8c1f754&amp;via=andrestaltz).
