@@ -194,4 +194,4 @@ You should now be able to use the JobScheduler API with your own applications to
 In this article, you've learned how to implement a JobService subclass that uses a Handler object to run background tasks for your application. You've also learned how to use the JobInfo.Builder to set requirements for when your service should run. Using these, you should be able to improve how your own applications operate while being mindful of power consumption.
 
 ## 结论
-这篇文章中，你学会了怎么实现一个使用Handler对象来运行后台任务的JobService子类，你也学会了如何使用JobInfo.Builder来设置JobService。通过这些，你可以提升应用中的耗时操作的资源消耗。
+这篇文章中，你学会了怎么实现一个使用Handler对象来运行后台任务的JobService子类，你也学会了如何使用JobInfo.Builder来设置JobService。通过这些，你可以减少应用中的耗时操作的资源消耗。
