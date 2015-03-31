@@ -501,3 +501,360 @@ var requestStream = refreshClickStream
 
 因为我比较笨而且也没有使用自动化测试，所以我刚把之前做好的一个特性搞烂了。这样请求在一开始的时候并不会执行，而只有在点击事件发生时才会执行。我们需要的是两种情况都要执行：是一开始打开网页和点击刷新按钮都会执行的请求。
 
+We know how to make a separate stream for each one of those cases:
+
+```javascript
+var requestOnRefreshStream = refreshClickStream
+  .map(function() {
+    var randomOffset = Math.floor(Math.random()*500);
+    return 'https://api.github.com/users?since=' + randomOffset;
+  });
+  
+var startupRequestStream = Rx.Observable.just('https://api.github.com/users');
+```
+
+But how can we "merge" these two into one? Well, there's [`merge()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypemergemaxconcurrent--other). Explained in the diagram dialect, this is what it does:
+
+```
+stream A: ---a--------e-----o----->
+stream B: -----B---C-----D-------->
+          vvvvvvvvv merge vvvvvvvvv
+          ---a-B---C--e--D--o----->
+```
+
+我们知道如何为每一种情况做一个单独的事件流：
+
+```javascript
+var requestOnRefreshStream = refreshClickStream
+  .map(function() {
+    var randomOffset = Math.floor(Math.random()*500);
+    return 'https://api.github.com/users?since=' + randomOffset;
+  });
+  
+var startupRequestStream = Rx.Observable.just('https://api.github.com/users');
+```
+
+但是我们是否可以将这两个合并成一个呢？没错，是可以的，我们可以使用[`merge()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypemergemaxconcurrent--other)方法来实现。下图可以解释`map()`函数的用处：
+
+```
+stream A: ---a--------e-----o----->
+stream B: -----B---C-----D-------->
+          vvvvvvvvv merge vvvvvvvvv
+          ---a-B---C--e--D--o----->
+```
+
+It should be easy now:
+
+```javascript
+var requestOnRefreshStream = refreshClickStream
+  .map(function() {
+    var randomOffset = Math.floor(Math.random()*500);
+    return 'https://api.github.com/users?since=' + randomOffset;
+  });
+  
+var startupRequestStream = Rx.Observable.just('https://api.github.com/users');
+
+var requestStream = Rx.Observable.merge(
+  requestOnRefreshStream, startupRequestStream
+);
+```
+
+There is an alternative and cleaner way of writing that, without the intermediate streams.
+
+```javascript
+var requestStream = refreshClickStream
+  .map(function() {
+    var randomOffset = Math.floor(Math.random()*500);
+    return 'https://api.github.com/users?since=' + randomOffset;
+  })
+  .merge(Rx.Observable.just('https://api.github.com/users'));
+```
+
+现在做起来应该很简单：
+
+```javascript
+var requestOnRefreshStream = refreshClickStream
+  .map(function() {
+    var randomOffset = Math.floor(Math.random()*500);
+    return 'https://api.github.com/users?since=' + randomOffset;
+  });
+  
+var startupRequestStream = Rx.Observable.just('https://api.github.com/users');
+
+var requestStream = Rx.Observable.merge(
+  requestOnRefreshStream, startupRequestStream
+);
+```
+
+还有一个更干净的写法，省去了中间事件流变量：
+
+```javascript
+var requestStream = refreshClickStream
+  .map(function() {
+    var randomOffset = Math.floor(Math.random()*500);
+    return 'https://api.github.com/users?since=' + randomOffset;
+  })
+  .merge(Rx.Observable.just('https://api.github.com/users'));
+```
+
+甚至可以更简短，更具有可读性：
+```javascript
+var requestStream = refreshClickStream
+  .map(function() {
+    var randomOffset = Math.floor(Math.random()*500);
+    return 'https://api.github.com/users?since=' + randomOffset;
+  })
+  .startWith('https://api.github.com/users');
+```
+
+The [`startWith()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypestartwithscheduler-args) function does exactly what you think it does. No matter how your input stream looks like, the output stream resulting of `startWith(x)` will have `x` at the beginning. But I'm not [DRY](https://en.wikipedia.org/wiki/Don't_repeat_yourself) enough, I'm repeating the API endpoint string. One way to fix this is by moving the `startWith()` close to the `refreshClickStream`, to essentially "emulate" a refresh click on startup.  
+
+```javascript
+var requestStream = refreshClickStream.startWith('startup click')
+  .map(function() {
+    var randomOffset = Math.floor(Math.random()*500);
+    return 'https://api.github.com/users?since=' + randomOffset;
+  });
+```
+
+Nice. If you go back to the point where I "broke the automated tests", you should see that the only difference with this last approach is that I added the `startWith()`.
+
+[`startWith()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypestartwithscheduler-args)函数做的事和你预期的完全一样。无论你的输入事件流是怎样的，使用`startWith(x)`函数处理过后输出的事件流一定是一个`x` 开头的结果。但是我没有总是[重复代码( DRY)](https://en.wikipedia.org/wiki/Don't_repeat_yourself)，我只是在重复API的URL字符串.一个改进的方法是将 `startWith()`函数挪到离 `refreshClickStream`函数近的地方，可以在启动时，模拟一个刷新按钮的点击事件。
+
+```javascript
+var requestStream = refreshClickStream.startWith('startup click')
+  .map(function() {
+    var randomOffset = Math.floor(Math.random()*500);
+    return 'https://api.github.com/users?since=' + randomOffset;
+  });
+```
+
+不错，如果你倒回到"搞烂了的自动测试"的地方，再对比这两个地方，你会发现我仅仅是加了一个`startWith()`函数而已。
+
+## Modelling the 3 suggestions with streams
+
+Until now, we have only touched a _suggestion_ UI element on the rendering step that happens in the responseStream's `subscribe()`. Now with the refresh button, we have a problem: as soon as you click 'refresh', the current 3 suggestions are not cleared. New suggestions come in only after a response has arrived, but to make the UI look nice, we need to clean out the current suggestions when clicks happen on the refresh.
+
+```javascript
+refreshClickStream.subscribe(function() {
+  // clear the 3 suggestion DOM elements 
+});
+```
+
+No, not so fast, pal. This is bad, because we now have **two** subscribers that affect the suggestion DOM elements (the other one being `responseStream.subscribe()`), and that doesn't really sound like [Separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns). Remember the Reactive mantra? 
+
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+
+![Mantra](http://i.imgur.com/AIimQ8C.jpg)
+
+## 用事件流将那3个推荐的用户数据模型化
+
+直到现在，我们在响应事件流(responseStream)的订阅(`subscribe()`)的步骤里只是稍微提了一下渲染_推荐关注_的UI而已。现在有了刷新按钮，我们就会出现一个问题：当你点击了刷新按时，当前的三个推荐关注的用户数据却没有清楚，而新的推荐关注的用户数据在点击后响应的数据中就拿到了，为了让UI看起来更漂亮，我们需要在点击刷新按钮的事件发生的时候清楚当前的三个推荐关注的用户数据。
+
+```javascript
+refreshClickStream.subscribe(function() {
+  // clear the 3 suggestion DOM elements 
+});
+```
+
+不，老兄，还没那么快。我们又出现了新的问题，因为我们现在有两个订阅者在影响着推荐关注的UI DOM元素(另一个是 `responseStream.subscribe()`)，这样听起来并不像是[关注分离(Separation of concerns)](https://en.wikipedia.org/wiki/Separation_of_concerns)，还记得RP的原则么？
+
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+
+![Mantra](http://i.imgur.com/AIimQ8C.jpg)
+
+So let's model a suggestion as a stream, where each emitted value is the JSON object containing the suggestion data. We will do this separately for each of the 3 suggestions. This is how the stream for suggestion #1 could look like:
+
+```javascript
+var suggestion1Stream = responseStream
+  .map(function(listUsers) {
+    // get one random user from the list
+    return listUsers[Math.floor(Math.random()*listUsers.length)];
+  });
+```
+
+The others, `suggestion2Stream` and `suggestion3Stream` can be simply copy pasted from `suggestion1Stream`. This is not DRY, but it will keep our example simple for this tutorial, plus I think it's a good exercise to think how to avoid repetition in this case.
+
+现在，让我们把推荐关注的用户数据模型化，它们每个发出的值就是一个包含了推荐关注用户数据的JSON对象。我们将把这三个用户数据分开处理，下面是推荐关注的1号用户数据的事件流：
+
+```javascript
+var suggestion1Stream = responseStream
+  .map(function(listUsers) {
+    // get one random user from the list
+    return listUsers[Math.floor(Math.random()*listUsers.length)];
+  });
+```
+
+其他的，如推荐关注的2号用户数据的事件流`suggestion2Stream`和推荐关注的3号用户数据的事件流`suggestion3Stream` 都可以方便的从`suggestion3Stream` 拷贝粘贴就好。这样并不是**重复代码**，这是为让我们的示例更加简单，而且我认为这是一个思考如何避免**重复代码**的一次好的经历。
+
+Instead of having the rendering happen in responseStream's subscribe(), we do that here:
+
+```javascript
+suggestion1Stream.subscribe(function(suggestion) {
+  // render the 1st suggestion to the DOM
+});
+```
+
+Back to the "on refresh, clear the suggestions", we can simply map refresh clicks to `null` suggestion data, and include that in the `suggestion1Stream`, as such:
+
+```javascript
+var suggestion1Stream = responseStream
+  .map(function(listUsers) {
+    // get one random user from the list
+    return listUsers[Math.floor(Math.random()*listUsers.length)];
+  })
+  .merge(
+    refreshClickStream.map(function(){ return null; })
+  );
+```
+
+And when rendering, we interpret `null` as "no data", hence hiding its UI element.
+
+```javascript
+suggestion1Stream.subscribe(function(suggestion) {
+  if (suggestion === null) {
+    // hide the first suggestion DOM element
+  }
+  else {
+    // show the first suggestion DOM element
+    // and render the data
+  }
+});
+```
+
+我们不在responseStream的subscribe()中处理渲染了，我们这样处理：
+
+```javascript
+suggestion1Stream.subscribe(function(suggestion) {
+  // render the 1st suggestion to the DOM
+});
+```
+
+回到"当刷新时，清理掉当前的推荐关注的用户数据"，我们可以很简单的把刷新点击映射为null(即没有推荐数据)，并且在`suggestion1Stream`中包含进来，如下：
+
+```javascript
+var suggestion1Stream = responseStream
+  .map(function(listUsers) {
+    // get one random user from the list
+    return listUsers[Math.floor(Math.random()*listUsers.length)];
+  })
+  .merge(
+    refreshClickStream.map(function(){ return null; })
+  );
+```
+
+当渲染时，我们将 `null`解释为"没有数据"，然后把UI元素隐藏起来。
+
+```javascript
+suggestion1Stream.subscribe(function(suggestion) {
+  if (suggestion === null) {
+    // hide the first suggestion DOM element
+  }
+  else {
+    // show the first suggestion DOM element
+    // and render the data
+  }
+});
+```
+
+The big picture is now:
+
+```
+refreshClickStream: ----------o--------o---->
+     requestStream: -r--------r--------r---->
+    responseStream: ----R---------R------R-->   
+ suggestion1Stream: ----s-----N---s----N-s-->
+ suggestion2Stream: ----q-----N---q----N-q-->
+ suggestion3Stream: ----t-----N---t----N-t-->
+```
+
+Where `N` stands for `null`.
+
+As a bonus, we can also render "empty" suggestions on startup. That is done by adding `startWith(null)` to the suggestion streams:
+
+```javascript
+var suggestion1Stream = responseStream
+  .map(function(listUsers) {
+    // get one random user from the list
+    return listUsers[Math.floor(Math.random()*listUsers.length)];
+  })
+  .merge(
+    refreshClickStream.map(function(){ return null; })
+  )
+  .startWith(null);
+```
+
+Which results in:
+
+```
+refreshClickStream: ----------o---------o---->
+     requestStream: -r--------r---------r---->
+    responseStream: ----R----------R------R-->   
+ suggestion1Stream: -N--s-----N----s----N-s-->
+ suggestion2Stream: -N--q-----N----q----N-q-->
+ suggestion3Stream: -N--t-----N----t----N-t-->
+```
+
+现在我们的一个大的示意图是这样的：
+
+```
+refreshClickStream: ----------o--------o---->
+     requestStream: -r--------r--------r---->
+    responseStream: ----R---------R------R-->   
+ suggestion1Stream: ----s-----N---s----N-s-->
+ suggestion2Stream: ----q-----N---q----N-q-->
+ suggestion3Stream: ----t-----N---t----N-t-->
+```
+
+里面`N`代表`null`
+
+作为一种补充，我们也可以在一开始的时候就渲染空的推荐内容。这通过把startWith(null)添加到推荐关注事件就完成了：
+
+```javascript
+var suggestion1Stream = responseStream
+  .map(function(listUsers) {
+    // get one random user from the list
+    return listUsers[Math.floor(Math.random()*listUsers.length)];
+  })
+  .merge(
+    refreshClickStream.map(function(){ return null; })
+  )
+  .startWith(null);
+```
+
+最后的结果，数据量是这样的：
+
+```
+refreshClickStream: ----------o---------o---->
+     requestStream: -r--------r---------r---->
+    responseStream: ----R----------R------R-->   
+ suggestion1Stream: -N--s-----N----s----N-s-->
+ suggestion2Stream: -N--q-----N----q----N-q-->
+ suggestion3Stream: -N--t-----N----t----N-t-->
+```
+
+## Closing a suggestion and using cached responses
+
+There is one feature remaining to implement. Each suggestion should have its own 'x' button for closing it, and loading another in its place. At first thought, you could say it's enough to make a new request when any close button is clicked:
+
+```javascript
+var close1Button = document.querySelector('.close1');
+var close1ClickStream = Rx.Observable.fromEvent(close1Button, 'click');
+// and the same for close2Button and close3Button
+
+var requestStream = refreshClickStream.startWith('startup click')
+  .merge(close1ClickStream) // we added this
+  .map(function() {
+    var randomOffset = Math.floor(Math.random()*500);
+    return 'https://api.github.com/users?since=' + randomOffset;
+  });
+```
+
+That does not work. It will close and reload _all_ suggestions, rather than just only the one we clicked on. There are a couple of different ways of solving this, and to keep it interesting, we will solve it by reusing previous responses. The API's response page size is 100 users while we were using just 3 of those, so there is plenty of fresh data available. No need to request more.
+
