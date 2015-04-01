@@ -3,9 +3,9 @@
 
 >
 * 原文链接 : [原文标题](原文url)
-* 译者 : [这里写你的github用户名](github链接) 
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  未完成 / 校对中 / 完成 
+* 译者 : [lvtea0105](https://github.com/lvtea0105) 
+* 校对者: [bboyfeiyu](https://github.com/bboyfeiyu)  
+* 状态 :   校对中
 
 
 
