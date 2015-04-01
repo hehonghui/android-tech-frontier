@@ -15,10 +15,14 @@ On iOS, we could get this sort of blurring by first constructing a UIVisualEffec
 
 在IOS设备中，我们首先构造一个UIVisualEffectView,之后添加 visualEffectView 到view层，在view中可以进行动态的模糊。
 
-## 入门指南
-大家都知道要写一款精品软件是有难度且很复杂的：不仅要满足特定要求，而且软件还必须具有稳健性，可维护、可测试性强，并且能够灵活适应各种发展与变化。这时候，“清晰架构”就应运而生了，这一架构在开发任何软件应用的时候用起来非常顺手。
+## 安卓中的表现形式
 
-这个思路很简单：简洁架构 意味着产品系统中遵循一系列的习惯原则：
+While things are not as straightforward on Android, we did see great examples of the blur effect, such as in the Yahoo Weather app. According to Nicholas Pomepuy’s blog post, however, the blurring is here achieved through caching a pre-render blurred version of the background image.
 
+在Android 中，模糊的实现就不是这样简单直接，我们在雅虎天气APP中确实看到了很好的模糊效果实例，但是根据Nicholas Pomepuy 的博客帖子，通过隐藏预渲染得到的效果会模糊所有背景图片。
+
+While this approach could be very effective, it is not exactly suitable for our needs. At 500px, images are typically the focal content rather than merely supplying a background. That means images could change a lot and change quickly, even if they are behind a blurring layer. The tour in our Android app is a case in point. Here, as the user swipes for the next page, rows of images shift in opposite directions and fade out, making it difficult to appropriately manage multiple pre-rendered images for composing the required blur effect.
+
+虽然这种方法非常有效，但是确实不符合我们的需求，在500px的APP中，图像通常是获得焦点的内容，而不仅仅是提供背景，这说明图像的变化很大且迅速，即便他们是在模糊层之下。在我们的安卓APP中即是一个恰当的例子：当用户滑动至下一页时，整排图片会以相反方向淡出，为了组成所需的模糊效果，适当地管理多个预渲染图是困难的。
 
 
