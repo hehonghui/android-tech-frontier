@@ -9,39 +9,51 @@ Kotlin for Android (II)创建一个工程
 * 状态 :  未完成
 
 
-After getting a light idea of [what Kotlin is and what it can do for us](http://antonioleiva.com/kotlin-for-android-introduction/), it´s time to configure Android Studio to help us develop Android apps using Kotlin. It requires some steps that only need to be done first time, but some other Gradle configurations will need to be done on every new project.
+当我从[what Kotlin is and what it can do for us](http://antonioleiva.com/kotlin-for-android-introduction/)获得一些启发之后,觉得是时候配置下 Android Studio来帮助我们用Kotlin开发Android应用程序了. 其中有些步骤只需要在第一次使用的时候做一次, 但是其他一些Gradle配置需要为每一个新项目做一遍.
 
-For this set of articles, I´ll be creating a reduced version of [Bandhook](https://play.google.com/store/apps/details?id=com.limecreativelabs.bandhook), an app I created some time ago, which will basically connect to a music rest API and return some info about a set of bands. Go to [Bandhook Kotlin on Github](https://github.com/antoniolg/Bandhook-Kotlin) and take a look at the code.
-
-
-###Create a new project and download Kotlin plugin###
+对于本系列文章, 我将创建一个我早些时候创建的[Bandhook](https://play.google.com/store/apps/details?id=com.limecreativelabs.bandhook)的简化版本, 它基本上就是连接到一个基于RESTful的音乐API然后接收一些乐队的信息. 链接到 [Bandhook Kotlin on Github](https://github.com/antoniolg/Bandhook-Kotlin) 查看源代码.
 
 
-###Add Kotlin plugin dependency to your application build.gradle###
+###创建一个新项目然后下载Kotlin插件###
 
-Just create a basic Android project with an activity using Android Studio, the same way you would do for a regular project.
+只需要像我们平时的项目一样用Android Studio创建一个简单的带有一个Activity的Android项目.
 
-Once done, first thing you´ll need is to download Kotling plugin. Go to Android Studio preferences and search plugins. Once there, use search again to find Kotlin plugin. Install and restart the IDE.
+一旦完成,我们需要做的第一件事就是去下载Kotlin插件. 去到Android Studio的系统设置中然后查找plugins.到达之后，再次使用搜索找到Kotlin插件，安装并重启IDE。
 
 ![kotlin-plugin](http://7xi8kj.com1.z0.glb.clouddn.com/kotlin-plugin-e1424632570741.png)
 
+###添加Kotlin插件的依赖到的应用程序的build.gradle中###
+
+该项目的根build.gradle需要添加一个新的依赖，这个依赖将会被Kotlin插件要求以在主Module中使用:
+```gradle
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.1.3'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:0.11.91'
+    }
+}
+```
 
 
-###Configure module build.grade###
 
-First, apply Kotlin plugin:
+###配置Module的build.grade###
+
+首先, 应用Kotlin插件:
 ```gradle
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 ```
-Then, add the Kotlin library to your dependencies:
+接着, 添加Kotlin库到你的依赖:
 ```gradle
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'org.jetbrains.kotlin:kotlin-stdlib:0.11.91'
 }
 ```
-And finally, you need to add the Kotlin folder we´ll be creating on next step to your sources folders:
+最后, 你需要添加我们在下一个步骤创建的Kotlin文件夹:
 ```gradle
 android {
     compileSdkVersion 22
@@ -54,22 +66,28 @@ android {
     }
 }
 ```
-Alternatively, you can skip this step, and after doing next ones, use this Android Studio action:
+或者,你可以跳过这一步,当做完下一个时，使用这个Android Studio的操作:
+
 ![configure-kotlin-project](http://7xi8kj.com1.z0.glb.clouddn.com/configure-kotlin-project.png)
-I prefer doing it manually to keep my Gradle files organized, but this second option could be easier.
+
+我更倾向于手动去做以保持我的Gradle文件有整洁有序, 但第二个选项可能更容易。
 
 
 
-###Create Kotlin folder###
+###创建Kotlin文件夹###
 
-It will be easier if you change the project visualization from ‘Android’ to ‘Project’. Go to ‘app->src->main’ and create a folder called ‘kotlin':
+如果你将项目的视图从‘Android’转到‘Project’，那将会非常容易。依次选择‘app->src->main’ 然后创建一个名为 ‘kotlin'的文件夹:
+
 ![kotlin-folder](http://7xi8kj.com1.z0.glb.clouddn.com/kotlin-folder.png)
 
 
-###Convert java activity to a kotlin file###
 
-Kotlin plugin can convert from java to kotlin classes. We can convert our current activity to a Kotlin class very easily from ‘Code’ menu, by choosing ‘Convert Java File to Kotlin File':
+###将Java activity转换成Kotlin文件###
+
+Kotlin插件能将Java转换为Kotlin类. We can convert our current activity to a Kotlin class very easily from ‘Code’ menu, by choosing ‘Convert Java File to Kotlin File':
+
 ![convert-java-to-kotlin](http://7xi8kj.com1.z0.glb.clouddn.com/convert-java-to-kotlin-e1424633562637.png)
+
 IDE will suggest to move new file to the Kotlin folder. Click on ‘Move File’ (or move it manually if you don´t see the option).
 ```java
 public class MainActivity : ActionBarActivity() {
@@ -104,20 +122,21 @@ public class MainActivity : ActionBarActivity() {
 
 
 
-###Main differences###
+###主要区别###
 
-Just taking a look at previous code, we can see some direct differences. There are many more we´ll be discovering in next posts:
+看一看之前的代码, 我们可以看到一些明显的差异。 其中很大一部分我们将会在下一篇文章讲解到:
 
-- Use of colon instead of the word ‘extends’
-- Explicit use of ‘override': in Java, we can use an annotation to make our code more clear, but it´s not a condition. Kotlin will force us use it.
-- Use of ‘fun’ for functions: Kotlin is and object-oriented functional language, so it will be very similar to other languages such as Scala. Java methods are represented as functions.
-- Function parameters use a different nomenclature: Type and name are written the other way round and separated by a colon
-- Optional use of semicolons: we don´t need to finish our lines with a semicolon. We can if we want to, but it can save a lot of time and make our code cleaner if we don´t do it.
-- Other small details: In introductory article, I already talked about the ‘?’ symbol on. This indicates the parameter can be null. Nullity is handled different from what we are used in Java
+- 使用冒号，不是'extends'。
+- 显式使用‘override': 在Java中, 我们可以使用一个注释使我们的代码更清晰,但它不是必要条件. Kotlin将迫使我们使用它.
+- 函数则使用‘fun’关键字: Kotlin是一个面向对象的函数式语言, 因此可能会与其他语言类似，例如Scala. Java方法表示为函数。
+- 函数参数命名规则不同: 类型和名称都写在相反的位置,并用冒号隔开。
+- 分号可选: 我们不需要在行的结尾处加上分号。如果我们想要也可以加上, 但如果我们不这样做，它就可以节省大量的时间,并使我们的代码整洁。
+- 其他小细节: 在简介一文中, 我已经说到了 ‘?’ 的意义. 这表明参数可以为空。NULL的处理方式不同于Java。 
 
 
-###Conclusion###
 
-Though we can think using a new language will be very difficult, Kotlin is being created by the JetBrains team to be the most easy and interoperable language to cover the needs Java lacks. As Android Studio is also based on a JetBrains product, it will be very easy to integrate to this IDE and start working with it.
+###总结###
 
-Next article will cover some tips and tricks to make our life easier when developing Android apps with Kotlin.
+尽管我们也许会认为使用一门新语言将会非常困难, Kotlin被JetBrains团队开发出来的，要成为最容易和可交互的语言用来覆盖那些Java的不足之处。由于Android Studio也是基于JetBrains的产品，这将让集成到这个IDE中并且开始工作非常简单。
+
+下一篇文章将介绍一些让我们在基于Kotlin开发Android应用程序时，能让我们开发过程更简单的奇巧淫技。
