@@ -59,11 +59,12 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 ## 2015.4.3 ( 第三期 )
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|
-| [深入了解Bundle和Map](androidweekly/深入了解Bundle和Map)  | [yinna317](https://github.com/yinna317)       |   [medium.com](https://medium.com/the-wtf-files/the-mysterious-case-of-the-bundle-and-the-map-7b15279a794e)    |
-| [Square 开源库Flow和Mortar的介绍](androidweekly/Square 开源库Flow和Mortar的介绍)  | [sundroid](https://github.com/sundroid)( [chaossss](https://github.com/chaossss) 协同翻译) |  [bignerdranch.com](http://www.bignerdranch.com/blog/an-investigation-into-flow-and-mortar/)  |
-| [使用RxJava.Observable取代AsyncTask和AsyncTaskLoader](others/使用RxJava.Observable取代AsyncTask和AsyncTaskLoader)  | [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang)       |   [stablekernel.com](http://stablekernel.com/blog/replace-asynctask-asynctaskloader-rx-observable-rxjava-android-patterns/)  |
+| [深入了解Bundle和Map](androidweekly/深入了解Bundle和Map)  | [yinna317](https://github.com/yinna317)       |   [AndroidWeekly issue #145](http://androidweekly.net/issues/issue-145)    |
+| [Square 开源库Flow和Mortar的介绍](androidweekly/Square 开源库Flow和Mortar的介绍)  | [sundroid](https://github.com/sundroid)( [chaossss](https://github.com/chaossss) 协同翻译) |  [AndroidWeekly issue #142](http://androidweekly.net/issues/issue-142)  |
+| [使用RxJava.Observable取代AsyncTask和AsyncTaskLoader](others/使用RxJava.Observable取代AsyncTask和AsyncTaskLoader)  | [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang)       |   [AndroidWeekly issue #142](http://androidweekly.net/issues/issue-142)  |
 | [上传拍下的照片、视频到服务器](others/上传拍下的照片、视频到服务器)  | [chaossss](https://github.com/chaossss)       |   [http://www.androidhive.info/](http://www.androidhive.info/2014/12/android-uploading-camera-image-video-to-server-with-progress-bar/)    |
-| [简化Android的UI开发](others/简化Android的UI开发)  | [chaossss](https://github.com/chaossss)       |   [zserge.com](http://zserge.com/blog/android-mvx.html)    |
+| [简化Android的UI开发](others/简化Android的UI开发)  | [chaossss](https://github.com/chaossss)       |   [zserge.com/](http://zserge.com/)    |
+| [安卓字体渲染器](others/安卓字体渲染器)  | [7heaven](http://github.com/7heaven)       |   [AndroidWeekly issue #102](http://androidweekly.net/issues/issue-102)    |
 
 
 
@@ -73,8 +74,8 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | [Google+ 团队的 Android UI 测试](others/Google+ 团队的 Android UI 测试)  | [allenlsy](http://allelsy.com)       |   [Android Dev Blog](http://googletesting.blogspot.sg/2013/08/how-google-team-tests-mobile-apps.html)    |
 | [使用Robolectric的参数化测试](others/使用Robolectric的参数化测试)  | [Lollypo](https://github.com/Lollypo)       |    [AndroidWeekly issue #145](http://androidweekly.net/issues/issue-145)    |
 | [kotlin-for-android简介](androidweekly/kotlin-for-android简介)  | [canglangwenyue](https://github.com/canglangwenyue)       |    [AndroidWeekly issue #144](http://androidweekly.net/issues/issue-144)    |
-|[ListView或者RecycleView滚动时隐藏Toolbar(1)](androidweekly/ListView或者RecycleView滚动时隐藏Toolbar-part-1)  | [chaossss](https://github.com/chaossss)       |    [http://mzgreen.github.io] [scroll-part-1] |  
-|[ListView或者RecycleView滚动时隐藏Toolbar(2)](androidweekly/ListView或者RecycleView滚动时隐藏Toolbar-part-2)  | [chaossss](https://github.com/chaossss)       |    [http://mzgreen.github.io] [scroll-part-2]    |
+|[ListView或者RecycleView滚动时隐藏Toolbar(1)](androidweekly/ListView或者RecycleView滚动时隐藏Toolbar-part-1)  | [chaossss](https://github.com/chaossss)       |    [AndroidWeekly issue #141](http://androidweekly.net/issues/issue-141) |  
+|[ListView或者RecycleView滚动时隐藏Toolbar(2)](androidweekly/ListView或者RecycleView滚动时隐藏Toolbar-part-2)  | [chaossss](https://github.com/chaossss)       |    [AndroidWeekly issue #142](http://androidweekly.net/issues/issue-142)    |
 |[让你的Android应用能使用多种主题-Part-2](androidweekly/让你的Android应用能使用多种主题-Part-2)  | [chaossss](https://github.com/chaossss)       |    [AndroidWeekly Issue#144](http://androidweekly.net/issues/issue-144)    |
 | [清晰的软件架构 ( Bob大叔 )](others/清晰的软件架构)  | [zimoguo](https://github.com/zimoguo)       | [The Clean Architecture](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html)    |
 
@@ -87,7 +88,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|
 | [一种在android中实现MVP模式的新思路](androidweekly/一种在android中实现MVP模式的新思路)  | [FTExplore](https://github.com/FTExplore)       |   [AndroidWeekly issue #144](http://blog.cainwong.com/android-mvp-an-alternate-approach/)    |
-| [一种更清晰的Android架构](others/一种更清晰的Android架构)  | [Mr.Simple](https://github.com/bboyfeiyu)       |   [http://fernandocejas.com](http://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/)    |
+| [一种更清晰的Android架构](others/一种更清晰的Android架构)  | [Mr.Simple](https://github.com/bboyfeiyu)       |   [AndroidWeekly issue #118](http://androidweekly.net/issues/issue-118)    |
 | [一个支持多设备的Android参考应用](androidweekly/一个支持多设备的Android参考应用) | [Mr.Simple](https://github.com/bboyfeiyu) |   [AndroidWeekly issue #144](http://androidweekly.net/issues/issue-144)    |
 | [让你的Android应用能使用多种主题 (Part 1)](androidweekly/让你的Android应用能使用多种主题-Part-1) | [chaossss](https://github.com/chaossss) |   [AndroidWeekly issue #144](http://androidweekly.net/issues/issue-144)    |
 | [欢迎来到Android多进程时代](androidweekly/欢迎来到Android多进程时代)  | [Lollypo](https://github.com/Lollypo)       |   [AndroidWeekly issue #144](http://androidweekly.net/issues/issue-144)    |
