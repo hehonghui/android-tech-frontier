@@ -9,11 +9,9 @@
 * 状态 :  未完成
 
 
-> 注：为了突出"响应式编程"这个专有名词，也为了编写方便，更为了让大家便于记忆，这里用联合单词首字母大写"RP"来代替"响应式编程"这几个字，下文将全部替换，请注意啦。
-
 So you're curious in learning this new thing called Reactive Programming, particularly its variant comprising of Rx, Bacon.js, RAC, and others.
 
-相信你们在学习RP这个新技术的时候都会充满了好奇，特别是它的一些变种，包括Rx系列、Bacon.js、RAC和其他的一些变种。
+相信你们在学习响应式编程这个新技术的时候都会充满了好奇，特别是它的一些变体，包括Rx系列、Bacon.js、RAC和其他的一些变体。
 
 Learning it is hard, even harder by the lack of good material. When I started, I tried looking for tutorials. I found only a handful of practical guides, but they just scratched the surface and never tackled the challenge of building the whole architecture around it. Library documentations often don't help when you're trying to understand some function. I mean, honestly, look at this:
 
@@ -23,7 +21,7 @@ Learning it is hard, even harder by the lack of good material. When I started, I
 
 Holy cow.
 
-学习RP是个非常困难的过程，尤其是在当前缺乏优秀资料的前提下。起初，我试图寻找一些教程，却只找到了少量的实践指南而已，并且它们讲的都非常浅显，却从来没人愿意尝试围绕RP来建立一个完整知识体系的挑战。而官方文档通常也并不能完全地帮助你理解某些函数，它们通常看起来很绕，不信看看这里：
+学习响应式编程是个非常困难的过程，尤其是在当前缺乏优秀资料的前提下。起初，我试图寻找一些教程，却只找到了少量的实践指南而已，并且它们讲的都非常浅显，却从来没人愿意尝试围绕响应式编程来建立一个完整知识体系的挑战。而官方文档通常也并不能完全地帮助你理解某些函数，它们通常看起来很绕，不信看看这里：
 
 > **Rx.Observable.prototype.flatMapLatest(selector, [thisArg])**
 
@@ -35,9 +33,9 @@ I've read two books, one just painted the big picture, while the other dived int
 
 The hardest part of the learning journey is thinking in Reactive. It's a lot about letting go of old imperative and stateful habits of typical programming, and forcing your brain to work in a different paradigm. I haven't found any guide on the internet in this aspect, and I think the world deserves a practical tutorial on how to think in Reactive, so that you can get started. Library documentation can light your way after that. I hope this helps you.
 
-我读过两本相关的书，一本只是在给你描绘RP的伟大景象，而另一本却只是深入到如何使用响应式库而已。最后，我终于在不断的构建中，艰难的学完了RP。我将会在当前工作公司的一个真实项目中用到它，当我遇到问题时，还可以与同事一起讨论。
+我读过两本相关的书，一本只是在给你描绘响应式编程的伟大景象，而另一本却只是深入到如何使用响应式库而已。最后，我终于在不断的构建中，艰难的学完了响应式编程。我将会在当前工作公司的一个真实项目中用到它，当我遇到问题时，还可以与同事一起讨论。
 
-学习RP最难的部分是 **如何以RP的方式来思考**，那么更多的意味着你要放弃那些老旧的、命令式和状态式的典型编程习惯，并且强迫自己的大脑以不同的方式来运作。目前我还没有在网络上找到任何一个教程是从这个层面来剖析的，我想这个世界非常值得拥有这样一个优秀的实践教程来教你 **如何以RP的方式来思考**，以便能够让你快速进入 **RP思维** 的世界，然后再去看各种库文档才可以给你更多的指引。希望这篇文章就能够帮助你进入 **RP思维** 的世界。
+学响应式编程最难的部分是 **如何以响应式编程的方式来思考**，那么更多的意味着你要放弃那些老旧的、命令式和状态式的典型编程习惯，并且强迫自己的大脑以不同的方式来运作。目前我还没有在网络上找到任何一个教程是从这个层面来剖析的，我想这个世界非常值得拥有这样一个优秀的实践教程来教你 **如何以响应式编程的方式来思考**，以便能够让你快速进入 **响应式编程思维** 的世界，然后再去看各种库文档才可以给你更多的指引。希望这篇文章就能够帮助你进入 **响应式编程思维** 的世界。
 
 ## "What is Reactive Programming?"
 
@@ -45,7 +43,7 @@ There are plenty of bad explanations and definitions out there on the internet. 
 
 So let's cut the bullshit. 
 
-## "什是RP?"
+## "什是响应式编程?"
 
 网络上有一大堆糟糕的解释和定义，[Wikipedia](https://en.wikipedia.org/wiki/Reactive_programming)上通常都是些非常笼统和理论性的解释，[Stackoverflow](http://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming)上的一些标准答案显然也不适合一些新手来参考，[Reactive Manifesto](http://www.reactivemanifesto.org/)看起来也只像是拿来给你的PM或者老板看的东西，微软的[Rx术语](https://rx.codeplex.com/)"Rx = Observables + LINQ + Schedulers" 也显得太过沉重，而且也充满了太多微软式的东西，反而给我们留下了更多的疑惑。相对于你使用的MV*框架以及你钟爱的编程语言，"Reactive"和"Propagation of change"这样的术语并没有传达任何有意义的概念。当然，我的view框架是可以能够从model做出反应，我的改变也当然会传播，如果没有这些，我的界面根本就没有东西可以渲染。
 
@@ -82,7 +80,7 @@ Since this feels so familiar already, and I don't want you to get bored, let's d
 
 **最重要的是，你会有一些令人惊艳的函数去结合、创建和过滤任何一组事件流。** 这就是“函数式编程”的魔力所在。一个**事件流**可以作为另一个**事件流**的输入，甚至多个**事件流**可以作为另一个**事件流**的输入。你可以_合并(merge)_两个**事件流**，也可以_过滤(filter)_一个你感兴趣的**事件流**，还可以_映射(map)_一个**事件流**的值到一个新的**事件流**里。
 
-如果**事件流**对于RP如此重要，那不妨就让我们来仔细的看看，先从我们熟悉的"点击一个按钮"的**事件流**开始
+如果**事件流**对于响应式编程如此重要，那不妨就让我们来仔细的看看，先从我们熟悉的"点击一个按钮"的**事件流**开始
 
 ![Click event stream](http://i.imgur.com/cL4MOsS.png)
 
@@ -100,7 +98,7 @@ X 是错误事件
 ---> 是时间线(轴)
 ```
 
-现在你对RP事件流应该非常熟悉了，为了不让你感到无聊，让我们来做一些新的尝试吧：我们将创建一个由原始点击事件流演变而来的一种新的点击事件流。
+现在你对响应式编程事件流应该非常熟悉了，为了不让你感到无聊，让我们来做一些新的尝试吧：我们将创建一个由原始点击事件流演变而来的一种新的点击事件流。
 
 First, let's make a counter stream that indicates how many times a button was clicked. In common Reactive libraries, each stream has many functions attached to it, such as `map`, `filter`, `scan`, etc. When you call one of these functions, such as `clickStream.map(f)`, it returns a **new stream** based on the click stream. It does not modify the original click stream in any way. This is a property called **immutability**, and it goes together with Reactive streams just like pancakes are good with syrup. That allows us to chain functions like `clickStream.map(f).scan(g)`:
 
@@ -137,15 +135,15 @@ Grey boxes are functions transforming one stream into another. First we accumula
 
 I hope you enjoy the beauty of this approach. This example is just the tip of the iceberg: you can apply the same operations on different kinds of streams, for instance, on a stream of API responses; on the other hand, there are many other functions available.
 
-为了展示RP真正的魅力，我们假设你有一个"双击"事件流，为了让它更有趣，我们假设这个事件流同时处理"三次点击"或者"多次点击"事件，然后深吸一口气想想如何用传统的命令式和状态式的方式来处理，我敢打赌，这么做其实会相当的令人厌烦，其中会涉及到一些变量来保存状态，并且还得做一些时间间隔的调整
+为了展示响应式编程真正的魅力，我们假设你有一个"双击"事件流，为了让它更有趣，我们假设这个事件流同时处理"三次点击"或者"多次点击"事件，然后深吸一口气想想如何用传统的命令式和状态式的方式来处理，我敢打赌，这么做其实会相当的令人厌烦，其中会涉及到一些变量来保存状态，并且还得做一些时间间隔的调整
 
-而我们用RP的方式处理起来确是那么的简洁，实际上，逻辑代码只需要[四行代码](http://jsfiddle.net/staltz/4gGgs/27/)而已。但是，当前阶段让我们现忽略代码的部分，无论你是新手还是专家，看着图表来理解和建立事件流将是一个非常棒的途径。
+而我们用响应式编程的方式处理起来确是那么的简洁，实际上，逻辑代码只需要[四行代码](http://jsfiddle.net/staltz/4gGgs/27/)而已。但是，当前阶段让我们现忽略代码的部分，无论你是新手还是专家，看着图表来理解和建立事件流将是一个非常棒的途径。
 
 ![多次点击事件流](http://i.imgur.com/HMGWNO5.png)
 
-图中，灰色盒子表示将上面的事件流转换下面的事件流的**函数**过程，首先根据250毫秒的间隔时间或者叫无事件发生的时间段(event silence, 译者:上一个事件发生到下一个事件发生的间隔事件)把点击事件流一段一隔开，再将每一段的一个或多个点击事件添加到列表中(`buffer(stream.throttle(250ms))`)。别担心这些细节，我们现在就是在演示RP的过程。那么，到现在得到的是多个含有事件流的列表， 接下来我们使用了`map()`中的函数来算出每一个列表的长度整数数值映射到下一个事件流当中。最后我们使用了过滤`filter(x >= 2)` 函数忽略掉了小于`1` 的整数。就这样，我们用了3步操作生成了我们想要的事件流，接下来，我们就可以订阅("监听")这个事件并作出我们想要的反应了。
+图中，灰色盒子表示将上面的事件流转换下面的事件流的**函数**过程，首先根据250毫秒的间隔时间或者叫无事件发生的时间段(event silence, 译者:上一个事件发生到下一个事件发生的间隔事件)把点击事件流一段一隔开，再将每一段的一个或多个点击事件添加到列表中(`buffer(stream.throttle(250ms))`)。别担心这些细节，我们现在就是在演示响应式编程的过程。那么，到现在得到的是多个含有事件流的列表， 接下来我们使用了`map()`中的函数来算出每一个列表的长度整数数值映射到下一个事件流当中。最后我们使用了过滤`filter(x >= 2)` 函数忽略掉了小于`1` 的整数。就这样，我们用了3步操作生成了我们想要的事件流，接下来，我们就可以订阅("监听")这个事件并作出我们想要的反应了。
 
-我希望你能感受到这个示例的优雅之处。当然了，这个示例也只是RP能产生的效果的冰山一角而已，你同样可以使用这3步操作应用到不同种类的事件流中去，例如，一串API响应的事件流。另一方面，你还有非常多的函数可以使用。
+我希望你能感受到这个示例的优雅之处。当然了，这个示例也只是响应式编程能产生的效果的冰山一角而已，你同样可以使用这3步操作应用到不同种类的事件流中去，例如，一串API响应的事件流。另一方面，你还有非常多的函数可以使用。
 
 ## "Why should I consider adopting RP?"
 
@@ -155,13 +153,13 @@ The benefit is more evident in modern webapps and mobile apps that are highly in
 
 Apps nowadays have an abundancy of real-time events of every kind that enable a highly interactive experience to the user. We need tools for properly dealing with that, and Reactive Programming is an answer.
 
-## "我为什么要采用RP？"
+## "我为什么要采用响应式编程？"
 
-RP可以提高你的代码抽象级别，好让你可以专注于定义与事件相互依存的业务逻辑，而不是把大量精力放在实现细节，使用RP会让你的代码变得更加简洁。
+响应式编程可以提高你的代码抽象级别，好让你可以专注于定义与事件相互依存的业务逻辑，而不是把大量精力放在实现细节，使用响应式编程会让你的代码变得更加简洁。
 
 特别对于现在流行的webapps和mobile apps这些频繁的与数据事件相关的众多UI事件交互的程序，好处就更加的明显了。十年前，web页面的交互是提交一个很长的表单数据到后端，然后再做一些简单的前端界面渲染操作。而现在的Apps则演变的更具有实时性：仅仅修改一个单独的表单域就能自动的触发保存到后端的代码，就像某一个用户对一些内容点了赞，就能够实时反映到其他已连接的用户一样，等等。
 
-当今的Apps含有丰富的实时事件来保证一个高效的用户体验，我们需要采用一个合适的工具来处理，那么RP就正好是我们想的答案。
+当今的Apps含有丰富的实时事件来保证一个高效的用户体验，我们需要采用一个合适的工具来处理，那么响应式编程就正好是我们想的答案。
 
 ## Thinking in RP, with examples
 
@@ -169,9 +167,9 @@ Let's dive into the real stuff. A real-world example with a step-by-step guide o
 
 I picked **JavaScript** and **[RxJS](https://github.com/Reactive-Extensions/RxJS)** as the tools for this, for a reason: JavaScript is the most familiar language out there at the moment, and the [Rx* library family](http://www.reactivex.io) is widely available for many languages and platforms ([.NET](https://rx.codeplex.com/), [Java](https://github.com/Netflix/RxJava), [Scala](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-scala), [Clojure](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-clojure),  [JavaScript](https://github.com/Reactive-Extensions/RxJS), [Ruby](https://github.com/Reactive-Extensions/Rx.rb), [Python](https://github.com/Reactive-Extensions/RxPy), [C++](https://github.com/Reactive-Extensions/RxCpp), [Objective-C/Cocoa](https://github.com/ReactiveCocoa/ReactiveCocoa), [Groovy](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-groovy), etc). So whatever your tools are, you can concretely benefit by following this tutorial.
 
-## 以RP方式思考的例子
+## 以响应式编程方式思考的例子
 
-让我们深入到一些真实的例子，一个能够一步一步的教你如何以RP的方式思考的例子，没有虚构的示例，没有一知半解的概念。在这个教程的末尾我们将产生一些真实的函数代码，并能够知道每一步为什么要这么做。
+让我们深入到一些真实的例子，一个能够一步一步的教你如何以响应式编程的方式思考的例子，没有虚构的示例，没有一知半解的概念。在这个教程的末尾我们将产生一些真实的函数代码，并能够知道每一步为什么要这么做。
 
 我选了**JavaScript**和**[RxJS](https://github.com/Reactive-Extensions/RxJS)**来作为本教程的编程语言，原因是：JavaScript是目前最多人熟悉的语言，而[Rx系列的库](http://www.reactivex.io)对于很多语言和平台的运用是非常广泛的，例如([.NET](https://rx.codeplex.com/), [Java](https://github.com/Netflix/RxJava), [Scala](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-scala), [Clojure](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-clojure),  [JavaScript](https://github.com/Reactive-Extensions/RxJS), [Ruby](https://github.com/Reactive-Extensions/Rx.rb), [Python](https://github.com/Reactive-Extensions/RxPy), [C++](https://github.com/Reactive-Extensions/RxCpp), [Objective-C/Cocoa](https://github.com/ReactiveCocoa/ReactiveCocoa), [Groovy](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-groovy)等等。所以，无论你用的是什么语言、库、工具，你都能从下面这个教程中学到东西。
 
@@ -242,7 +240,7 @@ requestStream.subscribe(function(requestUrl) {
 
 ## Request和response
 
-**在Rx(RP的一种/一个分子)中是怎么处理这个问题呢？** ok，在开始之前，我们要明白，(几乎)_一切都可以成为一个事件流_，这就是Rx的准则。让我们从最简单的功能开始："开始阶段，从API加载要推荐关注的用户账户数据，然后显示三个推荐用户"。其实这个功能没什么特殊的，简单的步骤分为： (1)发出一个请求，(2)获取响应的数据，(3)渲染响应的数据。ok，继续，让我们把请求作为一个事件流，一开始你可能会觉得咋简单的处理这样做有些夸张，但别急，让我们从最基本的开始，好吗？
+**在Rx(响应式编程的一种/一个分子)中是怎么处理这个问题呢？** ok，在开始之前，我们要明白，(几乎)_一切都可以成为一个事件流_，这就是Rx的准则。让我们从最简单的功能开始："开始阶段，从API加载要推荐关注的用户账户数据，然后显示三个推荐用户"。其实这个功能没什么特殊的，简单的步骤分为： (1)发出一个请求，(2)获取响应的数据，(3)渲染响应的数据。ok，继续，让我们把请求作为一个事件流，一开始你可能会觉得咋简单的处理这样做有些夸张，但别急，让我们从最基本的开始，好吗？
 
 开始时我们只需做一次请求，如果我们把它作为一个数据流话，它只能成为一个仅仅发出一个值的事件流而已。一会我们还会有很多请求要做，但是就当前，我们只做一个。
 
@@ -352,7 +350,7 @@ Then we will have created a beast called "_metastream_": a stream of streams. Do
 
 Promise++就是可观察的对象(Observable)，在Rx家族里，你可以用这样的操作：`var stream = Rx.Observable.fromPromise(promise)`，就可以很轻松的将Promise转换成一个可观察的对象(Observable)，这么方便，让我们现在就开始使用它吧。不同的是，这些可观察的对象(Observables)都不能和[Promises/A+](http://promises-aplus.github.io/promises-spec/)兼容的，但理论上讲，这并不冲突。一个Promise就是一个简单的，只有一个值的可观察对象。而Rx就远超于Promise，它允许多个值返回。
 
-这样更好，这样更突出可观察的对象(Observables)至少比Promise强大，所以如果你相信Promise宣传的那些东西，那么也请留意一下RP能胜任些什么。
+这样更好，这样更突出可观察的对象(Observables)至少比Promise强大，所以如果你相信Promise宣传的那些东西，那么也请留意一下响应式编程能胜任些什么。
 
 现在回到示例当中，如果你能快速发现，我们在`subscribe()`方法的内部，再次调用了`subscribe()`方法，这就有点类似于回调了。当然，`responseStream`的创建也是依赖于`requestStream`的，在之前我们说过，在Rx里，有很多很简单的机制来从其他事件流的转化并创建出一些新的事件流，那么，我们应该这样做试试。
 
@@ -660,7 +658,7 @@ refreshClickStream.subscribe(function() {
 });
 ```
 
-不，老兄，还没那么快。我们又出现了新的问题，因为我们现在有两个订阅者在影响着推荐关注的UI DOM元素(另一个是 `responseStream.subscribe()`)，这样听起来并不像是[关注分离(Separation of concerns)](https://en.wikipedia.org/wiki/Separation_of_concerns)，还记得RP的原则么？
+不，老兄，还没那么快。我们又出现了新的问题，因为我们现在有两个订阅者在影响着推荐关注的UI DOM元素(另一个是 `responseStream.subscribe()`)，这样听起来并不像是[关注分离(Separation of concerns)](https://en.wikipedia.org/wiki/Separation_of_concerns)，还记得响应式编程的原则么？
 
 &nbsp;
 &nbsp;
@@ -1120,7 +1118,7 @@ If this tutorial helped you, [tweet it forward](https://twitter.com/intent/tweet
 
 一旦你开始使用掌握Rx编程的编程，请记住，理解[Cold vs Hot Observables](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md#cold-vs-hot-observables)的概念是非常必要的，如果你忽视了这一点，它就会反弹回来并残忍的反咬你一口。我这里已经警告你了，学习函数式编程可以提高你的技能，熟悉一些常见问题，例如Rx带来的副作用
 
-但是RP并不仅仅是Rx家族，还有相对容易理解的，没有Rx那些怪癖的[Bacon.js](http://baconjs.github.io/)。[Elm Language](http://elm-lang.org/)则以它自己的方式支持RP：它是一门会编译成Javascript + HTML + CSS的RP语言，并有一个[time travelling debugger](http://debug.elm-lang.org/)功能，很棒吧。
+但是响应式编程并不仅仅是Rx家族，还有相对容易理解的，没有Rx那些怪癖的[Bacon.js](http://baconjs.github.io/)。[Elm Language](http://elm-lang.org/)则以它自己的方式支持响应式编程：它是一门会编译成Javascript + HTML + CSS的响应式编程语言，并有一个[time travelling debugger](http://debug.elm-lang.org/)功能，很棒吧。
 
 而Rx对于像前端和App这样需要处理大量的编程效果是非常棒的。但是它不只是可以用在客户端，它还可以用在后端或者接近数据库的地方。事实上，[RxJava就是Netflix服务端API用来处理并行的组件](http://techblog.netflix.com/2013/02/rxjava-netflix-api.html)。Rx并不是局限于某种应用程序或者编程语言的框架，它真的是，当你编写任何的事件驱动程序，可以遵循的一个非常棒的编程范式。
 
