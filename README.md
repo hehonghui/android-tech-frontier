@@ -65,6 +65,8 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | [上传拍下的照片、视频到服务器](others/上传拍下的照片、视频到服务器)  | [chaossss](https://github.com/chaossss)       |   [http://www.androidhive.info/](http://www.androidhive.info/2014/12/android-uploading-camera-image-video-to-server-with-progress-bar/)    |
 | [简化Android的UI开发](others/简化Android的UI开发)  | [chaossss](https://github.com/chaossss)       |   [zserge.com/](http://zserge.com/)    |
 | [安卓字体渲染器](androidweekly/安卓字体渲染器)  | [7heaven](http://github.com/7heaven)       |   [AndroidWeekly issue #102](http://androidweekly.net/issues/issue-102)    |
+| [在Android 5.0中使用JobScheduler](androidweekly/在Android%205.0中使用JobScheduler)  | [Mr.Simple](http://github.com/bboyfeiyu)       |   [AndroidWeekly issue #146](http://androidweekly.net/issues/issue-146)    |
+
 
 
 
