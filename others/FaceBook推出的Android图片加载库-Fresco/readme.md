@@ -34,9 +34,9 @@ Bitmap bitmap = BitmapFactory.decodeByteArray(jpeg, 0, jpeg.length, options);
 这听起来像一个完美的解决方案，但是问题是Bitmap解码的操作是运行在UI线程的。Bitmap解码是非常消耗CPU资源的，当消耗过大时会引起UI阻塞。因为这个原因，所以Google不推荐使用这个[特性](http://developer.android.com/intl/zh-cn/reference/android/graphics/BitmapFactory.Options.html#inPurgeable)。现在它们推荐使用另外一个特性——inBitmap。但是这个特性直到Android3.0之后才被支持。即使是这样，这个特性也不是非常有用，除非 App 里的所有图片大小都相同，这对Fackbook来说显然是不适用的。一直到4.4版本，这个限制才被移除了。但我们需要的是能够运行在 Android 2.3 - 最新版本中的通用解决方案。
 
 ##自力更生
-我们找到了一种使得UI显示和内存都表现良好的方法。如果我们在非UI主线程里提前把内存保持，并且确保这块内存不会被释放，那么我们就可以在Ashmem里面保持图片的引用，而又不会阻碍UI。幸运的是，Android的NDK有一个函数正好可以完成这个需求，名字叫做AndroidBitmap_lockPixels。这个函数原本是要接着调用unlockPixels来释放内存的。
+对于上面提到的“解码操作致使 UI 假死”的问题，我们找到了一种同时使 UI 显示和内存管理都表现良好的解决方法。如果我们在 UI 线程进行渲染之前把被抽取的内存区域放回到原来的位置，并确保它再也不会被抽取，那我们就可以把这些图片放在 Ashmem 里，同时不会出现 UI 假死的问题。幸运的是，Android 的 NDK 中有一个函数可以完美地实现这个需求，名字叫做 AndroidBitmap_lockPixels。这个函数最初的目的就是：在调用 unlockPixels 再次抽取内存区域后被执行。
 
-当我们意识到我们没有必要这样做的时候，我们取得了突破。如果我们只调用lockPixels而不调用对应的unlockPixels，那么我们就可以在Java的堆内存里面创建一个安全的图像，并且不会导致UI线程加载缓慢。只需要几行c++代码，我们就完美的解决了这个问题。
+当我们意识到我们没有必要这样做的时候，我们取得了突破。如果我们只调用lockPixels而不调用对应的unlockPixels，那么我们就可以在Java的堆内存里面创建一个内存安全的图像，并且不会导致UI线程加载缓慢。只需要几行c++代码，我们就完美的解决了这个问题。
 
 ##用C++的思想写Java代码
 就像《蜘蛛侠》里面说的：“能力越强，责任越强。”使用这种可清除的Bitmap，垃圾回收器不回收它，Ashmem内置的清除机制也不会回收它，这会造成内存泄露，所以我们只能靠自己啦。
