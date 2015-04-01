@@ -2,20 +2,15 @@
 ---
 
 >
-* 原文链接 : [原文标题](原文url)
+* 原文链接 : [A Blurring View for Android](原文url)
 * 译者 : [lvtea0105](https://github.com/lvtea0105) 
 * 校对者: [bboyfeiyu](https://github.com/bboyfeiyu)  
 * 状态 :   校对中
 
 
+Blur effect can be used to vividly convey a sense of layering of content. It allows the user to maintain the context, while focused on the currently featured content, even if what’s under the blurring surface shifts in a parallax fashion or changes dynamically.
 
-
-`这里是翻译原文，注意翻译时英文和译文都要留在该文档中，并且是一段英文原文下面直接跟着写译文，便于校对。如下示例 : `
-
-Over the last months and after having friendly discussions at Tuenti with colleagues like @pedro_g_s and @flipper83 (by the way 2 badass of android development), I have decided that was a good time to write an article about architecting android applications.
-The purpose of it is to show you a little approach I had in mind in the last few months plus all the stuff I have learnt from investigating and implementing it.
-
-过去几个月以来，通过在Tuenti网站上与@pedro_g_s和@flipper83（安卓开发两位大牛）进行友好讨论之后，我决定写这篇关于架构安卓应用的文章。     
+模糊效果可以生动地表达出内容的层次感，当使用者关注重点内容时，能够保持当前背景，即便在模糊表面之下发生视差效果或者动态改变。     
 
 我写这篇文章的目的是想把我在过去几个月体悟到的小方法以及在调查和应用中学到的有用的东西分享给大家。
 
