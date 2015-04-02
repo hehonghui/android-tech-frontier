@@ -3,7 +3,7 @@
 ------
 
  - 原文链接:http://littlerobots.nl/blog/stetho-for-android-debug-builds-only/
- - 译者:BillioWang
+ - 译者:BillionWang
  - 校对者
  - 状态:完成
  
@@ -75,7 +75,7 @@ Now when you run the debug build variant of the app, [Stetho][7] will be activat
 #总结
 Using the Android Gradle build system, it's easy to add some extra debug capabilities to your app. This technique doesn’t just work for [Stetho][9], but for any library or tool that you'd like to add for debug only.
 
-用Android Gradle构建系统，可以很容易的给你的应用添加更多的调试功能。这门手艺不仅可以用在[Stetho][10]上，还可以用于那些你仅仅希望在调试模式中添加的类库或者工具。
+用Android Gradle构建系统，可以很容易的给你的应用添加更多的调试功能。这门手艺不仅可以用在[Stetho][10]上，还可以用于那些你希望仅仅在调试模式中添加的类库或者工具。
 
 
   [1]: https://github.com/facebook/stetho
