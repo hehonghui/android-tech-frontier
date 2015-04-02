@@ -61,7 +61,7 @@ In a way, this isn't anything new. Event buses or your typical click events are 
 
 If streams are so central to Reactive, let's take a careful look at them, starting with our familiar "clicks on a button" event stream.
 
-![Click event stream](http://i.imgur.com/cL4MOsS.png)
+![Click event stream](images/zclickstream.png)
 
 A stream is a sequence of **ongoing events ordered in time**. It can emit three different things: a value (of some type), an error, or a "completed" signal. Consider that the "completed" takes place, for instance, when the current window or view containing that button is closed.
 
@@ -82,7 +82,7 @@ Since this feels so familiar already, and I don't want you to get bored, let's d
 
 如果**事件流**对于响应式编程如此重要，那不妨就让我们来仔细的看看，先从我们熟悉的"点击一个按钮"的**事件流**开始
 
-![Click event stream](http://i.imgur.com/cL4MOsS.png)
+![Click event stream](images/zclickstream.png)
 
 一个**事件流**是一个 **按时间排序的即将发生的事件(Ongoing events ordered in time)序列**。如上图，一个**事件流**可以发出3种不同的事件：某种类型的**值事件**，**错误事件**和**完成事件**。当一个**完成事件**发生时，在某些情况下，我们可能会做这样的操作：关闭包含那个按钮的窗口或者视图组件。
 
@@ -129,7 +129,7 @@ To show the real power of Reactive, let's just say that you want to have a strea
 Well, in Reactive it's pretty simple. In fact, the logic is just [4 lines of code](http://jsfiddle.net/staltz/4gGgs/27/).
 But let's ignore code for now. Thinking in diagrams is the best way to understand and build streams, whether you're a beginner or an expert.
 
-![Multiple clicks stream](http://i.imgur.com/HMGWNO5.png)
+![Multiple clicks stream](images/zmulticlickstream.png)
 
 Grey boxes are functions transforming one stream into another. First we accumulate clicks in lists, whenever 250 milliseconds of "event silence" has happened (that's what `buffer(stream.throttle(250ms))` does, in a nutshell. Don't worry about understanding the details at this point, we are just demoing Reactive for now). The result is a stream of lists, from which we apply `map()` to map each list to an integer matching the length of that list. Finally, we ignore `1` integers using the `filter(x >= 2)` function. That's it: 3 operations to produce our intended stream. We can then subscribe ("listen") to it to react accordingly how we wish.
 
@@ -139,7 +139,7 @@ I hope you enjoy the beauty of this approach. This example is just the tip of th
 
 而我们用响应式编程的方式处理起来确是那么的简洁，实际上，逻辑代码只需要[四行代码](http://jsfiddle.net/staltz/4gGgs/27/)而已。但是，当前阶段让我们现忽略代码的部分，无论你是新手还是专家，看着图表来理解和建立事件流将是一个非常棒的途径。
 
-![多次点击事件流](http://i.imgur.com/HMGWNO5.png)
+![多次点击事件流](images/zmulticlickstream.png)
 
 图中，灰色盒子表示将上面的事件流转换下面的事件流的**函数**过程，首先根据250毫秒的间隔时间或者叫无事件发生的时间段(event silence, 译者:上一个事件发生到下一个事件发生的间隔事件)把点击事件流一段一隔开，再将每一段的一个或多个点击事件添加到列表中(`buffer(stream.throttle(250ms))`)。别担心这些细节，我们现在就是在演示响应式编程的过程。那么，到现在得到的是多个含有事件流的列表， 接下来我们使用了`map()`中的函数来算出每一个列表的长度整数数值映射到下一个事件流当中。最后我们使用了过滤`filter(x >= 2)` 函数忽略掉了小于`1` 的整数。就这样，我们用了3步操作生成了我们想要的事件流，接下来，我们就可以订阅("监听")这个事件并作出我们想要的反应了。
 
@@ -177,7 +177,7 @@ I picked **JavaScript** and **[RxJS](https://github.com/Reactive-Extensions/RxJS
 
 In Twitter there is this UI element that suggests other accounts you could follow:
 
-![Twitter Who to follow suggestions box](http://i.imgur.com/eAlNb0j.png)
+![Twitter Who to follow suggestions box](images/ztwitterbox.png)
 
 We are going to focus on imitating its core features, which are:
 
@@ -194,7 +194,7 @@ The complete code for this is ready at http://jsfiddle.net/staltz/8jFJH/48/ in c
 
 在Twitter里有一个UI元素向你展示和推荐可以去关注谁，如下图：
 
-![Twitter Who to follow suggestions box](http://i.imgur.com/eAlNb0j.png)
+![Twitter Who to follow suggestions box](images/ztwitterbox.png)
 
 我们将聚焦于模仿它的主要功能，它们是：
 
@@ -344,7 +344,7 @@ var responseMetastream = requestStream
 
 Then we will have created a beast called "_metastream_": a stream of streams. Don't panic yet. A metastream is a stream where each emitted value is yet another stream. You can think of it as [pointers](https://en.wikipedia.org/wiki/Pointer_(computer_programming)): each emitted value is a _pointer_ to another stream. In our example, each request URL is mapped to a pointer to the promise stream containing the corresponding response.
 
-![Response metastream](http://i.imgur.com/HHnmlac.png)
+![Response metastream](images/zresponsemetastream.png)
 
 是的。
 
@@ -365,7 +365,7 @@ var responseMetastream = requestStream
 
 然后，我们将会创造一个叫做"_metastream_"的怪兽：一个装载事件流的事件流。先别惊慌，一个metastream就是一个从另一个事件流发出的值的事件流。你看把它想象成一个[指针(pointers)]((https://en.wikipedia.org/wiki/Pointer_(computer_programming))集合:每一个单独发出的值就是一个_指针_，它指向另一个事件流。在我们的实例里，每一个请求URL都映射到一个指向包含响应数据的promise数据流。
 
-![Response metastream](http://i.imgur.com/HHnmlac.png)
+![Response metastream](images/zresponsemetastream.png)
 
 A metastream for responses looks confusing, and doesn't seem to help us at all. We just want a simple stream of responses, where each emitted value is a JSON object, not a 'Promise' of a JSON object. Say hi to [Mr. Flatmap](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypeflatmapselector-resultselector): a version of `map()` than "flattens" a metastream, by emitting on the "trunk" stream everything that will be emitted on "branch" streams. Flatmap is not a "fix" and metastreams are not a bug, these are really the tools for dealing with asynchronous responses in Rx.
 
@@ -376,7 +376,7 @@ var responseStream = requestStream
   });
 ```
 
-![Response stream](http://i.imgur.com/Hi3zNzJ.png)
+![Response stream](images/zresponsestream.png)
 
 Nice. And because the response stream is defined according to request stream, **if** we have later on more events happening on request stream, we will have the corresponding response events happening on response stream, as expected:
 
@@ -419,7 +419,7 @@ var responseStream = requestStream
   });
 ```
 
-![Response stream](http://i.imgur.com/Hi3zNzJ.png)
+![Response stream](images/zresponsestream.png)
 
 很赞，因为我们的响应事件流是根据请求事件流定义的，**如果**我们之后还会有更多来自请求事件流的事件要发生的话，我们也将会在相应的响应事件流收到响应事件，就如所期待的那样：
 
