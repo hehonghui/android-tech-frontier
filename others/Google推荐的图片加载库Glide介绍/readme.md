@@ -4,7 +4,7 @@ Google推荐的图片加载库Glide介绍
 >
 * 原文链接:[Google推荐的图片加载库Glide介绍](http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en)
 * 译者 :  [jianghejie](https://github.com/jianghejie) 
-* 译者博文链接 :  [http://jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0327/2650.html]()
+* 译者博文链接 :  [http://jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0327/2650.html](http://jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0327/2650.html)
  
 
 在泰国举行的谷歌开发者论坛上，谷歌为我们介绍了一个名叫 [Glide](https://github.com/bumptech/glide) 的图片加载库，作者是bumptech。这个库被广泛的运用在google的开源项目中，包括2014年google I/O大会上发布的官方app。
@@ -224,11 +224,8 @@ Glide和Picasso都是非常完美的库。Glide加载图像以及磁盘缓存的
  
 ##相关资源
 
-- Glide 3.0: a media management library for Android
-
-- Glide Wiki
-
-- Android Picasso vs Glide
-
-- Android: Image loading libraries Picasso vs Glide
+- [Glide 3.0: a media management library for Android](http://google-opensource.blogspot.com/2014/09/glide-30-media-management-library-for.html) 
+- [Glide Wiki](https://github.com/bumptech/glide/wiki) 
+- [Android Picasso vs Glide](http://pluu.github.io/android%20study/2015/01/15/android-glide-picasso/) 
+- [Android: Image loading libraries Picasso vs Glide](http://vardhan-justlikethat.blogspot.com/2014/09/android-image-loading-libraries-picasso.html) 
 
