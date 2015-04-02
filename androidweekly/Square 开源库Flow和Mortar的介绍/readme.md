@@ -84,13 +84,6 @@ Presenter 是一个拥有简单生命周期和伴随其生命周期的 Bundle �
 
 完全没有 Fragment 那样复杂的生命周期，这可不是我吹的！
 
-There are a lot of moving parts and new terms and classes and all sorts of room for confusion. So in sum, we have the following pieces of the puzzle:
-
-- Screen: A particular location in the application’s navigation hierarchy
-- Blueprint: A section of an application with its own Dagger module
-- Presenter: A View-controller object
-- Custom Views: Views defined by Java and usually some XML
-
 文章写到这里，你会发现在 Flow 和 Mortar 中有许多发生改变的部分，新的术语和类，还有新的使用规范，这难免会让人一头雾水。所以为了方便大家的理解，总的来说，我们需要重视的是下面几个部分：
 
 - Screen: 在应用导航层次结构中的一个特殊存在，用来代表我们视图的对象
@@ -103,8 +96,6 @@ Here’s what our final Mortar and Flow architecture looks like:
 我们 Mortar 和 Flow 整个体系架构将会如下所示：
 
 ![](https://www.bignerdranch.com/img/blog/2015/02/mortar-and-flow.png)
-
-Instead of sticking with Model View Controller, the architecture has morphed into more of a Model View Presenter style. The big difference concerns the handling of runtime configuration changes like rotation. In MVC, our Controller (Activities and Fragments) will be destroyed alongside our Views, whereas in MVP, only our View will be destroyed and recreated. Nifty.
 
 抛弃了对 MVC 模式的执念，这个架构在完成之后变得更像 MVP 模式。这样巨大的转变使得新的架构需要关注如何处理应用在运行时配置信息改变的问题，例如：旋转。在 MVC 模式中，我们的控制器（Activity 和 Fragment）会随着我们的 View 一起被杀死。然而，在 MVP 模式中，我们只有 View 
 被杀死，又在需要它的时候重现它。挺有趣的对吧？
