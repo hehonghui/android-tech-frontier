@@ -5,8 +5,8 @@ Kotlin for Android (II)创建一个工程
 * 原文标题 : Kotlin for Android (II): Create a new project
 * 原文链接 : [Kotlin for Android (II): Create a new project](http://antonioleiva.com/kotlin-android-create-project/)
 * 译者 : [Lollypo](https://github.com/Lollypo) 
-* 校对者: 
-* 状态 :  未完成
+* 校对者: [chaossss](https://github.com/chaossss)
+* 状态 :  完成
 
 
 当我从[what Kotlin is and what it can do for us](http://antonioleiva.com/kotlin-for-android-introduction/)获得一些启发之后,觉得是时候配置下 Android Studio来帮助我们使用Kotlin开发Android应用程序了. 其中有些步骤只需要在初次使用时完成一次, 但是其他一些Gradle配置需要为每一个新项目做一遍.
