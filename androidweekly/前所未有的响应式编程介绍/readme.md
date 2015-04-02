@@ -5,7 +5,7 @@
 >
 * 原文链接 : [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
 * 译者 : [yaoqinwei](https://github.com/yaoqinwei) 
-* 校对者: [这里校对者的github用户名](github链接)  
+* 校对者: [yaoqinwei](https://github.com/yaoqinwei)、
 * 状态 :  未完成
 
 
