@@ -21,7 +21,7 @@ Learning it is hard, even harder by the lack of good material. When I started, I
 
 Holy cow.
 
-学习响应式编程是个非常困难的过程，尤其是在当前缺乏优秀资料的前提下。起初，我试图寻找一些教程，却只找到了少量的实践指南而已，并且它们讲的都非常浅显，却从来没人愿意尝试围绕响应式编程来建立一个完整知识体系的挑战。而官方文档通常也并不能完全地帮助你理解某些函数，它们通常看起来很绕，不信看看这里：
+学习响应式编程是个非常困难的过程，尤其是在当前缺乏优秀资料的前提下。起初，我试图寻找一些教程，却只找到了少量的实践指南而已，而且它们讲的都非常浅显，从来没人接受挑战去围绕着响应式编程建立一个完整知识体系。而官方文档通常也并不能完全地帮助你理解某些函数，它们通常看起来很绕，不信请看这里：
 
 > **Rx.Observable.prototype.flatMapLatest(selector, [thisArg])**
 
@@ -33,9 +33,9 @@ I've read two books, one just painted the big picture, while the other dived int
 
 The hardest part of the learning journey is thinking in Reactive. It's a lot about letting go of old imperative and stateful habits of typical programming, and forcing your brain to work in a different paradigm. I haven't found any guide on the internet in this aspect, and I think the world deserves a practical tutorial on how to think in Reactive, so that you can get started. Library documentation can light your way after that. I hope this helps you.
 
-我读过两本相关的书，一本只是在给你描绘响应式编程的伟大景象，而另一本却只是深入到如何使用响应式库而已。最后，我终于在不断的构建中，艰难的学完了响应式编程。我将会在当前工作公司的一个真实项目中用到它，当我遇到问题时，还可以与同事一起讨论。
+我读过两本相关的书，一本只是在给你描绘响应式编程的伟大景象，而另一本却只是深入到如何使用响应式库而已。我在不断的构建中把响应式编程了解的透彻了一些，终于艰难的学完了响应式编程。我得在公司的一个真实项目中用到它，当我遇到问题时，还可以得到同事的支持。
 
-学响应式编程最难的部分是 **如何以响应式编程的方式来思考**，那么更多的意味着你要放弃那些老旧的、命令式和状态式的典型编程习惯，并且强迫自己的大脑以不同的方式来运作。目前我还没有在网络上找到任何一个教程是从这个层面来剖析的，我想这个世界非常值得拥有这样一个优秀的实践教程来教你 **如何以响应式编程的方式来思考**，以便能够让你快速进入 **响应式编程思维** 的世界，然后再去看各种库文档才可以给你更多的指引。希望这篇文章就能够帮助你进入 **响应式编程思维** 的世界。
+学过程中最难的部分是**如何以响应式的方式来思考**，更多的意味着要放弃那些老旧的命令式和状态式的典型编程习惯，并且强迫自己的大脑以不同的范式来运作。我还没有在网络上找到任何一个教程是从这个层面来剖析的，我想这个世界非常值得拥有一个优秀的实践教程来教你**如何以响应式编程的方式来思考**，方便引导你开始学习响应式编程。然后各种库文档才可以给你更多的指引。希望这篇文章能够帮助你快速地进入**响应式编程思维**的世界。
 
 ## "What is Reactive Programming?"
 
@@ -45,7 +45,7 @@ So let's cut the bullshit.
 
 ## "什是响应式编程?"
 
-网络上有一大堆糟糕的解释和定义，[Wikipedia](https://en.wikipedia.org/wiki/Reactive_programming)上通常都是些非常笼统和理论性的解释，[Stackoverflow](http://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming)上的一些标准答案显然也不适合一些新手来参考，[Reactive Manifesto](http://www.reactivemanifesto.org/)看起来也只像是拿来给你的PM或者老板看的东西，微软的[Rx术语](https://rx.codeplex.com/)"Rx = Observables + LINQ + Schedulers" 也显得太过沉重，而且也充满了太多微软式的东西，反而给我们留下了更多的疑惑。相对于你使用的MV*框架以及你钟爱的编程语言，"Reactive"和"Propagation of change"这样的术语并没有传达任何有意义的概念。当然，我的view框架是可以能够从model做出反应，我的改变也当然会传播，如果没有这些，我的界面根本就没有东西可以渲染。
+网络上有一大堆糟糕的解释和定义，[Wikipedia](https://en.wikipedia.org/wiki/Reactive_programming)上通常都是些非常笼统和理论性的解释，[Stackoverflow](http://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming)上的一些标准答案显然也不适合新手来参考，[Reactive Manifesto](http://www.reactivemanifesto.org/)看起来也只像是拿来给你的PM或者老板看的东西，微软的[Rx术语](https://rx.codeplex.com/)"Rx = Observables + LINQ + Schedulers" 也显得太过沉重，而且充满了太多微软式的东西，反而给我们留下了更多的疑惑。相对于你使用的MV*框架以及你钟爱的编程语言，"Reactive"和"Propagation of change"这样的术语并没有传达任何有意义的概念。当然，我的view框架能够从model做出反应，我的改变当然也会传播，如果没有这些，我的界面根本就没有东西可渲染。
 
 所以，不要再扯这些废话了。
 
