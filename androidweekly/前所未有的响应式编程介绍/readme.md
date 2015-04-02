@@ -55,7 +55,7 @@ In a way, this isn't anything new. Event buses or your typical click events are 
 
 ####  响应式编程就是与异步数据流交互的编程方式
 
-一方面，这已经不是什么新事物了。事件总线(Event Buses)或一些典型的点击事件本质上就是一个异步事件流，这样你就可以观察它的变化并使其产生一些效果。实际上响应式是这样的一个思路：除了点击(click)和悬停(hover)的事件外，你可以给任何事物创建一个异步事件流。实际上，事件流无处不在，任何东西都可以成为一个事件流，例如变量、用户输入、属性、缓存、数据结构等等。举个栗子，你可以把你的微博订阅功能想象成像点击事件一样的事件流，这样，你也可以监听这样的异步事件流，并相应的做出反应。
+一方面，这已经不是什么新事物了。事件总线(Event Buses)或一些典型的点击事件本质上就是一个异步事件流，这样你就可以观察它的变化并使其产生一些效果。实际上响应式是这样的一个思路：除了点击(click)和悬停(hover)的事件外，你可以给任何事物创建事件流。实际上，事件流无处不在，任何东西都可以成为一个事件流，例如变量、用户输入、属性、缓存、数据结构等等。举个栗子，你可以把你的微博订阅功能想象成像点击事件一样的事件流，这样，你也可以监听这样的异步事件流，并相应的做出反应。
 
 **On top of that, you are given an amazing toolbox of functions to combine, create and filter any of those streams.** That's where the "functional" magic kicks in. A stream can be used as an input to another one. Even multiple streams can be used as inputs to another stream. You can _merge_ two streams. You can _filter_ a stream to get another one that has only those events you are interested in. You can _map_ data values from one stream to another new one.
 
