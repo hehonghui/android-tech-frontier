@@ -2,11 +2,12 @@ FaceBook推出的Android图片加载库-Fresco
 ---
 
 >
-* 译者 : [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang) 
+* 原文链接:[Introducing Fresco: A new image library for Android](https://code.facebook.com/posts/366199913563917/introducing-fresco-a-new-image-library-for-android/)
+* 译者 :  [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang) 
 * 校对者: [Chaossss](https://github.com/chaossss)
 * 校对者: [bboyfeiyu](https://github.com/bboyfeiyu)
 * 校对者: [BillionWang](https://github.com/BillionWang)
-* 状态 :  校对完成
+* 状态 :  完成
 
 在Android设备上面，快速高效的显示图片是极为重要的。过去的几年里，我们在如何高效的存储图像这方面遇到了很多问题。图片太大，但是手机的内存却很小。每一个像素的R、G、B和alpha通道总共要占用4byte的空间。如果手机的屏幕是480*800,那么一张屏幕大小的图片就要占用1.5M的内存。手机的内存通常很小，特别是Android设备还要给各个应用分配内存。在某些设备上，分给Facebook App的内存仅仅有16MB。一张图片就要占据其内存的十分之一。
 
@@ -128,6 +129,3 @@ DraweeViews 的功能不多,但都是至关重要的。他们监听Android的Vie
 
 ##更多
 [Fresco中文文档](http://fresco-cn.org/)
-
-## 原文链接
-[Introducing Fresco: A new image library for Android](https://code.facebook.com/posts/366199913563917/introducing-fresco-a-new-image-library-for-android/)
