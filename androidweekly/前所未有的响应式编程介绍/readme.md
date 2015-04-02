@@ -295,7 +295,7 @@ What [`Rx.Observable.create()`](https://github.com/Reactive-Extensions/RxJS/blob
 &nbsp;
 &nbsp;
 
-![Amazed](http://www.myfacewhen.net/uploads/3324-amazed-face.gif)
+![Amazed](images/3324-amazed-face.gif)
 
 注意，我们这里使用的JQuery的AJAX回调方法([我们假设你已经很了解JQuery和AJAX了](http://devdocs.io/jquery/jquery.getjson))来的处理这个异步的请求操作。但是，请稍等一下，Rx家族是用来处理**异步数据流**的，难道它就不能处理请求(request)在未来某个时间点响应(response)的数据流吗？好吧，理论上讲是可以的，让我们尝试一下。
 
@@ -323,7 +323,7 @@ requestStream.subscribe(function(requestUrl) {
 &nbsp;
 &nbsp;
 
-![Amazed](http://www.myfacewhen.net/uploads/3324-amazed-face.gif)
+![Amazed](images/3324-amazed-face.gif)
 
 Yes.
 
