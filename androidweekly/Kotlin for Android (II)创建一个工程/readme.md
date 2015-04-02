@@ -16,7 +16,7 @@ Kotlin for Android (II)创建一个工程
 
 ###创建一个新项目然后下载Kotlin插件###
 
-只需要像我们平时的项目一样用Android Studio创建一个简单的带有一个Activity的Android项目.
+就像你平常做的那样，我们只需要用Android Studio创建一个带Activity的基本Android项目。
 
 一旦完成,我们需要做的第一件事就是去下载Kotlin插件. 去到Android Studio的系统设置中然后查找plugins.之后，再次使用搜索找到Kotlin插件，安装并重启IDE。
 
