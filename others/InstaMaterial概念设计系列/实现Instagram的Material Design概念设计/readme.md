@@ -7,7 +7,9 @@
 * 译者博文链接 :  [http://jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0204/2415.html](http://jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0204/2415.html)
  
 几个月前（这篇文章的日期是2014 年11月10日），google发布了app和web应用的Material Design设计准则之后，设计师Emmanuel Pacamalan在youtube上发布了一则概念视频，演示了Instagram如果做成Material风格会是什么样子：
+
 视频地址在这里 [http://v.youku.com/v_show/id_XODg2NDQ1NDQ4.html](http://v.youku.com/v_show/id_XODg2NDQ1NDQ4.html) ps:markdown不支持播放优酷视频
+
 这 仅仅是停留在图像上的设计，是美好的愿景，估计很多人都会问，能否使用相对简单的办法将它实现出来呢？答案是：yes，不仅仅能实现，而且无须要求在 Lillipop版本，实际上几年前4.0发布之后我们就可以实现这些效果了。ps 读到这里我们应该反思这几年开发者是不是都吃屎去了。
 
 鉴于这个原因，我决定开始撰写一个新的课题-如何将[INSTAGRAM with Material Design](https://www.youtube.com/watch?v=ojwdmgmdR_Q) 视频中的效果转变成现实。当然，我们并不是真的要做一个Instagram应用，只是将界面做出来而已，并且尽量减少一些不必要的细节。
@@ -16,8 +18,11 @@
 本文将要实现的是视频中前7秒钟的效果。我觉得对于第一次尝试来说已经足够了。我想要提醒诸位的是，里面的实现方法不仅仅是能实现，也是我个人最喜欢的实现方式。还有，我不是一个美工，因此项目中的所有图片是直接从网上公开的渠道获取的。（主要是从   [resources page](http://www.google.com/design/spec/resources/sticker-sheets-icons.html) ）。
 
 好了，下面是最终效果的两组截图和视频（很短的视频，就是那7秒钟的效果，可以在上面的视频中看到，这里因为没法直接引用youtube的视频就略了）（分别从Android 4 和5上获得的）：
+
 ![](http://jcodecraeer.com/uploads/20150204/1423058817102389.png)
+
 ![](http://jcodecraeer.com/uploads/20150204/1423059082492283.png)
+
 
 ##准备
 在我们的项目中，将使用一些热门的android开发工具和库。并不是所有这些东西本篇文章都会用到，我只是将它们准备好以备不时之需。
@@ -202,9 +207,13 @@ activity_main.xml
 为了简化FAB的使用，我们将用对Lollipop以及Lollipop之前的设备使用不同的样式：
 
 *FAB for Android v21:*
+
 ![](http://jcodecraeer.com/uploads/20150204/1423059083822681.png)
+
 *FAB for Android pre-21:*
+
 ![](http://jcodecraeer.com/uploads/20150204/1423059084110006.png)
+
 我们需要创建两个不同的xml文件来设置button的background：/res/drawable-v21/btn_fab_default.xml（Lollipop设备） ，/res/drawable/btn_fab_default.xml（Lollipop之前的设备）：
 
 btn_fab_default2.xml
@@ -347,7 +356,9 @@ public boolean onCreateOptionsMenu(Menu menu) {
 }
 ```
 以上就是toolbar的所有东西。并且onClick的按下效果也达到了预期的效果：
+
 ![](http://jcodecraeer.com/uploads/20150204/1423059085109860.png)
+
 #Feed
 最后需要实现的是feed，基于RecyclerView实现。我们需要设置两个东西：layout manager和adapter，因为这里其实就是想实现ListView的效果，所以直接用LinearLayoutManager就行了，而adapter我们首先从item的布局开始(res/layout/item_feed.xml)：
 
@@ -518,10 +529,14 @@ public class MainActivity extends ActionBarActivity {
 运行结果：
 
 Android Lollipop
+
 ![](http://jcodecraeer.com/uploads/20150204/1423059086107717.png)
 
+
 Android pre-21
+
 ![](http://jcodecraeer.com/uploads/20150204/1423059082492283.png)
+
 ##动画
 
 最后一件也是最重要的事情就是进入时的动画效果，再浏览一遍概念视频，可以发现在main Activity启动的时候有如下动画，分成两步：
