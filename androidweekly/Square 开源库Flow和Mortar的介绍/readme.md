@@ -57,7 +57,7 @@ Flow 将一个应用分成一个逻辑上的 Screen组合，Screen不是任何�
 我们应用中的每一个Activity将会成为一个 Flow 对象，Flow对象在返回栈中保存了 Screen 的记录，和 Activity 或者 FragmentManager 的返回栈有些类似，通过这样的设计允许我们在 Screen 之间通过简单地实例化就可以轻松的切换，而不需要在应用中包含很多Activity。这里有一小部分 Activity（最好是一个）来持有这些 Screen。他们之间的关系下图类似：
 ![screen](http://www.bignerdranch.com/img/blog/2015/02/screen.png)
 
-我们我们想切换到一个新的 Screen，我们只需简单地实例化这个 Screen，并且告诉我们 Flow 对象帮助我们切换为这个 Screen。除此以外，正如我们所期待的，Flow 被实例化后也会实现 goBack() 和 goUp() 方法。然而，许多开发者都把 Java 中的 goto 语句看作洪水猛兽，但事实上 Java 中的 goto 语句并没有它听起来那么恐怖。
+如果我们想切换到一个新的 Screen，我们只需简单地实例化这个 Screen，并且告诉我们 Flow 对象帮助我们切换为这个 Screen。除此以外，正如我们所期待的，Flow 被实例化后也会实现 goBack() 和 goUp() 方法。然而，许多开发者都把 Java 中的 goto 语句看作洪水猛兽，但事实上 Java 中的 goto 语句并没有它听起来那么恐怖。
 ![flow](http://www.bignerdranch.com/img/blog/2015/02/flow.png)
 
 从本质上看，Flow 的作用仅仅是在 App 中告诉我们将要切换到哪一个 Screen。而这样设计的好处在于，Flow 通过这样的设计让我们能够方便地在我们定义的各种不同的自定义 View 中切换，并使我们免受在 Activity 或 Fragment 需要考虑的种种麻烦，让我们把注意力都集中在处理 View上。Flow 为我们创造了一个简单，方便，以 View 为中心的应用架构。
@@ -84,13 +84,6 @@ Presenter 是一个拥有简单生命周期和伴随其生命周期的 Bundle �
 
 完全没有 Fragment 那样复杂的生命周期，这可不是我吹的！
 
-There are a lot of moving parts and new terms and classes and all sorts of room for confusion. So in sum, we have the following pieces of the puzzle:
-
-- Screen: A particular location in the application’s navigation hierarchy
-- Blueprint: A section of an application with its own Dagger module
-- Presenter: A View-controller object
-- Custom Views: Views defined by Java and usually some XML
-
 文章写到这里，你会发现在 Flow 和 Mortar 中有许多发生改变的部分，新的术语和类，还有新的使用规范，这难免会让人一头雾水。所以为了方便大家的理解，总的来说，我们需要重视的是下面几个部分：
 
 - Screen: 在应用导航层次结构中的一个特殊存在，用来代表我们视图的对象
@@ -103,8 +96,6 @@ Here’s what our final Mortar and Flow architecture looks like:
 我们 Mortar 和 Flow 整个体系架构将会如下所示：
 
 ![](https://www.bignerdranch.com/img/blog/2015/02/mortar-and-flow.png)
-
-Instead of sticking with Model View Controller, the architecture has morphed into more of a Model View Presenter style. The big difference concerns the handling of runtime configuration changes like rotation. In MVC, our Controller (Activities and Fragments) will be destroyed alongside our Views, whereas in MVP, only our View will be destroyed and recreated. Nifty.
 
 抛弃了对 MVC 模式的执念，这个架构在完成之后变得更像 MVP 模式。这样巨大的转变使得新的架构需要关注如何处理应用在运行时配置信息改变的问题，例如：旋转。在 MVC 模式中，我们的控制器（Activity 和 Fragment）会随着我们的 View 一起被杀死。然而，在 MVP 模式中，我们只有 View 
 被杀死，又在需要它的时候重现它。挺有趣的对吧？
