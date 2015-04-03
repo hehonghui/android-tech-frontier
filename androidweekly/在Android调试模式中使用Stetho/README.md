@@ -2,7 +2,7 @@
 # 在Android调试模式中使用Stetho
 ------
 
- - 原文链接:http://littlerobots.nl/blog/stetho-for-android-debug-builds-only/
+ - 原文链接:[在Android调试模式中使用Stetho][11]
  - 译者:BillionWang
  - 校对者
  - 状态:完成
@@ -88,3 +88,4 @@ Using the Android Gradle build system, it's easy to add some extra debug capabil
   [8]: https://github.com/facebook/stetho
   [9]: https://github.com/facebook/stetho
   [10]: https://github.com/facebook/stetho
+  [11]:http://littlerobots.nl/blog/stetho-for-android-debug-builds-only/
