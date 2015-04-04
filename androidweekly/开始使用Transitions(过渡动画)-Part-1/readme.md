@@ -55,7 +55,7 @@ Create an Animator based on the differences that will animate the views from one
 
 #先说下什么是 Transition(过渡动画).
 Lollipop 中 Activity 和 Fragment 的过渡动画是基于 Android 一个叫作 Transition 的新特性实现的。
-初次引入是在 KitKat 中，Transition 框架提供了一个方便的 API 来构建应用中不同 UI 状态切换时的动画。
+初次引入这个特性是在 KitKat 中，Transition 框架提供了一个方便的 API 来构建应用中不同 UI 状态切换时的动画。
 这个框架始终围绕两个关键概念:场景和过渡。
 **场景** 描述应用中 UI 的状态，[**过渡**][transition] 确定两个场景转换之间的过渡动画。
 
@@ -131,7 +131,7 @@ out of the screen.
 为了更好地理解底层中发生了什么，我们一步一步地分析下这段代码，首先假设屏幕上的所有的 View 都是**可见**的:
 
 1. 首先，点击按钮后调用了 [beginDelayedTransition()][beginDelayedTransition]，
-将根场景和 [Fade][fade] 过渡效果(淡入/淡出)作为参数传递出去。框架立即对场景中所有 View 调用 Transitions 的 [captureStartValues()][captureStartValues] 方法，同时， Transitions 将记录每个 View 的可见性。
+将根场景和[Fade][fade] Transition对象（淡入/淡出过渡效果）作为参数传递出去。框架立即对场景中所有 View 调用 Transitions 的 [captureStartValues()][captureStartValues] 方法，同时， Transitions 将记录每个 View 的可见性。
 2. 调用结束后，开发者将场景中所有 View 设置为**不可见**的。
 3. 在下一个画面，框架对场景中所有 View(近期更新的) 调用 Transitions 的[captureEndValues()][captureEndValues]
 方法， Transitions 记录可见性。
