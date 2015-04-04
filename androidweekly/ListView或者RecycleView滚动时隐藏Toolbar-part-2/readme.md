@@ -17,8 +17,8 @@ Hello，各位小伙伴，俺胡汉三又来了！！！今天我打算接着上
 
 下面是我们的最终效果图，我把它和 Google Play Store Toolbar 放在一起比较，大家可以感受一下：
 
-![](http://mzgreen.github.io/images/2/goal.gif)
-![](http://mzgreen.github.io/images/2/playstore.gif)
+![](http://img.my.csdn.net/uploads/201503/27/1427447727_3335.gif)
+![](images/playstore.gif)
 
 ## 准备工作 ##
 
@@ -40,7 +40,7 @@ Hello，各位小伙伴，俺胡汉三又来了！！！今天我打算接着上
 
 是的，这就是所有内容啦。我们运行 App 后可以看到我们的最终效果：
 
-![](http://mzgreen.github.io/images/2/nosnap.gif)
+![](http://img.my.csdn.net/uploads/201503/27/1427447725_3945.gif)
 
 是不是感觉自己棒棒哒～就像我们想象的那样，Toolbar 完美的随着list的滚动实现了展现/隐藏的效果。其中的功劳都得归功于我们对 mToolbarOffset 取值范围的限制。如果我们省略掉检查 mToolbarOffset 是否在[0 , Toolbar的高度]范围中取值的过程，带着完成控件的喜悦向上滚动我们的list，Toolbar 确实会如你所期望的那样离开屏幕，但与此同时，Toolbar 还会远远地，远远地，离开视图，再也不回来。然后当你满是期许地向下滚动时，你就会发现刚刚那一声再见，竟是永远。如果你想再次遇见它，你就必须想下滚动，直到 mToolbarOffset = 0。
 
@@ -66,7 +66,7 @@ onScrolled()方法和第一篇博文的一样，我们并不需要作什么改�
 
 那么，你准备好看魔术了吗？
 
-![](http://mzgreen.github.io/images/2/snapnotabs.gif)
+![](http://img.my.csdn.net/uploads/201503/27/1427448161_2643.gif)
 
 hey，派大星你看，是不是很酷！
 
@@ -80,7 +80,7 @@ hey，派大星你看，是不是很酷！
 
 添加 Tabs 意味这他们会稍微覆盖我们的list，所以我们需要增加Padding。为了减少代码的操作复杂度，我们不会在 xml 里进行这个操作（注意把 RecyclerView 在 part_tuo_activity里的padding删掉哦），因为 Toolbar 可能会在不同的设备中切换方向时拥有不同的高度（例如在平板中），这样的话我们需要创建一大堆的 xml 去解决这些乱七八糟的烦人问题。所以我决定在代码中解决这个问题：这是非常简单的，我们只需要和 Tabs高度的总和。如果我们把 Padding设置为 Toolbar 的高度现在运行起来的话，就会发现这样的东西：
 
-![](http://mzgreen.github.io/images/2/withtabs.png)
+![](http://img.my.csdn.net/uploads/201503/27/1427448162_3352.png)
 
 看起来很正常的样子……我们第一个item刚刚好是可见的，我们也能移动跟随着它。实际上我们在 HidingScrollListener 类里什么也没干，唯一需要的改变都是在 PartTwoActivity 里做的：
 
@@ -96,11 +96,11 @@ hey，派大星你看，是不是很酷！
 
 这就是今天博文要讲的一切了，让我们来看一看实际效果！
 
-![](http://mzgreen.github.io/images/2/goal.gif)
+![](http://img.my.csdn.net/uploads/201503/27/1427447727_3335.gif)
 
 现在运行的效果简直完美啊大兄弟～即使用其他的 LayoutManagers 也不需要改变任何东西的哦：
 
-![](http://mzgreen.github.io/images/2/grid.png)
+![](http://img.my.csdn.net/uploads/201503/27/1427448162_7185.png)
 
 评论区有好学的同学问了个有关存储滚动状态的问题，这确实是个小麻烦。如果我们list的item中的文字在垂直方向达到2行，在水平方向达到1行的话，我们的item高度就会变得很奇怪了……举个例子吧，如果我们滚动到垂直方向100的位置，然后旋转我们的设备，同时存储 mTotalScrolledDistance的值，在旋转之后，我们会滚动到list的顶部，然后我们会发现 mTotalscrolleddistance 的值不等于0。这个时候即使全能如我也想不到简单的办法来解决这个问题了，但是在我们的使用场景中，这样的小问题并不会有什么影响。如果你真的想要解决这个问题的话，我个人的做法是：在旋转之后把 mTotalScrolledDistance 的值重设为0 并且显示 Toolbar。
 

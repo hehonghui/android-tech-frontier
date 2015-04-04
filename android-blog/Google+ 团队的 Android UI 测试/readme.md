@@ -29,7 +29,7 @@ Google+ 团队总结了一些 UI 测试时的经验和策略。
 
 先看一些定义：__UI 测试__ 是为了确保对于用户的UI动作，app能返回正确的UI输出。__End-to-end测试（E2E test)__ 是通过客户端和后台服务器的交互测试整个系统。下面这个图在展示了测试步骤：
 
-![](ui-test-1.png)
+![](http://img.my.csdn.net/uploads/201503/28/1427507159_1836.png)
 
 通常做UI测试，你需要后台服务器，所以可能产生网络调用。所以UI测试和E2E测试很像。但是在E2E测试中会遇到很多困难：
 
@@ -45,17 +45,17 @@ Google+ 团队总结了一些 UI 测试时的经验和策略。
 
 当你有了这个伪服务器，你还需要给这个伪服务器写测试。于是这是，你的E2E测试就分为了服务器测试，客户端测试和集成测试。
 
-![](ui-test-2.png)
+![](http://img.my.csdn.net/uploads/201503/28/1427507159_8354.png)
 
 现在这样的解决方案，你需要自己维护伪服务器，本地数据库和tests了。
 
 下面这是E2E 测试的示例图：
 
-![](ui-test-sut.jpg)
+![](http://img.my.csdn.net/uploads/201503/28/1427507160_4776.jpg)
 
 这是使用了伪服务器的封闭UI测试
 
-![](ui-test-sut-2.jpg)
+![](http://img.my.csdn.net/uploads/201503/28/1427507167_8779.jpg)
 
 其区别在于：Frontend Server的几个数据源变了。由原来的真实后端，变成了封闭服务器，或者是mock服务器。这个在测试调用网络API的时候非常有用。
 
@@ -65,7 +65,7 @@ Dependency Injection（依赖注入）可以帮助生成测试数据。我推荐
 
 依赖注入在UI test和unit test都中都可以用于生成假数据。在instrumentation test框架中，测试用的apk文件和测试时运行的app，是在同一个进程下面，所以测试代码可以调用app代码。你还可以覆盖app的classpath，通过这种方式注入假数据。比如你可以用依赖注入来伪造一个网络连接的实现，调用这个网络连接的时候就可以提供假数据。
 
-![](ui-test-3.png)
+![](http://img.my.csdn.net/uploads/201503/28/1427507159_6700.png)
 
 
 ### 策略4：把app分为小的libraries
@@ -76,7 +76,7 @@ Dependency Injection（依赖注入）可以帮助生成测试数据。我推荐
 
 比如我们有一个登陆功能的库，那么我可以写一个测试app只为这个登陆功能库：
 
-![](ui-test-4.png)
+![](http://img.my.csdn.net/uploads/201503/28/1427507160_4803.png)
 
 #### 总结：
 
