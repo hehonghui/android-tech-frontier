@@ -56,6 +56,15 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" />
 ## 已完成列表
+## 2015.4.10 ( 第四期 )
+| 文章名称 |   译者  |  出处  |
+|---------|--------|-------|
+| [FaceBook推出的Android图片加载库-Fresco](others/FaceBook推出的Android图片加载库-Fresco)  | [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang)       |   [code.facebook.com](https://code.facebook.com/posts/366199913563917/introducing-fresco-a-new-image-library-for-android/)    |
+| [Kotlin for Android (II)创建一个工程](androidweekly/Kotlin for Android (II)创建一个工程)  | [Lollypo](https://github.com/Lollypo)       |   [antonioleiva.com](http://antonioleiva.com/kotlin-for-android-introduction/)|
+
+
+
+
 ## 2015.4.3 ( 第三期 )
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|
