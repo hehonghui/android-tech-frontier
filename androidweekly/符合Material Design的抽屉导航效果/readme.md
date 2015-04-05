@@ -1,4 +1,10 @@
 ###符合Material Design的抽屉导航效果：
+---
+>
+* 原文链接 : [Navigation Drawer styling according to Material Design](https://medium.com/@sotti/navigation-drawer-styling-according-material-design-5306190da08f)
+* 译者 : [wly2014](https://github.com/wly2014)
+* 校对者: [chaossss](https://github.com/chaossss)
+* 状态 :  
 
 ![](https://d262ilb51hltx0.cloudfront.net/max/720/1*hLe32r_m-fWUQrnJCalKkQ.png)
 
@@ -83,23 +89,23 @@ Google+ Photos可能是最后一个使用抽屉，却没有覆盖ActionBar/Toolb
 
 > 既然这个图标动画的可视性较差，那就没那必要再保留它了。如果你不注意，你就看不到它，如果你注意的话，看到它，又不知道是怎么回事。
 
-### 账户图片
+### 资料图片
 
 这张个人头像是圆形的，我们有很多方法能让图片变成圆形，但我每次需要实现这个需求想起的都是 [Romain Guy](https://plus.google.com/+RomainGuy/about) 的[方法](http://www.curious-creature.com/2012/12/11/android-recipe-1-image-with-rounded-corners/comment-page-1/)。所以这次我还是使用了 Romain Guy 的 CircleImageView，毕竟“信RM，无BUG”。有人可能会提到 Google IO 大会上被使用的那个[ App](https://github.com/google/iosched/blob/master/android/src/main/java/com/google/samples/apps/iosched/ui/widget/BezelImageView.java)，我还没去了解过它的具体实现，可能值得我们看一看吧。
 
-在Google Paly Movies与Google Paly Books上，这个图片有一个白色的边框。而其他的Google app上却没有。Google+和Hangouts的账户图片在toolbar上，不过却有白边框。
+在Google Paly Movies与Google Paly Books上，这个图片有一个白色的边框。而其他的Google app上却没有。Google+和Hangouts的资料图片在toolbar上，不过却有白边框。
 
 ![](https://d262ilb51hltx0.cloudfront.net/max/800/1*58WoVNOl-JIRyp1o3_f9JQ.jpeg)
 
 ![](https://d262ilb51hltx0.cloudfront.net/max/800/1*v5KQiG7MNlpFdCjSk0WHqQ.jpeg)
 
-注意：[查看账户图片大小](https://medium.com/@sotti/navigation-drawer-styling-under-material-design-f0767882e692)
+注意：[查看资料图片大小](https://medium.com/@sotti/navigation-drawer-styling-under-material-design-f0767882e692)
 
-> 账户图片是圆形的，通常没有边框。建议你通过Romain Guy推出的库来获得的圆形。
+> 资料图片是圆形的，通常没有边框。建议你通过Romain Guy推出的库来获得的圆形。
 
 ### 封面图片
 
-封面图片（不同于账户图片），是账号/头像部分的背景（就是抽屉式导航的上部，通常你可以在此切换账号，查看昵称，email和你的账户图片）。
+封面图片（不同于资料图片），是账号/头像部分的背景（就是抽屉式导航的上部，通常你可以在此切换账号，查看昵称，email和你的资料图片）。
 
 这块的文字是白色的，并且要确保能看的见，你可以应用一个前景或者半透明的黑色来覆盖封面图片。我试了一下，发现40-50% 的黑色是最好的。要注意的是，不要弄的图片不可见了，文字也没法读了。
 
