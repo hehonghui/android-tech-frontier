@@ -4,7 +4,7 @@
 >
 * 原文链接 : [Screenshots Through Automation](http://flavienlaurent.com/blog/2014/12/05/screenshot_automation/)
 * 译者 : [chaossss](https://github.com/chaossss) 
-* 校对者: [这里校对者的github用户名](github链接)  
+* 校对者: [sundroid](https://github.com/sundroid)  
 * 状态 :  校对中 
 
 
@@ -12,7 +12,7 @@
 
 One important thing when an app is released on the Play Store is to have up-to-date, beautiful and clean screenshots. In an app containing lots of screens, it can be painful to manually take screenshots for each release. This article describes an approach at pushing automation into the screenshot process in order to more easily achieve this.
 
-在发布 App 到应用商店时有一件的事情不得不做，就是上传最新的高清无码截图到应用商店上。可是如果你的 App 有许多页面，那你每次发布更新都可能是一场梦魇，因为你需要一页一页地去截图。为了解决众多 App 开发者的这个痛点，我将在这篇博文中介绍一个实现自动化截图的方法：
+在发布 App 到应用商店时有一件的事情不得不做，就是上传最新的高清无码截图到应用商店上。可是如果你的 App 有许多页面，那你每次发布更新时手动截图将会变的很痛苦，因为你需要一页一页地去截图。为了解决众多 App 开发者的这个痛点，我将在这篇博文中介绍一个实现自动化截图的方法：
 
 Just arrived at Capitaine Train, I was asked to find a way to automatically take screenshots because we had a lot of them: 3 form factors, 4 languages, 6 screenshots = 72 screenshots. This article explains the solution we used to achieve this. 3 important parts are necessary to take screenshots like a robot: uiautomator, accessibility and bash scripting.
 
@@ -97,7 +97,7 @@ Create a new java Gradle module in your existing project and use the same androi
 
 Create a new ant build file using local.properties and gradle.properties to have the same configuration (target, sdk path) as the whole project
 
-通过使用 local.properties 和 gradle.properties 新建一个 ant 文件，使其获得与项目相同的配置信息：
+通过使用 local.properties 和 gradle.properties 新建一个 ant 文件，使其获得与项目相同的配置信息(target, sdk path)：
 
 build.xml
 
@@ -113,7 +113,7 @@ build.xml
 
 Build the JAR using ant (don’t use Gradle), push it on the device and run your test case
 
-创建使用了新建的 ant 文件的 JAR（别使用 Gradle ），并把它加到你的设备中，然后运行你的测试用例
+使用ant 构建JAR（不要使用Gradle构建），并把它加到你的设备中，然后运行你的测试用例
 
 ```java
 $ ant build
@@ -127,7 +127,7 @@ Now, I’m going to explain how to navigate and change items (in particular, swi
 
 **自动切换设置信息**
 
-现在我准备讲解怎么在设置中自动切换设置项和设置信息（特别是从一个语言切换到另一个语言）。首先，这是一个练习使用 uiautomator 的机会。同时，这也是自动化截图的关键步骤。但你要记住，我接下来介绍的只是一个能在 Android 5.0 系统上正常使用的办法，如果你有更好的建议或者想法，也可以通过留言和我交流，一起优化这个步骤。
+现在我准备讲解如何浏览和改变项目（特别是从一个语言切换到另一个语言）的设置。首先，这是一个练习使用 uiautomator 的机会。其次，这也是自动化截图的关键步骤。但你要记住，这个方法并不是唯一的，同时这个测试方法是在一个系统语言是英语的Android Lollipop 5.0.0上。
 
 - Open quick settings
 
@@ -159,7 +159,7 @@ Now, I’m going to explain how to navigate and change items (in particular, swi
 
 - The exact same “find and click” principle is used on the “Language” item (a LinearLayout) contained in a ListView
 
-- 通过上面的代码处理，整个“寻找并点击”的自动化逻辑已经能在语言设置栏里被使用了
+- 通过上面的代码处理，整个“寻找并点击”的自动化逻辑已经能在语言设置栏(界面布局是LinearLayout,包含了一个ListView)里被使用了。
 ![](http://flavienlaurent.com/media/2014-12-05-screenshot_automation/settings_language.png)
 
 ```java
@@ -180,7 +180,7 @@ Now, I’m going to explain how to navigate and change items (in particular, swi
 ```
 You need to force the new locale to avoid the uiautomator process to keep a cache of some translations.
 
-完成了上面的操作后，你还需要强制设置新的点击位置以避免 uiautomator 进程保存了翻译缓存
+完成了上面的操作后，你还需要强制设置新的语言环境以避免 uiautomator 操作过程中保存了翻译缓存。
 
 **A few tips**
 
@@ -206,7 +206,7 @@ You need to force the new locale to avoid the uiautomator process to keep a cach
 
 - 你不能通过 uiautomator 进入你的 App 类，你只能引用 Android 框架中的类。
 
-- You can pass parameter from the uiautomator command line to the test case class using -e key value in command line and UiAutomatorTestCase.html#getParams() in the test case classe.
+- You can pass parameter from the uiautomator command line to the test case class using -e key value in command line and UiAutomatorTestCase.html#getParams() in the test case classes.
 
 - 你可以在命令行中使用 -e 命令把 uiautomator 命令行的参数传递到测试用例类中，又或者是使用测试用例类中的 UiAutomatorTestCase.html#getParams()
 
@@ -220,7 +220,7 @@ Accessibility is an important feature for an app for two main reasons. First, so
 
 ## 让自定义 View 可访问 ##
 
-可访问性对一个 App 来说非常重要，其作用主要体现在两个方面：有些用户/开发者需要它（但总有开发者会忽略这个需求），此外，uiautomator 都以可访问性为基础，也就是说，如果一个应用不能提供可访问的入口，我们将无法在其中使用 uiautomator 自动化测试工具。
+可访问性对一个 App 来说非常重要，其作用主要体现在两个方面：首先，有些用户/开发者需要它（但总有开发者会忽略这个需求），其次，uiautomator 都以可访问性为基础，也就是说，如果一个应用不能提供可访问的入口，我们将无法在其中使用 uiautomator 自动化测试工具。
 
 When developing on Android, you most of the time have nothing in particular to make your app accessible. Indeed, standard framework components like TextView, ListView, etc. already deal with accessibility. However, there are some certain cases where you have to do a little more work. This is mainly when using custom views.
 
@@ -250,7 +250,7 @@ There are 4 methods to implement:
 
 Return the virtual view id at this x and y or ExploreByTouchHelper.INVALID_ID if there is no virtual view
 
-返回参数 x,y处虚拟 View 的 id。如果对应位置上没有虚拟 View，则返回 ExploreByTouchHelper.INVALID_ID
+返回参数 x,y处时是虚拟 View 的 id。如果对应位置上没有虚拟 View，则返回 ExploreByTouchHelper.INVALID_ID
 
 - getVisibleVirtualViews(List<Integer> virtualViewIds)
 
@@ -282,9 +282,9 @@ How to make ExploreByTouchHelper implementation easier:
 
 - create a VirtualView class to maintain virtual view informations such as id, text, content description, bounds in parent.
 
-- use a list of VirtualView in your custom view. Initialize it as soon as possible and update virtual views on drawing pass
-
 创建一个 VirtualView 类去持有虚拟 View 的各种信息，例如：id，文字，内容描述，与父类的关系。
+
+- use a list of VirtualView in your custom view. Initialize it as soon as possible and update virtual views on drawing pass
 
 在你的自定义 View 中使用一系列的 VirtualView。尽快初始化它们，并在绘制后更新它们
 
@@ -569,7 +569,7 @@ Your app screenshots must be as polished as possible because it’s the first th
 
 The 2 first points can be easily achieved with an amazing tool called: imagemagick. The official documentation is very large so we are going to focus on 2 features: composite and convert.
 
-第二点可以用一个超神奇的工具——imagemagick 实现，虽然它的官方文档非常大，但我们用不到那么多的特性，所以我们只需要关注两个特性：组合和转换。
+第二点可以用一个超神奇的工具—imagemagick 实现，虽然它的官方文档非常大，但我们用不到那么多的特性，所以我们只需要关注两个特性：组合和转换。
 
 Clean the status bar with composite
 
@@ -613,6 +613,4 @@ Integrate this tool into Jenkins to take screenshots on each release build
 接下来可能做的：
 
 使用 Google Play 发布的 API 简化上传这些自动生成的截图的流程，并把这个工具整合到 Jenkins 里，让 App 每一次版本更新都能自动地获取最新的截图，并将其显示在应用商店中。
-
-
 
