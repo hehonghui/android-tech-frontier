@@ -7,11 +7,6 @@
 * 校对者: [chaossss](https://github.com/chaossss)  
 * 状态 :  校对完成
 
-This post continues our in-depth analysis of shared element transitions by
-discussing an important feature of the Lollipop Transition API: postponed
-shared element transitions. It is the fourth of a series of posts I will
-be writing on the topic:
-
 通过讨论 Lollipop Transition API 的一个重要的特性：延迟共享元素的过渡动画，这篇博文将继续我们关于共享元素 Transition 的深度解析。这也是我关于 Transition 这个专栏的第四篇文章。
 
 - Part 1: [在 Activity 和 Fragment 中使用 Transition ][part-1]
@@ -25,11 +20,7 @@ be writing on the topic:
 
 ##理解问题
 
-通常问题的根源是框架在 Activity 生命周期非常早的时候启动共享元素 Transition 。回想我们的第一篇文章，Transitions 必须捕获目标 View 的起始和结束状态来构建合适的动画。因此，如果框架在共享元素获得它在调用它的 Activity 中所给定的大小和位置前启动共享元素的过渡动画，这个 Transition 将不能正确捕获到共享元素的结束状态值,生成动画也会失败(一个过渡失败的例子[Video 3.3][video]).
-
-<video src="http://www.androiddesignpatterns.com/assets/videos/posts/2015/03/09/postpone-bug-opt.mp4" controls>
-   Your browser does not implement html5 video.
-</video>
+通常问题的根源是框架在 Activity 生命周期非常早的时候启动共享元素 Transition 。回想我们的第一篇文章，Transitions 必须捕获目标 View 的起始和结束状态来构建合适的动画。因此，如果框架在共享元素获得它在调用它的 Activity 中所给定的大小和位置前启动共享元素的过渡动画，这个 Transition 将不能正确捕获到共享元素的结束状态值,生成动画也会失败(一个过渡失败的例子[Video 3.3](http://www.androiddesignpatterns.com/assets/videos/posts/2015/03/09/postpone-bug-opt.mp4)).
 
 Transition 开始前，能否计算出正确的共享元素的结束值主要依靠两个因素:
 
@@ -37,14 +28,6 @@ Transition 开始前，能否计算出正确的共享元素的结束值主要依
 (2)调用共享元素Activity载入数据消耗的时间
 
 布局越复杂，在屏幕上确定共享元素的大小位置耗时越长。同样，如果调用共享元素的 Activity 依赖一个异步的数据载入，框架仍有可能会在数据载入完成前自动开始共享元素 Transition。下面列出的是你可能遇到的常见问题:
-
-- **The shared element lives in a Fragment hosted by the called activity**.
-FragmentTransactions are not executed immediately after they are committed;
-they are scheduled as work on the main thread to be done at a later time. Thus,
-if the shared element lives inside the Fragment's view hierarchy and the
-FragmentTransaction is not executed quickly enough, it is possible that the
-framework will start the shared element transition before the shared element
-is properly measured and laid out on the screen.1
 
 - **存在于 Activity 托管的 Fragment 中的共享元素**。[FragmentTransactions 在 commit 后并不会被立即执行][FragmentTransactions]，它们会被安排到主线程中等待执行。因此，如果共享元素存在的 Fragment 的视图层和FragmentTransaction没有被及时执行，框架有可能在共享元素被正确测量大小和布局到屏幕前启动共享元素 Transition。<a id="b1" href="#1">(1)</a>
 
