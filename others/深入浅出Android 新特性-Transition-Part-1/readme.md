@@ -84,20 +84,6 @@ public class ExampleActivity extends Activity implements View.OnClickListener {
 
 5. 框架运行返回的**动画**,让所有 View 从屏幕中淡出。
 
-This simple example highlights two main advantages that the transition framework
-has to offer. First, Transitions abstract the idea of Animators from the
-developer. As a result, Transitions can significantly reduce the amount of code
-you write in your activities and fragments: all the developer must do is set the
-views' start and end values and the Transition will automatically construct an
-animation based on the differences. Second, animations between scenes can be
-easily changed by using different Transition objects. [Video 1.1](http://www.androiddesignpatterns.com/assets/videos/posts/2014/12/04/trivial-opt.mp4),
-for example, illustrates the dramatically different effects we can achieve by
-replacing the Fade transition with a Slide or Explode. As we will see moving
-forward, these advantages will allow us to build complex Activity and Fragment
-transition animations with a relatively small amount of code. In the next few
-sections, we will see for ourselves how this can be done using Lollipop's new
-Activity and Fragment transition APIs.
-
 这个例子强调了 Transition 框架的两个优点：第一，**Transition** 将开发人员所需要的**动画**概念抽象，减少了 Activity 和 Fragment 内的代码复用，使得我们只要设置好 View 的 起始 和 结束 时的状态，就能通过 Transition 自动创建动画。第二，只要更换 **Transition** 对象就可以修改两个场景间的动画。
 
 [ 示例 **Video 1.1**][video1.1],只要少量代码就可以创建复杂的动画效果。
@@ -114,15 +100,6 @@ Activity and Fragment transition APIs.
 >假设 **A** 和 **B** 是两个 Activity，通过 **A** 来启动 **B**。
 >**A** 叫做 "调用Activity"(调用 `startActivity()` 的那个)
 >**B** 就是 "被调用Activity"
-
->Activity A's exit transition determines how views in A are animated when A starts B.
-
->Activity B's enter transition determines how views in B are animated when A starts B.
-
->Activity B's return transition determines how views in B are animated when B returns to A.
-
->Activity A's reenter transition determines how views in A are animated when B returns to A.
-
 
 Activity transition API 是围绕退出，进入，返回还有重入过渡动画效果构建的。根据之前的定义我们可以这样描述它们:
 
@@ -146,14 +123,6 @@ Activity transition API 是围绕退出，进入，返回还有重入过渡动�
    Your browser does not implement html5 video.
 </ video>
 
-- The exit and reenter content transitions for activity A (the calling activity) are both null. We can tell because the non-shared views in A are not animated when the user exits and reenters the activity.2
-
-- The enter content transition for activity B (the called activity) uses a custom slide-in transition that shuffles the list items into place from the bottom of the screen.
-
-- The return content transition for activity B is a TransitionSet that plays two child transitions in parallel: a Slide(Gravity.TOP) transition targeting the views in the top half of the activity and a Slide(Gravity.BOTTOM) transition targeting the views in the bottom half of the activity. The result is that the activity appears to "break in half" when the user clicks the back button and returns to activity A.
-
-- The enter and return shared element transitions both use a ChangeImageTransform, causing the ImageView to be animated seamlessly between the two activities.
-
 - **A**(调用Activity) 的**退出**和**重新进入** Content Transition 都是 **null**。因为用户退出和重新进入时 Activity A中的非共享视图没有动画效果。<a id="2" href="#b2">(2)</a>
 
 
@@ -163,9 +132,6 @@ Activity transition API 是围绕退出，进入，返回还有重入过渡动�
 针对Activity上半部分的View，一个Slide (Gravity.BOTTOM) Transition 针对Activity 下半部分View。当用户点击按钮返回Activity A，Activity呈现一种断成两半的感觉。
 
 - 共享元素的进入和退出 Transition 都是 **ChangeImageTransform**，使ImageView过渡动画可以在两个Activity间无缝衔接。
-
-You've probably also noticed the cool circular reveal animation that plays under the shared element during the transition. We will cover how this can be done in a future blog post. For now, let's keep things simple and familiarize ourselves with the Activity and Fragment transition APIs.
-
 
 你可能也注意到了在共享元素 Transition 下还有一个圆形的过渡动画(circular reveal)，我们会在将来的章节中介绍它是如何实现的。现在，我们来继续了解 Activity 和 Fragment transition APIs
 
