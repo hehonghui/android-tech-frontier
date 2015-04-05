@@ -86,11 +86,8 @@ public class ExampleActivity extends Activity implements View.OnClickListener {
 
 这个例子强调了 Transition 框架的两个优点：第一，**Transition** 将开发人员所需要的**动画**概念抽象，减少了 Activity 和 Fragment 内的代码复用，使得我们只要设置好 View 的 起始 和 结束 时的状态，就能通过 Transition 自动创建动画。第二，只要更换 **Transition** 对象就可以修改两个场景间的动画。
 
-[ 示例 **Video 1.1**][video1.1],只要少量代码就可以创建复杂的动画效果。
+[ 示例 **Video 1.1**](http://www.androiddesignpatterns.com/assets/videos/posts/2014/12/04/trivial-opt.mp4),只要少量代码就可以创建复杂的动画效果。
 后续文章会介绍如何做到。
-<video src="http://www.androiddesignpatterns.com/assets/videos/posts/2014/12/04/trivial-opt.mp4" controls>
-   Your browser does not implement html5 video.
-</video>
 
 # Lollipop 中的 Activity & Fragment Transitions
 在 Android 5.0 中， 切换 **Activitys** 或者 **Fragments** 时可以使用 **Transitions** 来构建精致的过场动画。虽然在之前的版本中已经引入 Activity 和 Fragment 的切换动画(通过 [Activity#overridePendingTransition()][overridePendingTransition] 和 [FragmentTransaction#setCustomAnimation()][setCustomAnimations] 方法时西安)，但是动画的对象只能是**Activity/Fragment**整体。而新的 API 将这个特性延伸，使我们可以为每个 View 单独设置动画，甚至可以在两个独立的 Activity/Fragment 容器内共享某些 View的动画。
@@ -117,11 +114,7 @@ Activity transition API 是围绕退出，进入，返回还有重入过渡动�
 
 >**共享元素(Shared Element) Transition** 确定了两个Activity 共享 View (也被叫做主角视图)的动画效果。
 
-[Video 1.2][video1.2]这段视频很好的解释了 Content Transition 和 共享元素 Transition，我猜想它使用了下面的过渡动画。
-
-<video src="http://www.androiddesignpatterns.com/assets/videos/posts/2014/12/04/news-opt.mp4" controls>
-   Your browser does not implement html5 video.
-</ video>
+[Video 1.2](http://www.androiddesignpatterns.com/assets/videos/posts/2014/12/04/news-opt.mp4)这段视频很好的解释了 Content Transition 和 共享元素 Transition，我猜想它使用了下面的过渡动画。
 
 - **A**(调用Activity) 的**退出**和**重新进入** Content Transition 都是 **null**。因为用户退出和重新进入时 Activity A中的非共享视图没有动画效果。<a id="2" href="#b2">(2)</a>
 
