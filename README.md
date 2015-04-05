@@ -62,7 +62,6 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | [FaceBook推出的Android图片加载库-Fresco](others/FaceBook推出的Android图片加载库-Fresco)  | [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang)       |   [code.facebook.com](https://code.facebook.com/posts/366199913563917/introducing-fresco-a-new-image-library-for-android/)    |
 | [Kotlin for Android (II)创建一个工程](androidweekly/Kotlin for Android (II)创建一个工程)  | [Lollypo](https://github.com/Lollypo)       |   [antonioleiva.com](http://antonioleiva.com/kotlin-for-android-introduction/)|
 | [深入浅出Android 新特性-Transition-Part-1](others/深入浅出Android 新特性-Transition-Part-1)  | [tiiime](https://github.com/tiiime)       |   [androiddesignpatterns.com](http://www.androiddesignpatterns.com/2014/12/activity-fragment-transitions-in-android-lollipop-part1.html)|
-| [深入浅出Android 新特性-Transition-Part-3b](others/深入浅出Android 新特性-Transition-Part-3b)  | [tiiime](https://github.com/tiiime)       |   [androiddesignpatterns.com](http://www.androiddesignpatterns.com/2015/03/activity-postponed-shared-element-transitions-part3b.html)|
 
 
 
