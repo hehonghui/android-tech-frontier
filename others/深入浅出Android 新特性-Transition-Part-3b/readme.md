@@ -4,7 +4,7 @@
 >
 * 原文链接 : [Postponed Shared Element Transitions (part 3b)][source-url]
 * 译者 : [tiiime](https://github.com/tiiime)
-* 校对者: [chaossss](https://github.com/tiiime)  
+* 校对者: [chaossss](https://github.com/chaossss)  
 * 状态 :  校对完成
 
 This post continues our in-depth analysis of shared element transitions by

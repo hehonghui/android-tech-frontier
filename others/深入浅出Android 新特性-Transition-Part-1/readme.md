@@ -9,7 +9,6 @@
 
 
 
-#开始使用 Transitions
 
 ##首先
 这篇文章主要介绍 Android 5.0 新加入的 Transition (过渡动画) API，这是这个系列的第一篇文章。主要介绍下面几个话题:
