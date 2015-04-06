@@ -8,6 +8,7 @@
 
 
 One truth about developing a mobile application is there are so many constraints for example, a hardware limitation (CPU, RAM, Battery, etc). If your code design is not good enough, prepare to say hi to the most critical problem on earth: "Crash". According to a study, it shows that:
+
 在开发一款移动app时的一个事实是会有很多约束，比如硬件（CPU、RAM、Battery 等等）。如果你的代码设计不是很好，你会遇到一个非常让人头疼的问题：“Crash”,研究表明：
 
 >
@@ -36,12 +37,14 @@ So ... is there any crash tracking system that allow us to set up our own server
 所以，这儿有没有崩溃信息跟踪系统可以让我们搭建在自己的服务器上？那么就不存在泄漏用户隐私的担忧了。当然有了，并且这个系统提供了非常简单的搭建方法。在这里我们来介绍下[Application Crash Reporting on Android (ACRA)](https://www.acra.gov.sg/home/),一个库允许Android应用自动地发送崩溃信息到自己的服务器。
 
 Let's start.
+
 下面将会介绍如何去搭建。
 
 ## Setting up a server ##
 ## 搭建一个服务器 ##
 
 Server side is a prerequisite for client side. So let's start with server side first.
+
 服务器端是一个先决条件，让我们先从搭建服务器端开始。
 
 Since ACRA is well designed and is quite popular. It allows developer to develop their own server system which we could see many of them out there. Anyway the best one I recommend is Acralyzer which is also developed by ACRA team. Acralyzer works on top of Apache CouchDB, so there is no need to install any additional software but only CouchDB.
@@ -97,9 +100,11 @@ In the same file, you have to do adding a username/password as an administrator 
 *[admins]
 
 Add a username/password in the next line in username = password form, for example:
+
 下一行添加username/password 形式为username = password，比如：
 >
-*[nuuneoi = 12345
+*[nuuneoi = 12345]
+
 
 Please feel free to place a raw password there. Once CouchDB is restarted, your password will be hashed automatically and will be unreadable.
 
@@ -193,9 +198,11 @@ Please note that acro-myapp is created just for one app. In case you want to cre
 If there is more than one app in the system, there will be a drop-down listbox in Acralyzer Dashboard page to let you choose which one you want to see the issues. Please feel free to give a try.
 
 如果在系统中有不止一款应用，在Acralyzer的仪表盘中将会有一个下拉列表，让我们去选择看哪一个的问题。你可以试一试。
+
 Setting up ACRA on Client Side
 
 在客户端设置ACRA。
+
 It is pretty easy to setup ACRA on client side. First of all, add a dependency on your build.gradle
 
 在客户端中设置ACRA很简单，首先，在你的 build.gradle里添加ACRA的依赖配置信息。
@@ -210,10 +217,10 @@ Add a Annotation @ReportCrashes above your custom Application created.
 
 在你创建的自定义的Application类中添加 @ReportCrashes注解。
 ```java
-	import android.app.Application;
-    import org.acra.ACRA;
-    import org.acra.annotation.ReportsCrashes;
-    import org.acra.sender.HttpSender;
+import android.app.Application;
+import org.acra.ACRA;
+import org.acra.annotation.ReportsCrashes;
+import org.acra.sender.HttpSender;
  
 /**
  * Created by nuuneoi on 2/19/2015.
