@@ -123,7 +123,7 @@ The `map(f)` function replaces (into the new stream) each emitted value accordin
 counterStream: ---1----2--3----4------5-->
 ```
 
-`map(f)`函数会根据你提供的`f`函数把原事件流中每一个发出的值分别映射到新的事件流中。在上图的例子中，我们把每一次点击事件都映射成数字1，`scan(g)`函数则把之前映射的值聚集起来，然后根据`x = g(accumulated, current)`算法来作相应的处理，而本例的`g`函数其实就是简单的加法函数。然后，当一个点击事件发生时，`counterStream`函数则上报当前点击事件总数
+`map(f)`函数会根据你提供的`f`函数把原事件流中每一个发出的值分别映射到新的事件流中。在上图的例子中，我们把每一次点击事件都映射成数字1，`scan(g)`函数则把之前映射的值聚集起来，然后根据`x = g(accumulated, current)`算法来作相应的处理，而本例的`g`函数其实就是简单的加法函数。然后，当一个点击事件发生时，`counterStream`函数则上报当前点击事件总数。
 
 To show the real power of Reactive, let's just say that you want to have a stream of "double click" events. To make it even more interesting, let's say we want the new stream to consider triple clicks as double clicks, or in general, multiple clicks (two or more). Take a deep breath and imagine how you would do that in a traditional imperative and stateful fashion. I bet it sounds fairly nasty and involves some variables to keep state and some fiddling with time intervals.
 
@@ -136,15 +136,15 @@ Grey boxes are functions transforming one stream into another. First we accumula
 
 I hope you enjoy the beauty of this approach. This example is just the tip of the iceberg: you can apply the same operations on different kinds of streams, for instance, on a stream of API responses; on the other hand, there are many other functions available.
 
-为了展示响应式编程真正的魅力，我们假设你有一个"双击"事件流，为了让它更有趣，我们假设这个事件流同时处理"三次点击"或者"多次点击"事件，然后深吸一口气想想如何用传统的命令式和状态式的方式来处理，我敢打赌，这么做其实会相当的令人厌烦，其中会涉及到一些变量来保存状态，并且还得做一些时间间隔的调整
+为了展示响应式编程真正的魅力，我们假设你有一个"双击"事件流，为了让它更有趣，我们假设这个事件流同时处理"三次点击"或者"多次点击"事件，然后深吸一口气想想如何用传统的命令式和状态式的方式来处理，我敢打赌，这么做会相当的讨厌，其中还要涉及到一些变量来保存状态，并且还得做一些时间间隔的调整。
 
-而我们用响应式编程的方式处理起来确是那么的简洁，实际上，逻辑代码只需要[四行代码](http://jsfiddle.net/staltz/4gGgs/27/)而已。但是，当前阶段让我们现忽略代码的部分，无论你是新手还是专家，看着图表来理解和建立事件流将是一个非常棒的途径。
+而用响应式编程的方式处理会非常的简洁，实际上，逻辑处理部分只需要[四行代码](http://jsfiddle.net/staltz/4gGgs/27/)。但是，当前阶段让我们现忽略代码的部分，无论你是新手还是专家，看着图表思考来理解和建立事件流将是一个非常棒的方法。
 
 ![多次点击事件流](images/zmulticlickstream.png)
 
-图中，灰色盒子表示将上面的事件流转换下面的事件流的**函数**过程，首先根据250毫秒的间隔时间或者叫无事件发生的时间段(event silence, 译者:上一个事件发生到下一个事件发生的间隔事件)把点击事件流一段一隔开，再将每一段的一个或多个点击事件添加到列表中(`buffer(stream.throttle(250ms))`)。别担心这些细节，我们现在就是在演示响应式编程的过程。那么，到现在得到的是多个含有事件流的列表， 接下来我们使用了`map()`中的函数来算出每一个列表的长度整数数值映射到下一个事件流当中。最后我们使用了过滤`filter(x >= 2)` 函数忽略掉了小于`1` 的整数。就这样，我们用了3步操作生成了我们想要的事件流，接下来，我们就可以订阅("监听")这个事件并作出我们想要的反应了。
+图中，灰色盒子表示将上面的事件流转换下面的事件流的**函数**过程，首先根据250毫秒的间隔时间(event silence, 译者：无事件发生的时间段，上一个事件发生到下一个事件发生的间隔时间)把点击事件流一段一隔开，再将每一段的一个或多个点击事件添加到列表中(这就是这个函数：`buffer(stream.throttle(250ms))`所做的事情，当前我们先不要急着去理解细节，我们只需专注响应式的部分先)。现在我们得到的是多个含有事件流的列表，然后我们使用了`map()`中的函数来算出每一个列表长度的整数数值映射到下一个事件流当中。最后我们使用了过滤`filter(x >= 2)` 函数忽略掉了小于`1` 的整数。就这样，我们用了3步操作生成了我们想要的事件流，接下来，我们就可以订阅("监听")这个事件并作出我们想要的操作了。
 
-我希望你能感受到这个示例的优雅之处。当然了，这个示例也只是响应式编程能产生的效果的冰山一角而已，你同样可以使用这3步操作应用到不同种类的事件流中去，例如，一串API响应的事件流。另一方面，你还有非常多的函数可以使用。
+我希望你能感受到这个示例的优雅之处。当然了，这个示例也只是响应式编程魔力的冰山一角而已，你同样可以将这3步操作应用到不同种类的事件流中去，例如，一串API响应的事件流。另一方面，你还有非常多的函数可以使用。
 
 ## "Why should I consider adopting RP?"
 
