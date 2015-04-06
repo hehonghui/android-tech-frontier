@@ -8,6 +8,7 @@
 * 校对者: [yaoqinwei](https://github.com/yaoqinwei)、
 * 状态 :  未完成
 
+>译者注：校对请注意几个核心词翻译是否准确,stream、event stream、date stream，文中交替的出现，可能会把人搞糊涂，不造怎么翻译才好
 
 So you're curious in learning this new thing called Reactive Programming, particularly its variant comprising of Rx, Bacon.js, RAC, and others.
 
@@ -21,7 +22,7 @@ Learning it is hard, even harder by the lack of good material. When I started, I
 
 Holy cow.
 
-学习响应式编程是个非常困难的过程，尤其是在当前缺乏优秀资料的前提下。起初，我试图寻找一些教程，却只找到了少量的实践指南而已，而且它们讲的都非常浅显，从来没人接受挑战去围绕着响应式编程建立一个完整知识体系。而官方文档通常也并不能完全地帮助你理解某些函数，它们通常看起来很绕，不信请看这里：
+学习响应式编程是个困难的过程，尤其是在当前缺乏优秀资料的前提下。起初，我试图寻找一些教程，却只找到了少量的实践指南，而且它们讲的都非常浅显(scratched the surface)，从来没人接受围绕着响应式编程建立一个完整知识体系的挑战。而官方文档通常也并不能完全地帮助你理解某些函数，它们通常看起来很绕，不信请看这里：
 
 > **Rx.Observable.prototype.flatMapLatest(selector, [thisArg])**
 
@@ -33,9 +34,9 @@ I've read two books, one just painted the big picture, while the other dived int
 
 The hardest part of the learning journey is thinking in Reactive. It's a lot about letting go of old imperative and stateful habits of typical programming, and forcing your brain to work in a different paradigm. I haven't found any guide on the internet in this aspect, and I think the world deserves a practical tutorial on how to think in Reactive, so that you can get started. Library documentation can light your way after that. I hope this helps you.
 
-我读过两本相关的书，一本只是在给你描绘响应式编程的伟大景象，而另一本却只是深入到如何使用响应式库而已。我在不断的构建中把响应式编程了解的透彻了一些，终于艰难的学完了响应式编程。我得在公司的一个真实项目中用到它，当我遇到问题时，还可以得到同事的支持。
+我读过两本相关的书，一本只是在给你描绘响应式编程的伟大景象，而另一本却只是深入到如何使用响应式库而已。我在不断的构建(building)中把响应式编程了解的透彻了一些，最后以这种艰难的方式学完了响应式编程。在我工作公司的一个真实项目中我会用到它，当我遇到问题时，还可以得到同事的支持。
 
-学过程中最难的部分是**如何以响应式的方式来思考**，更多的意味着要放弃那些老旧的命令式和状态式的典型编程习惯，并且强迫自己的大脑以不同的范式来运作。我还没有在网络上找到任何一个教程是从这个层面来剖析的，我想这个世界非常值得拥有一个优秀的实践教程来教你**如何以响应式编程的方式来思考**，方便引导你开始学习响应式编程。然后各种库文档才可以给你更多的指引。希望这篇文章能够帮助你快速地进入**响应式编程思维**的世界。
+学习过程中最难的部分是**如何以响应式的方式来思考**，更多的意味着要摒弃那些老旧的命令式和状态式的典型编程习惯，并且强迫自己的大脑以不同的范式来运作。我还没有在网络上找到任何一个教程是从这个层面来剖析的，我觉得这个世界非常值得拥有一个优秀的实践教程来教你**如何以响应式编程的方式来思考**，方便引导你开始学习响应式编程。然后看各种库文档才可以给你更多的指引。希望这篇文章能够帮助你快速地进入**响应式编程**的世界。
 
 ## "What is Reactive Programming?"
 
@@ -45,7 +46,7 @@ So let's cut the bullshit.
 
 ## "什是响应式编程?"
 
-网络上有一大堆糟糕的解释和定义，[Wikipedia](https://en.wikipedia.org/wiki/Reactive_programming)上通常都是些非常笼统和理论性的解释，[Stackoverflow](http://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming)上的一些标准答案显然也不适合新手来参考，[Reactive Manifesto](http://www.reactivemanifesto.org/)看起来也只像是拿来给你的PM或者老板看的东西，微软的[Rx术语](https://rx.codeplex.com/)"Rx = Observables + LINQ + Schedulers" 也显得太过沉重，而且充满了太多微软式的东西，反而给我们留下了更多的疑惑。相对于你使用的MV*框架以及你钟爱的编程语言，"Reactive"和"Propagation of change"这样的术语并没有传达任何有意义的概念。当然，我的view框架能够从model做出反应，我的改变当然也会传播，如果没有这些，我的界面根本就没有东西可渲染。
+网络上有一大堆糟糕的解释和定义，[Wikipedia](https://en.wikipedia.org/wiki/Reactive_programming)上通常都是些非常笼统和理论性的解释，[Stackoverflow](http://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming)上的一些规范的回答显然也不适合新手来参考，[Reactive Manifesto](http://www.reactivemanifesto.org/)看起来也只像是拿给你的PM或者老板看的东西，微软的[Rx术语](https://rx.codeplex.com/)"Rx = Observables + LINQ + Schedulers" 也显得太过沉重，而且充满了太多微软式的东西，反而给我们留下了更多的疑惑。相对于你使用的MV*框架以及你钟爱的编程语言，"Reactive"和"Propagation of change"这样的术语并没有传达任何有意义的概念。当然，我的view框架能够从model做出反应，我的改变当然也会传播，如果没有这些，我的界面根本就没有东西可渲染(译者：最后一句旨在说明微软的术语化的东西都非常老套、非常教科书化)。
 
 所以，不要再扯这些废话了。
 
@@ -55,7 +56,7 @@ In a way, this isn't anything new. Event buses or your typical click events are 
 
 ####  响应式编程就是与异步数据流交互的编程范式
 
-一方面，这已经不是什么新事物了。事件总线(Event Buses)或一些典型的点击事件本质上就是一个异步事件流，这样你就可以观察它的变化并使其产生一些效果。实际上响应式是这样的一个思路：除了点击(click)和悬停(hover)的事件外，你可以给任何事物创建数据流。实际上，事件流无处不在，任何东西都可以成为一个事件流，例如变量、用户输入、属性、缓存、数据结构等等。举个栗子，你可以把你的微博订阅功能想象成跟点击事件一样的数据流，你可以监听这样的数据流，并相应的做出反应。
+一方面，这已经不是什么新事物了。事件总线(Event Buses)或一些典型的点击事件本质上就是一个异步事件流(asynchronous event stream)，这样你就可以观察它的变化并使其做出一些反应(产生一些效果(do some side effects))。响应式是这样的一个思路：除了点击(click)和悬停(hover)的事件外，你可以给任何事物创建数据流。数据流无处不在(Streams are cheap and ubiquitous)，任何东西都可以成为一个数据流，例如变量、用户输入、属性、缓存、数据结构等等。举个栗子，你可以把你的微博订阅功能想象成跟点击事件一样的数据流，你可以监听这样的数据流，并做出相应的反应。
 
 **On top of that, you are given an amazing toolbox of functions to combine, create and filter any of those streams.** That's where the "functional" magic kicks in. A stream can be used as an input to another one. Even multiple streams can be used as inputs to another stream. You can _merge_ two streams. You can _filter_ a stream to get another one that has only those events you are interested in. You can _map_ data values from one stream to another new one.
 
@@ -78,15 +79,15 @@ X is an error
 ```
 Since this feels so familiar already, and I don't want you to get bored, let's do something new: we are going to create new click event streams transformed out of the original click event stream.
 
-**最重要的是，你会有一些令人惊艳的函数去结合、创建和过滤任何一组事件流。** 这就是“函数式编程”的魔力所在。一个**事件流**可以作为另一个**事件流**的输入，甚至多个**事件流**可以作为另一个**事件流**的输入。你可以_合并(merge)_两个**事件流**，也可以_过滤(filter)_一个你感兴趣的**事件流**，还可以_映射(map)_一个**事件流**的值到一个新的**事件流**里。
+**最重要的是，你会拥有一些令人惊艳的函数去结合(combine)、创建(create)和过滤(filter)任何一组数据流。** 这就是"函数式编程"的魔力所在。一个**数据流**可以作为另一个**数据流**的输入，甚至多个**数据流**也可以作为另一个**数据流**的输入。你可以_合并(merge)_两个**数据流**，也可以_过滤(filter)_一个数据流得到另一个只包含你感兴趣的事件的**数据流**，还可以_映射(map)_一个**数据流**的值到一个新的**数据流**里。
 
-如果**事件流**对于响应式编程如此重要，那不妨就让我们来仔细的看看，先从我们熟悉的"点击一个按钮"的**事件流**开始
+如果**数据流**对于响应式是如此的核心(so central to Reactive)，那就让我们来仔细的看看它们，先从我们熟悉的"点击一个按钮"的**事件流**开始
 
 ![Click event stream](images/zclickstream.png)
 
-一个**事件流**是一个 **按时间排序的即将发生的事件(Ongoing events ordered in time)序列**。如上图，一个**事件流**可以发出3种不同的事件：某种类型的**值事件**，**错误事件**和**完成事件**。当一个**完成事件**发生时，在某些情况下，我们可能会做这样的操作：关闭包含那个按钮的窗口或者视图组件。
+一个**数据流**是一个**按时间排序的即将发生的事件(Ongoing events ordered in time)**的序列。如上图，它可以发出3种不同的事件(上一句已经把它们叫做事件)：一个某种类型的**值事件**，一个**错误事件**和一个**完成事件**。当一个**完成事件**发生时，在某些情况下，我们可能会做这样的操作：关闭包含那个按钮的窗口或者视图组件。
 
-我们可以**异步的**的去捕捉这些将要发出的事件，这样我们就可以在发出一个**值事件**时执行一个函数，发出**错误事件**时执行一个函数，发出**完成事件**执行另一个函数。有的时候你只需聚焦于如何定义和设计**值事件**要执行的函数，而忽略后两个事件。我们可以把监听这个**事件流**的过程叫做**订阅**，而我们定义的函数可以叫做**观察者**，而事件流就可以叫做被观察的**主题**(或者叫可观测的对象)。你应该察觉到了，对的，它就是[**观察者模式**](https://en.wikipedia.org/wiki/Observer_pattern)。
+我们只能**异步的**的去捕捉这些被发出的事件，这样我们就可以在发出一个**值事件**时执行一个函数，发出**错误事件**时执行一个函数，发出**完成事件**时执行另一个函数。有时候你可以忽略后两个事件，只需聚焦于如何定义和设计在发出**值事件**时要执行的函数，监听这个**事件流**的过程叫做**订阅**，我们定义的函数叫做**观察者**，而事件流就可以叫做被观察的**主题**(或者叫被观察者)。你应该察觉到了，对的，它就是[**观察者模式**](https://en.wikipedia.org/wiki/Observer_pattern)。
 
 上面的示意图我们也可以用ASCII码的形式重新画一遍，请注意，下面的部分教程中我们会继续使用这幅图：
 ```
@@ -112,7 +113,7 @@ counterStream: ---1----2--3----4------5-->
 
 The `map(f)` function replaces (into the new stream) each emitted value according to a function `f` you provide. In our case, we mapped to the number 1 on each click. The `scan(g)` function aggregates all previous values on the stream, producing value `x = g(accumulated, current)`, where `g` was simply the add function in this example. Then, `counterStream` emits the total number of clicks whenever a click happens.
 
-首先，让我们来创建一个记录按钮点击次数的事件流。在常用的响应式库中，每个事件流都会附有一些函数，例如 `map`, `filter`, `scan`等，当你调用这其中的一个方法时，比如`clickStream.map(f)`，它会返一个基于点击事件流的新的**事件流**。它不会对原来的点击事件流做任何的修改。这种特性叫做**不可变性(immutability)**，而且它会可以和响应式事件流搭配在一起使用，就像煎饼和糖浆一样完美的搭配。这样我们可以用链式函数的方式来调用，例如：`clickStream.map(f).scan(g)`:
+首先，让我们来创建一个记录按钮点击次数的事件流。在常用的响应式库中，每个事件流都会附有一些函数，例如 `map`, `filter`, `scan`等，当你调用这其中的一个方法时，比如`clickStream.map(f)`，它会返回基于点击事件流的一个**新事件流**。它不会对原来的点击事件流做任何的修改。这种特性叫做**不可变性(immutability)**，而且它可以和响应式事件流搭配在一起使用，就像煎饼和糖浆一样完美的搭配。这样我们可以用链式函数的方式来调用，例如：`clickStream.map(f).scan(g)`:
 
 ```
   clickStream: ---c----c--c----c------c-->
@@ -122,7 +123,7 @@ The `map(f)` function replaces (into the new stream) each emitted value accordin
 counterStream: ---1----2--3----4------5-->
 ```
 
-`map(f)`函数会根据你提供的`f`函数把原事件流中发出的值事件分别映射到新的事件流中。在上图的例子中，我们把每一次点击事件都映射成1，`scan(g)`函数则把之前映射的值聚集起来，然后根据`x = g(accumulated, current)`算法来作相应的处理，而本例的`g`函数其实就是简单的加法函数而已。
+`map(f)`函数会根据你提供的`f`函数把原事件流中每一个发出的值分别映射到新的事件流中。在上图的例子中，我们把每一次点击事件都映射成数字1，`scan(g)`函数则把之前映射的值聚集起来，然后根据`x = g(accumulated, current)`算法来作相应的处理，而本例的`g`函数其实就是简单的加法函数。然后，当一个点击事件发生时，`counterStream`函数则上报当前点击事件总数
 
 To show the real power of Reactive, let's just say that you want to have a stream of "double click" events. To make it even more interesting, let's say we want the new stream to consider triple clicks as double clicks, or in general, multiple clicks (two or more). Take a deep breath and imagine how you would do that in a traditional imperative and stateful fashion. I bet it sounds fairly nasty and involves some variables to keep state and some fiddling with time intervals.
 
