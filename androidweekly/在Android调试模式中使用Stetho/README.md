@@ -3,8 +3,8 @@
 ------
 
  - 原文链接:[在Android调试模式中使用Stetho][11]
- - 译者:BillionWang
- - 校对者
+ - 译者:[BillionWang](https://github.com/BillionWang)
+ - 校对者:[chaossss](https://github.com/chaossss)
  - 状态:完成
  
 最近FaceBook发布了一个叫做[Stetho][2]的工具.这个工具是一个谷歌浏览器的开发者工具扩展 ，它可以用来检测你的应用。我发现这东西挺好用的，因为它还提供了访问应用中SQLite数据库的接口。很明显，这种类型的工具只应该在应用的调试模式中使用。接下来我们来看看怎么用这个工具。
