@@ -136,7 +136,7 @@ public void onActivityReenter(int resultCode, Intent data) {
 [onPreDrawListener]:http://developer.android.com/reference/android/view/ViewTreeObserver.OnPreDrawListener.html
 [onActivityReenter]:https://developer.android.com/reference/android/app/Activity.html#onActivityReenter(int,%20android.content.Intent)
 
-[part-1]:http://www.androiddesignpatterns.com/2014/12/activity-fragment-transitions-in-android-lollipop-part1.html
+[part-1]:https://github.com/bboyfeiyu/android-tech-frontier/tree/master/others/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAAndroid%20%E6%96%B0%E7%89%B9%E6%80%A7-Transition-Part-1
 [part-2]:http://www.androiddesignpatterns.com/2014/12/activity-fragment-content-transitions-in-depth-part2.html
 [part3a]:http://www.androiddesignpatterns.com/2015/01/activity-fragment-shared-element-transitions-in-depth-part3a.html
 [part-3b]:http://www.androiddesignpatterns.com/2015/03/activity-postponed-shared-element-transitions-part3b.html
