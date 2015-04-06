@@ -63,7 +63,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | [Kotlin for Android (II)创建一个工程](androidweekly/Kotlin for Android (II)创建一个工程)  | [Lollypo](https://github.com/Lollypo)       |   [AndroidWeekly issue #147](http://androidweekly.net/issues/issue-147)|
 | [深入浅出Android 新特性-Transition-Part-1](others/深入浅出Android 新特性-Transition-Part-1)  | [tiiime](https://github.com/tiiime)       |   [androiddesignpatterns.com](http://www.androiddesignpatterns.com/2014/12/activity-fragment-transitions-in-android-lollipop-part1.html)|
 | [在Android调试模式中使用Stetho](androidweekly/在Android调试模式中使用Stetho)  | [BillionWang](https://github.com/BillionWang)       |   [littlerobots.nl](http://littlerobots.nl/blog/stetho-for-android-debug-builds-only/)|
-| [在Android 5.0中使用JobScheduler](androidweekly/在Android 5.0中使用JobScheduler)  | [Mr.simple](https://github.com/bboyfeiyu)       |   [AndroidWeekly issue #146](http://androidweekly.net/issues/issue-146)|
+| [自动化截图－应用分发时的自动截图方案](others/自动化截图－应用分发时的自动截图方案)  | [chaossss](https://github.com/chaossss)       |   [flavienlaurent.com](http://flavienlaurent.com/blog/2014/12/05/screenshot_automation/)|
 
 
 
