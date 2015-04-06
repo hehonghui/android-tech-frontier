@@ -429,7 +429,7 @@ composite -quality 100 -compose atop clean_status_bar.png screenshot.png clean_s
 convert -quality 100 screenshot.png -gravity South -chop 0x144 clean_screenshot.png
 ```
 
-144 is the size in px of the navigation bar on a Nexus 5.
+144是在Nexu5上导航栏的高度像素值。
 
 **结论**
 
