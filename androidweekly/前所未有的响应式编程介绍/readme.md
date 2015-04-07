@@ -156,11 +156,11 @@ Apps nowadays have an abundancy of real-time events of every kind that enable a 
 
 ## "我为什么要采用响应式编程？"
 
-响应式编程可以提高你的代码抽象级别，好让你可以专注于定义与事件相互依存的业务逻辑，而不是把大量精力放在实现细节，使用响应式编程会让你的代码变得更加简洁。
+响应式编程可以提高你的代码抽象级别，好让你可以专注于定义与事件相互依存的业务逻辑，而不是把大量精力放在实现细节上，使用响应式编程会让你的代码变得更加简洁。
 
-特别对于现在流行的webapps和mobile apps这些频繁的与数据事件相关的众多UI事件交互的程序，好处就更加的明显了。十年前，web页面的交互是提交一个很长的表单数据到后端，然后再做一些简单的前端界面渲染操作。而现在的Apps则演变的更具有实时性：仅仅修改一个单独的表单域就能自动的触发保存到后端的代码，就像某一个用户对一些内容点了赞，就能够实时反映到其他已连接的用户一样，等等。
+特别对于现在流行的webapps和mobile apps，这些频繁与数据事件相关的大量UI事件交互的程序，好处就更加的明显了。十年前，web页面的交互是通过提交一个很长的表单数据到后端，然后再做一些简单的前端渲染操作。而现在的Apps则演变的更具有实时性：仅仅修改一个单独的表单域就能自动的触发保存到后端的代码，就像某个用户对一些内容点了赞，就能够实时反映到其他已连接的用户一样，等等。
 
-当今的Apps含有丰富的实时事件来保证一个高效的用户体验，我们需要采用一个合适的工具来处理，那么响应式编程就正好是我们想的答案。
+当今的Apps都含有丰富的实时事件来保证一个高效的用户体验，我们就需要采用一个合适的工具来处理，那么响应式编程就正好是我们想要的答案。
 
 ## Thinking in RP, with examples
 
@@ -170,9 +170,9 @@ I picked **JavaScript** and **[RxJS](https://github.com/Reactive-Extensions/RxJS
 
 ## 以响应式编程方式思考的例子
 
-让我们深入到一些真实的例子，一个能够一步一步的教你如何以响应式编程的方式思考的例子，没有虚构的示例，没有一知半解的概念。在这个教程的末尾我们将产生一些真实的函数代码，并能够知道每一步为什么要这么做。
+让我们深入到一些真实的例子，一个能够一步一步教你如何以响应式编程的方式思考的例子，没有虚构的示例，没有一知半解的概念。在这个教程的末尾我们将产生一些真实的函数代码，并能够知晓每一步为什么那样做的原因(知其然，知其所以然)。
 
-我选了**JavaScript**和**[RxJS](https://github.com/Reactive-Extensions/RxJS)**来作为本教程的编程语言，原因是：JavaScript是目前最多人熟悉的语言，而[Rx系列的库](http://www.reactivex.io)对于很多语言和平台的运用是非常广泛的，例如([.NET](https://rx.codeplex.com/), [Java](https://github.com/Netflix/RxJava), [Scala](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-scala), [Clojure](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-clojure),  [JavaScript](https://github.com/Reactive-Extensions/RxJS), [Ruby](https://github.com/Reactive-Extensions/Rx.rb), [Python](https://github.com/Reactive-Extensions/RxPy), [C++](https://github.com/Reactive-Extensions/RxCpp), [Objective-C/Cocoa](https://github.com/ReactiveCocoa/ReactiveCocoa), [Groovy](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-groovy)等等。所以，无论你用的是什么语言、库、工具，你都能从下面这个教程中学到东西。
+我选了**JavaScript**和**[RxJS](https://github.com/Reactive-Extensions/RxJS)**来作为本教程的编程语言，原因是：JavaScript是目前最多人熟悉的语言，而[Rx系列的库](http://www.reactivex.io)对于很多语言和平台的运用是非常广泛的，例如([.NET](https://rx.codeplex.com/), [Java](https://github.com/Netflix/RxJava), [Scala](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-scala), [Clojure](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-clojure),  [JavaScript](https://github.com/Reactive-Extensions/RxJS), [Ruby](https://github.com/Reactive-Extensions/Rx.rb), [Python](https://github.com/Reactive-Extensions/RxPy), [C++](https://github.com/Reactive-Extensions/RxCpp), [Objective-C/Cocoa](https://github.com/ReactiveCocoa/ReactiveCocoa), [Groovy](https://github.com/Netflix/RxJava/tree/master/language-adaptors/rxjava-groovy)等等。所以，无论你用的是什么语言、库、工具，你都能从下面这个教程中学到东西(从中受益)。
 
 ## Implementing a "Who to follow" suggestions box
 
@@ -191,20 +191,20 @@ We can leave out the other features and buttons because they are minor. And, ins
 
 The complete code for this is ready at http://jsfiddle.net/staltz/8jFJH/48/ in case you want to take a peak already.
 
-# 实现一个推荐关注的功能
+## 实现一个推荐关注(Who to follow)的功能
 
-在Twitter里有一个UI元素向你展示和推荐可以去关注谁，如下图：
+在Twitter里有一个UI元素向你推荐你可以关注的用户，如下图：
 
 ![Twitter Who to follow suggestions box](images/ztwitterbox.png)
 
 我们将聚焦于模仿它的主要功能，它们是：
 
-* 开始阶段，从API加载要推荐关注的用户账户数据，然后显示三个推荐用户
+* 开始阶段，从API加载推荐关注的用户账户数据，然后显示三个推荐用户
 * 点击刷新，加载另外三个推荐用户到当前的三行中显示
 * 点击每一行的推荐用户上的'x'按钮，清楚当前被点击的用户，并显示新的一个用户到当前行
 * 每一行显示一个用户的头像并且在点击之后可以链接到他们的主页。
 
-我们可以先不管其他的功能和按钮，因为它们是次要的。因为Twitter最近关闭了未经授权的公共API，我们用[Github获取用户的API](https://developer.github.com/v3/users/#get-all-users)代替，并且以此来构建我们的UI。
+我们可以先不管其他的功能和按钮，因为它们是次要的。因为Twitter最近关闭了未经授权的公共API调用，我们将用[Github获取用户的API](https://developer.github.com/v3/users/#get-all-users)代替，并且以此来构建我们的UI。
 
 如果你想先看一下最终效果，这里有完成后的[代码](http://jsfiddle.net/staltz/8jFJH/48/)。
 
