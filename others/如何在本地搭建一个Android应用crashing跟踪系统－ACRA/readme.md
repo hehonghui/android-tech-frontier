@@ -3,8 +3,8 @@
 >
 * 原文链接 : [How to setup ACRA, an Android Application Crash Tracking system, on your own host](http://inthecheesefactory.com/blog/how-to-install-and-use-acra-android/en)
 * 译者 : [sundroid](https://github.com/sundroid) 
-* 校对者: [译者](你的链接)  
-* 状态 :  待校对
+* 校对者: [sundroid](https://github.com/sundroid) 
+* 状态 :  校对完成
 
 
 One truth about developing a mobile application is there are so many constraints for example, a hardware limitation (CPU, RAM, Battery, etc). If your code design is not good enough, prepare to say hi to the most critical problem on earth: "Crash". According to a study, it shows that:
