@@ -134,19 +134,27 @@ After the batchId and mergeId  of an operation are determined, it will be added 
 
 If the current operation can be merged with another operation of the same mergeId  and  batchId, the operation is added to the existing batch and the next operation can be added. But if it cannot be merged due to different states, drawing flags or bounding boxes, the algorithm needs to insert a new merging batch. For this to happen, the position inside the list of all batches ( Batches) needs to be found. In the best case, it would find a batch that shares the same state with the current drawing operation. But it is also essential that the operation does not intersect with any other batches in the process of finding a correct spot. Therefore, the list of all batches is iterated over in reverse order to find a good position and to check for intersections with other elements. In case of an intersection, the operation cannot be merged and a new DrawBatch is created and inserted into the MergeBatcheshashmap. The new batch is added to Batches at the position found earlier. In any case, the operation is added to the current batch, which can be a new or an existing batch.
 
+如果当前操作能够与其他具有相同 mergeId 和 batchId 的操作合并，那么这个操作和下一个可以合并的操作都会被添加到现有的 batch 中。但如果它由于状态不一致、绘制标记或边界限制无法被合并，算法就需要将它插入到一个新的 batch 中。为了实现这样的需求，我们则需要获得 batch 队列中所有 batch 对应的 postion。理想情况下，它能在当前绘制操作中找到一个和它状态相同的 batch。不过需要注意的是，在这个绘制操作中为它找到合适的位置的过程中，也必须保证它和其他 batch 没有交集。因此，batch 列表都以逆序寻找一个合适的位置，并确认对应的位置与其他元素没有交集。如果出现了交集，那么对应操作则不能被合并，并需要在这个位置创建一个新的 DrawBatch，并将其插入 Mergebatchedhaspmap。新的 batch 会被添加到 batch 队列的相应位置中。无论发生什么，改操作都会被加入到当前的 batch 中，区别在于：是在新的 batch 还是已存在的 batch 中。
+
 The actual implementation is more complex than the simplified version presented here. There are a few optimizations worth being mentioned. The algorithm is tries to avoid overdraw by removing occluded drawing operations, and also tries to to reorder non-mergeable operations to avoid GPU state changes.
 
-Actually drawing the (deferred) display list
+具体的实现会比我们的简化讲解更复杂（虽然我们这里讲的也很难懂……）。但其中优化的方法值得我们学习：算法通过移除堵塞的绘制操作尽可能地避免重绘，同时通过对为合并的操作进行重排序，从而避免 GPU 状态改变带来的开销。
+
+## Actually drawing the (deferred) display list ##
+
+## 绘制界面 ##
 
 After reordering and merging the new deferred display list can finally be drawn to the screen.
 
-DDL Flush
+在重排序和合并后，新的延迟显示页面终于可以被绘制到屏幕上了。
 
- 
+![](https://blog.inovex.de/wp-content/uploads/2015/03/ddl-flush.png)
 
 Inside the  OpenGLRenderers::drawDisplayList(…) method, the deferred display list is created filled with operations from the normal display list. The deferred display list is then asked to draw itself ( flush(…)).
 
-OpenGLRenderer: drawDisplayList(…)
+在 OpenGLRenderers::drawDisplayList(…) 方法里，延迟显示页面其实就是一个填满了操作的新建普通显示列表，填充完成后延迟显示页面将绘制它自身。
+
+**OpenGLRenderer: drawDisplayList(…)**
 
 ```java
 	status_t OpenGLRenderer::drawDisplayList(
@@ -168,13 +176,21 @@ OpenGLRenderer: drawDisplayList(…)
 
 The method multiDraw(…) will be called on the first operation in that list, with all the other operations as an argument. The called operation is responsible for drawing all supplied operations at once and will also call the OpenGLRenderer  to actually execute the operation itself.
 
-Display List Operations
+multiDraw(…) 方法会在列表中的第一个操作中被调用，而其他的操作都被视作参数。被调用的操作负责立刻绘制所有被提供的操作，并调用 OpenGLRenderer 执行绘制其自身的操作。
+
+## Display List Operations ##
+
+## 显示列表中的操作 ##
 
 Each drawing operation to be executed on a canvas has a corresponding display list operation. All display list operations must implement the replay() method, which executes the wrapped drawing operation. These drawing operations call the OpenGLRenderer to render themselves. The reference to the renderer needs to be supplied when creating an operation. onDefer() must also be implemented and must return the operation’s drawId and mergeId. Non-mergable batches are setting the draw id to kOpBatch_None. Mergable operations must implement the multiDraw() method, which is used when a whole batch of merged operations need to be rendered at once.
 
+每一个绘制操作都会在拥有对应显示操作列表的 Canvas 里被执行，所有显示操作列表必须实现重载了绘制操作的 replay() 方法。这些绘制操作调用 OpenGLRenderer 去绘制他们，当我们创建一个操作时需要提供一个 renderer 的引用。除此以外，我们还需要实现 onDefer() 方法，并返回操作的 drawId 和 mergeId。为合并的 batch 会设置相应的绘制 id 为 kOpBatch_None。可合并的操作必须实现用于立刻绘制所有已合并的操作的 multiDraw() 方法。
+
 For example, the operation to draw a 9-Patch (called DrawPatchOp) contains the following  multiDraw(…)  implementation:
 
-DrawPatchOp::multiDraw(…)
+例如，绘制 9-Patch 的操作包含了下列 multiDraw(…) 实现：
+
+**DrawPatchOp::multiDraw(…)**
 
 ```java
 	virtual status_t multiDraw(OpenGLRenderer& renderer, Rect& dirty,
