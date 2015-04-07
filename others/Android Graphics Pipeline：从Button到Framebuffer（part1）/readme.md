@@ -69,7 +69,7 @@ Instead, we will look at a fine selection of components which are doing most of 
 
 The interesting bits (at least for these blog posts) of the pipeline.
 
-管道的有趣部分（至少对于这些博客帖子来说）
+
 
 ## Display Lists
 
