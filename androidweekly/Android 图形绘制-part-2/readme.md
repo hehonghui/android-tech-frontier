@@ -33,25 +33,39 @@ So in order to minimize the expansive state changes, Android is reordering all d
 ![](https://blog.inovex.de/wp-content/uploads/2015/03/merging-layout-anot-300x215.png)
 > Example Activity with overlapping elements, carefully chosen to illustrate possible problems when reordering drawing operations.
 
-> 如你所见，范例 Activity 包含了许多重叠的元素，我们这样做的目的是：通过使用极端的例子模拟各种可能出现的情况，并解释为什么绘制时会产生这些问题，以及如何解决它。
+> 范例 Activity 包含了许多重叠的元素，我们这样做的目的是：通过使用极端的例子模拟各种可能出现的情况，并解释为什么绘制时会产生这些问题，以及如何解决它。
 
 As seen in image above, a simple approach to reordering and merging by type is not sufficient in most cases. Drawing all text elements and then the bitmap (or the other way around) does not result in the same final image as it would without reordering, which is clearly not acceptable.
 
+如你所见，简单地根据 UI 的元素类型重新设计绘制流程在大多数情况下都不能满足我们的需求。如果先绘制所有文字，再绘制图片（或者先绘制图片，再绘制文字）都不能获得我们我们真正想要的 UI，因为总有一些该显示的 UI 元素会因为绘制顺序被挡住，我相信任何一个有品位的 UI 设计师都不会接受这样的客户端。
+
 In order to correctly render the example activity, text elements A and B have to be drawn first, followed by the bitmap C, followed by the text element D. The first two text elements could be merged into one operation, but the text element D cannot, as it would be overlapped by the bitmap.
+
+为了能正确地渲染范例 Activity，UI 中的文字元素 A 和 B 必须先被绘制，然后绘制图片元素 C，最后是文字元素 D。由于 A 和 B 是同类型的元素，所以我们可以先绘制 A 和 B，而 C 和 D 只能按照顺序绘制了，不然的话又会产生覆盖问题。
 
 To further reduce the drawing time needed for a view hierarchy, most operations can be merged after they have been reordered. This happens in the DeferredDisplayList, so-called because the execution of the drawing operations does not happen in order, but is deferred until all operations have been analyzed, reordered and merged.
 
+为了更好地优化 UI 每一个 View 层级的绘制流程，在重新设计了绘制顺序后，就要将类似的绘制操作合并。合并在 DeferredDisplayList 中执行，给这个函数取这个名字是因为绘制操作没有按序执行，而是在所有操作的分析，重排序，合并完成前，不断地延迟其绘制动作，直到分析，重排序，合并完成才按序绘制。
+
 Because every display list operation is responsible for drawing itself, an operation that supports the merging of multiple operations with the same type must be able to draw multiple, different operations in one draw call. Not every operation is capable of merging, so some can only be reordered.
 
-Canvas Drawdisplaylist
+由于每一个页面的绘制操作只能用于绘制它自身，如果一个操作支持把相同类型的元素的多个操作合并，那这个操作必须能被用于绘制多个具有相同类型的不同页面。但你需要注意的是，这不意味每一个操作都能进行合并，在新的设计里还留有许多只能重排序的操作。
+
+![](https://blog.inovex.de/wp-content/uploads/2015/03/canvas-drawdisplaylist-1024x594.png)
 
 The OpenGLRenderer is an implementation of the Skia 2D drawing API, but instead of utilizing the CPU it does all the drawing hardware accelerated with OpenGL. On the way trough the pipeline, this is the first native-only class implemented in C++. The renderer is designed to be used with the GLES20Canvas and was introduced with Android 3.0. It is only used in conjunction with display lists.
 
+OpenGLRenderer 是 Skia 2D 图像绘制 API 的一个接口，与常见的接口不同，它不需要利用 CPU 进行硬件加速，而是用 OpenGL 完成了所有硬件加速的工作。虽然有很多办法能完成这样的工作，但是 OpenGLRenderer 是第一个用 C++ 实现的本地类。OpenGLRenderer 在 Android 3.0 中被提出，设计它主要是让它和 GLES20Canvas 协作，绘制我们想要的界面元素。有趣的是，在界面绘制的操作中，只有它们是以协作的形式进行的。
+
 To merge multiple operations to one draw call, each operation is added to the deferred display list by calling addDrawOp(DrawOp). The drawing operation is asked to supply the  batchId, which indicates the type of the operation it can be merged with, and the mergeIdwhich indicates the merged operations, by calling DrawOp.onDefer(...).
+
+为了把多个操作合并到一个绘制操作中，每一个操作都通过调用 addDrawOp() 方法被添加到一个延缓显示队列中。同时，绘制操作还被要求提供 batchId，因为绘制操作必须知道这个类型的操作能否被合并，此外，绘制操作还需要通过调用 DrawOp.onDefer(...) 方法提供 mergeId,以指明哪些操作已经被合并.
 
 Possible batchIds include OpBatch_Patch for a 9-Patch and OpBatch_Text for a normal text element. These are defined in a simple enum. The mergeId is determined by each DrawOpitself, and is used to decide if two operations of the same DrawOp type can be merged. For a 9-Patch, the mergeId is a pointer to the asset atlas (or bitmap), for a text element it is the paint color. Multiple drawables from the same asset atlas texture can potentially be merged into one batch, resulting in a greatly reduced rendering time.
 
 All information about an operation is collected into a simple struct:
+
+一般 batchId 包含了一个简单的枚举，主要是为 9-Patch 图片元素提供 OpBatch_Patch，并为普通的文字元素提供 OpBatch_Text。mergeId 的值由 DrawOpitself 决定，用于判断两个具有相同的 DrawOp 类型的操作能否被合并。对 9-Patch 图片元素来说，mergeId 用于指向图片资源文件，对文字元素来说，则是对应的文字颜色。来自同一个资源文件夹的资源文件可能会被合并到同一个 batch 中，帮助我们大量地节约绘制流程带来时间开销
 
 ```java
 	struct DeferInfo {
@@ -67,6 +81,8 @@ All information about an operation is collected into a simple struct:
 ```
 
 After the batchId and mergeId  of an operation are determined, it will be added to the last batch if it is not mergeable. If no batch is already available, a new batch will be created. The more likely case is that the operation is mergeable. To keep track of all recently merged batches, a hashmap for each batchId is used which is called MergeBatches in the simplified algorithm. Using one hashmap for each batch avoids the need to resolve collisions with the  mergeId.
+
+当一个绘制操作的 batchId 和 mergeId 被确定，如果它还没有被合并，就会被添加到 batch 队列的尾部。如果没有 batch 是可用的，那么我们就会创建一个新的 batch。不过一般情况下这些绘制操作都是可以合并的。为了知道每一个最近合并的 batch 的去向，我们会通过一个简化的算法调用 MergeBatches 的实例 hashmap，用 batchId 构建键值对保存相应的 batch。对每一个 batch 使用 hashmap 能避免使用 mergeId 导致的冲突。
 
 ```java
 	vector<DrawBatch> batches;
