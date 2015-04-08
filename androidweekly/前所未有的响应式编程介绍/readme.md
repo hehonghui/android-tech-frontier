@@ -123,7 +123,7 @@ The `map(f)` function replaces (into the new stream) each emitted value accordin
 counterStream: ---1----2--3----4------5-->
 ```
 
-`map(f)`函数会根据你提供的`f`函数把原事件流中每一个发出的值分别映射到新的事件流中。在上图的例子中，我们把每一次点击事件都映射成数字1，`scan(g)`函数则把之前映射的值聚集起来，然后根据`x = g(accumulated, current)`算法来作相应的处理，而本例的`g`函数其实就是简单的加法函数。然后，当一个点击事件发生时，`counterStream`函数则上报当前点击事件总数。
+`map(f)`函数会根据你提供的`f`函数把原事件流中每一个返回值分别映射到新的事件流中。在上图的例子中，我们把每一次点击事件都映射成数字1，`scan(g)`函数则把之前映射的值聚集起来，然后根据`x = g(accumulated, current)`算法来作相应的处理，而本例的`g`函数其实就是简单的加法函数。然后，当一个点击事件发生时，`counterStream`函数则上报当前点击事件总数。
 
 To show the real power of Reactive, let's just say that you want to have a stream of "double click" events. To make it even more interesting, let's say we want the new stream to consider triple clicks as double clicks, or in general, multiple clicks (two or more). Take a deep breath and imagine how you would do that in a traditional imperative and stateful fashion. I bet it sounds fairly nasty and involves some variables to keep state and some fiddling with time intervals.
 
@@ -239,27 +239,27 @@ requestStream.subscribe(function(requestUrl) {
 }
 ```
 
-## Request和response
+## Request和Response
 
-**在Rx(响应式编程的一种/一个分子)中是怎么处理这个问题呢？** ok，在开始之前，我们要明白，(几乎)_一切都可以成为一个事件流_，这就是Rx的准则。让我们从最简单的功能开始："开始阶段，从API加载要推荐关注的用户账户数据，然后显示三个推荐用户"。其实这个功能没什么特殊的，简单的步骤分为： (1)发出一个请求，(2)获取响应的数据，(3)渲染响应的数据。ok，继续，让我们把请求作为一个事件流，一开始你可能会觉得咋简单的处理这样做有些夸张，但别急，让我们从最基本的开始，好吗？
+**在Rx中是怎么处理这个问题呢？**，在开始之前，我们要明白，(几乎)_一切都可以成为一个事件流_，这就是Rx的准则(mantra)。让我们从最简单的功能开始："开始阶段，从API加载推荐关注的用户账户数据，然后显示三个推荐用户"。其实这个功能没什么特殊的，简单的步骤分为： (1)发出一个请求，(2)获取响应数据，(3)渲染响应数据。ok，让我们把请求作为一个事件流，一开始你可能会觉得这样做有些夸张，但别急，我们也得从最基本的开始，不是吗？
 
-开始时我们只需做一次请求，如果我们把它作为一个数据流话，它只能成为一个仅仅发出一个值的事件流而已。一会我们还会有很多请求要做，但是就当前，我们只做一个。
+开始时我们只需做一次请求，如果我们把它作为一个数据流的话，它只能成为一个仅仅返回一个值的事件流而已。一会儿我们还会有很多请求要做，但当前，只有一个。
 
 ```
 --a------|->
 
-a就是一个字符串： 'https://api.github.com/users'
+a就是字符串：'https://api.github.com/users'
 ```
 
-这是一个我们要请求的URL事件流。每当一个发生一个请求时，它将会告诉我们两件事："什么时候"和"做了什么事"。"什么时候"请求被执行，什么时候事件就被发出。"做了什么"，就是发出请求的URL
+这是一个我们要请求的URL事件流。每当发生一个请求时，它将告诉我们两件事：**什么时候**和**做了什么事**(when and what)。**什么时候**请求被执行，什么时候事件就被发出。而**做了什么**就是请求了什么，也就是请求的URL字符串。
 
-在Rx家族中，创建一个单值的事件流是非常简单的。其实事件流在Rx家族里的术语是叫"可观察的对象"，也就是说它是可以被观察的，但是我发现这名字比较傻，所以我更喜欢把它叫做_事件流_。
+在Rx中，创建返回一个值的事件流是非常简单的。其实事件流在Rx里的术语是叫"被观察者"，也就是说它是可以被观察的，但是我发现这名字比较傻，所以我更喜欢把它叫做_事件流_。
 
 ```javascript
 var requestStream = Rx.Observable.just('https://api.github.com/users');
 ```
 
-但是现在，这只是一个字符串的事件流而已，并没有做其他操作，所以我们要在发出这个值的时候做一些我们要做的操作，我们可以通过[订阅(subscribing)](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypesubscribeobserver--onnext-onerror-oncompleted) 这个事件来实现。
+但现在，这只是一个字符串的事件流而已，并没有做其他操作，所以我们需要在发出这个值的时候做一些我们要做的操作，可以通过[订阅(subscribing)](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypesubscribeobserver--onnext-onerror-oncompleted)这个事件来实现。
 
 ```javascript
 requestStream.subscribe(function(requestUrl) {
@@ -298,7 +298,7 @@ What [`Rx.Observable.create()`](https://github.com/Reactive-Extensions/RxJS/blob
 
 ![Amazed](images/3324-amazed-face.gif)
 
-注意，我们这里使用的JQuery的AJAX回调方法([我们假设你已经很了解JQuery和AJAX了](http://devdocs.io/jquery/jquery.getjson))来的处理这个异步的请求操作。但是，请稍等一下，Rx家族是用来处理**异步数据流**的，难道它就不能处理请求(request)在未来某个时间点响应(response)的数据流吗？好吧，理论上讲是可以的，让我们尝试一下。
+注意到我们这里使用的是JQuery的AJAX回调方法(我们假设你[已经很了解JQuery和AJAX了](http://devdocs.io/jquery/jquery.getjson))来的处理这个异步的请求操作。但是，请稍等一下，Rx就是用来处理**异步数据流**的，难道它就不能处理来自请求(request)在未来某个时间响应(response)的数据流吗？好吧，理论上是可以的，让我们尝试一下。
 
 ```javascript
 requestStream.subscribe(function(requestUrl) {
@@ -316,7 +316,7 @@ requestStream.subscribe(function(requestUrl) {
 }
 ```
 
-[`Rx.Observable.create()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservablecreatesubscribe)操作就是在显示的通知每一个观察者(或者叫订阅者)对于数据事件(`onNext()`)和错误事件(`onError()`)来创建自己的事件流，而我们做的只是小小的封装了jQuery Ajax Promise一下而已。**等一下，这是否意味者jQuery Ajax Promise本质上就是一个可观察的对象(Observable)？**
+[`Rx.Observable.create()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservablecreatesubscribe)操作就是在创建自己定制的事件流，且对于数据事件(`onNext()`)和错误事件(`onError()`)都会显示的通知该事件每一个观察者(或订阅者)。我们做的只是小小的封装一下jQuery Ajax Promise而已。**等等，这是否意味者jQuery Ajax Promise本质上就是一个被观察者呢(Observable)？**
 
 &nbsp;
 &nbsp;
@@ -349,13 +349,13 @@ Then we will have created a beast called "_metastream_": a stream of streams. Do
 
 是的。
 
-Promise++就是可观察的对象(Observable)，在Rx家族里，你可以用这样的操作：`var stream = Rx.Observable.fromPromise(promise)`，就可以很轻松的将Promise转换成一个可观察的对象(Observable)，这么方便，让我们现在就开始使用它吧。不同的是，这些可观察的对象(Observables)都不能和[Promises/A+](http://promises-aplus.github.io/promises-spec/)兼容的，但理论上讲，这并不冲突。一个Promise就是一个简单的，只有一个值的可观察对象。而Rx就远超于Promise，它允许多个值返回。
+Promise++就是被观察者(Observable)，在Rx里你可以使用这样的操作：`var stream = Rx.Observable.fromPromise(promise)`，就可以很轻松的将Promise转换成一个被观察者(Observable)，如此方便，让我们现在就开始使用它吧。不同的是，这些被观察者都不能兼容[Promises/A+](http://promises-aplus.github.io/promises-spec/)，但理论上并不冲突。一个Promise就是一个只有一个返回值的简单的被观察者，而Rx就远超于Promise，它允许多个值返回。
 
-这样更好，这样更突出可观察的对象(Observables)至少比Promise强大，所以如果你相信Promise宣传的那些东西，那么也请留意一下响应式编程能胜任些什么。
+这样更好，这样更突出被观察者至少比Promise强大，所以如果你相信Promise宣传的东西，那么也请留意一下响应式编程能胜任些什么。
 
-现在回到示例当中，如果你能快速发现，我们在`subscribe()`方法的内部，再次调用了`subscribe()`方法，这就有点类似于回调了。当然，`responseStream`的创建也是依赖于`requestStream`的，在之前我们说过，在Rx里，有很多很简单的机制来从其他事件流的转化并创建出一些新的事件流，那么，我们应该这样做试试。
+现在回到示例当中，你应该能快速发现，我们在`subscribe()`方法的内部再次调用了`subscribe()`方法，这有点类似于回调地(callback hell)，而且`responseStream`的创建也是依赖于`requestStream`的。在之前我们说过，在Rx里，有很多很简单的机制来从其他事件流的转化并创建出一些新的事件流，那么，我们也应该这样做试试。
 
-现在你应该要了解的一个最基本的函数是[`map(f)`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypemapselector-thisarg)，它可以作用到每一个事件流上，并执行`f()`函数，然后产生出一个全新的事件流。如果我们将它应用到我们的请求和响应(request and response)的事件流当中，那样我们就可以将请求的URL映射到一个响应(response)Promises上(伪装成数据流)。
+现在你需要了解的一个最基本的函数是[`map(f)`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypemapselector-thisarg)，它可以从事件流A中取出每一个值，并对每一个值执行`f()`函数，然后产生一个新的值到事件流B。如果我们将它应用到我们的请求和响应(request and response)的事件流当中，那我们就可以将请求的URL映射到一个响应Promises上(伪装成数据流)。
 
 ```javascript
 var responseMetastream = requestStream
@@ -364,7 +364,7 @@ var responseMetastream = requestStream
   });
 ```
 
-然后，我们将会创造一个叫做"_metastream_"的怪兽：一个装载事件流的事件流。先别惊慌，一个metastream就是一个从另一个事件流发出的值的事件流。你看把它想象成一个[指针(pointers)]((https://en.wikipedia.org/wiki/Pointer_(computer_programming))集合:每一个单独发出的值就是一个_指针_，它指向另一个事件流。在我们的实例里，每一个请求URL都映射到一个指向包含响应数据的promise数据流。
+然后，我们创造了一个叫做"_metastream_"的怪兽：一个装载了事件流的事件流。先别惊慌，metastream就是每一个发出的值都是另一个事件流的事件流，你看把它想象成一个[指针(pointers)]((https://en.wikipedia.org/wiki/Pointer_(computer_programming))集合:每一个单独发出的值就是一个_指针_，它指向另一个事件流。在我们的实例里，每一个请求URL都映射到一个指向包含响应数据的promise数据流。
 
 ![Response metastream](images/zresponsemetastream.png)
 
