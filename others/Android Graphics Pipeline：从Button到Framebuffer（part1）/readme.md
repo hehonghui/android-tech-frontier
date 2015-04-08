@@ -1,69 +1,69 @@
-`Android Graphics Pipeline: ´ÓButtonµ½Framebuffer (Part 1)`
+`Android Graphics Pipeline: ä»Buttonåˆ°Framebuffer (Part 1)`
 ---
 
 >
-* Ô­ÎÄÁ´½Ó : [Android Graphics Pipeline: From Button to Framebuffer (Part 1)](https://blog.inovex.de/android-graphics-pipeline-from-button-to-framebuffer-part-1/)
-* ÒëÕß : [dupengwei](https://github.com/dupengwei) 
-* Ğ£¶ÔÕß: [ÕâÀïĞ£¶ÔÕßµÄgithubÓÃ»§Ãû](githubÁ´½Ó)  
-* ×´Ì¬ :  Î´Íê³É / Ğ£¶ÔÖĞ / Íê³É 
+* åŸæ–‡é“¾æ¥ : [Android Graphics Pipeline: From Button to Framebuffer (Part 1)](https://blog.inovex.de/android-graphics-pipeline-from-button-to-framebuffer-part-1/)
+* è¯‘è€… : [dupengwei](https://github.com/dupengwei) 
+* æ ¡å¯¹è€…: [è¿™é‡Œæ ¡å¯¹è€…çš„githubç”¨æˆ·å](githubé“¾æ¥)  
+* çŠ¶æ€ :  æœªå®Œæˆ / æ ¡å¯¹ä¸­ / å®Œæˆ 
 
-In this mini-series of blog articles we want to shed some light on the internals of the Android Graphics Pipeline. Google itself already released some insights and documentation on the subject such as the beautiful Google I/O 2012 talk For Butter or Worse by Chet Haase and Romain Guy (go watch it if you haven¡¯t!) or the article Graphics architecture. While they certainly help to get the big picture involved in getting a simple view displayed on the screen, they are not that helpful when trying to understand the source code behind it. This series will give you a gentle jump start into the interesting world of the Android Graphics Pipeline.
+In this mini-series of blog articles we want to shed some light on the internals of the Android Graphics Pipeline. Google itself already released some insights and documentation on the subject such as the beautiful Google I/O 2012 talk For Butter or Worse by Chet Haase and Romain Guy (go watch it if you havenâ€™t!) or the article Graphics architecture. While they certainly help to get the big picture involved in getting a simple view displayed on the screen, they are not that helpful when trying to understand the source code behind it. This series will give you a gentle jump start into the interesting world of the Android Graphics Pipeline.
 
-ÔÚÕâ¸öĞ¡ĞÍ²©ÎÄÏµÁĞÖĞÎÒÃÇÏë¸øAndroid Graphics Pipeline µÄÄÚ²¿½á¹¹´øÀ´Ò»Ğ©Æô·¢¡£ÔÚ´ËÖ÷ÌâÉÏ£¬Google×Ô¼ºÒ²·¢²¼ÁËÒ»Ğ©¼û½âºÍÎÄµµ£¬ÈçÓÉChet Haase ºÍ Romain GuyÖ÷³ÖµÄGoogle I/O 2012Ñİ½²[For Butter or Worse](https://www.youtube.com/watch?v=Q8m9sHdyXnE) (Èç¹ûÃ»¿´¹ı¾ÍÈ¥¿´¿´°É!) ºÍÎÄÕÂ [Graphics architecture](http://source.android.com/devices/graphics/architecture.html) ¡£ËäÈ»ÕâĞ©¿Ï¶¨ÄÜ°ïÖúÎÒÃÇ´Óºê¹ÛÉÏÀí½âÒ»¸ö¼òµ¥µÄviewÊÇÈçºÎÏÔÊ¾ÔÚÆÁÄ»ÉÏ£¬µ«ÊÇµ±ÎÒÃÇ³¢ÊÔÈ¥Àí½â±³ºóµÄÔ´´úÂëÊ±£¬ÕâĞ©¶ÔÎÒÃÇµÄ°ïÖú²¢²»´ó¡£±¾ÏµÁĞ½«´øÄã×ß½øAndroid Graphics PipelineÕâ¸öÓĞÈ¤µÄÊÀ½ç¡£
+åœ¨è¿™ä¸ªå°å‹åšæ–‡ç³»åˆ—ä¸­æˆ‘ä»¬æƒ³ç»™Android Graphics Pipeline çš„å†…éƒ¨ç»“æ„å¸¦æ¥ä¸€äº›å¯å‘ã€‚åœ¨æ­¤ä¸»é¢˜ä¸Šï¼ŒGoogleè‡ªå·±ä¹Ÿå‘å¸ƒäº†ä¸€äº›è§è§£å’Œæ–‡æ¡£ï¼Œå¦‚ç”±Chet Haase å’Œ Romain Guyä¸»æŒçš„Google I/O 2012æ¼”è®²[For Butter or Worse](https://www.youtube.com/watch?v=Q8m9sHdyXnE) (å¦‚æœæ²¡çœ‹è¿‡å°±å»çœ‹çœ‹å§!) å’Œæ–‡ç«  [Graphics architecture](http://source.android.com/devices/graphics/architecture.html) ã€‚è™½ç„¶è¿™äº›è‚¯å®šèƒ½å¸®åŠ©æˆ‘ä»¬ä»å®è§‚ä¸Šç†è§£ä¸€ä¸ªç®€å•çš„viewæ˜¯å¦‚ä½•æ˜¾ç¤ºåœ¨å±å¹•ä¸Šï¼Œä½†æ˜¯å½“æˆ‘ä»¬å°è¯•å»ç†è§£èƒŒåçš„æºä»£ç æ—¶ï¼Œè¿™äº›å¯¹æˆ‘ä»¬çš„å¸®åŠ©å¹¶ä¸å¤§ã€‚æœ¬ç³»åˆ—å°†å¸¦ä½ èµ°è¿›Android Graphics Pipelineè¿™ä¸ªæœ‰è¶£çš„ä¸–ç•Œã€‚
 
 Beware, a lot of source code and sequence diagrams will be involved in this mini-series! Its worth a read though, especially if you have even the slightest interest in the Android Graphics Pipeline, as you are going to learn a lot (or at least get to look at some pretty pictures). So get yourself a coffee and read on!
 
-Çë×¢Òâ£¬±¾Ğ¡ĞÍÏµÁĞ²©ÎÄÖĞ»áÉæ¼°´óÁ¿µÄÔ´´úÂëºÍĞòÁĞÍ¼£¡ËüÖµµÃÒ»¶Á£¬ÌØ±ğÊÇÄã¶ÔAndroid Graphics PipelineÒ»µãĞËÈ¤Ò²Ã»ÓĞ£¬ÄãÒ²¿ÉÒÔÑ§µ½ºÜ¶à£¨»òÕßÄãÖÁÉÙ¿´¿´ÕâĞ©Æ¯ÁÁµÄÍ¼Æ¬£©¡£ËùÒÔ¸ø×Ô¼ºÒ»±­¿§·È£¬¶Á°É£¡
+è¯·æ³¨æ„ï¼Œæœ¬å°å‹ç³»åˆ—åšæ–‡ä¸­ä¼šæ¶‰åŠå¤§é‡çš„æºä»£ç å’Œåºåˆ—å›¾ï¼å®ƒå€¼å¾—ä¸€è¯»ï¼Œç‰¹åˆ«æ˜¯ä½ å¯¹Android Graphics Pipelineä¸€ç‚¹å…´è¶£ä¹Ÿæ²¡æœ‰ï¼Œä½ ä¹Ÿå¯ä»¥å­¦åˆ°å¾ˆå¤šï¼ˆæˆ–è€…ä½ è‡³å°‘çœ‹çœ‹è¿™äº›æ¼‚äº®çš„å›¾ç‰‡ï¼‰ã€‚æ‰€ä»¥ç»™è‡ªå·±ä¸€æ¯å’–å•¡ï¼Œè¯»å§ï¼
 
 ## Introduction
 
-## ÒıÑÔ
+## å¼•è¨€
 
 In order to fully understand the journey all views undertake on the way to the screen, we will use a small demo app and describe every major stage in the Android Graphics Pipeline, starting with the public Android Java API (SDK), going to native C++ code and finally looking at the raw OpenGL drawing operations.
 
-ÎªÁË³ä·ÖÀí½âviewÏÔÊ¾µ½ÆÁÄ»µÄ¹ı³Ì£¬ÎÒÃÇ²ÉÓÃÒ»¸öĞ¡ÑİÊ¾appÀ´ÃèÊöAndroid Graphics PipelineµÄÃ¿¸öÖ÷Òª½×¶Î£¬ÓÉAndroid Java API (SDK)¿ªÊ¼£¬È»ºóÊÇ±¾µØC++´úÂë£¬×îºó¿´Ô­Ê¼µÄOpenGL»æÍ¼²Ù×÷¡£
+ä¸ºäº†å……åˆ†ç†è§£viewæ˜¾ç¤ºåˆ°å±å¹•çš„è¿‡ç¨‹ï¼Œæˆ‘ä»¬é‡‡ç”¨ä¸€ä¸ªå°æ¼”ç¤ºappæ¥æè¿°Android Graphics Pipelineçš„æ¯ä¸ªä¸»è¦é˜¶æ®µï¼Œç”±Android Java API (SDK)å¼€å§‹ï¼Œç„¶åæ˜¯æœ¬åœ°C++ä»£ç ï¼Œæœ€åçœ‹åŸå§‹çš„OpenGLç»˜å›¾æ“ä½œã€‚
 
 ![one-button-layout-cropped](one-button-layout-cropped-300x186.png)
 
-The demo app in all its glory. This little app is causing enough code-coverage in the Android Graphics internals, so that it¡¯s actually a pretty good example.
+The demo app in all its glory. This little app is causing enough code-coverage in the Android Graphics internals, so that itâ€™s actually a pretty good example.
 
-Õâ¸öÑİÊ¾appÊÇÏàµ±µÄ¹â²Ê¶áÄ¿¡£Õâ¸öĞ¡Ğ¡µÄapp¶Ô Android GraphicsµÄÄÚ²¿½á¹¹²úÉú³ä×ãµÄ´úÂë¸²¸Ç£¬ËùÒÔ£¬ËüÊµ¼ÊÉÏÊÇÒ»¸öÏàµ±ºÃµÄÀı×Ó¡£
+è¿™ä¸ªæ¼”ç¤ºappæ˜¯ç›¸å½“çš„å…‰å½©å¤ºç›®ã€‚è¿™ä¸ªå°å°çš„appå¯¹ Android Graphicsçš„å†…éƒ¨ç»“æ„äº§ç”Ÿå……è¶³çš„ä»£ç è¦†ç›–ï¼Œæ‰€ä»¥ï¼Œå®ƒå®é™…ä¸Šæ˜¯ä¸€ä¸ªç›¸å½“å¥½çš„ä¾‹å­ã€‚
 
 The activity consists of a simple RelativeLayout, an ActionBar with the application icon and title and a simple Button which reads Hello world!.
 
-Õâ¸öactivityÓÉÒ»¸ö¼òµ¥RelativeLayout£¬Ò»¸ö´øÓ¦ÓÃÍ¼±êºÍ±êÌâActionBar ºÍÒ»¸ö¶Á×÷¡°Hello world!¡±µÄ¼òµ¥Button×é³É¡£
+è¿™ä¸ªactivityç”±ä¸€ä¸ªç®€å•RelativeLayoutï¼Œä¸€ä¸ªå¸¦åº”ç”¨å›¾æ ‡å’Œæ ‡é¢˜ActionBar å’Œä¸€ä¸ªè¯»ä½œâ€œHello world!â€çš„ç®€å•Buttonç»„æˆã€‚
 
 ![one-button-viewhierarchy](one-button-viewhierarchy-1024x396.png)
 
 The view hierarchy of our simple demo app is actually quite complex.
 
-ÎÒÃÇÕâ¸ö¼òµ¥µÄÑİÊ¾appµÄÊÓÍ¼²ãÊµ¼ÊÉÏÊÇÏàµ±¸´ÔÓµÄ¡£
+æˆ‘ä»¬è¿™ä¸ªç®€å•çš„æ¼”ç¤ºappçš„è§†å›¾å±‚å®é™…ä¸Šæ˜¯ç›¸å½“å¤æ‚çš„ã€‚
 
 Inside the Android view hierarchy, the relative layout consists of a simple color-gradient background. More complex, the action bar is composed of the background, which is a gradient combined with a bitmap, the One Button text element and the application icon, which is also a bitmap. A 9-Patch is used as the background for the button, and the text element Hello World! is drawn on top of it. The navigation bar and status bar at the top and bottom of the screen are not part of the apps activity, they will be rendered by the  SystemUI  system service instead.
 
-ÔÚAndroid ÊÓÍ¼²ãÄÚ²¿£¬Ïà¶Ô²¼¾Ö£¨relative layout£©ÓÉÒ»¸ö¼òµ¥µÄÑÕÉ«½¥±ä±³¾°×é³É¡£¸ü¸´ÔÓµÄ£¬action barÓÉÒ»¸ö½¥±äµÄ±³¾°½áºÏÒ»¸öbitmap£¬**One Button**ÎÄ±¾ÔªËØºÍÓ¦ÓÃÍ¼±ê£¨Ò²ÊÇÒ»¸öbitmap£©×é³É¡£9-PatchÓÃ×÷°´Å¥µÄ±³¾°£¬ÎÄ±¾**Hello World!**»­ÔÚËüµÄ×îÉÏ²ã¡£ÆÁÄ»¶¥²¿µÄµ¼º½À¸ºÍµ×²¿µÄ×´Ì¬À¸²»ÊôÓÚappµÄactivity²¿·Ö£¬ËüÃÇÓÉÏµÍ³·şÎñ`SystemUI`½øĞĞäÖÈ¾¡£
+åœ¨Android è§†å›¾å±‚å†…éƒ¨ï¼Œç›¸å¯¹å¸ƒå±€ï¼ˆrelative layoutï¼‰ç”±ä¸€ä¸ªç®€å•çš„é¢œè‰²æ¸å˜èƒŒæ™¯ç»„æˆã€‚æ›´å¤æ‚çš„ï¼Œaction barç”±ä¸€ä¸ªæ¸å˜çš„èƒŒæ™¯ç»“åˆä¸€ä¸ªbitmapï¼Œ**One Button**æ–‡æœ¬å…ƒç´ å’Œåº”ç”¨å›¾æ ‡ï¼ˆä¹Ÿæ˜¯ä¸€ä¸ªbitmapï¼‰ç»„æˆã€‚9-Patchç”¨ä½œæŒ‰é’®çš„èƒŒæ™¯ï¼Œæ–‡æœ¬**Hello World!**ç”»åœ¨å®ƒçš„æœ€ä¸Šå±‚ã€‚å±å¹•é¡¶éƒ¨çš„å¯¼èˆªæ å’Œåº•éƒ¨çš„çŠ¶æ€æ ä¸å±äºappçš„activityéƒ¨åˆ†ï¼Œå®ƒä»¬ç”±ç³»ç»ŸæœåŠ¡`SystemUI`è¿›è¡Œæ¸²æŸ“ã€‚
 
 ## The Big Picture: Pipeline Overview
 
-## ÕûÌåÇé¿ö£ºPipeline¸ÅÊö
+## æ•´ä½“æƒ…å†µï¼šPipelineæ¦‚è¿°
 
 Having watched the Google I/O talk For Butter or Worse, you will certainly recognize the following slide, which shows the complete Android Graphics Pipeline.
 
-¿´¹ıGoogle I/OÑİ½²**For Butter or Worse**£¬Äã¿Ï¶¨ÈÏÊ¶ÏÂÃæµÄ»ÃµÆÆ¬£¬ËüÏÔÊ¾ÁËÍêÕûµÄAndroid Graphics Pipeline¡£
+çœ‹è¿‡Google I/Oæ¼”è®²**For Butter or Worse**ï¼Œä½ è‚¯å®šè®¤è¯†ä¸‹é¢çš„å¹»ç¯ç‰‡ï¼Œå®ƒæ˜¾ç¤ºäº†å®Œæ•´çš„Android Graphics Pipelineã€‚
 
 ![pipeline](pipeline-1024x458.png)
 
 The complete Android Graphics Pipeline, as presented at Google I/O 2012.
 
-ÔÚGoogle I/O 2012Ñİ½²ÖĞÌá¹©µÄÍêÕûµÄAndroid Graphics Pipeline¡£
+åœ¨Google I/O 2012æ¼”è®²ä¸­æä¾›çš„å®Œæ•´çš„Android Graphics Pipelineã€‚
 
 The Surface Flinger is responsible for creating a graphics buffer and compositing it onto the main display and while certainly very important for the Android system, is not covered at this time.
 
-Surface Flinger¸ºÔğ´´½¨Í¼ĞÎ»º³åÇø²¢½«ÆäºÏ³Éµ½Ö÷ÏÔÊ¾Æ÷£¬ËäÈ»Õâ¶ÔÓ¦°²×¿ÏµÍ³·Ç³£ÖØÒª£¬µ«ÊÇÔÚ´Ë²»×ö¸²¸Ç¡£
+Surface Flingerè´Ÿè´£åˆ›å»ºå›¾å½¢ç¼“å†²åŒºå¹¶å°†å…¶åˆæˆåˆ°ä¸»æ˜¾ç¤ºå™¨ï¼Œè™½ç„¶è¿™å¯¹åº”å®‰å“ç³»ç»Ÿéå¸¸é‡è¦ï¼Œä½†æ˜¯åœ¨æ­¤ä¸åšè¦†ç›–ã€‚
 
 Instead, we will look at a fine selection of components which are doing most of the heavy lifting in bringing the view to the screen:
 
-Ïà·´£¬ÎÒÃÇ×ÅÑÛÓÚÓĞ¶àÖÖ¿É¹©Ñ¡ÔñµÄ×é¼ş£¬ÕâĞ©×é¼ş¸É×Å¾ø´ó¶àÊıµÄ¹¤×÷½«viewÏÔÊ¾µ½ÆÁÄ»¡£
+ç›¸åï¼Œæˆ‘ä»¬ç€çœ¼äºæœ‰å¤šç§å¯ä¾›é€‰æ‹©çš„ç»„ä»¶ï¼Œè¿™äº›ç»„ä»¶å¹²ç€ç»å¤§å¤šæ•°çš„å·¥ä½œå°†viewæ˜¾ç¤ºåˆ°å±å¹•ã€‚
 
 ![interesting_bits](interesting_bits-1024x302.png)
 
@@ -73,27 +73,27 @@ The interesting bits (at least for these blog posts) of the pipeline.
 
 ## Display Lists
 
-As you may already know, Android uses a concept called DisplayLists to render all its views. For those of you who don¡¯t know, a display list is a sequence of graphics commands needed to be executed to render a specific view. These display lists are an important element to achieve the high performance of the Android Graphics Pipeline.
+As you may already know, Android uses a concept called DisplayLists to render all its views. For those of you who donâ€™t know, a display list is a sequence of graphics commands needed to be executed to render a specific view. These display lists are an important element to achieve the high performance of the Android Graphics Pipeline.
 
-ÕıÈçÄã¿ÉÄÜÒÑ¾­ÖªµÀ£¬Android Ê¹ÓÃÒ»¸ö½Ğ×öDisplayListsµÄÀíÄîÈ¥äÖÈ¾ËùÓĞµÄview¡£¶ÔÓÚ²»ÖªµÀµÄÈËÀ´Ëµ£¬display listÊÇÒ»¸ö»æÍ¼ÃüÁîĞòÁĞ¼¯ºÏ£¬ĞèÒªÖ´ĞĞÕâĞ©ÃüÁîÈ¥äÖÈ¾Ö¸¶¨µÄview¡£display listsÊÇAndroid Graphics Pipeline´ïµ½¸ßĞÔÄÜµÄÖØÒªÔªËØ¡£
+æ­£å¦‚ä½ å¯èƒ½å·²ç»çŸ¥é“ï¼ŒAndroid ä½¿ç”¨ä¸€ä¸ªå«åšDisplayListsçš„ç†å¿µå»æ¸²æŸ“æ‰€æœ‰çš„viewã€‚å¯¹äºä¸çŸ¥é“çš„äººæ¥è¯´ï¼Œdisplay listæ˜¯ä¸€ä¸ªç»˜å›¾å‘½ä»¤åºåˆ—é›†åˆï¼Œéœ€è¦æ‰§è¡Œè¿™äº›å‘½ä»¤å»æ¸²æŸ“æŒ‡å®šçš„viewã€‚display listsæ˜¯Android Graphics Pipelineè¾¾åˆ°é«˜æ€§èƒ½çš„é‡è¦å…ƒç´ ã€‚
 
 ![display-lists](display-lists.png)
 
 Every view of the view hierarchy has a corrsponding display list, which is generated by the views onDraw() method, which every developer knows about. In order to draw the view hierarchy onto the screen, only the display lists need to be evaluated and executed. In case a single view gets invalidated (due to user input, animations or transitions), the affected display lists will be rebuilt and eventually redrawn. This is preventing Android from calling the quite expensive onDraw() methods every frame.
 
-Ã¿¸öÊÓÍ¼²ãµÄview¶¼ÓĞÆä¶ÔÓ¦µÄdisplay list£¬Ã¿¸ö¿ª·¢Õß¶¼ÖªµÀ`onDraw()`·½·¨£¬Õâ¸ödisplay list¾ÍÊÇÓÉviewµÄ`onDraw()`·½·¨Éú³ÉµÄ¡£ÎªÁË½«ÊÓÍ¼²ã»­µ½ÆÁÄ»ÉÏ£¬Ö»ÓĞdisplay listsĞèÒª±»ÆÀ¹À²¢Ö´ĞĞ¡£¼ÙÈçÄ³¸öµ¥Ò»viewÊ§Ğ§£¨ÒòÓÃ»§ÊäÈë¡¢¶¯»­»ò×ª»»£©£¬ÊÜÓ°ÏìµÄdisplay lists½«»áÖØ½¨ºÍÖØ»æ¡£Õâ¾Í±ÜÃâAndroidÔÚÃ¿¸öframe²ãµ÷ÓÃÏàµ±ºÄ·Ñ×ÊÔ´µÄ`onDraw()`¡£
+æ¯ä¸ªè§†å›¾å±‚çš„viewéƒ½æœ‰å…¶å¯¹åº”çš„display listï¼Œæ¯ä¸ªå¼€å‘è€…éƒ½çŸ¥é“`onDraw()`æ–¹æ³•ï¼Œè¿™ä¸ªdisplay listå°±æ˜¯ç”±viewçš„`onDraw()`æ–¹æ³•ç”Ÿæˆçš„ã€‚ä¸ºäº†å°†è§†å›¾å±‚ç”»åˆ°å±å¹•ä¸Šï¼Œåªæœ‰display listséœ€è¦è¢«è¯„ä¼°å¹¶æ‰§è¡Œã€‚å‡å¦‚æŸä¸ªå•ä¸€viewå¤±æ•ˆï¼ˆå› ç”¨æˆ·è¾“å…¥ã€åŠ¨ç”»æˆ–è½¬æ¢ï¼‰ï¼Œå—å½±å“çš„display listså°†ä¼šé‡å»ºå’Œé‡ç»˜ã€‚è¿™å°±é¿å…Androidåœ¨æ¯ä¸ªframeå±‚è°ƒç”¨ç›¸å½“è€—è´¹èµ„æºçš„`onDraw()`ã€‚
 
 Display lists can also be nested, meaning that a display list can issue a command to draw a childrens display list. This is important in order to be able to reproduce view hierarchies with display lists. After all, even our simple app has multiple nested views.
 
-Display lists Ò²¿ÉÒÔ±»Ç¶Ì×£¬ÕâÒâÎ¶×ÅÒ»¸öDisplay listÒ²¿ÉÒÔ·¢³öÒ»¸öÃüÁî»æÖÆÒ»¸ö×Ódisplay list¡£Õâ¶Ô¸´ÖÆÊÓÍ¼²ãµÄdisplay listsÀ´Ëµ·Ç³£ÖØÒª¡£±Ï¾¹£¬¼´Ê¹ÎÒÃÇµÄ¼òµ¥appÒ²¾ßÓĞ¶à¸öÇ¶Ì×ÊÓÍ¼¡£
+Display lists ä¹Ÿå¯ä»¥è¢«åµŒå¥—ï¼Œè¿™æ„å‘³ç€ä¸€ä¸ªDisplay listä¹Ÿå¯ä»¥å‘å‡ºä¸€ä¸ªå‘½ä»¤ç»˜åˆ¶ä¸€ä¸ªå­display listã€‚è¿™å¯¹å¤åˆ¶è§†å›¾å±‚çš„display listsæ¥è¯´éå¸¸é‡è¦ã€‚æ¯•ç«Ÿï¼Œå³ä½¿æˆ‘ä»¬çš„ç®€å•appä¹Ÿå…·æœ‰å¤šä¸ªåµŒå¥—è§†å›¾ã€‚
 
 These commands are a mixture of statements that can be directly mapped to OpenGL commands, such as translating and setting up clipping rectangles, and more complex commands such as DrawText and DrawPatch. These need a more complex set of OpenGL commands.
 
-ÕâĞ©ÃüÁîµÄÓï¾äµÄ¿ÉÒÔÖ±½ÓÓ³Éäµ½OpenGLÃüÁî£¬Èç·­ÒëºÍÉèÖÃ¼ô¼­¾ØÕó£¬»ò¸ü¸´ÔÓµÄÃüÁîÈç`DrawText` ºÍ `DrawPatch`¡£ÕâĞ©ÃüÁîĞèÒª¸ü¸´ÔÓµÄOpenGLÃüÁî¼¯¡£
+è¿™äº›å‘½ä»¤çš„è¯­å¥çš„å¯ä»¥ç›´æ¥æ˜ å°„åˆ°OpenGLå‘½ä»¤ï¼Œå¦‚ç¿»è¯‘å’Œè®¾ç½®å‰ªè¾‘çŸ©é˜µï¼Œæˆ–æ›´å¤æ‚çš„å‘½ä»¤å¦‚`DrawText` å’Œ `DrawPatch`ã€‚è¿™äº›å‘½ä»¤éœ€è¦æ›´å¤æ‚çš„OpenGLå‘½ä»¤é›†ã€‚
 
 `An example of a display list for a button.`
 
-`Ò»¸ö°´Å¥µÄdisplay listÊ¾Àı`
+`ä¸€ä¸ªæŒ‰é’®çš„display listç¤ºä¾‹`
 
 ```java
 Save 3
@@ -108,39 +108,39 @@ RestoreToCount 0
 
 In the example above, you can clearly see what kind of operations are present in a display list for our simple button. The first operation is to save the current translation matrix to the stack, so that it can be later restored. It then proceeds to draw the buttons 9-Patch, followed by another save command. This is necessary because for the text to be drawn, a clipping rectangle is set up to only affect the region that where text will be drawn. Mobile GPUs can take this rectangle as an hint to further optimize the draw calls in later stages. The drawing origin is than translated to the text position and the text is drawn. At the end, the original translation matrix and state is restored from the stack, which also resets the clipping rectangle.
 
-ÔÚÉÏÃæµÄÊ¾ÀıÖĞ£¬Äã¿ÉÒÔÇå³şµØ¿´µ½Ò»¸ö¼òµ¥µÄ°´Å¥(»æÖÆ¹ı³Ì£©display listÌá¹©ÁËÊ²Ã´ÑùµÄ²Ù×÷¡£µÚÒ»¸ö²Ù×÷ÊÇ±£´æµ±Ç°·­Òë¾ØÕóµ½¶ÑÖĞ£¬Òò´ËËüËæºó¿ÉÒÔ»Ö¸´¡£È»ºóÓÖ»­ÁË9-Patch°´Å¥£¬½ÓÏÂÀ´ÊÇÁíÍâÒ»¸ö±£´æÃüÁî£¬ÕâÊÇ±ØÒªµÄ£¬ÒòÎª¶ÔÓÚÒª»æÖÆµÄÎÄ±¾À´Ëµ£¬Ö»ÓĞ»æÖÆÎÄ±¾µÄÇøÓò²Å»á´´½¨²Ã¼ô¾ØÕó¡£ÊÖ»ú»æÍ¼´¦ÀíÆ÷½«´Ë¾ØĞÎÇøÓòµ±×öÒ»¸öÏßË÷ÒÔ±ãÔÚºóĞø½×¶Î¶Ô»æÍ¼µ÷ÓÃ½øÒ»²½ÓÅ»¯¡£È»ºó½«»æ»­Ô²µã×ª»»µ½ÎÄ±¾Î»ÖÃ£¬²¢»æÖÆÎÄ±¾¡£×îºó£¬×î³õµÄ×ª»»¾ØÕóºÍ×´Ì¬´Ó¶ÑÖĞ»¹Ô­£¬²Ã¼ô¾ØÕóÒ²±»ÖØÖÃ¡£
+åœ¨ä¸Šé¢çš„ç¤ºä¾‹ä¸­ï¼Œä½ å¯ä»¥æ¸…æ¥šåœ°çœ‹åˆ°ä¸€ä¸ªç®€å•çš„æŒ‰é’®(ç»˜åˆ¶è¿‡ç¨‹ï¼‰display listæä¾›äº†ä»€ä¹ˆæ ·çš„æ“ä½œã€‚ç¬¬ä¸€ä¸ªæ“ä½œæ˜¯ä¿å­˜å½“å‰ç¿»è¯‘çŸ©é˜µåˆ°æ ˆä¸­ï¼Œå› æ­¤å®ƒéšåå¯ä»¥æ¢å¤ã€‚ç„¶ååˆç”»äº†9-PatchæŒ‰é’®ï¼Œæ¥ä¸‹æ¥æ˜¯å¦å¤–ä¸€ä¸ªä¿å­˜å‘½ä»¤ï¼Œè¿™æ˜¯å¿…è¦çš„ï¼Œå› ä¸ºå¯¹äºè¦ç»˜åˆ¶çš„æ–‡æœ¬æ¥è¯´ï¼Œåªæœ‰ç»˜åˆ¶æ–‡æœ¬çš„åŒºåŸŸæ‰ä¼šåˆ›å»ºè£å‰ªçŸ©é˜µã€‚æ‰‹æœºç»˜å›¾å¤„ç†å™¨å°†æ­¤çŸ©å½¢åŒºåŸŸå½“åšä¸€ä¸ªçº¿ç´¢ä»¥ä¾¿åœ¨åç»­é˜¶æ®µå¯¹ç»˜å›¾è°ƒç”¨è¿›ä¸€æ­¥ä¼˜åŒ–ã€‚ç„¶åå°†ç»˜ç”»åœ†ç‚¹è½¬æ¢åˆ°æ–‡æœ¬ä½ç½®ï¼Œå¹¶ç»˜åˆ¶æ–‡æœ¬ã€‚æœ€åï¼Œæœ€åˆçš„è½¬æ¢çŸ©é˜µå’ŒçŠ¶æ€ä»å †ä¸­è¿˜åŸï¼Œè£å‰ªçŸ©é˜µä¹Ÿè¢«é‡ç½®ã€‚
 
 The complete log of the display lists for our example application can be seen at the bottom of this post.
 
-ÔÚÕâÆªÎÄÕÂµÄµ×²¿¿ÉÒÔ¿´µ½Ê¾ÀıÓÃµÄµÄdisplay listsµÄÍêÕûÈÕÖ¾¡£
+åœ¨è¿™ç¯‡æ–‡ç« çš„åº•éƒ¨å¯ä»¥çœ‹åˆ°ç¤ºä¾‹ç”¨çš„çš„display listsçš„å®Œæ•´æ—¥å¿—ã€‚
 
 ## Diving into code
 
-## ÉîÈë´úÂë
+## æ·±å…¥ä»£ç 
 
 With this newly accuired knowledge we are ready to dive into the code.
 
-´ø×ÅÕâĞ©ĞÂ»ñÈ¡µÄÖªÊ¶£¬ÎÒÃÇ×¼±¸ÉîÈë´úÂë¡£
+å¸¦ç€è¿™äº›æ–°è·å–çš„çŸ¥è¯†ï¼Œæˆ‘ä»¬å‡†å¤‡æ·±å…¥ä»£ç ã€‚
 
 ### Root View
 
-### ¸ùÊÓÍ¼£¨Root View£©
+### æ ¹è§†å›¾ï¼ˆRoot Viewï¼‰
 
 Every Android activity has an implicit root view at the top of the view hierarchy, containing exactly one child view. This child is the first real view of the application defined by the application developer. The root view is responsible for scheduling and executing multiple operations such as drawing and invalidating views, among other.
 
-Ã¿¸öAndroid activityÔÚÊÓÍ¼²ãµÄ×î¶¥²ã¶¼ÓĞÒ»¸öÒşÊ½¸ùÊÓÍ¼£¨Root View£©£¬°üº¬Ò»¸ö×Óview¡£Õâ¸ö×ÓviewÊÇ³ÌĞòÔ±ÔÚÓ¦ÓÃÖĞ¶¨ÒåµÄµÚÒ»¸öÕæÕıµÄview¡£¸ùÊÓÍ¼¸ºÔğµ÷¶ÈºÍÖ´ĞĞ¶àÖÖ£¬Èç»æÍ¼£¬Ê¹viewÎŞĞ§µÈµÈ¡£
+æ¯ä¸ªAndroid activityåœ¨è§†å›¾å±‚çš„æœ€é¡¶å±‚éƒ½æœ‰ä¸€ä¸ªéšå¼æ ¹è§†å›¾ï¼ˆRoot Viewï¼‰ï¼ŒåŒ…å«ä¸€ä¸ªå­viewã€‚è¿™ä¸ªå­viewæ˜¯ç¨‹åºå‘˜åœ¨åº”ç”¨ä¸­å®šä¹‰çš„ç¬¬ä¸€ä¸ªçœŸæ­£çš„viewã€‚æ ¹è§†å›¾è´Ÿè´£è°ƒåº¦å’Œæ‰§è¡Œå¤šç§ï¼Œå¦‚ç»˜å›¾ï¼Œä½¿viewæ— æ•ˆç­‰ç­‰ã€‚
 
 Similarly, every view has a reference to its parent. The first view inside the view hierarchy, which the root view references, has this root view as a parent. While serving as a base class for every visible element and widget, the View class does not support any children. However, the derrived ViewGroup supports multiple children and serves as a container base class, which is used by the standard layouts ( RelativeLayout etc.).
 
-ÀàËÆµÄ£¬Ã¿¸öview¶¼ÓĞÒ»¸öparentµÄÒıÓÃ¡£ÊÓÍ¼²ãÄÚ²¿µÄµÚÒ»¸öview½«¸ùÊÓÍ¼×÷Îªparent¡£ËäÈ»ViewÀà×÷ÎªÃ¿¸ö¿ÉÊÓ»¯µÄÔªËØ»ò×é¼şµÄ»ùÀà£¬µ«ÊÇËü²¢²»Ö§³ÖÈÎºÎ×ÓÀà¡£È»¶ø£¬ÆäÅÉÉúÀàViewGroupÖ§³Ö¶à×ÓÀà£¬²¢×÷ÎªÒ»¸öÈİÆ÷»ùÀà£¬ËüÒÑ¾­±»±ê×¼²¼¾Ö£¨RelativeLayout µÈµÈ)Ëù²ÉÓÃ¡£
+ç±»ä¼¼çš„ï¼Œæ¯ä¸ªviewéƒ½æœ‰ä¸€ä¸ªparentçš„å¼•ç”¨ã€‚è§†å›¾å±‚å†…éƒ¨çš„ç¬¬ä¸€ä¸ªviewå°†æ ¹è§†å›¾ä½œä¸ºparentã€‚è™½ç„¶Viewç±»ä½œä¸ºæ¯ä¸ªå¯è§†åŒ–çš„å…ƒç´ æˆ–ç»„ä»¶çš„åŸºç±»ï¼Œä½†æ˜¯å®ƒå¹¶ä¸æ”¯æŒä»»ä½•å­ç±»ã€‚ç„¶è€Œï¼Œå…¶æ´¾ç”Ÿç±»ViewGroupæ”¯æŒå¤šå­ç±»ï¼Œå¹¶ä½œä¸ºä¸€ä¸ªå®¹å™¨åŸºç±»ï¼Œå®ƒå·²ç»è¢«æ ‡å‡†å¸ƒå±€ï¼ˆRelativeLayout ç­‰ç­‰)æ‰€é‡‡ç”¨ã€‚
 
 If a view is (partially) invalidated, the view will call the root views invalidateChildInParent() method. The root view keeps track of all invalidated areas and schedules a new traversal at the choreographer, which is performed on the next VSync event.
 
-Èç¹ûÒ»¸öview¾Ö²¿ÖØ»æ£¬ÄÇÃ´¸Ãview»áµ÷ÓÃ¸ùÊÓÍ¼µÄinvalidateChildInParent()·½·¨¡£¸ùÊÓÍ¼¸ú×ÙËùÓĞÖØ»æµÄÇøÓò£¬²¢ÔÚchoreographerµ÷¶ÈÒ»¸öĞÂµÄ±éÀú£¬choreographer»áÔÚÏÂÒ»¸öVSyncÊÂ¼şÖ´ĞĞ¡£
+å¦‚æœä¸€ä¸ªviewå±€éƒ¨é‡ç»˜ï¼Œé‚£ä¹ˆè¯¥viewä¼šè°ƒç”¨æ ¹è§†å›¾çš„invalidateChildInParent()æ–¹æ³•ã€‚æ ¹è§†å›¾è·Ÿè¸ªæ‰€æœ‰é‡ç»˜çš„åŒºåŸŸï¼Œå¹¶åœ¨choreographerè°ƒåº¦ä¸€ä¸ªæ–°çš„éå†ï¼Œchoreographerä¼šåœ¨ä¸‹ä¸€ä¸ªVSyncäº‹ä»¶æ‰§è¡Œã€‚
 
 ![view-invalidate](view-invalidate.png)
 
-ViewRoot: InvalidateChildInParent(¡­)
+ViewRoot: InvalidateChildInParent(â€¦)
 
 ```java
 public ViewParent invalidateChildInParent(int[] location, Rect dirty) {
@@ -157,26 +157,26 @@ public ViewParent invalidateChildInParent(int[] location, Rect dirty) {
 
 ## Creating the Display Lists
 
-## ´´½¨Display Lists
+## åˆ›å»ºDisplay Lists
 
 As previously mentioned, each view is responsible to generate its own display list. When a VSync event is fired and the choreographer called performTraversals on the root view, the  HardwareRenderer is asked to draw the view, which in turn will ask the view to generate its display list.
 
-ÕıÈçÖ®Ç°Ìáµ½µÄ£¬Ã¿¸öview¸ºÔğÉú²ú×Ô¼ºµÄdisplay list¡£µ±Ò»¸öVSyncÊÂ¼ş±»´¥·¢£¬choreographerµ÷ÓÃ¸ùÊÓÍ¼µÄ`performTraversals`·½·¨£¬¸ùÊÓÍ¼ÒªÇó`HardwareRenderer`»æÖÆview£¬`HardwareRenderer`·´¹ıÀ´ÒªÇóviewÉú³É×Ô¼ºµÄdisplay list¡£
+æ­£å¦‚ä¹‹å‰æåˆ°çš„ï¼Œæ¯ä¸ªviewè´Ÿè´£ç”Ÿäº§è‡ªå·±çš„display listã€‚å½“ä¸€ä¸ªVSyncäº‹ä»¶è¢«è§¦å‘ï¼Œchoreographerè°ƒç”¨æ ¹è§†å›¾çš„`performTraversals`æ–¹æ³•ï¼Œæ ¹è§†å›¾è¦æ±‚`HardwareRenderer`ç»˜åˆ¶viewï¼Œ`HardwareRenderer`åè¿‡æ¥è¦æ±‚viewç”Ÿæˆè‡ªå·±çš„display listã€‚
 
 ![perform-traversals1](perform-traversals1.png)
 
 With currently almost 20.000 lines of code, the View  is one of the bigger classes inside the Android framework. This comes as no surprise, as it is the building block for every widget and application. It handles the keyboard, trackball and touch events, as well as scrolling, scrollbars, layouting and measuring, and much, much more.
 
-ÔÚAndroid framework²ãÖĞ£¬ViewÊÇÆäÖĞÒ»¸ö±È½Ï´óµÄÀà£¬µ±Ç°´úÂëÁ¿½«½ü20000ĞĞ¡£Õâ²¢²»ÁîÈË¾ªÆæ£¬ÒòÎªËüÊÇÃ¿¸öĞ¡×é¼şºÍÓ¦ÓÃµÄ¹¹½¨¿é¡£Ëü´¦Àí¼üÅÌ¡¢¹ì¼£Çò¡¢´¥ÃşÊÂ¼ş,ÒÔ¼°¹ö¶¯,¹ö¶¯Ìõ,²¼¾ÖºÍ²âÁ¿,»¹ÓĞºÜ¶àºÜ¶à¡£
+åœ¨Android frameworkå±‚ä¸­ï¼ŒViewæ˜¯å…¶ä¸­ä¸€ä¸ªæ¯”è¾ƒå¤§çš„ç±»ï¼Œå½“å‰ä»£ç é‡å°†è¿‘20000è¡Œã€‚è¿™å¹¶ä¸ä»¤äººæƒŠå¥‡ï¼Œå› ä¸ºå®ƒæ˜¯æ¯ä¸ªå°ç»„ä»¶å’Œåº”ç”¨çš„æ„å»ºå—ã€‚å®ƒå¤„ç†é”®ç›˜ã€è½¨è¿¹çƒã€è§¦æ‘¸äº‹ä»¶,ä»¥åŠæ»šåŠ¨,æ»šåŠ¨æ¡,å¸ƒå±€å’Œæµ‹é‡,è¿˜æœ‰å¾ˆå¤šå¾ˆå¤šã€‚
 
 ![view-getdisplaylist](view-getdisplaylist.png)
 
 
-Called by the Hardware Renderer, the View.getDisplayList(¡­) method will create a new internal display list, which will be used for rest of the views lifetime. The internal display list is then asked to supply a canvas big enough to accommodate the view. Supplying a  GLES20RecordingCanvas, the view and all its children will use it to draw upon, and is therefore handed to the  draw(¡­) method. The canvas is somewhat special, as it will not execute drawing commands but rather save them as commands inside the display list. This means that the widgets and every view can use the normal drawing API without even noticing that the commands are rendered to a display list.
+Called by the Hardware Renderer, the View.getDisplayList(â€¦) method will create a new internal display list, which will be used for rest of the views lifetime. The internal display list is then asked to supply a canvas big enough to accommodate the view. Supplying a  GLES20RecordingCanvas, the view and all its children will use it to draw upon, and is therefore handed to the  draw(â€¦) method. The canvas is somewhat special, as it will not execute drawing commands but rather save them as commands inside the display list. This means that the widgets and every view can use the normal drawing API without even noticing that the commands are rendered to a display list.
 
-`View.getDisplayList(¡­)`·½·¨±»Hardware Rendererµ÷ÓÃÊ±½«»á´´½¨Ò»¸öÄÚ²¿µÄdisplay list£¬Õâ¸öÄÚ²¿display list½«»áÔÚviewÉúÃüÖÜÆÚµÄÊ£Óà²¿ÃÅ±»Ê¹ÓÃ¡£È»ºóÕâ¸öÄÚ²¿display list±»ÒªÇóÌá¹©Ò»¸ö×ã¹»´óµÄ»­²¼À´ÈİÄÉÕâ¸öview¡£Ìá¹©Ò»¸öGLES20RecordingCanvas£¬ËùÓĞviewºÍËüµÄchildren½«»áÔÚÉÏÃæ»æÍ¼£¬²¢´«µİ¸ø`draw(¡­)`·½·¨¡£Õâ¸ö»­²¼ÓĞµãÌØÊâ£¬ÒòÎªËü²»Ö´ĞĞ»æÍ¼ÃüÁî£¬¶øÊÇ±£´æÃüÁîµ½display list¡£ÕâÒâÎ¶×ÅĞ¡×é¼şºÍÃ¿¸öviewÄÜÊ¹ÓÃÕı³£µÄ»æÍ¼API£¬ÉõÖÁÎŞĞë¹Ø×¢display listÄÚ²¿µÄÃüÁî
+`View.getDisplayList(â€¦)`æ–¹æ³•è¢«Hardware Rendererè°ƒç”¨æ—¶å°†ä¼šåˆ›å»ºä¸€ä¸ªå†…éƒ¨çš„display listï¼Œè¿™ä¸ªå†…éƒ¨display listå°†ä¼šåœ¨viewç”Ÿå‘½å‘¨æœŸçš„å‰©ä½™éƒ¨é—¨è¢«ä½¿ç”¨ã€‚ç„¶åè¿™ä¸ªå†…éƒ¨display listè¢«è¦æ±‚æä¾›ä¸€ä¸ªè¶³å¤Ÿå¤§çš„ç”»å¸ƒæ¥å®¹çº³è¿™ä¸ªviewã€‚æä¾›ä¸€ä¸ªGLES20RecordingCanvasï¼Œæ‰€æœ‰viewå’Œå®ƒçš„childrenå°†ä¼šåœ¨ä¸Šé¢ç»˜å›¾ï¼Œå¹¶ä¼ é€’ç»™`draw(â€¦)`æ–¹æ³•ã€‚è¿™ä¸ªç”»å¸ƒæœ‰ç‚¹ç‰¹æ®Šï¼Œå› ä¸ºå®ƒä¸æ‰§è¡Œç»˜å›¾å‘½ä»¤ï¼Œè€Œæ˜¯ä¿å­˜å‘½ä»¤åˆ°display listã€‚è¿™æ„å‘³ç€å°ç»„ä»¶å’Œæ¯ä¸ªviewèƒ½ä½¿ç”¨æ­£å¸¸çš„ç»˜å›¾APIï¼Œç”šè‡³æ— é¡»å…³æ³¨display listå†…éƒ¨çš„å‘½ä»¤
 
-`View: getDisplayList(¡­)`
+`View: getDisplayList(â€¦)`
 ```java
 private DisplayList getDisplayList(DisplayList displayList, 
                                    boolean isLayer) {
@@ -190,28 +190,28 @@ private DisplayList getDisplayList(DisplayList displayList,
 }
 ```
 
-Inside the draw(¡­) method, the view will execute the onDraw() code, rendering itself onto the supplied canvas. If the view has any children, it will also call the draw() method of each of them. These children could be anything, from a normal button to another layout or view group, which itself includes another set of children, which will also get drawn.
+Inside the draw(â€¦) method, the view will execute the onDraw() code, rendering itself onto the supplied canvas. If the view has any children, it will also call the draw() method of each of them. These children could be anything, from a normal button to another layout or view group, which itself includes another set of children, which will also get drawn.
 
-ÔÚ`draw(¡­)`·½·¨ÖĞ£¬view½«Ö´ĞĞ`onDraw()`·½·¨µÄ´úÂë£¬äÖÈ¾×Ô¼ºµ½»­²¼ÉÏ¡£Èç¹ûÕâ¸öviewÓĞÈÎºÎchildren£¬children¸÷×Ôµ÷ÓÃ`draw()`·½·¨¡£ÕâĞ©children¿ÉÒÔÊÇÈÎºÎ¶«Î÷£¬¿ÉÒÔÊÇÒ»¸öÕı³£µÄ°´Å¥£¬Ò²¿ÉÒÔÊÇÒ»¸ö²¼¾Ö»òview group£¬ÕâĞ©children°üº¬ÁíÍâµÄchildren£¬¶¼½«±»»æÖÆ¡£
+åœ¨`draw(â€¦)`æ–¹æ³•ä¸­ï¼Œviewå°†æ‰§è¡Œ`onDraw()`æ–¹æ³•çš„ä»£ç ï¼Œæ¸²æŸ“è‡ªå·±åˆ°ç”»å¸ƒä¸Šã€‚å¦‚æœè¿™ä¸ªviewæœ‰ä»»ä½•childrenï¼Œchildrenå„è‡ªè°ƒç”¨`draw()`æ–¹æ³•ã€‚è¿™äº›childrenå¯ä»¥æ˜¯ä»»ä½•ä¸œè¥¿ï¼Œå¯ä»¥æ˜¯ä¸€ä¸ªæ­£å¸¸çš„æŒ‰é’®ï¼Œä¹Ÿå¯ä»¥æ˜¯ä¸€ä¸ªå¸ƒå±€æˆ–view groupï¼Œè¿™äº›childrenåŒ…å«å¦å¤–çš„childrenï¼Œéƒ½å°†è¢«ç»˜åˆ¶ã€‚
 
 ![view-draw](view-draw.png)
 
 
 ## Read on
 
-## ¼ÌĞø¶ÁÏÂÈ¥
+## ç»§ç»­è¯»ä¸‹å»
 
 With the generation of the display list this first part comes to an end. Jump to part 2 where we will actually take a look at how these display lists get rendered to the screen!
 
-°éËæ×Ådisplay listµÄ²úÉú£¬µÚÒ»²¿·Ö½áÊøÁË¡£Ìø×ªµ½µÚ2²¿·Ö,ÎÒÃÇ»á¿´¿´ÕâĞ©display listsÈçºÎ³ÊÏÖÔÚÆÁÄ»ÉÏ!
+ä¼´éšç€display listçš„äº§ç”Ÿï¼Œç¬¬ä¸€éƒ¨åˆ†ç»“æŸäº†ã€‚è·³è½¬åˆ°ç¬¬2éƒ¨åˆ†,æˆ‘ä»¬ä¼šçœ‹çœ‹è¿™äº›display listså¦‚ä½•å‘ˆç°åœ¨å±å¹•ä¸Š!
 
 ## Download
 
-## ÏÂÔØ
+## ä¸‹è½½
 
-The full Bachelor¡¯s Thesis on which this article is based is available for download.
+The full Bachelorâ€™s Thesis on which this article is based is available for download.
 
-±¾ÎÄ²Î¿¼µÄËùÓĞÑ§Ê¿ÂÛÎÄ¿É¹©[ÏÂÔØ](http://mathias-garbe.de/files/introduction-android-graphics.pdf)
+æœ¬æ–‡å‚è€ƒçš„æ‰€æœ‰å­¦å£«è®ºæ–‡å¯ä¾›[ä¸‹è½½](http://mathias-garbe.de/files/introduction-android-graphics.pdf)
 
 
 
