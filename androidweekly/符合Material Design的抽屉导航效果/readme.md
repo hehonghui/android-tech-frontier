@@ -219,7 +219,7 @@ Okay，现在来看一下Google apps 都有哪些特征。在下面的图片中�
 
 ### 代码
 
--[Github](http://www.google.com/design/spec/style/color.html)
+-[Github项目地址](https://github.com/Sottti/MaterialDesignNavDrawer)
 
 ### 总结
 这是关于如何更改抽屉式导航的样式，你仍需要花费很多时间来想清楚你想做成什么样，而这要比做到花费的时间要长的多。
