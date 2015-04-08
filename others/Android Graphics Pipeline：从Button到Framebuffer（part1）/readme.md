@@ -9,11 +9,11 @@
 
 In this mini-series of blog articles we want to shed some light on the internals of the Android Graphics Pipeline. Google itself already released some insights and documentation on the subject such as the beautiful Google I/O 2012 talk For Butter or Worse by Chet Haase and Romain Guy (go watch it if you haven’t!) or the article Graphics architecture. While they certainly help to get the big picture involved in getting a simple view displayed on the screen, they are not that helpful when trying to understand the source code behind it. This series will give you a gentle jump start into the interesting world of the Android Graphics Pipeline.
 
-在这个小型博文系列中我们想给Android Graphics Pipeline 的内部结构带来一些启发。在此主题上，Google自己也发布了一些见解和文档，如由Chet Haase 和 Romain Guy主持的Google I/O 2012演讲[For Butter or Worse](https://www.youtube.com/watch?v=Q8m9sHdyXnE) (如果没看过就去看看吧!) 和文章 [Graphics architecture](http://source.android.com/devices/graphics/architecture.html) 。虽然这些肯定能帮助我们从宏观上理解一个简单的view是如何显示在屏幕上，但是当我们尝试去理解背后的源代码时，这些对我们的帮助并不大。本系列将带你走进Android Graphics Pipeline这个有趣的世界。
+在这个小型博文系列中我们想给有兴趣研究 Android Graphics Pipeline 内部结构的开发者带来一些启发。在此主题上，Google自己也发布了一些见解和文档，如由Chet Haase 和 Romain Guy主持的Google I/O 2012演讲[For Butter or Worse](https://www.youtube.com/watch?v=Q8m9sHdyXnE) (如果没看过就去看看吧!) 和文章 [Graphics architecture](http://source.android.com/devices/graphics/architecture.html) 。虽然这些资料肯定能帮助我们从宏观上理解一个简单的view是如何显示在屏幕上，但是当我们尝试去理解背后的源代码时，这些对我们的帮助并不大。本系列博文将带你走进Android Graphics Pipeline这个有趣的世界。
 
 Beware, a lot of source code and sequence diagrams will be involved in this mini-series! Its worth a read though, especially if you have even the slightest interest in the Android Graphics Pipeline, as you are going to learn a lot (or at least get to look at some pretty pictures). So get yourself a coffee and read on!
 
-请注意，本小型系列博文中会涉及大量的源代码和序列图！它值得一读，特别是你对Android Graphics Pipeline一点兴趣也没有，你也可以学到很多（或者你至少看看这些漂亮的图片）。所以给自己一杯咖啡，读吧！
+请注意，本小型系列博文中会涉及大量的源代码和序列图！它值得一读，就算你对Android Graphics Pipeline一点兴趣也没有，你也可以学到很多（或者你至少看看这些漂亮的图片）。所以给自己一杯咖啡，读吧！
 
 ## Introduction
 
@@ -21,13 +21,13 @@ Beware, a lot of source code and sequence diagrams will be involved in this mini
 
 In order to fully understand the journey all views undertake on the way to the screen, we will use a small demo app and describe every major stage in the Android Graphics Pipeline, starting with the public Android Java API (SDK), going to native C++ code and finally looking at the raw OpenGL drawing operations.
 
-为了充分理解view显示到屏幕的过程，我们采用一个小演示app来描述Android Graphics Pipeline的每个主要阶段，由Android Java API (SDK)开始，然后是本地C++代码，最后看原始的OpenGL绘图操作。
+为了充分理解view显示到屏幕的过程，我们采用一个小Demo来描述Android Graphics Pipeline的每个主要阶段，由Android Java API (SDK)开始，然后是本地C++代码，最后看原始的OpenGL绘图操作。
 
 ![one-button-layout-cropped](one-button-layout-cropped-300x186.png)
 
 The demo app in all its glory. This little app is causing enough code-coverage in the Android Graphics internals, so that it’s actually a pretty good example.
 
-这个演示app是相当的光彩夺目。这个小小的app对 Android Graphics的内部结构产生充足的代码覆盖，所以，它实际上是一个相当好的例子。
+这个Demo是相当的光彩夺目。这个小小的app对 Android Graphics的内部结构产生充足的代码覆盖，所以，它实际上是一个相当好的例子。
 
 The activity consists of a simple RelativeLayout, an ActionBar with the application icon and title and a simple Button which reads Hello world!.
 
@@ -37,7 +37,7 @@ The activity consists of a simple RelativeLayout, an ActionBar with the applicat
 
 The view hierarchy of our simple demo app is actually quite complex.
 
-我们这个简单的演示app的视图层实际上是相当复杂的。
+我们这个简单的Demo的视图层实际上是相当复杂的。
 
 Inside the Android view hierarchy, the relative layout consists of a simple color-gradient background. More complex, the action bar is composed of the background, which is a gradient combined with a bitmap, the One Button text element and the application icon, which is also a bitmap. A 9-Patch is used as the background for the button, and the text element Hello World! is drawn on top of it. The navigation bar and status bar at the top and bottom of the screen are not part of the apps activity, they will be rendered by the  SystemUI  system service instead.
 
@@ -75,7 +75,7 @@ The interesting bits (at least for these blog posts) of the pipeline.
 
 As you may already know, Android uses a concept called DisplayLists to render all its views. For those of you who don’t know, a display list is a sequence of graphics commands needed to be executed to render a specific view. These display lists are an important element to achieve the high performance of the Android Graphics Pipeline.
 
-正如你可能已经知道，Android 使用一个叫做DisplayLists的理念去渲染所有的view。对于不知道的人来说，display list是一个绘图命令序列集合，需要执行这些命令去渲染指定的view。display lists是Android Graphics Pipeline达到高性能的重要元素。
+正如你可能已经知道，Android 使用一个叫做DisplayLists的概念去渲染所有的view。对于不知道的人来说，display list是一个绘图命令序列集合，需要执行这些命令去渲染指定的view。display lists是Android Graphics Pipeline达到高性能的重要元素。
 
 ![display-lists](display-lists.png)
 
@@ -108,7 +108,7 @@ RestoreToCount 0
 
 In the example above, you can clearly see what kind of operations are present in a display list for our simple button. The first operation is to save the current translation matrix to the stack, so that it can be later restored. It then proceeds to draw the buttons 9-Patch, followed by another save command. This is necessary because for the text to be drawn, a clipping rectangle is set up to only affect the region that where text will be drawn. Mobile GPUs can take this rectangle as an hint to further optimize the draw calls in later stages. The drawing origin is than translated to the text position and the text is drawn. At the end, the original translation matrix and state is restored from the stack, which also resets the clipping rectangle.
 
-在上面的示例中，你可以清楚地看到一个简单的按钮(绘制过程）display list提供了什么样的操作。第一个操作是保存当前翻译矩阵到堆中，因此它随后可以恢复。然后又画了9-Patch按钮，接下来是另外一个保存命令，这是必要的，因为对于要绘制的文本来说，只有绘制文本的区域才会创建裁剪矩阵。手机绘图处理器将此矩形区域当做一个线索以便在后续阶段对绘图调用进一步优化。然后将绘画圆点转换到文本位置，并绘制文本。最后，最初的转换矩阵和状态从堆中还原，裁剪矩阵也被重置。
+在上面的示例中，你可以清楚地看到一个简单的按钮(绘制过程）display list提供了什么样的操作。第一个操作是保存当前翻译矩阵到栈中，因此它随后可以恢复。然后又画了9-Patch按钮，接下来是另外一个保存命令，这是必要的，因为对于要绘制的文本来说，只有绘制文本的区域才会创建裁剪矩阵。手机绘图处理器将此矩形区域当做一个线索以便在后续阶段对绘图调用进一步优化。然后将绘画圆点转换到文本位置，并绘制文本。最后，最初的转换矩阵和状态从堆中还原，裁剪矩阵也被重置。
 
 The complete log of the display lists for our example application can be seen at the bottom of this post.
 
