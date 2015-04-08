@@ -59,7 +59,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 ## 2015.4.12 ( 第五期 )
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|
-| [符合Material Design的抽屉导航效果](androidweekly/符合Material Design的抽屉导航效果)  | [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang)       |   [AndroidWeekly issue #145](http://androidweekly.net/issues/issue-145)    |
+| [符合Material Design的抽屉导航效果](androidweekly/符合Material Design的抽屉导航效果)  | [wly2014](https://github.com/wly2014)       |   [AndroidWeekly issue #145](http://androidweekly.net/issues/issue-145)    |
 
 ## 2015.4.8 ( 第四期 )
 | 文章名称 |   译者  |  出处  |
