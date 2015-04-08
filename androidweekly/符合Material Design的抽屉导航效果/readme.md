@@ -4,7 +4,7 @@
 * 原文链接 : [Navigation Drawer styling according to Material Design](https://medium.com/@sotti/navigation-drawer-styling-according-material-design-5306190da08f)
 * 译者 : [wly2014](https://github.com/wly2014)
 * 校对者: [chaossss](https://github.com/chaossss)
-* 状态 :  
+* 状态 :  校对完成
 
 ![](https://d262ilb51hltx0.cloudfront.net/max/720/1*hLe32r_m-fWUQrnJCalKkQ.png)
 
@@ -14,7 +14,7 @@
 这是三篇文章中的第二篇。欢迎查看第一篇和第三篇：
 
     * [Material Design下的抽屉导航的大小](https://medium.com/@sotti/navigation-drawer-styling-under-material-design-f0767882e692)
-	* Material Design下的抽提效果的行为（敬请期待）
+	* Material Design下的抽屉效果的行为（敬请期待）
 
 你可以从下面查看Material Design指南上关于抽屉导航的部分：
 
@@ -28,7 +28,7 @@
 
 现在，虽然这儿已有一些漂亮的[库](https://plus.google.com/+MikePenz/posts/Erwn9mDZszr)，甚至有一些Google的[源码](https://github.com/google/iosched)能拿来看看... 但是，你之所以还来到这里，可能是因为你[热衷于编程](http://i3.kym-cdn.com/photos/images/facebook/000/234/765/b7e.jpg)。
 
-在这篇文章里，我将会谈论如何使用抽屉的样式。但是并不会完全涉及Material Design 指南上的所有样式，只是捡一些我认为需要强调的东西。
+在这篇文章里，我将会谈论如何使用抽屉的样式，但是并不会完全涉及 Material Design 指南上的所有样式，只是捡一些我认为需要强调的东西。
 
 准备好了吗？
 
@@ -37,7 +37,7 @@
 
 ![](https://d262ilb51hltx0.cloudfront.net/max/800/1*Vh9mKyCUMDCFMFjM8ZEG9Q.png)
 
-随着这种设计模式的发展，其中相互矛盾的地方也开始浮出水面……在 Material Design 中很清晰地指出：具有不同 View 层次结构的两个页面，是不能共存于同一个父布局中的同一个 View 层级的。有关这个问题引发了[许多讨论](https://plus.google.com/+RomanNurik/posts/3G8zYvN5oRC)，但[更重要的是](http://goo.gl/SHrQmd)， [Google 并没有给出好的解释](http://goo.gl/FghQhb)，不过最后抽屉式导航还是得到了一个被认可的定义：
+随着这种设计模式的发展，其中相互矛盾的地方也开始浮出水面……在 Material Design 中很清晰地指出：处于不同 View 层级的两个页面，是不能共存于同一个父布局中的同一个 View 层级的。有关这个问题引发了[许多讨论](https://plus.google.com/+RomanNurik/posts/3G8zYvN5oRC)，但[更重要的是](http://goo.gl/SHrQmd)， [Google 并没有给出好的解释](http://goo.gl/FghQhb)，不过最后抽屉式导航还是得到了一个被认可的定义：
 
 左抽屉式导航打开后，导航栏的高度应该和屏幕一致，但要低于状态栏。此外，其他任何在抽屉层以下的内容都应该被阴影覆盖，但这些内容又是可见的。
 
@@ -59,7 +59,7 @@ Google+ Photos可能是最后一个使用抽屉，却没有覆盖ActionBar/Toolb
 
 ### 旋转标题图标
 
-你还记得当抽屉打开时那个ActionBar/Toolbar中的漂亮的图标动画吗？这个动画在Holo主题下并不是很好看，但是在Matarial Design下却很漂亮。
+你还记得当抽屉打开时那个ActionBar/Toolbar中的漂亮的图标动画吗？这个动画在Holo主题下并不是很好看，在 Matarial Design 下却很漂亮。
 
 ![](https://d262ilb51hltx0.cloudfront.net/max/768/1*QfXDV7tpaGwEqil_l6Pe8Q.gif)
 
@@ -101,13 +101,13 @@ Google+ Photos可能是最后一个使用抽屉，却没有覆盖ActionBar/Toolb
 
 注意：[查看资料图片大小](https://medium.com/@sotti/navigation-drawer-styling-under-material-design-f0767882e692)
 
-> 资料图片是圆形的，通常没有边框。建议你通过Romain Guy推出的库来获得的圆形。
+> 资料图片是圆形的，通常没有边框。建议你通过Romain Guy推出的库来获得圆形。
 
 ### 封面图片
 
 封面图片（不同于资料图片），是账号/头像部分的背景（就是抽屉式导航的上部，通常你可以在此切换账号，查看昵称，email和你的资料图片）。
 
-这块的文字是白色的，并且要确保能看的见，你可以应用一个前景或者半透明的黑色来覆盖封面图片。我试了一下，发现40-50% 的黑色是最好的。要注意的是，不要既弄得图片不可见，又弄得文字没法读。。
+这块的文字是白色的，并且要确保能看的见，你可以应用一个前景或者半透明的黑色来覆盖封面图片。我试了一下，发现40-50% 的黑色是最好的。要注意的是，不要既弄得图片不可见，又弄得文字没法读。
 
 我是在FrameLayout中加一个前景。但我不知道这是不是最好的方法，欢迎大家交流。我并没有实现在账号切换的功能，而且这整个layout/section都是可点击的，有touch反馈，或者是Lollipop中的ripple，或者两者。当然你也可以使用[centerCrop ](https://developer.android.com/reference/android/widget/ImageView.ScaleType.html)scaleType 让它更漂亮。
 
