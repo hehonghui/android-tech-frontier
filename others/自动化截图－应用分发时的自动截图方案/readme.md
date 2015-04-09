@@ -7,7 +7,7 @@
 * 校对者: [sundroid](https://github.com/sundroid)  
 * 状态 :  校对完成
 
-在发布 App 到应用商店时有一件的事情不得不做，就是上传最新的高清无码截图到应用商店上。可是如果你的 App 有许多页面，那你每次发布更新时手动截图将会变的很痛苦，因为你需要一页一页地去截图。为了解决众多 App 开发者的这个痛点，我将在这篇博文中介绍一个实现自动化截图的方法：
+在发布 App 到应用商店时有一件的事情不得不做，就是上传最新的高清无码截图到应用商店上。可是如果你的 App 有许多页面，那你每次发布更新都可能是一场梦魇，因为你需要一页一页地去截图。为了解决众多 App 开发者的这个痛点，我将在这篇博文中介绍一个实现自动化截图的方法：
 
 刚到 [Capitaine Train](https://www.capitainetrain.com/) 公司里，就有人让我造个能自动截图的轮子，因为我们公司的 App 每次版本更新都让人很头疼：问题在于我们的 App 对应有3种设备，4种语言，也就是有 12 种版本。此外，我们有6个需要截图的页面，也就是说，我们每次版本更新都需要72张截图。我们无法忍受这种低效并浪费时间的工作，于是我们经过不懈的努力，找到了一个自动化截图的方案，在这个方案中，要实现自动化截图有三个关键点：uiautomator 自动化测试, accessibility 和 bash脚本。
 
@@ -83,7 +83,7 @@ $ adb shell uiautomator runtest uiautomator.jar -c com.your.TestCase
 
 **自动切换设置信息**
 
-现在我准备讲解如何浏览和改变项目（特别是从一个语言切换到另一个语言）的设置。首先，这是一个练习使用 uiautomator 的机会。其次，这也是自动化截图的关键步骤。但你要记住，这个方法并不是唯一的，同时这个测试方法是在一个系统语言是英语的Android Lollipop 5.0.0上。
+现在我准备讲解怎么在设置中自动切换设置项和设置信息（特别是从一个语言切换到另一个语言）。首先，这是一个练习使用 uiautomator 的机会。同时，这也是自动化截图的关键步骤。但你要记住，我接下来介绍的只是一个能在 Android 5.0 系统上正常使用的办法，如果你有更好的建议或者想法，也可以通过留言和我交流，一起优化这个步骤。
 
 - 打开快捷设置
 
@@ -107,7 +107,7 @@ $ adb shell uiautomator runtest uiautomator.jar -c com.your.TestCase
 	scrollable.getChildByText(new UiSelector().className(FrameLayout.class), "Language & input", true).click();
 ```
 
-- 通过上面的代码处理，整个“寻找并点击”的自动化逻辑已经能在语言设置栏(界面布局是LinearLayout,包含了一个ListView)里被使用了。
+- 通过上面的代码处理，整个“寻找并点击”的自动化逻辑已经能在语言设置栏里被使用了。
 ![](http://flavienlaurent.com/media/2014-12-05-screenshot_automation/settings_language.png)
 
 ```java
@@ -145,7 +145,7 @@ $ adb shell uiautomator runtest uiautomator.jar -c com.your.TestCase
 
 ## 让自定义 View 可访问 ##
 
-可访问性对一个 App 来说非常重要，其作用主要体现在两个方面：首先，有些用户/开发者需要它（但总有开发者会忽略这个需求），其次，uiautomator 都以可访问性为基础，也就是说，如果一个应用不能提供可访问的入口，我们将无法在其中使用 uiautomator 自动化测试工具。
+可访问性对一个 App 来说非常重要，其作用主要体现在两个方面：有些用户/开发者需要它（但总有开发者会忽略这个需求），此外，uiautomator 都以可访问性为基础，也就是说，如果一个应用不能提供可访问的入口，我们将无法在其中使用 uiautomator 自动化测试工具。
 
 大部分情况下，你都没有必要让你的 App 可以被其他应用访问。但事实上，大部分 View 都是可访问的，例如 TextView，ListView 等等。不过在你使用自定义 View 时，获得访问性可能会麻烦点，因为这需要你花费一些功夫去改变其中的代码。
 
@@ -161,7 +161,7 @@ $ adb shell uiautomator runtest uiautomator.jar -c com.your.TestCase
 我们有四个方法可以实现：
 
 - getVirtualViewAt(float x, float y)    
-返回参数 x,y处时是虚拟 View 的 id。如果对应位置上没有虚拟 View，则返回 ExploreByTouchHelper.INVALID_ID
+返回参数 x,y处所对应的虚拟 View 的 id。如果对应位置上没有虚拟 View，则返回 ExploreByTouchHelper.INVALID_ID
 
 - getVisibleVirtualViews(List<Integer> virtualViewIds)      
 将自定义 View 中所有虚拟 View 的 id 添加到 virtualViewIds 数组中。
