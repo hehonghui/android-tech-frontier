@@ -1,4 +1,4 @@
-`深入了解Android Graphics Pipeline-part-1`
+深入了解Android Graphics Pipeline-part-1
 ---
 
 
