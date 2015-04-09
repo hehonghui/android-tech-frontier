@@ -1,4 +1,4 @@
-`Android Graphics Pipeline: 从Button到Framebuffer (Part 1)`
+`深入了解Android Graphics Pipeline-part-1`
 ---
 
 
