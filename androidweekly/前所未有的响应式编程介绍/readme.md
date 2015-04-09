@@ -353,9 +353,9 @@ Promise++就是被观察者(Observable)，在Rx里你可以使用这样的操作
 
 这样更好，这样更突出被观察者至少比Promise强大，所以如果你相信Promise宣传的东西，那么也请留意一下响应式编程能胜任些什么。
 
-现在回到示例当中，你应该能快速发现，我们在`subscribe()`方法的内部再次调用了`subscribe()`方法，这有点类似于回调地(callback hell)，而且`responseStream`的创建也是依赖于`requestStream`的。在之前我们说过，在Rx里，有很多很简单的机制来从其他事件流的转化并创建出一些新的事件流，那么，我们也应该这样做试试。
+现在回到示例当中，你应该能快速发现，我们在`subscribe()`方法的内部再次调用了`subscribe()`方法，这有点类似于回调地狱(callback hell)，而且`responseStream`的创建也是依赖于`requestStream`的。在之前我们说过，在Rx里，有很多很简单的机制来从其他事件流的转化并创建出一些新的事件流，那么，我们也应该这样做试试。
 
-现在你需要了解的一个最基本的函数是[`map(f)`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypemapselector-thisarg)，它可以从事件流A中取出每一个值，并对每一个值执行`f()`函数，然后产生一个新的值到事件流B。如果我们将它应用到我们的请求和响应(request and response)的事件流当中，那我们就可以将请求的URL映射到一个响应Promises上(伪装成数据流)。
+现在你需要了解的一个最基本的函数是[`map(f)`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypemapselector-thisarg)，它可以从事件流A中取出每一个值，并对每一个值执行`f()`函数，然后将产生的新值填充到事件流B。如果我们将它应用到我们的请求和响应(request and response)的事件流当中，那我们就可以将请求的URL映射到一个响应Promises上了(伪装成数据流)。
 
 ```javascript
 var responseMetastream = requestStream
@@ -364,7 +364,7 @@ var responseMetastream = requestStream
   });
 ```
 
-然后，我们创造了一个叫做"_metastream_"的怪兽：一个装载了事件流的事件流。先别惊慌，metastream就是每一个发出的值都是另一个事件流的事件流，你看把它想象成一个[指针(pointers)]((https://en.wikipedia.org/wiki/Pointer_(computer_programming))集合:每一个单独发出的值就是一个_指针_，它指向另一个事件流。在我们的实例里，每一个请求URL都映射到一个指向包含响应数据的promise数据流。
+然后，我们创造了一个叫做"_metastream_"的怪兽：一个装载了事件流的事件流。先别惊慌，metastream就是每一个发出的值都是另一个事件流的事件流，你看把它想象成一个[指针(pointers)]((https://en.wikipedia.org/wiki/Pointer_(computer_programming))数组：每一个单独发出的值就是一个_指针_，它指向另一个事件流。在我们的实例里，每一个请求URL都映射到一个指向包含响应数据的promise数据流。
 
 ![Response metastream](images/zresponsemetastream.png)
 
@@ -411,7 +411,7 @@ responseStream.subscribe(function(response) {
 });
 ```
 
-一个响应的metastream，看起来确实让人容易困惑，看样子对我们一点帮助也没有。我们只想要一个简单的响应数据流，就只是每一个发出的值是一个简单的JSON对象就行，不用是一个'Promise' 的JSON对象。ok，让我们来见识一下另一个函数：[Flatmap](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypeflatmapselector-resultselector)，它是一个版本的`map()`函数，它比metastream扁平。一切在"主躯干"事件流发出的事件都将在"分支"事件流中发出。Flatmap并不是metastreams的修复，metastreams也不是一个bug。它俩在Rx中都是处理异步响应事件的好工具、好帮手。
+一个响应的metastream，看起来确实让人容易困惑，看样子对我们一点帮助也没有。我们只想要一个简单的响应数据流，每一个发出的值是一个简单的JSON对象就行，而不是一个'Promise' 的JSON对象。ok，让我们来见识一下另一个函数：[Flatmap](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypeflatmapselector-resultselector)，它是`map()`函数的另一个版本，它比metastream更扁平。一切在"主躯干"事件流发出的事件都将在"分支"事件流中发出。Flatmap并不是metastreams的修复版，metastreams也不是一个bug。它俩在Rx中都是处理异步响应事件的好工具、好帮手。
 
 ```javascript
 var responseStream = requestStream
