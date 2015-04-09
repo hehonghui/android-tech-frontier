@@ -355,7 +355,7 @@ Promise++就是被观察者(Observable)，在Rx里你可以使用这样的操作
 
 现在回到示例当中，你应该能快速发现，我们在`subscribe()`方法的内部再次调用了`subscribe()`方法，这有点类似于回调地狱(callback hell)，而且`responseStream`的创建也是依赖于`requestStream`的。在之前我们说过，在Rx里，有很多很简单的机制来从其他事件流的转化并创建出一些新的事件流，那么，我们也应该这样做试试。
 
-现在你需要了解的一个最基本的函数是[`map(f)`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypemapselector-thisarg)，它可以从事件流A中取出每一个值，并对每一个值执行`f()`函数，然后将产生的新值填充到事件流B。如果我们将它应用到我们的请求和响应(request and response)的事件流当中，那我们就可以将请求的URL映射到一个响应Promises上了(伪装成数据流)。
+现在你需要了解的一个最基本的函数是[`map(f)`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypemapselector-thisarg)，它可以从事件流A中取出每一个值，并对每一个值执行`f()`函数，然后将产生的新值填充到事件流B。如果将它应用到我们的请求和响应事件流当中，那我们就可以将请求的URL映射到一个响应Promises上了(伪装成数据流)。
 
 ```javascript
 var responseMetastream = requestStream
@@ -364,7 +364,7 @@ var responseMetastream = requestStream
   });
 ```
 
-然后，我们创造了一个叫做"_metastream_"的怪兽：一个装载了事件流的事件流。先别惊慌，metastream就是每一个发出的值都是另一个事件流的事件流，你看把它想象成一个[指针(pointers)]((https://en.wikipedia.org/wiki/Pointer_(computer_programming))数组：每一个单独发出的值就是一个_指针_，它指向另一个事件流。在我们的实例里，每一个请求URL都映射到一个指向包含响应数据的promise数据流。
+然后，我们创造了一个叫做"_metastream_"的怪兽：一个装载了事件流的事件流。先别惊慌，metastream就是每一个发出的值都是另一个事件流的事件流，你看把它想象成一个[指针(pointers)]((https://en.wikipedia.org/wiki/Pointer_(computer_programming))数组：每一个单独发出的值就是一个_指针_，它指向另一个事件流。在我们的示例里，每一个请求URL都映射到一个指向包含响应数据的promise数据流。
 
 ![Response metastream](images/zresponsemetastream.png)
 
@@ -422,7 +422,7 @@ var responseStream = requestStream
 
 ![Response stream](images/zresponsestream.png)
 
-很赞，因为我们的响应事件流是根据请求事件流定义的，**如果**我们之后还会有更多来自请求事件流的事件要发生的话，我们也将会在相应的响应事件流收到响应事件，就如所期待的那样：
+很赞，因为我们的响应事件流是根据请求事件流定义的，**如果**我们以后有更多事件发生在请求事件流的话，我们也将会在相应的响应事件流收到响应事件，就如所期待的那样：
 
 ```
 requestStream:  --a-----b--c------------|->
@@ -431,7 +431,7 @@ responseStream: -----A--------B-----C---|->
 (小写的是请求事件流, 大写的是响应事件流)
 ```
 
-现在，我们终于有响应的事件流了，并且可以用来渲染我们收到的数据了：
+现在，我们终于有响应的事件流了，并且可以用我们收到的数据来渲染了：
 
 ```javascript
 responseStream.subscribe(function(response) {
@@ -479,16 +479,16 @@ Because I'm dumb and I don't have automated tests, I just broke one of our previ
 
 ## 刷新按钮
 
-我还没提到本次响应的JSON数据是含有100个用户数据的list，这个API只允许指定页面偏移量(page offset)，而不能指定每页大小(page size)，这样我们只用到了3个用户数据而浪费了其他97个，我们现在可以先忽略这个问题，稍后我们将会学习如何缓存响应的数据。
+我还没提到本次响应的JSON数据是含有100个用户数据的list，这个API只允许指定页面偏移量(page offset)，而不能指定每页大小(page size)，我们只用到了3个用户数据而浪费了其他97个，现在可以先忽略这个问题，稍后我们将学习如何缓存响应的数据。
 
-每当刷新按钮被点击，请求事件流就会发出一个新的URL值，这样我们就可以获取新的响应数据。这里我们需要两个东西：点击刷新按钮的事件流(原则：一切都能作为事件流)，我们需要将请求事件流和刷新按钮的点击事件流建立依赖(联系/关联)。幸运的是，RxJS已经有了从点击事件监听转换成可观察者对象的方法了。
+每当刷新按钮被点击，请求事件流就会发出一个新的URL值，这样我们就可以获取新的响应数据。这里我们需要两个东西：点击刷新按钮的事件流(准则：一切都能作为事件流)，我们需要将点击刷新按钮的事件流作为请求事件流的依赖(即点击刷新事件流会引起请求事件流)。幸运的是，RxJS已经有了可以从事件监听者转换成被观察者的方法了。
 
 ```javascript
 var refreshButton = document.querySelector('.refresh');
 var refreshClickStream = Rx.Observable.fromEvent(refreshButton, 'click');
 ```
 
-因为刷新按钮点击事件不会自带API的URL，我们需要将每次的点击映射到一个实际的URL上，现在我们将请求事件流转换成了一个点击事件流，并将每次的点击映射成一个随机的页面偏移量(offset)参数来组成API的URL。
+因为刷新按钮点击事件不会携带将要请求的API的URL，我们需要将每次的点击映射到一个实际的URL上，现在我们将请求事件流转换成了一个点击事件流，并将每次的点击映射成一个随机的页面偏移量(offset)参数来组成API的URL。
 
 ```javascript
 var requestStream = refreshClickStream
@@ -498,7 +498,7 @@ var requestStream = refreshClickStream
   });
 ```
 
-因为我比较笨而且也没有使用自动化测试，所以我刚把之前做好的一个特性搞烂了。这样请求在一开始的时候并不会执行，而只有在点击事件发生时才会执行。我们需要的是两种情况都要执行：是一开始打开网页和点击刷新按钮都会执行的请求。
+因为我比较笨而且也没有使用自动化测试，所以我刚把之前做好的一个功能搞烂了。这样，请求在一开始的时候就不会执行，而只有在点击事件发生时才会执行。我们需要的是两种情况都要执行：刚开始打开网页和点击刷新按钮都会执行的请求。
 
 We know how to make a separate stream for each one of those cases:
 
@@ -533,7 +533,7 @@ var requestOnRefreshStream = refreshClickStream
 var startupRequestStream = Rx.Observable.just('https://api.github.com/users');
 ```
 
-但是我们是否可以将这两个合并成一个呢？没错，是可以的，我们可以使用[`merge()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypemergemaxconcurrent--other)方法来实现。下图可以解释`map()`函数的用处：
+但是我们是否可以将这两个合并成一个呢？没错，是可以的，我们可以使用[`merge()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypemergemaxconcurrent--other)方法来实现。下图可以解释`merge()`函数的用处：
 
 ```
 stream A: ---a--------e-----o----->
@@ -618,7 +618,7 @@ var requestStream = refreshClickStream.startWith('startup click')
 
 Nice. If you go back to the point where I "broke the automated tests", you should see that the only difference with this last approach is that I added the `startWith()`.
 
-[`startWith()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypestartwithscheduler-args)函数做的事和你预期的完全一样。无论你的输入事件流是怎样的，使用`startWith(x)`函数处理过后输出的事件流一定是一个`x` 开头的结果。但是我没有总是[重复代码( DRY)](https://en.wikipedia.org/wiki/Don't_repeat_yourself)，我只是在重复API的URL字符串.一个改进的方法是将 `startWith()`函数挪到离 `refreshClickStream`函数近的地方，可以在启动时，模拟一个刷新按钮的点击事件。
+[`startWith()`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypestartwithscheduler-args)函数做的事和你预期的完全一样。无论你的输入事件流是怎样的，使用`startWith(x)`函数处理过后输出的事件流一定是一个`x` 开头的结果。但是我没有总是[重复代码( DRY)](https://en.wikipedia.org/wiki/Don't_repeat_yourself)，我只是在重复API的URL字符串，改进的方法是将 `startWith()`函数挪到`refreshClickStream`那里，这样就可以在启动时，模拟一个刷新按钮的点击事件了。
 
 ```javascript
 var requestStream = refreshClickStream.startWith('startup click')
@@ -628,7 +628,7 @@ var requestStream = refreshClickStream.startWith('startup click')
   });
 ```
 
-不错，如果你倒回到"搞烂了的自动测试"的地方，再对比这两个地方，你会发现我仅仅是加了一个`startWith()`函数而已。
+不错，如果你倒回到"搞烂了的自动测试"的地方，然后再对比这两个地方，你会发现我仅仅是加了一个`startWith()`函数而已。
 
 ## Modelling the 3 suggestions with streams
 
