@@ -66,6 +66,9 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 |---------|--------|-------|
 | [符合Material Design的抽屉导航效果](androidweekly/符合Material Design的抽屉导航效果)  | [wly2014](https://github.com/wly2014)       |   [AndroidWeekly issue #145](http://androidweekly.net/issues/issue-145)    |
 | [深入了解Android Graphics Pipeline-part-1](others/深入了解Android Graphics Pipeline-part-1)  |    [dupengwei](https://github.com/dupengwei)       |   [AndroidWeekly issue #147](https://blog.inovex.de/android-graphics-pipeline-from-button-to-framebuffer-part-1/)    |
+| [Android性能案例研究跟踪](androidweekly/Android性能案例研究跟踪)  |    [shenyansycn](https://github.com/shenyansycn)       |   [AndroidWeekly issue #146](http://androidweekly.net/issues/issue-146)    |
+
+
 
 ## 2015.4.8 ( 第四期 )
 | 文章名称 |   译者  |  出处  |
