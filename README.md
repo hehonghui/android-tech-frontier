@@ -53,6 +53,8 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 译者翻译完成之后想本项目发布pull request，校对完成之后会合并您的提交，并且将对应的issue关闭。
 
+## 免费优秀的电子书
+1. [软件架构模式 ( 翻译中 )](software-architecture-patterns)
 
 <b id="articles" />
 ## 已完成列表
