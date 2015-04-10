@@ -1,4 +1,4 @@
-深入理解 Android 图形绘制
+深入了解Android Graphics Pipeline-part-2
 ---
 
 >
