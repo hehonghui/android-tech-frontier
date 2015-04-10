@@ -72,12 +72,15 @@ All information about an operation is collected into a simple struct:
 ```java
 	struct DeferInfo {
 	    // Type of operation (TextView, Button, etc.)
+		// batchId 注明被操作的 UI 元素的类型（如 TextView，Button等……）
 	    int batchId;
 	 
 	    // State of operation (Text size, font, color, etc.)
+	    // mergeId 注明被操作的 UI 元素的状态（如 文字大小，字体，文字颜色等……）
 	    mergeid_t mergeId;
 	 
 	    // Indicates if operation is mergable
+	    // 标记操作是否可被合并
 	    bool mergeable;
 	};
 ```
@@ -93,11 +96,14 @@ After the batchId and mergeId  of an operation are determined, it will be added 
 	void DeferredDisplayList::addDrawOp(DrawOp op):
 	    DeferInfo info;
 	    /* DrawOp fills DeferInfo with its mergeId and batchId */
+	    /* DrawOp 方法用 mergeId 和 batchId 填充 DeferInfo */
 	    op.onDefer(info);
 	 
 	    if(/* op is not mergeable */):
 	        /* Add Op to last added Batch with same batchId, if first
 	           op then create a new Batch */
+	        /* 将 Op 添加到最后被添加入元素的 Batch 中，但这个 Batch 必须与 Op 具有相同 batchId，此外，如果 op 是 Batch 中的第一个元素，那么需要新建一个 Batch */
+
 	        return; 
 	 
 	    DrawBatch batch = NULL;
@@ -110,24 +116,34 @@ After the batchId and mergeId  of an operation are determined, it will be added 
 	 
 	        /* Op can not merge with batch due to different states,
 	           flags or bounds */
+	        /* 如果 Op 与 Batch 具有不同的状态，标记，和边界，那么 Op 将无法被合并到 Batch 中 */
+
 	        int newBatchIndex = batches.size();
 	        for(overBatch in batches.reverse()):
 	            if (overBatch == batch):
 	                /* No intersection as we found our own batch */
+	                /* Batch 之间应该没有交集 */
+
 	                break;
 	 
 	            if(overBatch.batchId  == info.batchId):
 	                /* Save position of similar batches to insert 
 	                   after (reordering) */
+	                /* 在重排序后保存 batchId 相同的 batch 中对应的位置，便于后面插入元素 */
+
 	                newBatchIndex == iterationIndex;
 	 
 	            if(overBatch.intersects(localBounds)):
 	                /* We can not merge due to intersection */
+	                /* 如果 Batch 间产生了交集，我们不能进行合并 */
+
 	                batch = NULL
 	                break;
 	 
 	    if(batch == NULL):
 	        /* Create new Batch and add to mergingBatches */
+	        /* 如果 batch 为空，则创建一个新的 batch，并将它添加到 mergingBatches 中 */
+
 	        batch = new DrawBatch(...);
 	        mergingBatches[deferInfo.batchId].put(info.mergeId, batch);
 	        batches.insertAt(newBatchIndex, batch);
@@ -165,6 +181,8 @@ Inside the  OpenGLRenderers::drawDisplayList(…) method, the deferred display l
 	    // All the usual checks and setup operations 
 	    // (quickReject, setupDraw, etc.)
 	    // will be performed by the display list itself
+	    // 所有的常规检查与创建操作（例如 quickReject, setupDraw 等等）都会由 display list 完成
+
 	    if (displayList && displayList->isRenderable()) {
 	        DeferredDisplayList deferredList(*(mSnapshot->clipRect));
 	        DeferStateStruct deferStruct(
@@ -200,6 +218,8 @@ For example, the operation to draw a 9-Patch (called DrawPatchOp) contains the f
 	 
 	    // Merge all 9-Patche vertices and texture coordinates 
 	    // into one big vector
+	    // 将所有 9-Patche 图片的顶点坐标和纹理坐标合并到一个矢量中
+
 	    Vector<TextureVertex> vertices;
 	    for (unsigned int i = 0; i < ops.size(); i++) {
 	        DrawPatchOp* patchOp = (DrawPatchOp*) ops[i].op;
@@ -215,46 +235,75 @@ For example, the operation to draw a 9-Patch (called DrawPatchOp) contains the f
 	    }
 	 
 	    // Tell the renderer to draw multipe textured polygons
+	    // 让渲染器绘制具有多种纹理的多边形
 	    return renderer.drawPatches(mBitmap, getAtlasEntry(),
 	                        &vertices[0], getPaint(renderer));
 	}
-java
+```
 
 The batchId of a 9-Patch is always kOpBatch_Patch, the mergeId is a pointer to the used bitmap. Therefore, all patches that use the same bitmap can be merged together. This is even more important with the use of the asset atlas, as now all heavily used 9-Patches from the Android framework can potentially be merged together as the reside on the same texture.
 
-Texture Atlas
+9-Patch 图片的 batchId 总是常量 kOpBatch_Patch，而 mergeId 则是指向图片的指针，因此，所有使用了相同图片的 9-Patch 对象都能够被合并为一个。此外，这种特性对我们使用资源文件里的图片非常有帮助，因为现在 Android 框架层所有经常被使用的 9-Patch 图片都可以根据其相同的纹理合并到同一个地方存储，使用。
+
+> （This is even more important with the use of the asset atlas, as now all heavily used 9-Patches from the Android framework can potentially be merged together as the reside on the same texture.看不太懂……）
+
+## Texture Atlas ##
+
+## 纹理贴图集 ##
 
 The Android start-up process zygote always keeps a number of assets preloaded which are shared with all processes. These assets are containing frequently used 9-Patches and images for the standard Android framework widgets. But up until Android 4.4, every process was keeping a seperate copy of these assets on the GPU memory. Starting with Android 4.4 KitKat, these frequently used assets are now packed into a texture atlas, uploaded to the GPU and shared between all processes. Only then is merging of 9-Patches and other drawables from the standard framework possible.
 
-The texture atlas generated by the system to reduce GPU stress caused by switching textures too often.
-The texture atlas generated by the system to reduce GPU stress caused by switching textures too often.
+Android 的起始进程 Zygote 总会预加载一些与所有进程共享的资源文件，这些资源文件夹包含了频繁被使用的那些 9-Batch 图片和 Android 控件使用的图片。但在 Android 4.4 之前，每一个进程在 GPU 内存中都拥有这些资源文件的独立拷贝。从 Android 4.4 开始，这些频繁被使用的资源文件则被打包到一个纹理贴图集，随后传输到 GPU 内存中，并共享于所有进程之中。在这些操作完成之后才有可能对标准 Android 框架中的 9-Patch 和 Drawable资源文件进行合并。
+
+![](https://blog.inovex.de/wp-content/uploads/2015/03/atlas.png)
+
+> The texture atlas generated by the system to reduce GPU stress caused by switching textures too often.
+> 系统产生的纹理贴图集是为了减少切换纹理带来的 GPU 负荷。
 
 The image above shows an asset atlas texture generated on a Nexus 7 (2013) running Android 4.4, which contains all frequently used framework assets. If you look closely, the 9-Patches do not feature the typical borders which indicate the layout and padding areas. The original asset files are still used to parse these areas on system start, but they are not used for rendering any longer.
 
+刚刚那张图展示了 Nexus 7 在 Android 4.4 系统下生成的纹理贴图集，图集中包含了所有频繁被使用的 Android 框架层图像资源，如果你看得仔细，你会发现 9-Patch 文件没有突出布局和间距区域的边界，而原始的资源文件在系统启动之初则进行了解析，不过它们之后也不会被用于绘制，所以我们也不用在意。
+
 When booting a system the first time after an Android update (or ever), the  AssetAtlasService is regenerating the texture atlas. This atlas is then used for all subsequent reboots, until a new Android update is applied.
+
+在 Android 进行系统更新后，系统第一次进行引导时（或者每一次进行引导时）， AssetAtlasService 都会重新生成纹理贴图集，并在之后的每一次重新启动过程中再次使用它，直到 Android 更新的内容被应用于系统中。
 
 To generate the atlas, the service brute-forces trough all possible atlas configurations and looks for the best one. The best configuration is determined by the maximum number of assets on the texture and the minimum texture size, which is then written to  /data/system/framework_atlas.config and contains the chosen algorithm, dimensions, whether rotations are allowed and whether padding has been added. This configuration is then used in subsequent reboots to regenerate the texture atlas. A RGBA8888 graphic buffer is allocated as the asset atlas texture and all assets are rendered onto it via the use of a temporary Skia bitmap. This asset atlas texture is valid for the lifetime of the  AssetAtlasService, only being deallocated when the system itself is shutting down.
 
+为了生成纹理贴图集，service 组件会强行搜查各种图集配置，想尽千方百计找到那个能穿上水晶鞋的贴图集配置，那么什么样的贴图集配置是最好的呢？答案是：纹理资源最丰富，且纹理尺寸最小。原因在于：我们所获得的配置信息，会被写入到 /data/system/framework_atlas.config 中，此外，无论元素是否允许旋转，是否添加了间距，配置信息中都包含了我们选择的算法和尺寸大小。完成上述操作后，配置信息就会在之后的每一次重新启动过程中被应用，生成纹理贴图集。之后，系统会分配一个 RGBA8888 的图形缓存区，通过使用 Skiabitmap 将 资源纹理贴图集和所有资源文件绘制到这个缓存区中。经过上述繁复的操作后，资源纹理贴图集将在 AssetAtlasService 组件整个生命周期中有效，只有在系统自身被关闭时才会被释放。
+
 To actually pack all assets into the atlas, the service starts with an empty texture. After placing the first asset, the remaining space is divided into two rectangular cells. Depending on the algorithm used, this split can either be horizontal or vertical. The next asset texture is added in the first cell that is large enough to fit. This now occupied cell will be split again and the next asset is processed. The  AssetAtlasService is using multiple threads to speed up the time it takes to iterate through all combinations.
+
+为了真正把所有资源文件打包到一个图集中，AssetAtlasService 会从打包空白纹理开始。在将第一个资源文件放入之后，剩下的空间将会被切分成两个矩形区域。然后利用我们在配置信息中选择的算法，可以将这两个区域分别作为水平方向和垂直方向的视图处理区域。而空白纹理之后的纹理资源文件将会被添加到足以存放它的第一个区域中。而这个区域会再次被切分成两个区域，把下一个资源文件添加到相应区域后再次切分，循环往复。可能有人会问了，这样难道不会因为迭代操作使得时间开销很大吗？不用担心，AssetAtlasService 同时使用多个线程并行操作，使得时间开销被大大减少。
 
 When a new app is started, its HardwareRenderer queries the AssetAtlasService for this texture and every time the renderer needs to draw a bitmap or 9-Patch it will check the atlas first.
 
-Font caching and rendering
+当一个新的 App 被创建，它的硬件渲染器需要 AssetAtlasService 为它提供相应的纹理贴图，并且当渲染器每一次需要绘制 bitmap 或者 9-Patch 图片，它都会先检查它的贴图集。
+
+## Font caching and rendering ##
+## 字体的缓存与绘制 ##
 
 In order to merge text views, a similar approach is used and a font cache is generated. But in contrast to the texture atlas, this font atlas is unique for each app and font type. The color of the font can be applied in a shader and is therefore not considered in the atlas.
 
-Left: Font atlas generated by the font renderer. Right: Geometry generated on the CPU, used to render the characters.
-Left: Font atlas generated by the font renderer. Right: Geometry generated on the CPU, used to render the characters.
+为了合并包含文字的 View 的绘制操作，一个简单的方法就是缓存字体。但与纹理贴图集的操作方法相反，字体集是每一个 App 或字体独有的。但由于字体的颜色会被应用到 shader 中，因此 Android 不会将文字颜色添加到字体集中。
+
+![](https://blog.inovex.de/wp-content/uploads/2015/03/font-300x167.png)
+> Left: Font atlas generated by the font renderer. Right: Geometry generated on the CPU, used to render the characters.
+> 左边：字体集由字体渲染器生成；右边：用 CPU 生成的几何体渲染字符
 
 If you take a quick glance at the font atlas, you will instantly see that only a few characters are present. When taking a closer look, you will see only the used characters! If you think about how many languages Android supports, and how many characters are supported, only caching the used ones makes perfectly good sense. And because the action bar and the button are using the same font, all characters from both text views can be merged onto one texture.
 
+就算你只是瞥一眼字体集，你都会注意到只有一部分字符被绘制，如果你因此看得认真一些，你会注意到只有被使用的字符才会被绘制出来（没有重复的字符）！如果你看到这里在想 Android 支持多少种语言，抑或是支持多少种字符，那只缓存被使用的字符确实是最优解。又因为 Actionbar 和 Button 使用着相同的字体，那么它们俩使用的所有字符都能被合并到一种纹理中。
+
 To draw the font to the screen, the renderer needs to generate a geometry to which the texture gets bound. The geometry is generated on the CPU and then drawn via the OpenGL command glDrawElements(). If the device supports OpenGL ES 3.0, the FontRenderer will update and upload the font cache texture asynchronously at the start of the frame, while the GPU is mostly idle, which saves precious milliseconds per frame. The cache texture is implemented as a OpenGL Pixel Buffer Object, which makes a asynchronous upload possible.
 
-OpenGL
+为了将相应的文字绘制到视图中，渲染器需要在一块拥有边界的纹理区域中生成一个几何体。几何体由 CPU 生成后通过 OpenGL 的 glDrawElements() 命令绘制，如果设备支持 OpenGL ES 3.0,字体渲染器会异步更新字体的纹理缓存，并将其上传到框架的入口，即 GPU 仍接近处于闲置状态时，进行这样的操作能够为每一个框架的加载节省下宝贵的时间。为了实现异步上传，纹理缓存会被实现为 OpenGL 的像素缓存对象。
+
+## OpenGL ##
 
 At the start of this mini-series I promised you some raw OpenGL drawing commands. So with no further ado I present you the (not quite complete) OpenGL drawing log for the button of our simple one-button activity:
 
-Shell
+在博文的前言阶段我曾许下承诺：我会结合部分原生的 OpenGL 绘制命令讲解博文中的知识。那么现在，就是我兑现诺言的时刻了。从此刻开始，我会用 OpenGL 的绘制 log 讲解之前的简单示例 Activity（只有一个 Button 的那个例子！）
 
 ```shell
 	glUniformMatrix4fv(location = 2, count = 1, transpose = false, value = [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0])
@@ -296,28 +345,48 @@ Shell
 
 The complete OpenGL draw call log can be seen at the end of this blog post.
 
-Conclusion
+你可以在博文的结尾看到完整的绘制 log
+
+## Conclusion ##
+## 结论 ##
 
 We have seen how Android converts its view hierarchy to a series of render commands inside a display list, reorders and merges these commands and finally how these commands are executed.
 
+两篇超简单的博文看下来，Android 如何在 display list 中通过一系列的命令对 View 层的操作进行重排序和合并，如何在底层中执行这些命令，我相信没人会不懂了吧！（有人懂才怪呢 XD～）
+
 Returning to our example activity with one button, the entire view can be rendered in just 5 steps:
 
-Five Steps
+结合两篇博文的知识储备，我们重新回去分析之前的示例 App：App 中 View 的整个渲染流程其实只有5步：
 
-The layout draws the background image, which is a linear gradient.
-Both the ActionBar and Button background 9-Patches are drawn. These two operations were merged into one batch, as both 9-Patches are located on the same texture.
-A linear gradient is drawn for the ActionBar.
-Text for the Button and the ActionBar is drawn simultaneously. As these two views use the same font, the font rendere can use the same font texture and therefore merge the two operations.
-The application’s icon is drawn.
+![](https://blog.inovex.de/wp-content/uploads/2015/03/one-button-all-1024x180.png)
+
+1. The layout draws the background image, which is a linear gradient.
+2. Both the ActionBar and Button background 9-Patches are drawn. These two operations were merged into one batch, as both 9-Patches are located on the same texture.
+3. A linear gradient is drawn for the ActionBar.
+4. Text for the Button and the ActionBar is drawn simultaneously. As these two views use the same font, the font rendere can use the same font texture and therefore merge the two operations.
+5. The application’s icon is drawn.
+
+1. 布局绘制其背景图片，也就是我们的线性布局。
+2. ActionBar 和 Button 的 9-Patch 图片文件均被绘制，这两个操作被合并到一个 batch 中，因为它俩的 9-Patch 被用在相同的纹理区域中。
+3. 为 Actionbar 绘制一个线性布局。
+4. 同时绘制 Button 和 ActionBar 中的文字，因为这两个 View 使用了相同的字体，使得字体渲染器能够使用相同的字体纹理，因此能合并两个文字绘制操作。
+5. 应用图标绘制完成。
+
 And there you have it, we traced all the way from the view hierarchy to the final OpenGL commands, which concludes this mini-series.
 
-Download
+就像你看到的，我们深入解析了绘制 View 层的操作是如何在底层与 OpenGL 命令一一对应的，这个系列的博文也算是得到了一个完美的收尾了。
+
+## Download ##
 
 The full Bachelor’s Thesis on which this article is based is available for download.
 
-Full Listings
+所有文章引用的论文都是可以下载的，[链接在此](http://mathias-garbe.de/files/introduction-android-graphics.pdf)
 
-Display List
+## Full Listings ##
+
+## 完整 Log ##
+
+**Display List**
 
 Shell
 
