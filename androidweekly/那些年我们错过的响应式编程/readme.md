@@ -1,4 +1,4 @@
-## 前所未有的响应式编程介绍
+## 那些年我们错过的响应式编程
 (by [@andrestaltz](https://twitter.com/andrestaltz))
 ---
 
