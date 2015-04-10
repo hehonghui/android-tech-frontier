@@ -52,6 +52,13 @@ Espresso.onView(withId(R.id.result)).check(ViewAssertions.matches(ViewMatchers.w
 
 ### Define the test runner
 ### 定义test runner
+=======
+> To illustrate, we are going to write some tests that tests agains a [Android calculator application](https://github.com/welsinga/sample_espresso/app). The common test scenario we will be implementing is testing if ‘6’ x ‘7’ equals ‘42’.
+
+
+
+### Define the test runner
+>>>>>>> origin/master
 
  To use Espresso we first need to define who is running the tests. Espresso uses a new runner named AndroidJUnitRunner. This runner, based on `InstrumentationTestRunner` and `GoogleInstrumentationTestRunner`, runs JUnit3 and JUnit4 tests against your Android application.
  使用Espresso我们首先需要定义这些测试用例。Espresso使用新的名为AndroidJUnitRunner的测试用例。该测试用例基于“InstrumentationTestRunner”和“GoogleInstrumentationTestRunner”,运行JUnit3和JUnit4来测试你的Android应用程序。
