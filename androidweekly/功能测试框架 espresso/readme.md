@@ -10,7 +10,7 @@
 
 ![VtFd68Pr19fYk.](http://7xi8kj.com1.z0.glb.clouddn.com/VtFd68Pr19fYk.gif)
 
-As mentioned in the [first article Ali Derbane](https://plus.google.com/+AliDerbane) and me wrote about Android Functional Testing, there are a lot of frameworks you can use. In this second part of the journey I will be explaining the functional testing framework called Espresso.
+As mentioned in the [first article Ali Derbane](https://plus.google.com/+AliDerbane) and me wrote about Android Functional Testing, there are a lot of frameworks you can use. In this second part of the journey I will be explaining the functional testing framework called [Espresso](https://code.google.com/p/android-test-kit/).
 
 
 
@@ -34,7 +34,8 @@ Espresso.onView(withId(R.id.result)).check(ViewAssertions.matches(ViewMatchers.w
 
  And the good news, as of last year Google has introduced a [Testing Support Library](https://developer.android.com/tools/support-library/index.html) containing Espresso. So lets start by implementing Espresso.
 
- > To illustrate, we are going to write some tests that tests agains a Android calculator application. The common test scenario we will be implementing is testing if ‘6’ x ‘7’ equals ‘42’.
+>
+* To illustrate, we are going to write some tests that tests agains a [Android calculator application](https://github.com/welsinga/sample_espresso/app). The common test scenario we will be implementing is testing if ‘6’ x ‘7’ equals ‘42’.
 
 
 
