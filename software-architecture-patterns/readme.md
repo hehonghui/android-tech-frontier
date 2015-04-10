@@ -19,12 +19,12 @@ The idea is simple: clean architecture stands for a group of practices that prod
 ## 译员列表
 该书总共五章，译员可以领其中一章或者多个章节，截止日期 2015/4/19，感谢大家的参与。可参考资料 : [软件架构模式读书笔记](http://blog.csdn.net/bboyfeiyu/article/details/44977219) 。
 
-|  翻译章节 |   译员信息  |
-|--------|-------------|
-|  第一章 分层架构 | [译员的博客或者github等]()  |
-|  第二章 事件驱动架构| [译员的博客或者github等]()  |
-|  第三章 微内核架构 | [Mr.Simple](https://github.com/bboyfeiyu)  |
-|  第四章 微服务架构 | [译员的博客或者github等]()  |
+|  			翻译章节			 |   		译员信息 	 |
+|--------------------------|-------------------|
+|  [第一章 分层架构](chapter01-待认领.md) | [译员的博客或者github等]()  |
+|  [第二章 事件驱动架构](chapter02-待认领.md) | [译员的博客或者github等]()  |
+|  [第三章 微内核架构](chapter03-Mr.Simple.md) | [Mr.Simple](https://github.com/bboyfeiyu)  |
+|  [第四章 微服务架构](chapter04-待认领.md) | [译员的博客或者github等]()  |
 |  第五章 基于空间的架构 | [allenlsy](https://allenlsy.com)  |
 
 
