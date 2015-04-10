@@ -34,9 +34,9 @@ Espresso.onView(withId(R.id.result)).check(ViewAssertions.matches(ViewMatchers.w
 
  And the good news, as of last year Google has introduced a [Testing Support Library](https://developer.android.com/tools/support-library/index.html) containing Espresso. So lets start by implementing Espresso.
 
+> 
+To illustrate, we are going to write some tests that tests agains a [Android calculator application](https://github.com/welsinga/sample_espresso/app). The common test scenario we will be implementing is testing if ‘6’ x ‘7’ equals ‘42’.
 >
-* To illustrate, we are going to write some tests that tests agains a [Android calculator application](https://github.com/welsinga/sample_espresso/app). The common test scenario we will be implementing is testing if ‘6’ x ‘7’ equals ‘42’.
-
 
 
  ### Define the test runner
