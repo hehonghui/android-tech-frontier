@@ -649,9 +649,9 @@ No, not so fast, pal. This is bad, because we now have **two** subscribers that 
 
 ![Mantra](http://i.imgur.com/AIimQ8C.jpg)
 
-## 用事件流将那3个推荐的用户数据模型化
+## 用事件流将3个推荐的用户数据模型化
 
-直到现在，我们在响应事件流(responseStream)的订阅(`subscribe()`)的步骤里只是稍微提了一下渲染_推荐关注_的UI而已。现在有了刷新按钮，我们就会出现一个问题：当你点击了刷新按时，当前的三个推荐关注的用户数据却没有清楚，而新的推荐关注的用户数据在点击后响应的数据中就拿到了，为了让UI看起来更漂亮，我们需要在点击刷新按钮的事件发生的时候清楚当前的三个推荐关注的用户数据。
+直到现在，在响应事件流(responseStream)的订阅(`subscribe()`)函数发生的渲染步骤里，我们只是稍微提及了一下_推荐关注_的UI。现在有了刷新按钮，我们就会出现一个问题：当你点击了刷新按钮，当前的三个推荐关注用户没有被清楚，而只要响应的数据达到后我们就拿到了新的推荐关注的用户数据，为了让UI看起来更漂亮，我们需要在点击刷新按钮的事件发生的时候清楚当前的三个推荐关注的用户。
 
 ```javascript
 refreshClickStream.subscribe(function() {
@@ -659,7 +659,7 @@ refreshClickStream.subscribe(function() {
 });
 ```
 
-不，老兄，还没那么快。我们又出现了新的问题，因为我们现在有两个订阅者在影响着推荐关注的UI DOM元素(另一个是 `responseStream.subscribe()`)，这样听起来并不像是[关注分离(Separation of concerns)](https://en.wikipedia.org/wiki/Separation_of_concerns)，还记得响应式编程的原则么？
+不，老兄，还没那么快。我们又出现了新的问题，因为我们现在有两个订阅者在影响着推荐关注的UI DOM元素(另一个是 `responseStream.subscribe()`)，这看起来并不符合[关注分离(Separation of concerns)](https://en.wikipedia.org/wiki/Separation_of_concerns)原则，还记得响应式编程的原则么？
 
 &nbsp;
 &nbsp;
@@ -680,7 +680,7 @@ var suggestion1Stream = responseStream
 
 The others, `suggestion2Stream` and `suggestion3Stream` can be simply copy pasted from `suggestion1Stream`. This is not DRY, but it will keep our example simple for this tutorial, plus I think it's a good exercise to think how to avoid repetition in this case.
 
-现在，让我们把推荐关注的用户数据模型化，它们每个发出的值就是一个包含了推荐关注用户数据的JSON对象。我们将把这三个用户数据分开处理，下面是推荐关注的1号用户数据的事件流：
+现在，让我们把推荐关注的用户数据模型化成事件流形式，每个被发出的值是一个包含了推荐关注用户数据的JSON对象。我们将把这三个用户数据分开处理，下面是推荐关注的1号用户数据的事件流：
 
 ```javascript
 var suggestion1Stream = responseStream
@@ -690,7 +690,7 @@ var suggestion1Stream = responseStream
   });
 ```
 
-其他的，如推荐关注的2号用户数据的事件流`suggestion2Stream`和推荐关注的3号用户数据的事件流`suggestion3Stream` 都可以方便的从`suggestion3Stream` 拷贝粘贴就好。这样并不是**重复代码**，这是为让我们的示例更加简单，而且我认为这是一个思考如何避免**重复代码**的一次好的经历。
+其他的，如推荐关注的2号用户数据的事件流`suggestion2Stream`和推荐关注的3号用户数据的事件流`suggestion3Stream` 都可以方便的从`suggestion1Stream` 复制粘贴就好。这里并不是**重复代码**，只是为让我们的示例更加简单，而且我认为这是一个思考如何避免**重复代码**的好案例。
 
 Instead of having the rendering happen in responseStream's subscribe(), we do that here:
 
@@ -735,7 +735,7 @@ suggestion1Stream.subscribe(function(suggestion) {
 });
 ```
 
-回到"当刷新时，清理掉当前的推荐关注的用户数据"，我们可以很简单的把刷新点击映射为null(即没有推荐数据)，并且在`suggestion1Stream`中包含进来，如下：
+回到"当刷新时，清楚掉当前的推荐关注的用户"，我们可以很简单的把刷新点击映射为没有推荐数据(`null` suggestion data)，并且在`suggestion1Stream`中包含进来，如下：
 
 ```javascript
 var suggestion1Stream = responseStream
@@ -811,9 +811,9 @@ refreshClickStream: ----------o--------o---->
  suggestion3Stream: ----t-----N---t----N-t-->
 ```
 
-里面`N`代表`null`
+`N`代表`null`
 
-作为一种补充，我们也可以在一开始的时候就渲染空的推荐内容。这通过把startWith(null)添加到推荐关注事件就完成了：
+作为一种补充，我们可以在一开始的时候就渲染空的推荐内容。这通过把startWith(null)添加到推荐关注的事件流就可以了：
 
 ```javascript
 var suggestion1Stream = responseStream
@@ -827,7 +827,7 @@ var suggestion1Stream = responseStream
   .startWith(null);
 ```
 
-最后的结果，数据量是这样的：
+结果是这样的：
 
 ```
 refreshClickStream: ----------o---------o---->
@@ -859,7 +859,7 @@ That does not work. It will close and reload _all_ suggestions, rather than just
 
 ## 推荐关注的关闭和使用已缓存的响应数据(responses)
 
-只剩这一个功能没有实现了，每个推荐关注的用户数据UI会有一个自己的'x'按钮来关闭自己，然后在当前的用户数据UI中加载另一个推荐关注的用户数据。最初的想法是：点击任何关闭按钮时都需要发起一个新的请求：
+只剩这一个功能没有实现了，每个推荐关注的用户UI会有一个'x'按钮来关闭自己，然后在当前的用户数据UI中加载另一个推荐关注的用户。最初的想法是：点击任何关闭按钮时都需要发起一个新的请求：
 
 ```javascript
 var close1Button = document.querySelector('.close1');
@@ -874,7 +874,7 @@ var requestStream = refreshClickStream.startWith('startup click')
   });
 ```
 
-这样没什么效果，这样会关闭并且重新加载_全部_的推荐关注的用户数据，而不是仅仅处理我们点击的那一个。这里有几种方式来解决这个问题，并且让它变得有趣，我们将重用之前的请求数据来解决这个问题。这个API响应的每页的数据大小是100个用户数据，而我们只使用了其中三个，所以还剩一大堆未使用的数据，不用去请求更多数据了。
+这样没什么效果，这样会关闭和重新加载_全部_的推荐关注用户，而不仅仅是处理我们点击的那一个。这里有几种方式来解决这个问题，并且让它变得有趣，我们将重用之前的请求数据来解决这个问题。这个API响应的每页数据大小是100个用户数据，而我们只使用了其中三个，所以还有一大堆未使用的数据可以拿来用，不用去请求更多数据了。
 
 Again, let's think in streams. When a 'close1' click event happens, we want to use the _most recently emitted_ response on `responseStream` to get one random user from the list in the response. As such:
 
@@ -905,7 +905,7 @@ close1ClickStream: ------------c----->
 suggestion1Stream: ------s-----s----->
 ```
 
-在Rx家族中一个组合函叫做[`combineLatest`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypecombinelatestargs-resultselector)应该是我们需要的。这个函数会把两个事件流A和B作为输入，并且无论哪一个事件流发出一个值了，`combineLatest` 函数就会将两个从两个事件流最近发出的值`a`和`b`联合起来，并执行你定义的`f`函数的算法`c = f(x,y)`将两个值组成一个输入值，下面用图表来解释会更加清晰：
+在Rx中一个组合函数叫做[`combineLatest`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md#rxobservableprototypecombinelatestargs-resultselector)，应该是我们需要的。这个函数会把数据流A和数据流B作为输入，并且无论哪一个数据流发出一个值了，`combineLatest` 函数就会将从两个数据流最近发出的值`a`和`b`作为`f`函数的输入，计算后返回一个输出值(`c = f(x,y)`)，下面的图表会让这个函数的过程看起来会更加清晰：
 
 ```
 stream A: --a-----------e--------i-------->
@@ -948,7 +948,7 @@ var suggestion1Stream = close1ClickStream.startWith('startup click') // we added
   .startWith(null);
 ```
 
-这样，我们就可以把`combineLatest()`函数用在`close1ClickStream` and `responseStream`上了，所以只要关闭按钮被点击，我们就可以获得最近的响应数据，并在`suggestion1Stream`函数中产生出一个新值。另一方面，`combineLatest()`函数也是相对的：每当在`responseStream`上一个新的响应被发出，它将会结合一次新的点击关闭按钮事件来产生一个新的推荐关注的用户数据，这非常有趣，因为它允许我们为`suggestion1Stream`来简化我们的代码：
+这样，我们就可以把`combineLatest()`函数用在`close1ClickStream`和 `responseStream`上了，只要关闭按钮被点击，我们就可以获得最近的响应数据，并在`suggestion1Stream`上产生出一个新值。另一方面，`combineLatest()`函数也是相对的：每当在`responseStream`上发出一个新的响应，它将会结合一次新的`点击关闭按钮事件`来产生一个新的推荐关注的用户数据，这非常有趣，因为它可以给我们的`suggestion1Stream`简化代码：
 
 ```javascript
 var suggestion1Stream = close1ClickStream
@@ -980,9 +980,9 @@ var suggestion1Stream = close1ClickStream.startWith('startup click') // we added
   .startWith(null);
 ```
 
-现在，我们还缺一小块地方，`combineLatest()`函数使用了最近的两个数据源，但是如果某一个数据源并没有发出任何东西，`combineLatest()`函数又不能产生出一个输出的数据事件。如果你看了上面的ASCII图标，你会明白当第一个数据量发出一个`a`值时并没有任何的输出，只有当第二个数据量发出一个`b`值的时候才会产生处一个输出值。
+现在，我们的拼图还缺一小块地方。`combineLatest()`函数使用了最近的两个数据源，但是如果某一个数据源还没有发出任何东西，`combineLatest()`函数就不能在输出流上产生一个数据事件。如果你看了上面的ASCII图表(文章中第一个图表)，你会明白当第一个数据流发出一个值`a`时并没有任何的输出，只有当第二个数据流发出一个值`b`的时候才会产生一个输出值。
 
-哲理有很多种方法来解决这个问题，我们来使用最简单的一种，也就是在启动的时候来模拟'close 1'的点击事件：
+这里有很多种方法来解决这个问题，我们使用最简单的一种，也就是在启动的时候模拟'close 1'的点击事件：
 
 ```javascript
 var suggestion1Stream = close1ClickStream.startWith('startup click') // we added this
@@ -1045,7 +1045,7 @@ suggestion1Stream.subscribe(function(suggestion) {
 
 ## 封装起来
 
-最后我们完成了，下面是完整的示例代码：
+我们完成了，下面是封装好的完整示例代码：
 
 ```javascript
 var refreshButton = document.querySelector('.refresh');
@@ -1095,11 +1095,11 @@ That piece of code is small but dense: it features management of multiple events
 
 Notice also the impressive absence of control flow elements such as `if`, `for`, `while`, and the typical callback-based control flow that you expect from a JavaScript application. You can even get rid of the `if` and `else` in the `subscribe()` above by using `filter()` if you want (I'll leave the implementation details to you as an exercise). In Rx, we have stream functions such as `map`, `filter`, `scan`, `merge`, `combineLatest`, `startWith`, and many more to control the flow of an event-driven program. This toolset of functions gives you more power in less code.
 
-**你在[这里](http://jsfiddle.net/staltz/8jFJH/48/)可以看到可演示的示例工程**
+**你可以在[这里](http://jsfiddle.net/staltz/8jFJH/48/)看到可演示的示例工程**
 
-以上的代码片段虽小但却做了很多功能：它适当的使用关注分离(separation of concerns)的实现了对多个事件流的管理，甚至做到了响应数据的缓存。这种函数式的风格使得代码看起来更像是声明式编程而非命令式编程：我们并不是在给一组指令去执行，我们只是定义了事件流之间关系来**告诉它这是什么**。例如，我们用Rx来告诉计算机_`suggestion1Stream`**是**'close 1'事件结合从最新的响应数据中拿到的一个用户数据的事件流，除此之外，当刷新事件发生时和程序启动时，它就是`null`_。
+以上的代码片段虽小但做到很多事：它适当的使用关注分离(separation of concerns)原则的实现了对多个事件流的管理，甚至做到了响应数据的缓存。这种函数式的风格使得代码看起来更像是声明式编程而非命令式编程：我们并不是在给一组指令去执行，只是定义了事件流之间关系来**告诉它这是什么**。例如，我们用Rx来告诉计算机_`suggestion1Stream`**是**'close 1'事件结合从最新的响应数据中拿到的一个用户数据的数据流，除此之外，当刷新事件发生时和程序启动时，它就是`null`_。
 
-留意一下代码中并未出现例如`if`, `for`, `while`流程控制语句，或者像JavaScript那样典型的基于回调(callback-based)的流程控制。如果可以的话(稍候会给你留一些实现细节来作为一次练习)，你甚至可以在`subscribe()`上使用 `filter()`函数来摆脱`if`和`else`。在Rx里，我们有例如： `map`, `filter`, `scan`, `merge`, `combineLatest`, `startWith`等事件流的函数，还有很多函数可以用来控制**事件驱动编程(event-driven program)**的流程。这些函数的集合可以让你使用更少的代码实现更强大的功能。
+留意一下代码中并未出现例如`if`, `for`, `while`等流程控制语句，或者像JavaScript那样典型的基于回调(callback-based)的流程控制。如果可以的话(稍候会给你留一些实现细节来作为练习)，你甚至可以在`subscribe()`上使用 `filter()`函数来摆脱`if`和`else`。在Rx里，我们有例如： `map`, `filter`, `scan`, `merge`, `combineLatest`, `startWith`等数据流的函数，还有很多函数可以用来控制**事件驱动编程(event-driven program)**的流程。这些函数的集合可以让你使用更少的代码实现更强大的功能。
 
 ## What comes next
 
@@ -1115,12 +1115,12 @@ If this tutorial helped you, [tweet it forward](https://twitter.com/intent/tweet
 
 ## 接下来
 
-如果你认为Rx家族将会成为你首选的响应式编程库，接下来则需要花一些时间来熟悉[一大批的函数](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md)用来变形、联合、创建可观察者。如果你想在事件流的图表当中熟悉这些函数，那就来看一下这个：[RxJava's very useful documentation with marble diagrams](https://github.com/Netflix/RxJava/wiki/Creating-Observables)。请记住，无论何时你遇到问题，画一下这些图，思考一下，看一下这一大串函数，然后继续思考。以我个人经验，这样效果很明显。
+如果你认为Rx将会成为你首选的响应式编程库，接下来就需要花一些时间来熟悉[一大批的函数](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/observable.md)用来变形、联合和创建被观察者。如果你想在事件流的图表当中熟悉这些函数，那就来看一下这个：[RxJava's very useful documentation with marble diagrams](https://github.com/Netflix/RxJava/wiki/Creating-Observables)。请记住，无论何时你遇到问题，可以画一下这些图，思考一下，看一看这一大串函数，然后继续思考。以我个人经验，这样效果很有效。
 
-一旦你开始使用掌握Rx编程的编程，请记住，理解[Cold vs Hot Observables](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md#cold-vs-hot-observables)的概念是非常必要的，如果你忽视了这一点，它就会反弹回来并残忍的反咬你一口。我这里已经警告你了，学习函数式编程可以提高你的技能，熟悉一些常见问题，例如Rx带来的副作用
+一旦你开始使用了Rx编程，请记住，理解[Cold vs Hot Observables](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/creating.md#cold-vs-hot-observables)的概念是非常必要的，如果你忽视了这一点，它就会反弹回来并残忍的反咬你一口。我这里已经警告你了，学习函数式编程可以提高你的技能，熟悉一些常见问题，例如Rx会带来的副作用
 
-但是响应式编程并不仅仅是Rx家族，还有相对容易理解的，没有Rx那些怪癖的[Bacon.js](http://baconjs.github.io/)。[Elm Language](http://elm-lang.org/)则以它自己的方式支持响应式编程：它是一门会编译成Javascript + HTML + CSS的响应式编程语言，并有一个[time travelling debugger](http://debug.elm-lang.org/)功能，很棒吧。
+但是响应式编程库并不仅仅是Rx，还有相对容易理解的，没有Rx那些怪癖的[Bacon.js](http://baconjs.github.io/)。[Elm Language](http://elm-lang.org/)则以它自己的方式支持响应式编程：它是一门会编译成Javascript + HTML + CSS的响应式编程语言，并有一个[time travelling debugger](http://debug.elm-lang.org/)功能，很棒吧。
 
-而Rx对于像前端和App这样需要处理大量的编程效果是非常棒的。但是它不只是可以用在客户端，它还可以用在后端或者接近数据库的地方。事实上，[RxJava就是Netflix服务端API用来处理并行的组件](http://techblog.netflix.com/2013/02/rxjava-netflix-api.html)。Rx并不是局限于某种应用程序或者编程语言的框架，它真的是，当你编写任何的事件驱动程序，可以遵循的一个非常棒的编程范式。
+而Rx对于像前端和App这样需要处理大量的编程效果是非常棒的。但是它不只是可以用在客户端，还可以用在后端或者接近数据库的地方。事实上，[RxJava就是Netflix服务端API用来处理并行的组件](http://techblog.netflix.com/2013/02/rxjava-netflix-api.html)。Rx并不是局限于某种应用程序或者编程语言的框架，它真的是你编写任何事件驱动程序，可以遵循的一个非常棒的编程范式。
 
 如果这篇教程对你有帮助, [那么就请来转发一下吧(tweet it forward)](https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fgist.github.com%2Fstaltz%2F868e7e9bc2a7b8c1f754%2F&amp;text=The%20introduction%20to%20Reactive%20Programming%20you%27ve%20been%20missing&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fgist.github.com%2Fstaltz%2F868e7e9bc2a7b8c1f754&amp;via=andrestaltz).
