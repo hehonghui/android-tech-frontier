@@ -8,7 +8,7 @@
 * 校对者: [yaoqinwei](https://github.com/yaoqinwei)、
 * 状态 :  未完成
 
->译者注：校对请注意几个核心词翻译是否准确,stream、event stream、date stream，文中交替的出现，可能会把人搞糊涂，不造怎么翻译才好
+>译者注：校对时请注意几个核心词翻译是否准确,stream、event stream、date stream，文中交替的出现，可能会把人搞糊涂，不造怎么翻译才好
 
 So you're curious in learning this new thing called Reactive Programming, particularly its variant comprising of Rx, Bacon.js, RAC, and others.
 
