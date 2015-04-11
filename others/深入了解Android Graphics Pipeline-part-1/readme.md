@@ -1,8 +1,8 @@
 深入了解Android Graphics Pipeline-part-1
 ---
 
-
 * 原文链接 : [Android Graphics Pipeline: From Button to Framebuffer (Part 1)](https://blog.inovex.de/android-graphics-pipeline-from-button-to-framebuffer-part-1/)
+* 作者 : [mgarbe](https://blog.inovex.de/author/mgarbe/)
 * 译者 : [dupengwei](https://github.com/dupengwei) 
 * 校对者: [chaossss](https://github.com/chaossss)   
 * 状态 :  完成 

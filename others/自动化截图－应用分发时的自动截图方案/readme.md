@@ -3,6 +3,7 @@
 
 >
 * 原文链接 : [Screenshots Through Automation](http://flavienlaurent.com/blog/2014/12/05/screenshot_automation/)
+* 作者 : [Flavien Laurent](http://flavienlaurent.com/)
 * 译者 : [chaossss](https://github.com/chaossss) 
 * 校对者: [sundroid](https://github.com/sundroid)  
 * 状态 :  校对完成
