@@ -71,17 +71,13 @@ Activity & Fragment 过渡期间是如何进入或退出场景的。出于 Googl
 
 ---
 
-<video src="http://www.androiddesignpatterns.com/assets/videos/posts/2014/12/15/games-opt.mp4" controls>
-   Your browser does not implement html5 video.
-</video>
-
-**Video 2.1** - Content transitions in the Google Play Games app (as of v2.2). Click to play.
+[**Video 2.1**][video2.1] - Content transitions in the Google Play Games app (as of v2.2). Click to play.
 
 ---
 
 As an example, Video 2.1 illustrates how content transitions are used in the Google Play Games app to achieve smooth animations between activities. When the second activity starts, its enter content transition gently shuffles the user avatar views into the scene from the bottom edge of the screen. When the back button is pressed, the second activity's return content transition splits the view hierarchy into two and animates each half off the top and bottom of the screen.
 
-一个例子，[**Video 2.1**][video2.1] 阐明了在 Google Play Games app 中是如何使
+[**Video 2.1**][video2.1]作为示例阐明了在 Google Play Games app 中是如何使
 用 content transitions 实现流畅的 activitiy 切换动画。当第二个 activity 启动，
 它的**进入** content transition 轻轻地从屏幕底部边缘将头像推入场景。按下返回按钮后，
 第二个 activity 的**返回** content transition 将图层分成上下两块，分别推出屏幕。
@@ -92,8 +88,7 @@ As an example, Video 2.1 illustrates how content transitions are used in the Goo
 So far our analysis of content transitions has only scratched the surface; several important questions still remain. How are content transitions triggered under-the-hood? Which types of Transition objects can be used? How does the framework determine the set of transitioning views? Can a ViewGroup and its children be animated together as a single entity during a content transition? In the next couple sections, we'll tackle these questions one-by-one.
 
 目前为止我们对 content transitions 的分析仅仅停留在表面，一些重要的问题仍然没有涉及。
-Content transitions
-在底层是如被触发的?都有哪些类型的 **Transition** 对象可以使用?框架是如何确定哪些 view
+例如 Content Transition 在底层是如何实现的？都有哪些类型的 **Transition** 对象可以使用?框架是如何确定哪些 view
 是 transitioning view? 在 content transitions 中一个 **ViewGroup** 和它的子视图能不能当成一个整体
 执行动画?下面我们就来一个一个解答这些问题。
 
@@ -179,7 +174,7 @@ Before the transition starts, the framework constructs the set of transitioning 
 
 ##Transitioning Views 和 Transition Groups
 直到现在，我们已经假设 content transitions 操作一组叫做 transitioning views 的非共享 view 。
-在这节中我们讨论框架是怎么确定 view 集合 还有 如何使用 transition groups 深度定制框架。
+在这节中，我们将探讨 Transition 框架如何确定哪些 View 是非共享 View，以及如何使用 transition group 深度定制框架
 
 Transition 开始前，框架会在 Activity 窗口(或 Fragment) 的视图层上执行一个递归的搜索，用来
 构建 transitioning views 的集合。这个搜索通过对图层的根视图递归调用重写的**ViewGroup#captureTransitioningViews** 方法启动，部分[源码][source-code]如下:
@@ -205,11 +200,8 @@ public void captureTransitioningViews(List<View> transitioningViews) {
 
 ---
 
-<video src="http://www.androiddesignpatterns.com/assets/videos/posts/2014/12/15/webview-opt.mp4" controls>
-   Your browser does not implement html5 video.
-</video>
 
-**Video 2.2** - A simple Radiohead app that illustrates a potential bug involving transition groups and WebViews. Click to play.
+[**Video 2.2**][video2.2] - A simple Radiohead app that illustrates a potential bug involving transition groups and WebViews. Click to play.
 
 ---
 
@@ -243,7 +235,7 @@ So what went wrong? Well, the problem stems from the fact that WebView is a View
 这个 App 使用了一个和 Google Play Games app 类似的 return transition，将背景图和底部的
 **WebView** 分别推出屏幕。然而这里有个小故障导致 **WebView** 不能流畅的退出屏幕。
 
-好吧，错误在哪呢？原来 **WebView** 是一个 **ViewGroup**，因此默认是不会被当作 transitioning view
+好吧，错误在哪呢？原来 **WebView** 是一个 **ViewGroup**，因此在默认情况下 WebView 不会被当作 transitioning view
 的。当 return transition 被执行时，**WebView** 会被完全忽略，直到过渡动画结束才会被移除屏幕。
 找到问题就好解决了，只要在 return transition 开始前调用 `webView.setTransitionGroup(true)`
 就能修复这个bug。
