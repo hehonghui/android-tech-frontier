@@ -4,24 +4,11 @@
 >
 * 原文链接 :  [Content Transitions In-Depth (part 2)][source-url]
 * 译者 : [tiiime](https://github.com/tiiime)
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  未完成 / 校对中 / 完成
+* 校对者: [chaossss](https://github.com/chaossss)
+* 状态 :  完成
 
 
-#Content Transitions In-Depth (part 2)
 
-This post will give an in-depth analysis of content transitions and their role in the Activity and Fragment Transitions API. This is the second of a series of posts I will be writing on the topic:
-
-- Part 1: Getting Started with Activity & Fragment Transitions
-- Part 2: Content Transitions In-Depth
-- Part 3a: Shared Element Transitions In-Depth
-- Part 3b: Postponed Shared Element Transitions
-- Part 3c: Implementing Shared Element Callbacks (coming soon!)
-- Part 4: Activity & Fragment Transition Examples (coming soon!)
-
-We begin by summarizing what we learned about content transitions in part 1 and illustrating how they can be used to achieve smooth, seamless animations in Android Lollipop.
-
----
 #深入理解Content Transition
 
 这篇文章会深度分析 Content Transitions 和它在 Activity & Fragment Transitions API 中的作用。这篇文章是下面这个系列中的第二篇：
@@ -37,17 +24,6 @@ We begin by summarizing what we learned about content transitions in part 1 and 
 说一说在 Android Lollipop 中是怎样使用它来构建合适的过渡动画。
 
 ---
-
-##What is a Content Transition?
-
-A content transition determines how the non-shared views—called transitioning views—enter or exit the scene during an Activity or Fragment transition. Motivated by Google's new Material Design language, content transitions allow us to coordinate the entrance and exit of each Activity/Fragment's views, making the act of switching between screens smooth and effortless. Beginning with Android Lollipop, content transitions can be set programatically by calling the following Window and Fragment methods:
-
-- setExitTransition() - A's exit transition animates transitioning views out of the scene when A starts B.
-- setEnterTransition() - B's enter transition animates transitioning views into the scene when A starts B.
-- setReturnTransition() - B's return transition animates transitioning views out of the scene when B returns to A.
-- setReenterTransition() - A's reenter transition animates transitioning views into the scene when B returns to A.
-
-[Video 2.1 - Content transitions in the Google Play Games app (as of v2.2). Click to play.]
 
 ##Content Transition 是什么？
 
@@ -69,13 +45,10 @@ Activity & Fragment 过渡期间是如何进入或退出场景的。出于 Googl
 
 (注:A 和 B 是Activity 见 [part 1][part-1])。
 
----
-
 [**Video 2.1**][video2.1] - Content transitions in the Google Play Games app (as of v2.2). Click to play.
 
 ---
 
-As an example, Video 2.1 illustrates how content transitions are used in the Google Play Games app to achieve smooth animations between activities. When the second activity starts, its enter content transition gently shuffles the user avatar views into the scene from the bottom edge of the screen. When the back button is pressed, the second activity's return content transition splits the view hierarchy into two and animates each half off the top and bottom of the screen.
 
 [**Video 2.1**][video2.1]作为示例阐明了在 Google Play Games app 中是如何使
 用 content transitions 实现流畅的 activitiy 切换动画。当第二个 activity 启动，
@@ -85,43 +58,10 @@ As an example, Video 2.1 illustrates how content transitions are used in the Goo
 
 ---
 
-So far our analysis of content transitions has only scratched the surface; several important questions still remain. How are content transitions triggered under-the-hood? Which types of Transition objects can be used? How does the framework determine the set of transitioning views? Can a ViewGroup and its children be animated together as a single entity during a content transition? In the next couple sections, we'll tackle these questions one-by-one.
-
 目前为止我们对 content transitions 的分析仅仅停留在表面，一些重要的问题仍然没有涉及。
 例如 Content Transition 在底层是如何实现的？都有哪些类型的 **Transition** 对象可以使用?框架是如何确定哪些 view
 是 transitioning view? 在 content transitions 中一个 **ViewGroup** 和它的子视图能不能当成一个整体
 执行动画?下面我们就来一个一个解答这些问题。
-
----
-
-##Content Transitions Under-The-Hood
-
-Recall from the previous post that a Transition has two main responsibilities: capturing the start and end state of its target views and creating an Animator that will animate the views between the two states. Content transitions are no different: before a content transition's animation can be created, the framework must give it the state information it needs by altering each transitioning view's visibility. More specifically, when Activity A starts Activity B the following sequence of events occurs:(1)
-
-
-1. Activity A calls startActivity().
-
-	a. The framework traverses A's view hierarchy and determines the set of transitioning views that will exit the scene when A's exit transition is run.
-
-	b. A's exit transition captures the start state for the transitioning views in A.
-
-	c. The framework sets all transitioning views in A to INVISIBLE.
-
-	d. On the next display frame, A's exit transition captures the end state for the transitioning views in A.
-
-	e. A's exit transition compares the start and end state of each transitioning view and creates an Animator based on the differences. The Animator is run and the transitioning views exit the scene.
-
-2. Activity B is started.
-
-	a. The framework traverses B's view hierarchy and determines the set of transitioning views that will enter the scene when B's enter transition is run. The transitioning views are initially set to INVISIBLE.
-
-	b. B's enter transition captures the start state for the transitioning views in B.
-
-	c. The framework sets all transitioning views in B to VISIBLE.
-
-	d. On the next display frame, B's enter transition captures the end state for the transitioning views in B.
-
-	e. B's enter transition compares the start and end state of each transitioning view and creates an Animator based on the differences. The Animator is run and the transitioning views enter the scene.
 
 ---
 
@@ -153,8 +93,6 @@ transition ，它才能创建过渡动画。更准确的说，当 Activity **A**
 
 ---
 
-By toggling each transitioning view's visibility between INVISIBLE and VISIBLE, the framework ensures that the content transition is given the state information it needs to create the desired animation. Clearly all content Transition objects then must at the very least be able to capture and record each transitioning view's visibility in both its start and end states. **-|-|-**  Fortunately, the abstract Visibility class already does this work for you: subclasses of Visibility need only implement the onAppear() and onDisappear() factory methods, in which they must create and return an Animator that will either animate the views into or out of the scene. As of API 21, three concrete Visibility implementations exist—Fade, Slide, and Explode—all of which can be used to create Activity and Fragment content transitions. If necessary, custom Visibility classes may be implemented as well; doing so will be covered in a future blog post.
-
 框架通过在**可见**和**不可见**之间切换每个 transitioning view 的可见性来保证
 content transition 能够获得用来构建目标动画所需要的状态信息。
 显然所有的 content **Transition** 对象至少要能够获取和记录每个 transitioning view
@@ -165,12 +103,6 @@ content transition 能够获得用来构建目标动画所需要的状态信息�
 有必要的话也可以自己实现 Visibility 类达到想实现的效果。后边的文章会有具体介绍。
 
 ---
-
-##Transitioning Views & Transition Groups
-
-Up until now, we have assumed that content transitions operate on a set of non-shared views called transitioning views. In this section, we will discuss how the framework determines this set of views and how it can be further customized using transition groups.
-
-Before the transition starts, the framework constructs the set of transitioning views by performing a recursive search on the Activity window's (or Fragment's) entire view hierarchy. The search begins by calling the overridden recursive ViewGroup#captureTransitioningViews method on the hierarchy's root view, the source code of which is given below:
 
 ##Transitioning Views 和 Transition Groups
 直到现在，我们已经假设 content transitions 操作一组叫做 transitioning views 的非共享 view 。
@@ -205,8 +137,6 @@ public void captureTransitioningViews(List<View> transitioningViews) {
 
 ---
 
-The recursion is relatively straightforward: the framework traverses each level of the tree until it either finds a VISIBLE leaf view or a transition group. Transition groups essentially allow us to animate entire ViewGroups as single entities during an Activity/Fragment transition. If a ViewGroup's isTransitionGroup()  method returns true, then it and all of its children views will be animated together as one. Otherwise, the recursion will continue and the ViewGroup's transitioning children views will be treated independently during the animation. The final result of the search is the complete set of transitioning views that will be animated by the content transition.3
-
 这个递归调用很简单: 框架遍历树的每一层，直到找到一个**可见的**[ leaf view ][leafview] (子视图)或者一个 transition group。Transition groups 本质上允许我们在 Activity/Fragment 的 transition
 期间将全部 **ViewGroups** 当作一个整体执行过渡动画。如果一个 **ViewGroup** 的
 [`isTransitionGroup ()`][isTransitionGroup] <a id="2" href="#b2">(2)</a>方法返回值为 **true**，它和它的子视图会被当作一
@@ -216,18 +146,12 @@ The recursion is relatively straightforward: the framework traverses each level 
 
 ---
 
-An example illustrating transition groups in action can be seen in [**Video 2.1**][video2.1]  above. During the enter transition, the user avatars shuffle into the screen independently of the others, whereas during the return transition the parent ViewGroup containing the user avatars is animated as together one. The Google Play Games app likely uses a transition group to achieve this effect, making it look as if the current scene splits in half when the user returns to the previous activity.
-
 上面的 [**Video 2.1**][video2.1] 展示了 transition groups  的效果。在 enter transition ，
 用户头像是作为一个单独的 View 进入屏幕，return transition 时却是和包含它的 parent
 **ViewGroup** 一起消失。在  Google Play Games 里可能用了一个 transition group
 来实现在返回前一个 activity 时，让当前场景拦腰斩断的效果。
 
 ---
-
-Sometimes transition groups must also be used to fix mysterious bugs in your Activity/Fragment transitions. For example, consider the sample application in Video 2.2: the calling Activity displays a grid of Radiohead album covers and the called Activity shows a background header image, the shared element album cover, and a WebView. The app uses a return transition similar to the Google Play Games app, sliding the top background image and bottom WebView off the top and bottom of the screen respectively. However, as you can see in the video, a glitch occurs and the WebView fails to slide smoothly off the screen.
-
-So what went wrong? Well, the problem stems from the fact that WebView is a ViewGroup and as a result is not selected to be a transitioning view by default. Thus, when the return content transition is run, the WebView will be ignored entirely and will remain drawn on the screen before being abruptly removed when the transition ends. Fortunately, we can easily fix this by calling webView.setTransitionGroup(true) at some point before the return transition begins.
 
 有时 transition groups 还被用来修复 Activity/Fragment transitions 中诡异的 bugs。
 例如，Video 2.2中: **调用 Activity** 显示了一个电台司令专辑图的网格布局，
@@ -240,18 +164,7 @@ So what went wrong? Well, the problem stems from the fact that WebView is a View
 找到问题就好解决了，只要在 return transition 开始前调用 `webView.setTransitionGroup(true)`
 就能修复这个bug。
 
-
-
 ---
-
-##Conclusion
-
-Overall, this post presented three important points:
-
-- A content transition determines how an Activity or Fragment's non-shared views—called transitioning views—enter or exit the scene during an Activity or Fragment transition.
-- Content transitions are triggered by changes made to its transitioning views' visibility and should almost always extend the abstract Visibility class as a result.
-- Transition groups enable us to animate entire ViewGroups as single entities during a content transition.
-As always, thanks for reading! Feel free to leave a comment if you have any questions, and don't forget to +1 and/or share this blog post if you found it helpful!
 
 ##结语
 
@@ -265,14 +178,6 @@ As always, thanks for reading! Feel free to leave a comment if you have any ques
 	当作一个整体执行过渡动画。
 
 希望这篇文章能够帮到你，欢迎留下评论～
-
----
-
-1. A similar sequence of events occurs during return/reenter transitions for both Activities and Fragments. ↩
-
-2. Note that isTransitionGroup() will return true if the ViewGroup has a non-null background drawable and/or non-null transition name by default (as stated in the method's documentation). ↩
-
-3. Note that any views that were explicitly added or excluded in the content Transition object will also be taken into account when the transition is run. ↩
 
 ---
 
