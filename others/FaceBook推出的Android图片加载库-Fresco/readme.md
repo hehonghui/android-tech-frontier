@@ -3,6 +3,7 @@ FaceBook推出的Android图片加载库-Fresco
 
 >
 * 原文链接:[Introducing Fresco: A new image library for Android](https://code.facebook.com/posts/366199913563917/introducing-fresco-a-new-image-library-for-android/)
+* 作者 :  [tyrone Nicholas ](https://www.facebook.com/tyrone.nicholas)
 * 译者 :  [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang) 
 * 校对者: [Chaossss](https://github.com/chaossss)
 * 校对者: [bboyfeiyu](https://github.com/bboyfeiyu)
