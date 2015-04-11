@@ -5,7 +5,7 @@
 >
 * 原文链接 : [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
 * 译者 : [yaoqinwei](https://github.com/yaoqinwei) 
-* 校对者: [yaoqinwei](https://github.com/yaoqinwei)、
+* 校对者: [yaoqinwei](https://github.com/yaoqinwei)、[bboyfeiyu](https://github.com/bboyfeiyu)、[chaossss](https://github.com/chaossss)
 * 状态 :  未完成
 
 >译者注：校对时请注意几个核心词翻译是否准确,stream、event stream、date stream，文中交替的出现，可能会把人搞糊涂，不造怎么翻译才好
