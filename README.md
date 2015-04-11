@@ -67,8 +67,11 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|
 | [符合Material Design的抽屉导航效果](androidweekly/符合Material Design的抽屉导航效果)  | [wly2014](https://github.com/wly2014)       |   [AndroidWeekly issue #145](http://androidweekly.net/issues/issue-145)    |
-| [深入了解Android Graphics Pipeline-part-1](others/深入了解Android Graphics Pipeline-part-1)  |    [dupengwei](https://github.com/dupengwei)       |   [AndroidWeekly issue #147](https://blog.inovex.de/android-graphics-pipeline-from-button-to-framebuffer-part-1/)    |
+| [深入了解Android Graphics Pipeline-part-1](androidweekly/深入了解Android Graphics Pipeline-part-1)  |    [dupengwei](https://github.com/dupengwei)       |   [AndroidWeekly issue #147](https://blog.inovex.de/android-graphics-pipeline-from-button-to-framebuffer-part-1/)    |
+| [深入了解Android Graphics Pipeline-part-2](androidweekly/深入了解Android Graphics Pipeline-part-2)  |    [chaossss](https://github.com/chaossss)       |   [AndroidWeekly issue #147](http://androidweekly.net/issues/issue-147)    |
 | [Android性能案例研究续集](androidweekly/Android性能案例研究续集)  |    [shenyansycn](https://github.com/shenyansycn)       |   [AndroidWeekly issue #146](http://androidweekly.net/issues/issue-146)    |
+| [安卓的模糊视图](androidweekly/安卓的模糊视图)  |    [lvtea0105](https://github.com/lvtea0105)       |   [AndroidWeekly issue #145](http://androidweekly.net/issues/issue-145)    |
+| [Google推荐的图片加载库Glide介绍](others/Google推荐的图片加载库Glide介绍)  |    [jianghejie](https://github.com/jianghejie)       |   [inthecheesefactory.com](http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en)    |
 
 
 
