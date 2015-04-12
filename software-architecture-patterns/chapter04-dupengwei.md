@@ -1,12 +1,12 @@
 # 第四章 微服务架构 
 The microservices architecture pattern is quickly gaining ground in the industry as a viable alternative to monolithic applications and service-oriented architectures. Because this architecture pattern is still evolving, there’s a lot of confusion in the industry about what this pattern is all about and how it is implemented. This section of the report will provide you with the key concepts and foundational knowledge necessary to understand the benefits (and trade-offs) of this important architecture pattern and whether it is the right pat‐ tern for your application.
 
-作为替代monolithic应用和面向服务架构的一个可行的选择，微服务架构模式在业内迅速取得进展。因为这个架构模式仍然在不断的发展中，在业界存在很多困惑，这种模式是关于什么的，它是如何实现的。本报告的这部分将为你提供关键概念和必要的基础知识来理解这一重要架构模式的好处(和取舍)，以此来判断这种架构是否适合你的应用。
+微服务架构模式作为替代monolithic应用和面向服务架构的一个可行的选择，在业内迅速取得进展。因为这个架构模式仍然在不断的发展中，在业界存在很多困惑——这种模式是关于什么的？它是如何实现的？本报告的这部分将为你提供关键概念和必要的基础知识来理解这一重要架构模式的好处(和取舍)，以此来判断这种架构是否适合你的应用。
 
 ## Pattern Description 模式描述
 Regardless of the topology or implementation style you chose, there are several common core concepts that apply to the general architecture pattern. The first of these concepts is the notion of separately deployed units. As illustrated in Figure 4-1, each component of the microservices architecture is deployed as a separate unit, allowing for easier deployment through an effective and streamlined delivery pipeline, increased scalability, and a high degree of application and component decoupling within your application.
 
-不管你选择哪种拓扑或实现风格,有几种常见的核心概念适用于一般架构模式。第一个概念是*单独部署单元*。如图4-1所示，微服务架构的每个组件都作为一个独立单元进行部署，通过一个有效的流线型传输管道，增强的扩展性，应用和组件的高度解耦性，这样使得部署更为简单。
+不管你选择哪种拓扑或实现风格,有几种常见的核心概念适用于一般架构模式。第一个概念是*单独部署单元*。如图4-1所示，微服务架构的每个组件都作为一个独立单元进行部署，每个单元之间通过一个有效的简化的传输管道进行通信，以其很强的扩展性，应用和组件的高度解耦性，使得部署更为简单。
 
 Perhaps the most important concept to understand with this pattern is the notion of a service component. Rather than think about services within a microservices architecture, it is better to think about service components, which can vary in granularity from a single module to a large portion of the application. Service components contain one or more modules (e.g., Java classes) that represent either a single-purpose function (e.g., providing the weather for a specific city or town) or an independent portion of a large business application (e.g., stock trade placement or determining auto-insurance rates). Designing the right level of service component granularity is one of the biggest challenges within a microservices architecture. This challenge is discussed in more detail in the following service component orchestration subsection.
 
@@ -107,6 +107,7 @@ Rating: High
 Analysis: Overall agility is the ability to respond quickly to a constantly changing environment. Due to the notion of separately deployed units, change is generally isolated to individual service components, which allows for fast and easy deployment. Also, applications build using this pattern tend to be very loosely coupled, which also helps facilitate change.
 
 评级：高
+
 分析：整体的灵活性是能够快速响应不断变化的环境。由于单独部署单元的概念,变化通常被隔离成单独的服务组件,使得部署变得快而简单。同时，使用这种模式构建的应用往往是松耦合的，也有助于促进改变。
 
 ### Ease of deployment 易部署性
@@ -114,6 +115,7 @@ Rating: High
 Analysis: Overall this pattern is relatively easy to deploy due to the decoupled nature of the event-processor components. The broker topology tends to be easier to deploy than the mediator topology, primarily because the event-mediator component is somewhat tightly coupled to the event processors: a change in an event processor component might also require a change in the event mediator, requiring both to be deployed for any given change.
 
 评级：高
+
 分析：整体来讲，由于该模式的解耦特性和事件处理组件使得部署变得相对简单。broker拓扑往往比mediator拓扑更易于部署，主要是因为event-mediator组件与事件处理器是紧耦合的，事件处理器组件有一个变化可能导致event mediator跟着变化，有任何变化两者都需要部署。
 
 ### Testability 可测试性
@@ -121,13 +123,15 @@ Rating: High
 Analysis: Due to the separation and isolation of business functionality into independent applications, testing can be scoped, allowing for more targeted testing efforts. Regression testing for a particular service component is much easier and more feasible than regression testing for an entire monolithic application. Also, since the service components in this pattern are loosely coupled, there is much less of a chance from a development perspective of making a change that breaks another part of the application, easing the testing burden of having to test the entire application for one small change.
 
 评级：高
-分析：由于业务功能被分离成独立的应用模块,就可以划分测试范围，这样测试工作就更有针对性。对一个特定的服务组件进行回归测试比对整个monolithic应用程序进行回归测试更简单、更可行。而且,由于这种模式的服务组件是松散耦合的，从开发角度来看，由一个变化导致应用其他部分也跟着变化的几率很小，并能减小由于一个微小的变化而不得不对整个应用程序进行测试的负担。
+
+分析：由于业务功能被分离成独立的应用模块,可以在局部范围内进行测试，这样测试工作就更有针对性。对一个特定的服务组件进行回归测试比对整个monolithic应用程序进行回归测试更简单、更可行。而且,由于这种模式的服务组件是松散耦合的，从开发角度来看，由一个变化导致应用其他部分也跟着变化的几率很小，并能减小由于一个微小的变化而不得不对整个应用程序进行测试的负担。
 
 ### Performance 性能
 Rating: Low     
 Analysis: While you can create applications implemented from this pattern that perform very well, overall this pattern does not naturally lend itself to high-performance applications due to the distributed nature of the microservices architecture pattern.
 
 评级：低
+
 分析：虽然你可以从实现该模式来创建应用程序并可以很好的运行，整体来说，由于微服务架构模式的分布式特性，并不适用于高性能的应用程序。
 
 ### Scalability 可扩展性
@@ -135,6 +139,7 @@ Rating: High
 Analysis: Because the application is split into separately deployed units, each service component can be individually scaled, allowing for fine-tuned scaling of the application. For example, the admin area of a stock-trading application may not need to scale due to the low user volumes for that functionality, but the trade-placement service component may need to scale due to the high throughput needed by most trading applications for this functionality.
 
 评级：高
+
 分析：由于应用程序被分为单独的部署单元,每个服务组件可以单独扩展，并允许对应用程序进行扩展调整。例如，股票交易的管理员功能区域可能不需要扩展，因为使用该功能的用户很少，但是交易布局服务组件可能需要扩展，因为大多数交易应用程序需要具备处理高吞吐量的功能。
 
 ### Ease of development 开发容易度
@@ -142,4 +147,5 @@ Rating: High
 Analysis: Because functionality is isolated into separate and distinct service components, development becomes easier due to the smaller and isolated scope. There is much less chance a developer will make a change in one service component that would affect other service components, thereby reducing the coordination needed among developers or development teams.
 
 评级：高
+
 分析：由于功能被分隔成不同的服务组件，由于开发范围更小且被隔离，开发变得更简单。程序员在一个服务组件做出一个变化影响其他服务组件的几率是很小的，从而减少开发人员或开发团队之间的协调。
