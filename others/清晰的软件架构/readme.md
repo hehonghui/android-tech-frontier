@@ -2,9 +2,10 @@ The Clean Architecture
 ---
 
 
->* 原文链接:[The Clean Architecture](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html)
-* 译者:[zimoguo](https://github.com/zimoguo)
-* 校对者:[Mr.Simple](https://github.com/bboyfeiyu)
+>* 原文链接 : [The Clean Architecture](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+> * [Robert Martin](http://blog.8thlight.com/) 
+> * 译者:[zimoguo](https://github.com/zimoguo)
+> * 校对者:[Mr.Simple](https://github.com/bboyfeiyu)
 
 ![](http://blog.8thlight.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg)      
 

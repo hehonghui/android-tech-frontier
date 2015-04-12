@@ -2,6 +2,7 @@
 ---
 >
 * 原文链接 : [How to setup ACRA, an Android Application Crash Tracking system, on your own host](http://inthecheesefactory.com/blog/how-to-install-and-use-acra-android/en)
+* 作者 : [nuunei](http://inthecheesefactory.com/blog)
 * 译者 : [sundroid](https://github.com/sundroid) 
 * 校对者: [sundroid](https://github.com/sundroid) 
 * 状态 :  校对完成

@@ -3,6 +3,7 @@
 
 >
 * 原文链接 : [android ui development made easy](http://zserge.com/blog/android-mvx.html)
+* 作者 : [Zaitsev Serge](http://zserge.com/blog.html)
 * 译者 : [chaossss](https://github.com/chaossss) 
 * 校对者: [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang)  
 * 状态 :  校对完成

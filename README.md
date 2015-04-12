@@ -1,5 +1,7 @@
 # Android开发技术前线 ( android-tech-frontier )
-一个定期翻译、发布国内外Android优质的技术、开源库、软件架构设计、测试等文章的开源项目,让我们的技术跟上国际步伐。
+一个定期翻译、发布国内外Android优质的技术、开源库、软件架构设计、测试等文章的开源项目,让我们的技术跟上国际步伐。        
+
+我们翻译的文章在能够联系到作者的情况下都会在获得作者授权后进行翻译，并且公开发布。发布的文章中都会保留原文链接、作者名，如有相关的版权协议我们也会一并附上。目前已经联系到的作者列表请参考[授权文档](authorization.md);
 
 
 ## 目录
@@ -65,8 +67,8 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|
 | [符合Material Design的抽屉导航效果](androidweekly/符合Material Design的抽屉导航效果)  | [wly2014](https://github.com/wly2014)       |   [AndroidWeekly issue #145](http://androidweekly.net/issues/issue-145)    |
-| [深入了解Android Graphics Pipeline-part-1](androidweekly/深入了解Android Graphics Pipeline-part-1)  |    [dupengwei](https://github.com/dupengwei)       |   [AndroidWeekly issue #147](https://blog.inovex.de/android-graphics-pipeline-from-button-to-framebuffer-part-1/)    |
-| [深入了解Android Graphics Pipeline-part-2](androidweekly/深入了解Android Graphics Pipeline-part-2)  |    [chaossss](https://github.com/chaossss)       |   [AndroidWeekly issue #147](http://androidweekly.net/issues/issue-147)    |
+| [深入了解Android图形管道 第一部分](androidweekly/深入了解Android Graphics Pipeline-part-1)  |    [dupengwei](https://github.com/dupengwei)       |   [AndroidWeekly issue #147](https://blog.inovex.de/android-graphics-pipeline-from-button-to-framebuffer-part-1/)    |
+| [深入了解Android图形管道 第二部分](androidweekly/深入了解Android Graphics Pipeline-part-2)  |    [chaossss](https://github.com/chaossss)       |   [AndroidWeekly issue #147](http://androidweekly.net/issues/issue-147)    |
 | [Android性能案例研究续集](androidweekly/Android性能案例研究续集)  |    [shenyansycn](https://github.com/shenyansycn)       |   [AndroidWeekly issue #146](http://androidweekly.net/issues/issue-146)    |
 | [安卓的模糊视图](androidweekly/安卓的模糊视图)  |    [lvtea0105](https://github.com/lvtea0105)       |   [AndroidWeekly issue #145](http://androidweekly.net/issues/issue-145)    |
 | [Google推荐的图片加载库Glide介绍](others/Google推荐的图片加载库Glide介绍)  |    [jianghejie](https://github.com/jianghejie)       |   [inthecheesefactory.com](http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en)    |

@@ -3,11 +3,10 @@
 
 >
 * 原文链接 : [Android Uploading Camera Image, Video to Server with Progress Bar](http://www.androidhive.info/2014/12/android-uploading-camera-image-video-to-server-with-progress-bar/)
+* 作者 :  [Ravi Tamada](http://www.androidhive.info/)
 * 译者 : [chaossss](https://github.com/chaossss) 
 * 校对者: [Mr.Simple](https://github.com/bboyfeiyu)  
 * 状态 :  校对完成
-
-
 
 
 我在上一篇教程中给大家讲解了怎么通过进度条下载文件，今天，我将在这篇文章中给大家讲解如果在弹出进度条的同时上传一个文件到服务器。通过阅读这篇文章，并学习其中的知识，你能做出一个类似 Instagram 的App，在你做出的 App 里，你能够像在 Instagram 里那样用摄像头拍照/视频，然后把它们上传到服务器。在服务器端，我使用 PHP 读取上传的文件，并把文件移动到一个特殊的位置。

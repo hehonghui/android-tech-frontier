@@ -3,6 +3,7 @@
 
 >
 * 原文链接 : [Getting Started with Activity & Fragment Transitions (part 1)][source-url]
+* 作者 : [Alex Lockwood](https://plus.google.com/+AlexLockwood)
 * 译者 : [tiiime](https://github.com/tiiime)
 * 校对者: [chaossss](https://github.com/chaossss)  
 * 状态 :  校对完成
