@@ -66,6 +66,13 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 ## 2015.4.12 ( 第五期 )
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|
+| [那些年我们错过的响应式编程](androidweekly/那些年我们错过的响应式编程)  | [yaoqinwei](https://github.com/yaoqinwei)       |   [AndroidWeekly issue #145](http://androidweekly.net/issues/issue-145)    |
+| [深入浅出Android 新特性-Transition-Part-2](others/深入浅出Android 新特性-Transition-Part-2)  | [tiiime](https://github.com/tiiime)       |   [androiddesignpatterns.com](http://www.androiddesignpatterns.com/2014/12/activity-fragment-content-transitions-in-depth-part2.html)    |
+
+
+## 2015.4.12 ( 第五期 )
+| 文章名称 |   译者  |  出处  |
+|---------|--------|-------|
 | [符合Material Design的抽屉导航效果](androidweekly/符合Material Design的抽屉导航效果)  | [wly2014](https://github.com/wly2014)       |   [AndroidWeekly issue #145](http://androidweekly.net/issues/issue-145)    |
 | [深入了解Android图形管道 第一部分](androidweekly/深入了解Android Graphics Pipeline-part-1)  |    [dupengwei](https://github.com/dupengwei)       |   [AndroidWeekly issue #147](https://blog.inovex.de/android-graphics-pipeline-from-button-to-framebuffer-part-1/)    |
 | [深入了解Android图形管道 第二部分](androidweekly/深入了解Android Graphics Pipeline-part-2)  |    [chaossss](https://github.com/chaossss)       |   [AndroidWeekly issue #147](http://androidweekly.net/issues/issue-147)    |

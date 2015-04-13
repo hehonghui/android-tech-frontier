@@ -4,7 +4,7 @@
 >
 * 原文链接:[Instagram with Material Design concept is getting real ](http://frogermcs.github.io/Instagram-with-Material-Design-concept-is-getting-real/)
 * 译者 :  [jianghejie](https://github.com/jianghejie) 
-* 译者博文链接 :  [http://jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0204/2415.html](http://jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0204/2415.html)
+* 译者博文链接 :  [jcodecraeer.com](http://jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0204/2415.html)
  
 几个月前（这篇文章的日期是2014 年11月10日），google发布了app和web应用的Material Design设计准则之后，设计师Emmanuel Pacamalan在youtube上发布了一则概念视频，演示了Instagram如果做成Material风格会是什么样子：
 
