@@ -52,7 +52,10 @@ inline public fun <reified T : Activity> Activity.navigate(id: String) { 
 
 使用具体类型,我们可以在函数内部创建一个意图, 并使用扩展函数,我们可以直接调用startActivity().
 
+
+
 ### 可选参数与默认值
+
 
 由于有参数默认值和构造函数,你永远不需要重载函数了.一个声明可以满足你所有的需求.回到Toast示例:
 
@@ -97,7 +100,7 @@ navigate<DetailActivity>(id = "2", transitionName = TRANSITION_NAME)
 
 
 
-### 总结
+## 总结
 
 通过这两个优势,我们可以简化大量的代码甚至可以做那些Java中不可能的事情.Kotlin真的是简洁明了.下一篇文章将会讲解Kotlin的Android拓展,这可以让我们在Activities中自动注入视图,与如何在Kotlin中自定义View.
 
