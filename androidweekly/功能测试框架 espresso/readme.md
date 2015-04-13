@@ -5,8 +5,8 @@
 * 原文标题 : the-hitchhikers-guide-to-android-testing-part-2-espresso
 * 原文链接 : [the-hitchhikers-guide-to-android-testing-part-2-espresso](http://wiebe-elsinga.com/blog/the-hitchhikers-guide-to-android-testing-part-2-espresso/)
 * 译者 : [Lollypo](https://github.com/Lollypo) 
-* 校对者: 
-* 状态 :  未完成
+* 校对者: [kang](https://github.com/tiiime)
+* 状态 :  校对完成
 
 ![VtFd68Pr19fYk.](http://7xi8kj.com1.z0.glb.clouddn.com/VtFd68Pr19fYk.gif)
 
