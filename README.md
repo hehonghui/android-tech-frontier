@@ -67,6 +67,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 ## 2015.4.19 ( 第六期 )
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|
+| [Android性能优化系列](android-blog/Android性能优化系列)  | [胡凯](https://hukai.me)      |   [google](android-blog/Android性能优化系列/readme.md)   |
 | [那些年我们错过的响应式编程](androidweekly/那些年我们错过的响应式编程)  | [yaoqinwei](https://github.com/yaoqinwei)       |   [AndroidWeekly issue #145](http://androidweekly.net/issues/issue-145)    |
 | [深入浅出Android 新特性-Transition-Part-2](others/深入浅出Android 新特性-Transition-Part-2)  | [tiiime](https://github.com/tiiime)       |   [androiddesignpatterns.com](http://www.androiddesignpatterns.com/2014/12/activity-fragment-content-transitions-in-depth-part2.html)    |
 | [Kotlin for Android (III)-扩展函数与默认值](androidweekly/Kotlin for Android (III)-扩展函数与默认值)  | [Lollypo](https://github.com/Lollypo)      |   [AndroidWeekly issue #148](http://androidweekly.net/issues/issue-148)   |
