@@ -65,6 +65,12 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 |---------|--------|-------|
 | [那些年我们错过的响应式编程](androidweekly/那些年我们错过的响应式编程)  | [yaoqinwei](https://github.com/yaoqinwei)       |   [AndroidWeekly issue #145](http://androidweekly.net/issues/issue-145)    |
 | [深入浅出Android 新特性-Transition-Part-2](others/深入浅出Android 新特性-Transition-Part-2)  | [tiiime](https://github.com/tiiime)       |   [androiddesignpatterns.com](http://www.androiddesignpatterns.com/2014/12/activity-fragment-content-transitions-in-depth-part2.html)    |
+| [Kotlin for Android (III)-扩展函数与默认值](androidweekly/Kotlin for Android (III)-扩展函数与默认值)  | [Lollypo](https://github.com/Lollypo)      |   [AndroidWeekly issue #148](http://androidweekly.net/issues/issue-148)   |
+| [功能测试框架 espresso](androidweekly/功能测试框架 espresso)  | [Lollypo](https://github.com/Lollypo)      |   [AndroidWeekly issue #147](http://androidweekly.net/issues/issue-147)   |
+| [如何在本地搭建一个Android应用crashing跟踪系统－ACRA](others/如何在本地搭建一个Android应用crashing跟踪系统－ACRA)  | [sundroid](https://github.com/sundroid)     |   [inthecheesefactory.com](http://inthecheesefactory.com/blog/how-to-install-and-use-acra-android/en)   |
+| [实现Instagram的Material Design概念设计](others/实现Instagram的Material Design概念设计)  | [jianghejie](https://github.com/jianghejie)      |   [frogermcs.github.io](http://frogermcs.github.io/Instagram-with-Material-Design-concept-is-getting-real/)   |
+
+
 
 
 ## 2015.4.12 ( 第五期 )

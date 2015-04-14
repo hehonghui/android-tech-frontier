@@ -1,6 +1,8 @@
+Kotlin for Android (III)/ 扩展函数与默认值
+---
+
 >
-* 原文标题 : Kotlin for Android (III): Extension functions and default values
-* 原文链接 : [http://antonioleiva.com/kotlin-android-extension-functions/)
+* 原文链接 : [Kotlin for Android (III): Extension functions and default values](http://antonioleiva.com/kotlin-android-extension-functions/)
 * 译者 : [Lollypo](https://github.com/Lollypo) 
 * 校对者: [Mr.Simple](https://github.com/bboyfeiyu)
 * 状态 :  校对完成

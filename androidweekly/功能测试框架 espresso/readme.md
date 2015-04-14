@@ -2,7 +2,6 @@
 ---
 
 >
-* 原文标题 : the-hitchhikers-guide-to-android-testing-part-2-espresso
 * 原文链接 : [the-hitchhikers-guide-to-android-testing-part-2-espresso](http://wiebe-elsinga.com/blog/the-hitchhikers-guide-to-android-testing-part-2-espresso/)
 * 译者 : [Lollypo](https://github.com/Lollypo) 
 * 校对者: [kang](https://github.com/tiiime)
@@ -12,7 +11,6 @@
 
 正如[Ali Derbane](https://plus.google.com/+AliDerbane)和我写的第一篇关于Android的功能测试的文章中提到的，有许多的框架供你使用.
 在这个旅程的第二部分,我将讲解[Espresso](https://code.google.com/p/android-test-kit/)这个功能测试框架.
-
 
 
 ### 简介
