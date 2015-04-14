@@ -4,7 +4,7 @@ VectorDrawable-第二章
 >
 * 原文链接:[VectorDrawables – Part 2](https://blog.stylingandroid.com/vectordrawables-part-2/)
 * 译者 :  [jianghejie](https://github.com/jianghejie) 
-* 译者博文链接 :  [http://jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0301/2514.html](http://jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0301/2514.html)
+* 译者博文链接 :  [jcodecraeer.com](http://jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0301/2514.html)
  
 [上篇文章](http://jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0201/2396.html)    中，我们探讨了如何将svg图片转换成VectorDrawable，以在适应不同分辨率的同时减少资源文件的个数，同时也更易于维护。但是这并不是VectorDrawable的唯一好处-还可以用来制作动画。这篇文章就是关于如何用VectorDrawable来实现android机器人耸肩的效果！
 

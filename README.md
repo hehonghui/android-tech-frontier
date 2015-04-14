@@ -20,9 +20,6 @@
 
 **翻译群: 399424408, Android框架设计交流群 : 413864859.**
 
-## 微信订阅号 ( 最新文章，及时推送，赶紧扫描关注吧！ )
-![weixin](http://img.blog.csdn.net/20150320083829337)
-
 <b id="category" />
 ## 文章分类
 |   来源    |   介绍     |
@@ -63,6 +60,13 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" />
 ## 已完成列表
+## 2015.4.19 ( 第六期 )
+| 文章名称 |   译者  |  出处  |
+|---------|--------|-------|
+| [那些年我们错过的响应式编程](androidweekly/那些年我们错过的响应式编程)  | [yaoqinwei](https://github.com/yaoqinwei)       |   [AndroidWeekly issue #145](http://androidweekly.net/issues/issue-145)    |
+| [深入浅出Android 新特性-Transition-Part-2](others/深入浅出Android 新特性-Transition-Part-2)  | [tiiime](https://github.com/tiiime)       |   [androiddesignpatterns.com](http://www.androiddesignpatterns.com/2014/12/activity-fragment-content-transitions-in-depth-part2.html)    |
+
+
 ## 2015.4.12 ( 第五期 )
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|

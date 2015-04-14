@@ -4,7 +4,7 @@ VectorDrawable-第一章
 >
 * 原文链接:[VectorDrawables – Part 1](https://blog.stylingandroid.com/vectordrawables-part-1/)
 * 译者 :  [jianghejie](https://github.com/jianghejie) 
-* 译者博文链接 :  [http://jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0201/2396.html](http://jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0201/2396.html)
+* 译者博文链接 :  [jcodecraeer.com](http://jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0201/2396.html)
  
 
 Lollipop中有一个非常好的新特性是VectorDrawable以及相关的一些类，他们为我们提供了添加复杂矢量图形的强大功能，同时也提供了动画显示这些图形的方法。矢量图形的好处是放大不会失真，可以适应不同分辨率的屏幕。这个文章系列我们将了解这些类以及它们的优点，以及如何用相对较少的代码实现吸引人的效果。
