@@ -21,7 +21,7 @@
 ![schema](http://fernandocejas.com/wp-content/uploads/2014/09/clean_architecture_android.png)
 > 注：我并没有使用任何的外部库（除了用于json数据句法分析的gson和用于测试的junit, mockito, robolectric和espresso以外）。原因是它可以使这个示例更清晰。总之，在存储磁盘数据时，记得加上ORM、依赖注入框架或者你熟悉的任何工具或库，这些都会带来很大帮助。（记住：重复制造轮子可不是明智的选择）
 ## 表现层 (Presentation Layer)
-表现层在此，表现的是与视图和动画相关的逻辑。这里仅用了一个Model View Presenter（下文简称MVP），但是大家也可以用MVC或MVVM等模式。这里我不再赘述细节，但是需要强调的是，这里的fragment和activity都是View,其内部除了UI逻辑以外没有其他逻辑，这也是所有渲染的东西发生的地方。本层次的Presenter由多个interactor（用例）组成，用于完成Android UI线程以外的新线程的工作，并借助渲染到view中的数据callback函数来返回。![mvp](http://fernandocejas.com/wp-content/uploads/2014/09/clean_architecture_mvp.png) 
+表现层在此，表现的是与视图和动画相关的逻辑。这里仅用了一个Model View Presenter（下文简称MVP），但是大家也可以用MVC或MVVM等模式。这里我不再赘述细节，但是需要强调的是，这里的fragment和activity都是View,其内部除了UI逻辑以外没有其他逻辑，这也是所有渲染的东西发生的地方。本层次的Presenter由多个interactor（用例）组成，Presenter在 android UI 线程以外的新线程里工作，并通过回调将要渲染到View上的数据传递回来。![mvp](http://fernandocejas.com/wp-content/uploads/2014/09/clean_architecture_mvp.png) 
  如果你需要一个使用MVP和MVVM的[Effective Android UI](https://github.com/pedrovgs/EffectiveAndroidUI/)典型案例，可以参考我朋友Pedro Gómez的文章。## 领域层 (Domain Layer)
 这里的业务规则是指所有在本层发生的逻辑。对于Android项目来说，大家还可以看到所有的interactor（用例）实施。这一层是纯粹的java模块，没有任何的Android依赖性。当涉及到业务对象时，所有的外部组件都使用接口。    
 ![domain](http://fernandocejas.com/wp-content/uploads/2014/09/clean_architecture_domain.png) 
