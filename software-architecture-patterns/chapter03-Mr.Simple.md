@@ -60,7 +60,7 @@ The rating for each characteristic is based on the natural tendency for that cha
 评级 : 高     
 分析 : 根据实现方式，插件模块能够在运行时被动态地添加到核心系统中 （ 比如，热部署 ）,把停机时间减到最小。
 
-### Testability 可测试下Rating: HighAnalysis: Plug-in modules can be tested in isolation and can be easily mocked by the core system to demonstrate or prototype a particular feature with little or no change to the core system.
+### Testability 可测试性Rating: HighAnalysis: Plug-in modules can be tested in isolation and can be easily mocked by the core system to demonstrate or prototype a particular feature with little or no change to the core system.
 
 评级 : 高     
 分析 : 插件模块能够被独立的测试，能够非常简单地被核心系统模拟出来进行演示，或者在对核心系统很小影响甚至没有影响的情况下对一个特定的特性进行原型展示。### Performance 性能Rating: High     Analysis: While the microkernel pattern does not naturally lend itself to high-performance applications, in general, most appli‐ cations built using the microkernel architecture pattern perform well because you can customize and streamline applications to only include those features you need. The JBoss Application Server is a good example of this: with its plug-in architecture, you can trim down the application server to only those features you need, removing expensive non-used features such as remote access, messaging, and caching that consume memory, CPU, and threads and slow down the app server.
