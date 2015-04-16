@@ -73,4 +73,5 @@ The rating for each characteristic is based on the natural tendency for that cha
 ### Ease of development 易于开发Rating: Low      Analysis: The microkernel architecture requires thoughtful design and contract governance, making it rather complex to implement. Contract versioning, internal plug-in registries, plug-in granularity, and the wide choices available for plug-in connectivity all contribute to the complexity involved with implementing this pattern.
 
 评级 : 低
+
 分析 : 微内核架构需要详尽周全的设计和规约管理，这使得它实现起来相当复杂。规约版本控制，内部插件注册，插件粒度，广泛的插件连接选择，所有这些都是导致该架构的实现变得复杂的重要因素。
