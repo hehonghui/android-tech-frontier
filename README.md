@@ -20,9 +20,6 @@
 
 **翻译群: 399424408, Android框架设计交流群 : 413864859.**
 
-## 微信订阅号 ( 最新文章，及时推送，赶紧扫描关注吧！ )
-![weixin](http://img.blog.csdn.net/20150320083829337)
-
 <b id="category" />
 ## 文章分类
 |   来源    |   介绍     |
@@ -58,16 +55,27 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 ## 版权信息
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />该项目下的所有作品由<a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/bboyfeiyu/android-tech-frontier" property="cc:attributionName" rel="cc:attributionURL">Android开发技术前线</a>团队翻译，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。
 
+
+## Android优秀学习资料
+[ Android优秀学习资料整理 ](the-bad-guys/)
+
 ## 免费优秀的电子书
 1. [软件架构模式 ( 翻译中 )](software-architecture-patterns)
 
 <b id="articles" />
 ## 已完成列表
-## 2015.4.12 ( 第五期 )
+## 2015.4.19 ( 第六期 )
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|
+| [Android性能优化系列](android-blog/Android性能优化系列)  | [胡凯](https://hukai.me)      |   [google](android-blog/Android性能优化系列/readme.md)   |
 | [那些年我们错过的响应式编程](androidweekly/那些年我们错过的响应式编程)  | [yaoqinwei](https://github.com/yaoqinwei)       |   [AndroidWeekly issue #145](http://androidweekly.net/issues/issue-145)    |
 | [深入浅出Android 新特性-Transition-Part-2](others/深入浅出Android 新特性-Transition-Part-2)  | [tiiime](https://github.com/tiiime)       |   [androiddesignpatterns.com](http://www.androiddesignpatterns.com/2014/12/activity-fragment-content-transitions-in-depth-part2.html)    |
+| [Kotlin for Android (III)-扩展函数与默认值](androidweekly/Kotlin for Android (III)-扩展函数与默认值)  | [Lollypo](https://github.com/Lollypo)      |   [AndroidWeekly issue #148](http://androidweekly.net/issues/issue-148)   |
+| [功能测试框架 espresso](androidweekly/功能测试框架 espresso)  | [Lollypo](https://github.com/Lollypo)      |   [AndroidWeekly issue #147](http://androidweekly.net/issues/issue-147)   |
+| [如何在本地搭建一个Android应用crashing跟踪系统－ACRA](others/如何在本地搭建一个Android应用crashing跟踪系统－ACRA)  | [sundroid](https://github.com/sundroid)     |   [inthecheesefactory.com](http://inthecheesefactory.com/blog/how-to-install-and-use-acra-android/en)   |
+| [实现Instagram的Material Design概念设计](others/InstaMaterial概念设计系列/实现Instagram的Material Design概念设计)  | [jianghejie](https://github.com/jianghejie)      |   [frogermcs.github.io](http://frogermcs.github.io/Instagram-with-Material-Design-concept-is-getting-real/)   |
+
+
 
 
 ## 2015.4.12 ( 第五期 )
