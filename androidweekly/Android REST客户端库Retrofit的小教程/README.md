@@ -5,8 +5,8 @@
 >
 * 原文链接 : [Retrofit Android Tutorial](http://themakeinfo.com/2015/04/retrofit-android-tutorial/)
 * 译者 : [yaoqinwei](https://github.com/yaoqinwei) 
-* 校对者: [](github链接)
-* 状态 :  待校对
+* 校对者: [chaosssss](https://github.com/chaossss)
+* 状态 :  完成
 
 
 
