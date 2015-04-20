@@ -65,7 +65,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 [ Android优秀学习资料整理 ](the-bad-guys/)
 
 ## 免费优秀的电子书
-1. [软件架构模式 ( 翻译中 )](software-architecture-patterns)
+1. [软件架构模式 ](https://raw.githubusercontent.com/bboyfeiyu/android-tech-frontier/master/software-architecture-patterns/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F.pdf)
 
 <b id="articles" />
 ## 已完成列表
