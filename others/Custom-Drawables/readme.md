@@ -16,11 +16,11 @@ In my app, Fragment, there are a few places where I make use of custom Drawables
 The Use Case
 ##使用案例##
 In Fragment, there are a couple of places where we use horizontal scrollers as a selection view. This means that the center icon is the “selected” icon, and items should transition in and out of this state fluidly. For this we decided that a nice reveal transition would be great.
-在Fragment中,有一些使用水平滚动条作为一个选择视图的地方。这意味着该中心图标就是“选中”的图标,整个条目就该平滑的平移进去或平移出。为此，我们决定一个
+在Fragment中,有一些使用水平滚动条作为一个选择视图的地方。这意味着该中心图标就是“选中”的图标,整个条目就该平滑的平移进去或平移出。为此，我们决定揭示一个很好的平移。
 ![](http://www.ryanharter.com/images/posts/custom-drawables/example.gif)
 While this wasn’t entirely necessary, I felt that it was a effect that made the motion feel very fluid and added a touch of class to the app. I could have set up multiple image views and make parts of them individual, but this was the perfect place for a custom drawables.
-虽然这并非完全必要，但我觉得它是一个能让这个滑动更加流畅的效果，并增加一个触摸的类在app上。我可以设置多个image views并让他们每个独立出来，但这真是使用自定义drawables的好地方~
----
+虽然这并非完全必要，但我觉得它是一个能让这个滑动更加流畅的效果，并增加一个触摸的类在app上。我可以设置多个imageviews并让他们每个独立出来，但这真是使用自定义drawables的好地方~
+
 Customizing Drawables
 ##自定义Drawables##
 
