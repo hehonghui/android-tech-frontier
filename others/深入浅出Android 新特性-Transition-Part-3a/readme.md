@@ -89,7 +89,7 @@ Recall from the previous two posts that a Transition has two main responsibiliti
 
 Similar to how content transitions operate under-the-hood, the framework feeds the shared element transition this state information by directly modifying each shared element's view properties at runtime. More specifically, when Activity A starts Activity B the following sequence of events occurs:2
 
-##共享元素 Transitions 底层深入
+##深入共享元素 Transitions 底层
 
 之前的文章已经介绍过 Transition 的两个主要任务分别是获取目标视图的 开始&结束 状态和创建这两个状态间视图的过渡动画(Animator)。共享元素 Transition 也一样：
 在创建动画前需要捕获每一个
