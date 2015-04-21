@@ -1,15 +1,11 @@
 ## Android测试框架: Dagger 2 + Espresso 2 + Mockito
-(by [@Chiu-Ki Chan](http://www.blogger.com/profile/01970007638489793840))
 ---
 
->
-* 原文链接 : [Dagger 2 + Espresso 2 + Mockito](http://blog.sqisland.com/2015/04/dagger-2-espresso-2-mockito.html)
+>* 原文链接 : [Dagger 2 + Espresso 2 + Mockito](http://blog.sqisland.com/2015/04/dagger-2-espresso-2-mockito.html)
+> * [译文出自 :  开发技术前线 www.devtf.cn](www.devtf.cn)
 * 译者 : [yaoqinwei](https://github.com/yaoqinwei) 
 * 校对者: [chaossss](https://github.com/chaossss)
 * 状态 :  完成
-
-
-
 
 我一直在用Dagger, Espresso和Mockito做Android测试，爱死这个组合了！为了庆祝[Dagger 2](http://google.github.io/dagger/)的推出，我分享了一个用Dagger 2, Espresso 2和Mockito做Android测试的[Demo](https://github.com/chiuki/android-test-demo)
 
@@ -95,9 +91,8 @@ onView(withId(R.id.date)).check(matches(withText("2008-09-23")));
 
 相关阅读:
 
->
-* Instrumentation Testing with Dagger, Mockito, and Espresso
-* A JUnit @Rule which launches an activity when your test starts
-* EspressoStartGuide
-* What’s new in Android Testing
-* https://github.com/googlesamples/android-testing
+>* [Instrumentation Testing with Dagger, Mockito, and Espresso](http://engineering.circle.com/instrumentation-testing-with-dagger-mockito-and-espresso/)
+* [A JUnit @Rule which launches an activity when your test starts](https://gist.github.com/JakeWharton/1c2f2cadab2ddd97f9fb)
+* [EspressoStartGuide](https://code.google.com/p/android-test-kit/wiki/EspressoStartGuide) 
+* [What’s new in Android Testing](http://wiebe-elsinga.com/blog/whats-new-in-android-testing/)
+* [https://github.com/googlesamples/android-testing](https://github.com/googlesamples/android-testing)

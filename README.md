@@ -64,6 +64,16 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" />
 ## 已完成列表
+
+# 2015.4.26 ( 第七期 )
+| 文章名称 |   译者  |  出处  |
+|---------|--------|-------|
+| [使用Robolectric和Android生成代码覆盖率报告](issue-7/使用Robolectric和Android生成代码覆盖率报告)  | [normalme](https://github.com/normalme)      |   [raptordigital.blogspot.com](http://raptordigital.blogspot.com/2014/08/code-coverage-reports-using-robolectric.html)   |
+| [Android REST客户端库Retrofit的小教程](issue-7/Android REST客户端库Retrofit的小教程)  | [yaoqinwei](https://github.com/yaoqinwei)      |   [androidweekly-issue-148](http://androidweekly.net/issues/issue-148)   |
+| [Android测试框架:Dagger2+Espresso2+Mockito](issue-7/Android测试框架：Dagger2+Espresso2+Mockito)  | [yaoqinwei](https://github.com/yaoqinwei)      |   [androidweekly-issue-148](http://androidweekly.net/issues/issue-148)   |
+
+
+
 ## 2015.4.19 ( 第六期 )
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|
