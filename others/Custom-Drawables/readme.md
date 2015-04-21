@@ -10,7 +10,7 @@
 We’ve all seen posts about why you should use custom views when applicable and how it can help you properly encapsulate your application code. What we don’t see quite as much is how this type of thinking can be translated to other, non-View related, portions of our apps.
 我们都看过关于为什么你应该适当的使自定义Views和如何能帮助你正确的封装你的应用程序代码的帖子。但非视图相关的部分如何转化为我们apps的其他部分的这种思考方式，我们对此并不非常了解。
 
-In my app, Fragment, there are a few places where I make use of custom Drawables to encapsulate my logic just like you would for a custom View.
+In my app, [Fragment](https://play.google.com/store/apps/details?id=com.pixite.fragment&referrer=utm_source%3Dryanharter.com%26utm_medium%3Dpost%26utm_content%3Dcustom_drawables), there are a few places where I make use of custom Drawables to encapsulate my logic just like you would for a custom View.
 在我的应用Fragment中,有些地方我使用自定义Drawables来封装我的逻辑，就像你在customView中做的一样。
 
 The Use Case
