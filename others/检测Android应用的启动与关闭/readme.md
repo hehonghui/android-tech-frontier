@@ -25,7 +25,7 @@ Lets Get Started
 At the core of determining if an application is opened or closed is if any of its activities are currently being displayed. So lets take a very simple example; an application that has exactly one Activity, and does not support landscape mode. All it would take to determine when the application opened or closed would be the Activity’s onStart and onStop methods.
 
 ## 入门指南
-应用的activitie是否显示在界面是决定应用是打开还是关闭的核心因素。我们先来看一个简单的例子，一个应用只有一个activity并且不支持横屏，这个activity的onstart和onstop方法就决定了这个应用是打开的还是关闭的。
+应用的activity是否显示在界面是决定应用是打开还是关闭的核心因素。我们先来看一个简单的例子，一个应用只有一个activity并且不支持横屏，这个activity的onstart和onstop方法就决定了这个应用是打开的还是关闭的。
 ```java
 @Override
 protected void onStart() {
@@ -57,10 +57,11 @@ So using this technique I created a manager class that all Activities report to 
 
 所以利用这个技巧，我创建了一个管理activity的类，当activity的可见性发生变化的时候都要报告给这个管理类。这个类为每个activity处理验证步骤，避免意外的验证。我们同样利用了“发布-订阅”（观察者）模式，使得其他相关的类能够收到程序打开或关闭的通知。
 
-##使用三步走
+To use this manager there are three steps:
+##使用这个管理类的三个步骤
 
 1) Add it to your codebase
-###1) 加入代码库
+###1) 将下面的代码添加到你的代码库
 ```java
 import android.app.Activity;
 import android.os.Handler;
@@ -283,7 +284,7 @@ public class MyApplication extends Application {
 Further thought
 
 There are a few details that need further discussion.  These changes may need to be made in order to calibrate this for your particular application.
-##深层思考
+##深入思考
 有一些细节还需要再讨论。你需要做一些改变来适配你的应用。
 
 Validation Time
@@ -404,6 +405,7 @@ public void onCreate(Bundle savedInstanceState) {
 ```
 
 And there you have it! You can now detect not only when the app is opened or closed, but how it was opened as well.
+
 终于完成了。现在你不仅可以检测应用什么时候启动或关闭的，还可以检测出它是如何启动的。
 
 
