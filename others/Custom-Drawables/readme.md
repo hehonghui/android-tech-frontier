@@ -8,15 +8,18 @@
 * 状态 :  申请校对
 
 We’ve all seen posts about why you should use custom views when applicable and how it can help you properly encapsulate your application code. What we don’t see quite as much is how this type of thinking can be translated to other, non-View related, portions of our apps.
-我们都看过关于为什么你应该适当的使用自定义Views和如何能帮助你正确的封装你的应用程序代码的帖子。这种思考方式如何转化为我们apps的其他部分，即非视图相关的部分，我们对此并不非常了解。
+我们都看过关于为什么你应该适当的使自定义Views和如何能帮助你正确的封装你的应用程序代码的帖子。但非视图相关的部分如何转化为我们apps的其他部分的这种思考方式，我们对此并不非常了解。
 
 In my app, Fragment, there are a few places where I make use of custom Drawables to encapsulate my logic just like you would for a custom View.
-在我的应用Fragment中,有些地方我使用自定义Drawables来封装我的逻辑，就像你在自定义view中做的一样。
+在我的应用Fragment中,有些地方我使用自定义Drawables来封装我的逻辑，就像你在customView中做的一样。
 
 The Use Case
 ##使用案例##
 In Fragment, there are a couple of places where we use horizontal scrollers as a selection view. This means that the center icon is the “selected” icon, and items should transition in and out of this state fluidly. For this we decided that a nice reveal transition would be great.
+在Fragment中,有一些使用水平滚动条作为一个选择视图的地方。这意味着该中心图标就是“选中”的图标,整个条目就该平滑的平移进去或平移出。为此，我们决定一个
+![](http://www.ryanharter.com/images/posts/custom-drawables/example.gif)
 While this wasn’t entirely necessary, I felt that it was a effect that made the motion feel very fluid and added a touch of class to the app. I could have set up multiple image views and make parts of them individual, but this was the perfect place for a custom drawables.
+虽然这并非完全必要，但我觉得它是一个能让这个滑动更加流畅的效果，并增加一个触摸的类在app上。我可以设置多个image views并让他们每个独立出来，但这真是使用自定义drawables的好地方~
 ---
 Customizing Drawables
 ##自定义Drawables##
