@@ -77,6 +77,8 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | [Retrofit开发指南](issue-7/Retrofit开发指南)  | [yaoqinwei](https://github.com/yaoqinwei)      |   [androidweekly-issue-148](http://androidweekly.net/issues/issue-148)   |
 | [Android测试框架:Dagger2+Espresso2+Mockito](issue-7/Android测试框架：Dagger2+Espresso2+Mockito)  | [yaoqinwei](https://github.com/yaoqinwei)      |   [androidweekly-issue-148](http://androidweekly.net/issues/issue-148)   |
 | [在Activity中使用Thread导致的内存泄漏](issue-7/在Activity中使用Thread导致的内存泄漏)  | [chaossss](https://github.com/chaossss)      |   [androidweekly-issue-148](http://androidweekly.net/issues/issue-148)   |
+| [深入浅出Android 新特性-Transition-Part-3a](issue-7/深入浅出Android 新特性-Transition-Part-3a)  | [tiiime](https://github.com/tiiime)      |   [androiddesignpatterns.com](http://www.androiddesignpatterns.com/2015/01/activity-fragment-shared-element-transitions-in-depth-part3a.html)   |
+| [深入浅出Android 新特性-Transition-Part-3b](issue-7/深入浅出Android 新特性-Transition-Part-3b)  | [tiiime](https://github.com/tiiime)      |   [androiddesignpatterns.com](http://www.androiddesignpatterns.com/2015/01/activity-fragment-shared-element-transitions-in-depth-part3b.html)   |
 
 
 
