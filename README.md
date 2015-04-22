@@ -76,6 +76,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | [使用Robolectric和Android生成代码覆盖率报告](issue-7/使用Robolectric和Android生成代码覆盖率报告)  | [normalme](https://github.com/normalme)      |   [raptordigital.blogspot.com](http://raptordigital.blogspot.com/2014/08/code-coverage-reports-using-robolectric.html)   |
 | [Retrofit开发指南](issue-7/Retrofit开发指南)  | [yaoqinwei](https://github.com/yaoqinwei)      |   [androidweekly-issue-148](http://androidweekly.net/issues/issue-148)   |
 | [Android测试框架:Dagger2+Espresso2+Mockito](issue-7/Android测试框架：Dagger2+Espresso2+Mockito)  | [yaoqinwei](https://github.com/yaoqinwei)      |   [androidweekly-issue-148](http://androidweekly.net/issues/issue-148)   |
+| [在Activity中使用Thread导致的内存泄漏](issue-7/在Activity中使用Thread导致的内存泄漏)  | [chaossss](https://github.com/chaossss)      |   [androidweekly-issue-148](http://androidweekly.net/issues/issue-148)   |
 
 
 
