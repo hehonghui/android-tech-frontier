@@ -156,10 +156,3 @@ What works one way, can always work the other — which means that if you ar
 什么是单向的，可以做其他工作的，这就意味着如果你正在开发一个Wear-enabled用用程序，其他的开发人员可能会回复你的通知，后来出现RemoteInput黑客，让我们想想如何保持安全。最简单的方法是生成一些ID对于每个通知并且允许他们只能使用一次，这样任何应用程序使用这个技巧不会发送过多的消息到你的应用程序。另一个方法是在Bundle中不包括一些参数，但是作为一个例子Tag中的Notification比较后接受。 这可能是我们为什么不能让黑客工作在Hangouts。从另一方面来讲，如果你是使用者你应该更加关注那些曾获取“reading notifications”应用程序，因为他现在也允许应用程序与他们互动。如果你想要一个测验或者帮助我们对于Hangouts的工作，这个样品在[Github](https://github.com/tajchert/NotificationResponse)上
 
 
-
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 08880d8199ad2c4797b5bd33f47f4d2d6b034cd9
-
