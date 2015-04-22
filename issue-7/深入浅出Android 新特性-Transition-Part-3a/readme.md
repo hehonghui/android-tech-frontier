@@ -4,27 +4,11 @@
 >
 * 原文链接 :  [Shared Element Transitions In-Depth (part 3a)][source-url]
 * 译者 : [tiiime](https://github.com/tiiime)
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  未完成 / 校对中 / 完成
-
-#Shared Element Transitions In-Depth (part 3a)
+* 校对者: [Mr.Simple](https://github.com/bboyfeiyu)  
+* 状态 :  完成
 
 
-This post will give an in-depth analysis of shared element transitions and their role in the Activity and Fragment Transitions API. This is the third of a series of posts I will be writing on the topic:
 
-- Part 1: Getting Started with Activity & Fragment Transitions
-- Part 2: Content Transitions In-Depth
-- Part 3a: Shared Element Transitions In-Depth
-- Part 3b: Postponed Shared Element Transitions
-- Part 3c: Implementing Shared Element Callbacks (coming soon!)
-- Part 4: Activity & Fragment Transition Examples (coming soon!)
-
-Part 3 of this series will be broken up into three parts: part 3a will focus on how shared elements operate under-the-hood and part 3b and part 3c will focus more on the implementation-specific details of the API, such as the importance of postponing certain shared element transitions and implementing SharedElementCallbacks.
-
-We begin by summarizing what we learned about shared element transitions in part 1 and illustrating how they can be used to achieve smooth, seamless animations in Android Lollipop.
-
-
----
 ##深入理解共享元素 Transition
 
 这篇文章会深度分析共享元素 transitions 和它在 Activity & Fragment Transitions API 中的作用。这篇文章是下面这个系列中的第三篇：
@@ -42,15 +26,6 @@ Part 3 会分成三个部分: part3a 介绍 共享元素 transitions 的底层�
 
 我们首先会总结下在 [part 1][part-1] 中提到的关于 共享元素 transition 的知识点，然后说一说在 Android Lollipop 中是怎样使用它来构建合适的过渡动画。
 
----
-
-What is a Shared Element Transition?
-
-A shared element transition determines how shared element views—also called hero views—are animated from one Activity/Fragment to another during a scene transition. Shared elements are animated by the called Activity/Fragment's enter and return shared element transitions,1 each of which can be specified using the following Window and Fragment methods:
-
-- setSharedElementEnterTransition() - B's enter shared element transition animates shared element views from their starting positions in A to their final positions in B.
-- setSharedElementReturnTransition() - B's return shared element transition animates shared element views from their starting positions in B to their final positions in A.
-
 ##什么是 共享元素 Transition ?
 
 共享元素 transition 决定了 共享元素 视图(也叫做主角视图)在
@@ -64,30 +39,14 @@ Activity/Fragment 场景过渡时的动画效果。共享元素 的动画
 - **setSharedElementReturnTransition()**  - **B** 的 **返回** 共享元素 transition ，执行将 
 	共享元素视图 从 **B** 中起始位置移动到它在 **A** 中的最终位置的动画。
 
----
-
-Video 3.1 illustrates how shared element transitions are used in the Google Play Music app. The transition consists of two shared elements: an ImageView and its parent CardView. During the transition, the ImageView seamlessly animates between the two activities while the CardView gradually expands/contracts into place.
-
 [**Video 3.1**][video-3.1] 展示了在 Google Play Music 中是怎样使用共享元素 transition 
 的。这个 transition 包含两个元素：一个 **ImageView**和它的父视图 **CardView**。
 Transition 期间，**CardView** 会扩展到全屏或收缩回原状， 
 **ImageView** 能在这两个 Activity 里无缝的衔接。
 
----
-
-Whereas part 1 only briefly introduced the subject, this blog post aims to give a much more in-depth analysis of shared element transitions. How are shared element transitions triggered under-the-hood? Which types of Transition objects can be used? How and where are shared element views drawn during the transition? In the next couple sections, we'll tackle these questions one-by-one.
-
 在 [part1 ][part-1] 里只是简单的介绍了下这个话题，这篇文章将会对 共享元素 transition
 做更深度的分析。例如 共享元素 Transition 在底层是如何实现的？都有哪些类型的 Transition 对象可以使用? Transition 期间 共享元素视图 是在哪里怎样绘制的？接下来的几章里
 我们会逐个解答这些问题。
-
----
-
-##Shared Element Transitions Under-The-Hood
-
-Recall from the previous two posts that a Transition has two main responsibilities: capturing the start and end state of its target views and creating an Animator that will animate the views between the two states. Shared element transitions operate no differently: before a shared element transition can create its animation, it must first capture each shared element's start and end state—namely its position, size, and appearance in both the calling and called Activities/Fragments. With this information, the transition can determine how each shared element view should animate into place.
-
-Similar to how content transitions operate under-the-hood, the framework feeds the shared element transition this state information by directly modifying each shared element's view properties at runtime. More specifically, when Activity A starts Activity B the following sequence of events occurs:2
 
 ##深入共享元素 Transitions 底层
 
@@ -103,14 +62,6 @@ Similar to how content transitions operate under-the-hood, the framework feeds t
 
 ---
 
-1. Activity A calls startActivity() and Activity B is created, measured, and laid out with an initially translucent window and transparent window background color.
-2. The framework repositions each shared element view in B to match its exact size and location in A. Shortly after, B's enter transition captures the start state of all the shared elements in B.
-3. The framework repositions each shared element view in B to match its final size and location in B. Shortly after, B's enter transition captures the end state of all the shared elements in B.
-4. B's enter transition compares the start and end state of its shared element views and creates an Animator based on the differences.
-5. The framework instructs A to hide its shared element views from sight and the resulting Animator is run. As B's shared element views animate into place, B's window background gradually fades in on top A until B is entirely opaque and the transition completes.
-
----
-
 1. Activity **A** 调用 **startActivity()** 构造，测量，布局了一个
 	最初背景色为透明的半透明窗口 Activity **B** 。
 2. 框架将 **B** 中每一个共享元素视图复位到对应的原来在 **A** 中时的位置，接着 **B** 的进入 transition 捕获 **B** 中所有共享元素视图的起始状态。
@@ -120,17 +71,7 @@ Similar to how content transitions operate under-the-hood, the framework feeds t
 5. 框架命令 **A** 隐藏共享元素视图，并运行返回的 **Animator**。**B** 中的
 	共享元素视图到位之后，**B** 的窗口背景在 **A **上逐渐显示，直到 **B** 
 	完全的显示出来，transition 运行完毕。
-
 ---
-
-Whereas content transitions are governed by changes to each transitioning view's visibility, shared element transitions are governed by changes to each shared element view's position, size, and appearance. As of API 21, the framework provides several different Transition implementations that can be used to customize how shared elements are animated during a scene change:
-
-- ChangeBounds - Captures the layout bounds of shared element views and animates the differences. ChangeBounds is frequently used in shared element transitions, as most shared elements will differ in size and/or location within either of the two Activities/Fragments.
-- ChangeTransform - Captures the scale and rotation of shared element views and animates the differences.3
-- ChangeClipBounds - Captures the clip bounds of shared element views and animates the differences.
-- ChangeImageTransform - Captures the transform matrices of shared element ImageViews and animates the differences. In combination with ChangeBounds, this transition allows ImageViews that change in size, shape, and/or ImageView.ScaleType to animate smoothly and efficiently.
-- @android:transition/move - A TransitionSet that plays all four transition types above in parallel. As discussed in part 1, if an enter/return shared element transition is not explicitly specified, the framework will run this transition by default.
-
 
 Content transitions 是根据每个过渡视图的可见性变化来调节的，**共享元素 transition 
 是根据每个共享元素视图的位置，大小和外观的变化来调节的**。从 API 21 开始，框架提供了
@@ -153,8 +94,6 @@ Content transitions 是根据每个过渡视图的可见性变化来调节的，
 	
 ---
 
-In the example above, we also can see that shared element view instances are not actually "shared" across Activities/Fragments. In fact, almost everything the user sees during both enter and return shared element transitions is drawn directly inside B's content view. Instead of somehow transferring the shared element view instance from A to B, the framework uses a different means of achieving the same visual effect. When A starts B, the framework collects all of the relevant state information about the shared elements in A and passes it to B. B then uses this information to initialize the start state of its shared elements views, each of which will initially match the exact position, size, and appearance they had in A. When the transition begins, everything in B except the shared elements are initially invisible to the user. As the transition progresses, however, the framework gradually fades in B's Activity window until the shared elements in B finish animating and B's window background is opaque
-
 在上面的例子中，我们还可以发现 **共享元素视图实例并没有在 Activities/Fragments 间
 “共享”**。事实上，进入/返回 共享元素 transitions期间，用户看到的绝大多数东西都是在
 **B** 的 content view 中绘制的。框架并没有从 **A** 向 **B** 
@@ -167,9 +106,6 @@ In the example above, we also can see that shared element view instances are not
 中共享元素结束动画窗口变为不透明。
 
 ---
-##Using the Shared Element Overlay(4)
-
-Finally, before we can gain a complete understanding of how shared element transitions are drawn by the framework, we must discuss the shared element overlay. Although not immediately obvious, shared elements are drawn on top of the entire view hierarchy in the window's ViewOverlay by default. In case you haven't heard of it before, the ViewOverlay class was introduced in API 18 as a way to easily draw on top of a View. Drawables and views that are added to a view's ViewOverlay are guaranteed to be drawn on top of everything else—even a ViewGroup's children. With this in mind, it makes sense why the framework would choose to draw shared elements in the window's ViewOverlay on top of everything else in the view hierarchy by default. Shared elements views should be the focus throughout the entire transition; the possibility of transitioning views accidentally drawing on top of the shared elements would immediately ruin the effect.5
 
 ##使用共享元素 Overlay <a id="4" href="#b4">(4)</a>
 最后，如果想要完全理解共享元素 transition 的运作，我们必须先说说共享元素 overlay。
@@ -186,8 +122,6 @@ Finally, before we can gain a complete understanding of how shared element trans
 
 ---
 
-Although shared elements are drawn in the shared element ViewOverlay by default, the framework does give us the ability to disable the overlay by calling theWindow#setSharedElementsUseOverlay(false) method, just in case you ever find it necessary. If you ever do choose to disable the overlay, be wary of the undesired side-effects it might cause. As an example, Video 3.2 runs a simple shared element transition twice, with and without the shared element overlay enabled respectively. The first time the transition is run, the shared element ImageView animates as expected in the shared element overlay, on top of all other views in the hierarchy. The second time the transition is run, however, we can clearly see that disabling the overlay has introduced a problem. As the bottom transitioning view slides up into the called Activity's content view, the shared element ImageView is partially covered as and is drawn below the transitioning view for nearly the first half of the transition. Although there is a chance that this could be fixed by altering the order in which views are drawn in the layout and/or by setting setClipChildren(false) on the shared element's parent, these sort of "hacky" modifications can easily become unmanagable and more trouble than they are worth. In short, try not to disable the shared element overlay unless you find it absolutely necessary, and you'll likely benefit from simpler and more dramatic shared element transitions as a result.
-
 虽然共享元素默认绘制在共享元素的 ViewOverlay 之中，但是
 框架也提供了关闭 overlay 的方法，只要调用
 [Window#setSharedElementsUseOverlay(false) ][setsharedelementuseoverlay] 
@@ -202,17 +136,6 @@ Although shared elements are drawn in the shared element ViewOverlay by default,
  相比真是得不偿失。总之，除非你感觉必须要关掉共享元素 overlay 才能达到你想要的效果，
  其他情况尽量不要关闭它，这样会保持代码简洁，并且共享元素 transition 效果更引人注目。
  
- ---
- 
- Conclusion
-
-Overall, this post presented three important points:
-
-A shared element transition determines how shared element views—also called hero views—are animated from one Activity/Fragment to another during a scene transition.
-Shared element transitions are governed by changes to each shared element view's position, size, and appearance.
-Shared elements are drawn on top of the entire view hierarchy in the window's ViewOverlay by default.
-As always, thanks for reading! Feel free to leave a comment if you have any questions, and don't forget to +1 and/or share this blog post if you found it helpful!
-
 ##结语
 
 综上所诉，这篇文章讲了三个重点:
