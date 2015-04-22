@@ -14,8 +14,13 @@
 2. 在对应分类里面创建一个文件夹，文件夹命名格式为: 中文标题名，比如Android MVP模式与实践;
 3. 在该文件夹中创建readme.md(文章所需图片请存放到图床上，不要放在仓库中,图片宽度尽量控制在400 px左右);
 3. 将模板[template.md](template.md)中的内容拷贝到readme.md，按照模板填写、翻译完内容,完成翻译后将状态修改为"校对中",提交pull request到本项目;
-4. 管理员校对完成之后便会发布.   
+4. 管理员校对完成之后便会发布.  
 
+## 注意事项
+1. 在翻译文章时，保留专有名词；
+2. 在忠于原文的基础上，进行适当的意译，以适应国人阅读习惯；
+3. 当翻译完成后，通读一遍，检查语句是否通顺，有无错别字等问题；
+ 
 [参与翻译、校对的流程](翻译项目协作流程.md)
 
 **翻译群: 399424408, Android框架设计交流群 : 413864859.**
@@ -60,10 +65,20 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 [ Android优秀学习资料整理 ](the-bad-guys/)
 
 ## 免费优秀的电子书
-1. [软件架构模式 ( 翻译中 )](software-architecture-patterns)
+1. [软件架构模式 ](https://raw.githubusercontent.com/bboyfeiyu/android-tech-frontier/master/software-architecture-patterns/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F.pdf)
 
 <b id="articles" />
 ## 已完成列表
+
+# 2015.4.26 ( 第七期 )
+| 文章名称 |   译者  |  出处  |
+|---------|--------|-------|
+| [使用Robolectric和Android生成代码覆盖率报告](issue-7/使用Robolectric和Android生成代码覆盖率报告)  | [normalme](https://github.com/normalme)      |   [raptordigital.blogspot.com](http://raptordigital.blogspot.com/2014/08/code-coverage-reports-using-robolectric.html)   |
+| [Retrofit开发指南](issue-7/Retrofit开发指南)  | [yaoqinwei](https://github.com/yaoqinwei)      |   [androidweekly-issue-148](http://androidweekly.net/issues/issue-148)   |
+| [Android测试框架:Dagger2+Espresso2+Mockito](issue-7/Android测试框架：Dagger2+Espresso2+Mockito)  | [yaoqinwei](https://github.com/yaoqinwei)      |   [androidweekly-issue-148](http://androidweekly.net/issues/issue-148)   |
+
+
+
 ## 2015.4.19 ( 第六期 )
 | 文章名称 |   译者  |  出处  |
 |---------|--------|-------|

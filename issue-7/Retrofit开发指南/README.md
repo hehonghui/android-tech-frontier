@@ -1,15 +1,11 @@
-## Android REST客户端库Retrofit的小教程
-(by [@makeinfo14](http://themakeinfo.com/author/makeinfo14/))
+## Retrofit指南
 ---
 
->
-* 原文链接 : [Retrofit Android Tutorial](http://themakeinfo.com/2015/04/retrofit-android-tutorial/)
+>* 原文链接 : [Retrofit Android Tutorial](http://themakeinfo.com/2015/04/retrofit-android-tutorial/)
+> * [译文出自 :  开发技术前线 www.devtf.cn](www.devtf.cn)
 * 译者 : [yaoqinwei](https://github.com/yaoqinwei) 
 * 校对者: [chaosssss](https://github.com/chaossss)
 * 状态 :  完成
-
-
-
 
 这是一篇关于如何使用Retrofit写一个Android的REST客户端的小教程。
 
