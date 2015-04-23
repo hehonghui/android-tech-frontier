@@ -79,7 +79,8 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | [在Activity中使用Thread导致的内存泄漏](issue-7/在Activity中使用Thread导致的内存泄漏)  | [chaossss](https://github.com/chaossss)      |  
 | [深入浅出Android 新特性-Transition-Part-3a](issue-7/深入浅出Android 新特性-Transition-Part-3a)  | [tiiime](https://github.com/tiiime)      |   
 | [深入浅出Android 新特性-Transition-Part-3b](issue-7/深入浅出Android 新特性-Transition-Part-3b)  | [tiiime](https://github.com/tiiime)      |  
-| [Android Lollipop 5.1.1 更新](issue-7/Android Lollipop update.md)  | [Mr.Simple](https://github.com/bboyfeiyu)      
+| [Android Lollipop 5.1.1 更新](issue-7/Android Lollipop update.md)  | [Mr.Simple](https://github.com/bboyfeiyu) 
+| [Android Support 库 22.1版](issue-7/Android Support 库 22.1版.md)  | [Rocko](https://github.com/zhengxiaopeng) |     
 
 
 

@@ -1,4 +1,4 @@
-`Android Support库 22.1 `
+Android Support库 22.1 
 ---
 
 > * 原文链接 : [Android Support Library 22.1](http://android-developers.blogspot.com/2015/04/android-support-library-221.html)
@@ -7,8 +7,6 @@
 * 译者 : [Rocko](https://github.com/zhengxiaopeng) 
 * 校对者: [chaossss](https://github.com/chaossss)  
 * 状态 :  校对完成
-
-
 
 
 你可能听过这么一句话 “最好的代码就是没有代码。” 然而我想对你说的是：你写下的每一行代码应该能为应用增加独特的价值，而不是为应用添加一行又一行繁复、无趣的模板代码。Android提供支持库的初衷正是如此：让 Android 开发工程师把精力更多地放在逻辑实现上，而不是写业务代码。
