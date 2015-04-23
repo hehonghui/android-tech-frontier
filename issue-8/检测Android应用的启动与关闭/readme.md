@@ -6,6 +6,7 @@
 * [译文出自 :  开发技术前线 www.devtf.cn](www.devtf.cn)
 * 译者 : [xianjiajun](https://github.com/xianjiajun) 
 * 校对者: [Mr.Simple](https://github.com/bboyfeiyu)  
+* 校对者: [chaossss](https://github.com/chaossss)
 * 状态 :  完成
 
 
@@ -58,9 +59,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * This class is responsible for tracking all currently open activities.
- * By doing so this class can detect when the application is in the foreground
- * and when it is running in the background.
+ * 这个类用于追踪当前所有启动的Activity，使得我们能判断应用是否在后台运行。
  */
 public class AppForegroundStateManager {
     private static final String TAG = AppForegroundStateManager.class.getSimpleName();
@@ -71,7 +70,7 @@ public class AppForegroundStateManager {
     private AppForegroundState mAppForegroundState = AppForegroundState.NOT_IN_FOREGROUND;
     private NotifyListenersHandler mHandler;
 
-    // Make this class a thread safe singleton
+    // 获得一个线程安全的类实例
     private static class SingletonHolder {
         public static final AppForegroundStateManager INSTANCE = new AppForegroundStateManager();
     }
@@ -81,7 +80,7 @@ public class AppForegroundStateManager {
     }
 
     private AppForegroundStateManager() {
-        // Create the handler on the main thread
+        // 在主线程创建一个 handler
         mHandler = new NotifyListenersHandler(Looper.getMainLooper());
     }
 
@@ -91,22 +90,22 @@ public class AppForegroundStateManager {
     }
 
     public interface OnAppForegroundStateChangeListener {
-        /** Called when the foreground state of the app changes */
+        /** 当应用状态发生改变时这个方法被调用（隐藏到后台或显示到前台） */
         public void onAppForegroundStateChange(AppForegroundState newState);
     }
 
-    /** An activity should call this when it becomes visible */
+    /** 当 Activity 可见时应该调用这个方法 */
     public void onActivityVisible(Activity activity) {
         if (mForegroundActivity != null) mForegroundActivity.clear();
         mForegroundActivity = new WeakReference<>(activity);
         determineAppForegroundState();
     }
 
-    /** An activity should call this when it is no longer visible */
+    /** 当 Activity 不再可见时应该调用这个方法 */
     public void onActivityNotVisible(Activity activity) {
         /*
-         * The foreground activity may have been replaced with a new foreground activity in our app.
-         * So only clear the foregroundActivity if the new activity matches the foreground activity.
+         * 前台 Activity 可能会被一个新的 Activity 替换。
+         * 如果新 Activity 与前台 Activity 匹配，仅仅清除前台 Activity
          */
         if (mForegroundActivity != null) {
             Activity ref = mForegroundActivity.get();
@@ -121,30 +120,30 @@ public class AppForegroundStateManager {
         determineAppForegroundState();
     }
 
-    /** Use to determine if this app is in the foreground */
+    /** 用于判断应用是否处于前台 */
     public Boolean isAppInForeground() {
         return mAppForegroundState == AppForegroundState.IN_FOREGROUND;
     }
 
     /**
-     * Call to determine the current state, update the tracking global, and notify subscribers if the state has changed.
+     * 用于判断当前状态，更新追踪的目标，并通知所有观察者状态是否发生了改变
      */
     private void determineAppForegroundState() {
-        /* Get the current state */
+        /* 获取当前状态 */
         AppForegroundState oldState = mAppForegroundState;
 
-        /* Determine what the new state should be */
+        /* 决定当前状态 */
         final boolean isInForeground = mForegroundActivity != null && mForegroundActivity.get() != null;
         mAppForegroundState = isInForeground ? AppForegroundState.IN_FOREGROUND : AppForegroundState.NOT_IN_FOREGROUND;
 
-        /* If the new state is different then the old state the notify subscribers of the state change */
+        /* 如果新的状态与之前的状态不一样，则之前的状态需要通知所有观察者状态发生了改变 */
         if (mAppForegroundState != oldState) {
             validateThenNotifyListeners();
         }
     }
 
     /**
-     * Add a listener to be notified of app foreground state change events.
+     * 添加一个用于监听前台应用状态的监听器
      *
      * @param listener
      */
@@ -153,7 +152,7 @@ public class AppForegroundStateManager {
     }
 
     /**
-     * Remove a listener from being notified of app foreground state change events.
+     * 移除用于监听前台应用状态的监听器
      *
      * @param listener
      */
@@ -161,7 +160,7 @@ public class AppForegroundStateManager {
         mListeners.remove(listener);
     }
 
-    /** Notify all listeners the app foreground state has changed */
+    /** 通知所有监听器前台应用状态发生了改变 */
     private void notifyListeners(AppForegroundState newState) {
         android.util.Log.i(TAG, "Notifying subscribers that app just entered state: " + newState);
 
@@ -171,12 +170,12 @@ public class AppForegroundStateManager {
     }
 
     /**
-     * This method will notify subscribes that the foreground state has changed when and if appropriate.
+     * 这个方法会通知所有观察者：前台应用的状态发生了改变
      * <br><br>
-     * We do not want to just notify listeners right away when the app enters of leaves the foreground. When changing orientations or opening and
-     * closing the app quickly we briefly pass through a NOT_IN_FOREGROUND state that must be ignored. To accomplish this a delayed message will be
-     * Sent when we detect a change. We will not notify that a foreground change happened until the delay time has been reached. If a second
-     * foreground change is detected during the delay period then the notification will be canceled.
+     * 我们只在应用进入/离开前台时立刻监听器。当打开/关闭/方向切换这些操作频繁发生时，我们
+     * 简要的传递一个一定会被无视的 NOT_IN_FOREGROUND 值。为了实现它，当我们注意到状态发
+     * 生改变，一个延迟的消息会被发出。在这个消息被接收之前，我们不会注意前台应用的状态是否
+     * 发生了改变。如果在消息被延迟的那段时间内应用的状态发生了改变，那么该通知将会被取消。
      */
     private void validateThenNotifyListeners() {
         // If the app has any pending notifications then throw out the event as the state change has failed validation
@@ -203,9 +202,9 @@ public class AppForegroundStateManager {
         @Override
         public void handleMessage(Message inputMessage) {
             switch (inputMessage.what) {
-                // The decoding is done
+                // 解码完成
                 case MESSAGE_NOTIFY_LISTENERS:
-                    /* Notify subscribers of the state change */
+                    /* 通知所有观察者状态发生了改变 */
                     android.util.Log.v(TAG, "App just changed foreground state to: " + mAppForegroundState);
                     notifyListeners(mAppForegroundState);
                     break;
@@ -301,10 +300,10 @@ public class MyApplication extends Application {
     @Override
     public void onAppForegroundStateChange(AppForegroundStateManager.AppForegroundState newState) {
         if (AppForegroundStateManager.AppForegroundState.IN_FOREGROUND.equals(newState)) {
-            // App just entered the foreground.
+            // 应用刚进入前台
             Log.i(TAG, "App Just Entered the Foreground with launch mechanism of: " + mLaunchMechanism);
         } else {
-            // App just entered the background. Set our launch mode back to the default of direct.
+            // 应用刚进入前台，并设置我们的登录模式为当前的默认状态
             mLaunchMechanism = LaunchMechanism.DIRECT;
         }
     }
@@ -327,10 +326,10 @@ getApplication().setLaunchMechanism(LaunchMechanism.URL);
 下面就是一个创建来自通知的PendingIntent，把下面的代码添加到每一个intent。
 
 ```java
-public static final String EXTRA_HANDLING_NOTIFICATION = "Notification.EXTRA_HANDLING_NOTIFICATION";
-
-// Put an extra so we know when an activity launches if it is a from a notification
-intent.putExtra(EXTRA_HANDLING_NOTIFICATION, true);
+	public static final String EXTRA_HANDLING_NOTIFICATION = "Notification.EXTRA_HANDLING_NOTIFICATION";
+	
+	// 通过 Extra 可以知道 Activity 是否通过推送启动
+	intent.putExtra(EXTRA_HANDLING_NOTIFICATION, true);
 ```
 
 最后我们还需要做的就是检查每个activity的标志（添加到你的base activity）。如果我们检测到这个标志量，那么就知道这个activity是通过通知产生的，我们可以设置启动方式为通知启动。这个步骤必须在onCreat里面完成，这样它才可以在应用显示到前台(打印启动方式)之前设置值。
@@ -342,9 +341,9 @@ public void onCreate(Bundle savedInstanceState) {
 
     Intent intent = getIntent();
     if (intent != null && intent.getExtras() != null) {
-        // Detect if the activity was launched by the user clicking on a notification
+        // 判断 Activity 是否由用户点击推送启动
         if (intent.getExtras().getBoolean(EXTRA_HANDLING_NOTIFICATION, false)) {
-            // Notify that the activity was opened by the user clicking on a notification.
+            // 发出“应用通过用户点击推送启动”的通知
             getApplication().setLaunchMechanism(LaunchMechanism.NOTIFICATION);
         }
     }
