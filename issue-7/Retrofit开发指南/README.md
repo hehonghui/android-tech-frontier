@@ -169,8 +169,6 @@ public interface gitapi {
 
 4) 调用函数并获得响应数据，回调接口是用来异步的获取模型实例的，我们的回调接口需要实现成功回调方法(success request)和错误处理方法(error handling)。
 
-5) Our parsed json will be now in POJO. You can call each by calling each item.
-
 5) 我们解析好的json数据的现在就存在于POJO实例中了，你可以每次调用一条。
 
 ```java
