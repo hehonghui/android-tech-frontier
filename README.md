@@ -71,14 +71,17 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 ## 已完成列表
 
 # 2015.4.26 ( 第七期 )
-| 文章名称 |   译者  |  出处  |
-|---------|--------|-------|
-| [使用Robolectric和Android生成代码覆盖率报告](issue-7/使用Robolectric和Android生成代码覆盖率报告)  | [normalme](https://github.com/normalme)      |   [raptordigital.blogspot.com](http://raptordigital.blogspot.com/2014/08/code-coverage-reports-using-robolectric.html)   |
-| [Retrofit开发指南](issue-7/Retrofit开发指南)  | [yaoqinwei](https://github.com/yaoqinwei)      |   [androidweekly-issue-148](http://androidweekly.net/issues/issue-148)   |
-| [Android测试框架:Dagger2+Espresso2+Mockito](issue-7/Android测试框架：Dagger2+Espresso2+Mockito)  | [yaoqinwei](https://github.com/yaoqinwei)      |   [androidweekly-issue-148](http://androidweekly.net/issues/issue-148)   |
-| [在Activity中使用Thread导致的内存泄漏](issue-7/在Activity中使用Thread导致的内存泄漏)  | [chaossss](https://github.com/chaossss)      |   [androidweekly-issue-148](http://androidweekly.net/issues/issue-148)   |
-| [深入浅出Android 新特性-Transition-Part-3a](issue-7/深入浅出Android 新特性-Transition-Part-3a)  | [tiiime](https://github.com/tiiime)      |   [androiddesignpatterns.com](http://www.androiddesignpatterns.com/2015/01/activity-fragment-shared-element-transitions-in-depth-part3a.html)   |
-| [深入浅出Android 新特性-Transition-Part-3b](issue-7/深入浅出Android 新特性-Transition-Part-3b)  | [tiiime](https://github.com/tiiime)      |   [androiddesignpatterns.com](http://www.androiddesignpatterns.com/2015/01/activity-fragment-shared-element-transitions-in-depth-part3b.html)   |
+| 文章名称 |   译者  | 
+|---------|--------|
+| [使用Robolectric和Android生成代码覆盖率报告](issue-7/使用Robolectric和Android生成代码覆盖率报告)  | [normalme](https://github.com/normalme)      | 
+| [Retrofit开发指南](issue-7/Retrofit开发指南)  | [yaoqinwei](https://github.com/yaoqinwei)      |   
+| [Android测试框架:Dagger2+Espresso2+Mockito](issue-7/Android测试框架：Dagger2+Espresso2+Mockito)  | [yaoqinwei](https://github.com/yaoqinwei)      |   
+| [在Activity中使用Thread导致的内存泄漏](issue-7/在Activity中使用Thread导致的内存泄漏)  | [chaossss](https://github.com/chaossss)      |  
+| [深入浅出Android 新特性-Transition-Part-3a](issue-7/深入浅出Android 新特性-Transition-Part-3a)  | [tiiime](https://github.com/tiiime)      |   
+| [深入浅出Android 新特性-Transition-Part-3b](issue-7/深入浅出Android 新特性-Transition-Part-3b)  | [tiiime](https://github.com/tiiime)      |  
+| [Android Lollipop 5.1.1 更新](issue-7/Android Lollipop update.md)  | [Mr.Simple](https://github.com/bboyfeiyu)      
+
+
 
 
 
