@@ -13,11 +13,11 @@
 
 You may have heard the phrase ‘the best code is no code.’ While we don’t recommend not writing any code at all, the code you do write should be adding unique value to your app rather than replicating common boilerplate code. The Android Support Library is one of the best resources for accomplishing this by taking care of the little things for you.
 
-你可能听过这么一句话 “最好的代码就是没有代码。” 然而我想对你说的是：你写下的每一行代码应该能为应用增加独特的价值，而不是为应用添加一行又一行繁复、无趣的模板代码。Android 提供支持库的初衷正是如此：让 Android 开发工程师把精力更多地放在逻辑实现上，而不是写业务代码。
+你可能听过这么一句话 “最好的代码就是没有代码。” 然而我想对你说的是：你写下的每一行代码应该能为应用增加独特的价值，而不是为应用添加一行又一行繁复、无趣的模板代码。Android提供支持库的初衷正是如此：让 Android 开发工程师把精力更多地放在逻辑实现上，而不是写业务代码。
 
 The latest release of the Android Support Library is no different, adding a number of extremely helpful components and changes across the Support V4, AppCompat, Leanback, RecyclerView, Palette, and Renderscript libraries. From the new AppCompatActivity and AppCompatDialog to a new guided step flow for Android TV, there’s a lot to get excited about in this release.
 
-最新发布的 Android 支持库一如既往地添加了许多实用的组件，并对 Support V4、AppCompat、Leanback、RecyclerView、Palette 和 Renderscript 库的内部实现逻辑作出改变。从新的 [AppCompatActivity](http://developer.android.com/reference/android/support/v7/app/AppCompatActivity.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog) 和 [AppCompatDialog](http://developer.android.com/reference/android/support/v7/app/AppCompatDialog.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog) 到 Android TV 全新的引导流程我们可以发现，新的库确实带来许多让我们耳目一新的惊喜。
+最新发布的Android支持库一如既往地添加了许多实用的组件，并对Support V4、AppCompat、Leanback、RecyclerView、Palette和Renderscript库的内部实现逻辑作出改变。从新的 [AppCompatActivity](http://developer.android.com/reference/android/support/v7/app/AppCompatActivity.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog)和[AppCompatDialog](http://developer.android.com/reference/android/support/v7/app/AppCompatDialog.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog) 到Android TV全新的引导流程我们可以发现，新的库确实带来许多让我们耳目一新的惊喜。
 
 Support V4   
 
@@ -36,7 +36,7 @@ In addition, we’re making some of the internals of Palette available to all vi
 
 Interpolators are an important part of any animation system, controlling the rate of change in an animation (say accelerating, decelerating, etc). A number of interpolators were added in Lollipop to android.R.interpolator including fast_out_linear_in, fast_out_slow_in, and linear_out_slow_in: important parts of building authentic motion. These are now available via the Support Library via the FastOutLinearInInterpolator, FastOutSlowInInterpolator, and LinearOutSlowInInterpolator classes, making it possible to use these via code for all animations. In addition to those pre-built interpolators, we’ve also created PathInterpolatorCompat, allowing you to build quadratic and cubic Bezier curves as well.
 
-插值器是所有动画系统中重要的一部分，它控制着一个动画中改变的比率（例如加速、减速等）。Lollipop中的[android.R.interpolator](http://developer.android.com/reference/android/R.interpolator.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog)已经内置了许多插值器，包括fast_out_linear_in、fast_out_slow_in、and linear_out_slow_in：这是[建立真实感的动效](http://www.google.com/design/spec/animation/authentic-motion.html)的重要组成部分。以下这些插值器通过支持库都是可用的，[FastOutLinearInInterpolator](http://developer.android.com/reference/android/support/v4/view/animation/FastOutLinearInInterpolator.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog)、[FastOutSlowInInterpolator](http://developer.android.com/reference/android/support/v4/view/animation/FastOutSlowInInterpolator.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog)和[LinearOutSlowInInterpolator](http://developer.android.com/reference/android/support/v4/view/animation/LinearOutSlowInInterpolator.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog)，在代码里可以为所有的动画使用这些类。除了那些预建的插值器，我们还创建了[PathInterpolatorCompat](http://developer.android.com/reference/android/support/v4/view/animation/PathInterpolatorCompat.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog)，让你可以建立二次方和三次方的贝塞尔曲线。
+插值器是所有动画系统的重要组成部分，它负责控制一个动画中某项数值改变的比率（例如加速、减速等）。Lollipop 中的[android.R.interpolator](http://developer.android.com/reference/android/R.interpolator.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog)已经内置了许多插值器，例如用于[建立真实感的动效](http://www.google.com/design/spec/animation/authentic-motion.html)的fast_out_linear_in、fast_out_slow_in、and linear_out_slow_in。但现在我们可以用代码调用 [FastOutLinearInInterpolator](http://developer.android.com/reference/android/support/v4/view/animation/FastOutLinearInInterpolator.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog)、[FastOutSlowInInterpolator](http://developer.android.com/reference/android/support/v4/view/animation/FastOutSlowInInterpolator.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog)、[LinearOutSlowInInterpolator](http://developer.android.com/reference/android/support/v4/view/animation/LinearOutSlowInInterpolator.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog) 类为动画添加这些插值器。除了那些预建的插值器，我们还创建了允许你创建二次方或三次方贝塞尔曲线的 [PathInterpolatorCompat](http://developer.android.com/reference/android/support/v4/view/animation/PathInterpolatorCompat.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog) 类。
 
 This release also moves the Space widget from the GridLayout library into Support V4, making it available without requiring a separate dependency. The Space widget is a lightweight, invisible View that can be used to create gaps between components.
 
@@ -56,12 +56,10 @@ In this release, ActionBarActivity has been deprecated in favor of the new AppCo
 
 With the help of the new AppCompatDelegate, we’ve also added support for consistent, material design dialogs via the AppCompatDialog class. If you’ve used AlertDialog before, you’ll be happy to know there is also now a Support Library version in support.v7.app.AlertDialog, giving you the same API as well as all the benefits of AppCompatDialog.
 
-在新AppCompatDelegate的帮助下，我们还增加了一致体验的支持，通过[AppCompatDialog](http://developer.android.com/reference/android/support/v7/app/AppCompatDialog.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog)类增加了材料设计对话框的支持。如果你之前使用过[AlertDialog ](http://developer.android.com/guide/topics/ui/dialogs.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog#AlertDialog)，你会很高心地知道现在在支持库中也有其对应的版本：[support.v7.app.AlertDialog](http://developer.android.com/reference/android/support/v7/app/AlertDialog.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog)，给你相同的API以及所有AppCompatDialog的优点。
-
+在全新AppCompatDelegate类的帮助下，我们继续增加了一致性体验的支持，通过[AppCompatDialog](http://developer.android.com/reference/android/support/v7/app/AppCompatDialog.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog)类增加了材料设计规范对话框的支持。如果你之前使用过[AlertDialog ](http://developer.android.com/guide/topics/ui/dialogs.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog#AlertDialog)，你会很高心，因为现在支持库中也有其对应的版本：[support.v7.app.AlertDialog](http://developer.android.com/reference/android/support/v7/app/AlertDialog.html?utm_campaign=ASL221-415&utm_source=dac&utm_medium=blog)，让你用相同的API享受 AppCompatDialog 带来的便利。
 The ability to tint widgets automatically when using AppCompat is incredibly helpful in keeping strong branding and consistency throughout your app. This is done automatically when inflating layouts - replacing Button with AppCompatButton, TextView with AppCompatTextView, etc. to ensure that each could support tinting. In this release, those tint aware widgets are now publicly available, allowing you to keep tinting support even if you need to subclass one of the supported widgets.
 
-在使用AppCompat时自动着色控件的能力是在你的应用程序中保持强大品牌和一致性体验中起到难以置信的帮助和能力。你应该在编写布局时自然而然做的-AppCompatButton代替Button、AppCompatTextView代替TextView、等等，以确保他们能互相支持着色。在此版本中，那些
-色彩感知控件现在已经公开，在你继承重写那些支持控件类之后能让你保持着色的支持。
+在使用AppCompat时，自动为控件着色的能力是在你的应用程序中保持品牌烙印和一致性体验中的重要保证。因为在填充布局时AppCompat会自动地为你将诸如Button、TextView 这些传统控件替换为AppCompatButton、AppCompatTextView 等新控件，以确保布局内的每一个控件都能支持着色。而在新的支持库中，色彩感知控件现在已经被公开，让控件类对自动着色的支持能延续到子类中。
 
 The full list of tint aware widgets at this time is:
 AppCompatAutoCompleteTextView
@@ -75,7 +73,7 @@ AppCompatRatingBar
 AppCompatSpinner
 AppCompatTextView
 
-此时完整的色彩感知控件的列表：
+这个列表囊括了目前所有的色彩感知控件：
 > - AppCompatAutoCompleteTextView
 > - AppCompatButton
 > - AppCompatCheckBox
@@ -131,7 +129,7 @@ Palette
 If you’ve been using Palette to extract colors from images, you’ll be happy to know that it is now 6-8 times faster without sacrificing quality!
 
 ## Palette
-如果你已经使用Palette 从图像中提取出颜色，你会很高兴地知道，现在在不会丢失品质下速度是之前的6~8倍！
+如果你已经使用Palette从图像中提取出颜色，你会很高兴地知道，现在在不会丢失品质下速度是之前的6~8倍！
 
 Palette now uses a Builder pattern for instantiation. Rather than directly calling Palette.generate(Bitmap) or their equivalents, you’ll use Palette.from(Bitmap) to retrieve a Palette.Builder. You can then optionally change the maximum number of colors to generate and set the maximum size of the image to run Palette against before calling generate() or generateAsync() to retrieve the color Swatches.
 
