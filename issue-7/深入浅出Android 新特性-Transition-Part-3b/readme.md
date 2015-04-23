@@ -4,9 +4,10 @@
 >
 * 原文链接 : [Postponed Shared Element Transitions (part 3b)][source-url]
 * 作者 : [Alex Lockwood](https://plus.google.com/+AlexLockwood)
+* [译文出自 :  开发技术前线 www.devtf.cn](www.devtf.cn)
 * 译者 : [tiiime](https://github.com/tiiime)
 * 校对者: [chaossss](https://github.com/chaossss)  
-* 状态 :  校对完成
+* 状态 :  完成
 
 通过讨论 Lollipop Transition API 的一个重要的特性：延迟共享元素的过渡动画，这篇博文将继续我们关于共享元素 Transition 的深度解析。这也是我关于 Transition 这个专栏的第四篇文章。
 

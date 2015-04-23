@@ -91,7 +91,7 @@ public class ExampleActivity extends Activity implements View.OnClickListener {
 后续文章会介绍如何做到。
 
 # Lollipop 中的 Activity & Fragment Transitions
-在 Android 5.0 中， 切换 **Activitys** 或者 **Fragments** 时可以使用 **Transitions** 来构建精致的过场动画。虽然在之前的版本中已经引入 Activity 和 Fragment 的切换动画(通过 [Activity#overridePendingTransition()][overridePendingTransition] 和 [FragmentTransaction#setCustomAnimation()][setCustomAnimations] 方法时西安)，但是动画的对象只能是**Activity/Fragment**整体。而新的 API 将这个特性延伸，使我们可以为每个 View 单独设置动画，甚至可以在两个独立的 Activity/Fragment 容器内共享某些 View的动画。
+在 Android 5.0 中， 切换 **Activitys** 或者 **Fragments** 时可以使用 **Transitions** 来构建精致的过场动画。虽然在之前的版本中已经引入 Activity 和 Fragment 的切换动画(通过 [Activity#overridePendingTransition()][overridePendingTransition] 和 [FragmentTransaction#setCustomAnimation()][setCustomAnimations] 方法实现)，但是动画的对象只能是**Activity/Fragment**整体。而新的 API 将这个特性延伸，使我们可以为每个 View 单独设置动画，甚至可以在两个独立的 Activity/Fragment 容器内共享某些 View的动画。
 
 接下来介绍些术语。注意，虽然下面是以 Activity 为例，但是在 Fragment 中这些术语也同样有效:
 
