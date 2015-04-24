@@ -21,7 +21,7 @@
 
 ![volley-vs-retrofit](http://img.my.csdn.net/uploads/201504/13/1428929622_5444.png)
 
-与Retrofit相比，Volley是一个小型库，但它是非法的。Retrofit是[Square](https://github.com/square)开发的，后者还开发过okhttp，picasso...等一些著名的库(你可以在[这里](https://square.github.io/#android)找到其他的库)。如果你需要Volley的指引，你可以在[Google Training](https://developer.android.com/training/volley/index.html)或者[Volley Plus from DWork](https://github.com/DWorkS/VolleyPlus)找到相关文档。
+与Retrofit相比，Volley是一个小型的、缺乏正式文档说明库。Retrofit是[Square](https://github.com/square)开发的，后者还开发过okhttp，picasso...等一些著名的库(你可以在[这里](https://square.github.io/#android)找到其他的库)。如果你需要Volley的指引，你可以在[Google Training](https://developer.android.com/training/volley/index.html)或者[Volley Plus from DWork](https://github.com/DWorkS/VolleyPlus)找到相关文档。
 
 ## 简介
 
@@ -168,8 +168,6 @@ public interface gitapi {
 3) 使用我们的**`gitapi`**来创建一个服务适配器(service for adapter)。
 
 4) 调用函数并获得响应数据，回调接口是用来异步的获取模型实例的，我们的回调接口需要实现成功回调方法(success request)和错误处理方法(error handling)。
-
-5) Our parsed json will be now in POJO. You can call each by calling each item.
 
 5) 我们解析好的json数据的现在就存在于POJO实例中了，你可以每次调用一条。
 
