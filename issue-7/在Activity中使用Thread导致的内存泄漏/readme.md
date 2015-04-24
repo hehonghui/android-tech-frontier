@@ -3,7 +3,7 @@
 
 > * 原文链接 : [Activitys, Threads, & Memory Leaks](http://www.androiddesignpatterns.com/2013/04/activitys-threads-memory-leaks.html)
 * 原文作者 : [AlexLockwood](https://google.com/+AlexLockwood)
-* [译文出自 :  开发技术前线 www.devtf.cn](www.devtf.cn)
+* [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [chaossss](https://github.com/chaossss) 
 * 校对者: [yinna317](https://github.com/yinna317)  
 * 状态 :  完成

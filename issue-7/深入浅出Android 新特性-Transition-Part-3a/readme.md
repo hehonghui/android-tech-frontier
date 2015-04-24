@@ -4,7 +4,7 @@
 >
 * 原文链接 :  [Shared Element Transitions In-Depth (part 3a)][source-url]
 * 作者 : [Alex Lockwood](https://plus.google.com/+AlexLockwood)
-* [译文出自 :  开发技术前线 www.devtf.cn](www.devtf.cn)
+* [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [tiiime](https://github.com/tiiime)
 * 校对者: [chaossss](https://github.com/chaossss)  
 * 状态 :  完成
