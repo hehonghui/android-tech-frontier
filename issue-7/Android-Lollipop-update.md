@@ -2,7 +2,7 @@
 
 > * 原文连接 : [android-5-1-lollipop-update](http://www.androidpit.com/android-5-1-lollipop-update)
 > * 作者：Loie Favre
-> * [译文出自 :  开发技术前线 www.devtf.cn](www.devtf.cn)
+> * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 > * 译者 : [Mr.Simple](https://www.github.com/bboyfeiyu)
 
 Android Lollipop自2014年推出一来，仅应用在少数几款设备上。大多数人在兴奋迎接Android5.0的时候视野已经瞄准了Android 5.1。现在让我们来一睹Android 5.1.1的芳容。请点击[Android 5.1 Lollipop](http://www.androidpit.com/topic/android-5-1-lollipop)查看所有升级资料（以及即将来袭的Android 5.1.1）。继续往下阅读，来看看哪些设备会使用这个最新系统。

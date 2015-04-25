@@ -3,7 +3,7 @@ Android Support库 22.1
 
 > * 原文链接 : [Android Support Library 22.1](http://android-developers.blogspot.com/2015/04/android-support-library-221.html)
 * 原文作者 : [Ian Lake](https://plus.google.com/+IanLake)
-* [译文出自 :  开发技术前线 www.devtf.cn](www.devtf.cn)
+* [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [Rocko](https://github.com/zhengxiaopeng) 
 * 校对者: [chaossss](https://github.com/chaossss)  
 * 状态 :  校对完成

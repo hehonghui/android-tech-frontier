@@ -2,7 +2,7 @@
 ---
 
 >* 原文链接 : [Dagger 2 + Espresso 2 + Mockito](http://blog.sqisland.com/2015/04/dagger-2-espresso-2-mockito.html)
-> * [译文出自 :  开发技术前线 www.devtf.cn](www.devtf.cn)
+> * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [yaoqinwei](https://github.com/yaoqinwei) 
 * 校对者: [chaossss](https://github.com/chaossss)
 * 状态 :  完成

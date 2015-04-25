@@ -2,7 +2,7 @@
 ---
 
 >* 原文链接 : [Retrofit Android Tutorial](http://themakeinfo.com/2015/04/retrofit-android-tutorial/)
-> * [译文出自 :  开发技术前线 www.devtf.cn](www.devtf.cn)
+> * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [yaoqinwei](https://github.com/yaoqinwei) 
 * 校对者: [chaosssss](https://github.com/chaossss)
 * 状态 :  完成

@@ -11,7 +11,7 @@
 
 ## 参与步骤
 1. 将该项目fork到自己的github;
-2. 在对应期数文件夹里(例如 issue-2，代表第二期 )创建一个markdown文件，文件命名格式为: 中文标题名，比如Android MVP模式与实践.md;
+2. 在对应期数文件夹里(例如 issue-2，代表第二期 )创建一个markdown文件，文件命名格式为: 中文标题名 （ 不要有空格，有空格的地方用"-"连接 ） ，比如 Android-MVP模式与实践.md;
 3. 将模板[template.md](template.md)中的内容拷贝到你的Markdown文件中，按照模板填写、翻译完内容 （注意 : 文章所需图片请存放到图床上，不要放在仓库中,图片宽度尽量控制在400 px左右）；
 4. 完成翻译后将状态修改为"校对中",提交pull request到本项目;
 5. 管理员校对完成之后便会发布。
@@ -77,10 +77,10 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | [Retrofit开发指南](issue-7/Retrofit开发指南)  | [yaoqinwei](https://github.com/yaoqinwei)      |   
 | [Android测试框架:Dagger2+Espresso2+Mockito](issue-7/Android测试框架：Dagger2+Espresso2+Mockito)  | [yaoqinwei](https://github.com/yaoqinwei)      |   
 | [在Activity中使用Thread导致的内存泄漏](issue-7/在Activity中使用Thread导致的内存泄漏)  | [chaossss](https://github.com/chaossss)      |  
-| [深入浅出Android 新特性-Transition-Part-3a](issue-7/深入浅出Android 新特性-Transition-Part-3a)  | [tiiime](https://github.com/tiiime)      |   
-| [深入浅出Android 新特性-Transition-Part-3b](issue-7/深入浅出Android 新特性-Transition-Part-3b)  | [tiiime](https://github.com/tiiime)      |  
-| [Android Lollipop 5.1.1 更新](issue-7/Android Lollipop update.md)  | [Mr.Simple](https://github.com/bboyfeiyu) 
-| [Android Support 库 22.1版](issue-7/Android Support 库 22.1版.md)  | [Rocko](https://github.com/zhengxiaopeng) |     
+| [深入浅出Android 新特性-Transition-Part-3a](issue-7/深入浅出Android新特性-Transition-Part-3a)  | [tiiime](https://github.com/tiiime)      |   
+| [深入浅出Android 新特性-Transition-Part-3b](issue-7/深入浅出Android新特性-Transition-Part-3b)  | [tiiime](https://github.com/tiiime)      |  
+| [Android Lollipop 5.1.1 更新](issue-7/Android-Lollipop-update.md)  | [Mr.Simple](https://github.com/bboyfeiyu) 
+| [Android Support 库 22.1版](issue-7/Android-Support库22.1版.md)  | [Rocko](https://github.com/zhengxiaopeng) |     
 
 
 

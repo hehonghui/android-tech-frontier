@@ -3,7 +3,7 @@
 
 > * 原文链接 : [Code coverage reports using Robolectric and Android](http://raptordigital.blogspot.com/2014/08/code-coverage-reports-using-robolectric.html)
 * 原文作者 : [Kris Vandermast](http://raptordigital.blogspot.com/)
-* 译文出自 :  [开发技术前线 www.devtf.cn](www.devtf.cn)
+* 译文出自 :  [开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [normalme](https://github.com/normalme) 
 * 校对者: [Mr.Simple](https://github.com/bboyfeiyu)  
 * 状态 : 校对中 
