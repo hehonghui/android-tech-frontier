@@ -3,7 +3,7 @@
 
 > * 原文链接 : [How to respond to any* messaging notification on Android](https://medium.com/@polidea/how-to-respond-to-any-messaging-notification-on-android-7befa483e2d7)
 * 原文作者 : [Michał Tajchert](https://github.com/tajchert/NotificationResponse)
-*  [译文出自 :Medium https://medium.com/](https://medium.com/)
+*  [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [MrLoong](https://github.com/MrLoong) 
 * 校对者: [bboyfeiyu ](https://github.com/bboyfeiyu)  
 * 状态 :  完成 
