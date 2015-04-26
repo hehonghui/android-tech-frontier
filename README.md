@@ -82,12 +82,12 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 # 2015.5.3 ( 第八期 )
 | 文章名称 |   译者  | 
 |---------|--------|
-| [Android 进行单元测试难在哪-序](issue-8/Android 进行单元测试难在哪-序)  | [chaossss](https://github.com/chaossss)      |
-| [Custom-Drawables](issue-8/Custom-Drawables)  | [SwinZh](https://github.com/SwinZh)      |
-| [Support Libraries v22.1.0](issue-8/Support Libraries v22.1.0)  | [tiiime](https://github.com/tiiime)      |
-| [检测Android应用的启动与关闭](issue-8/检测Android应用的启动与关闭)  | [xianjiajun](https://github.com/xianjiajun)      |
-| [开始学习Material Design](issue-8/开始学习Material Design)  | [xu6148152](https://github.com/xu6148152)      |
-| [如何在Android上响应各种信息通知](issue-8/如何在Android上响应各种信息通知)  | [MrLoong](https://github.com/MrLoong)      |
+| [Android 进行单元测试难在哪-序](issue-8/Android 进行单元测试难在哪-序.md)  | [chaossss](https://github.com/chaossss)      |
+| [Custom-Drawables](issue-8/Custom-Drawables.md)  | [SwinZh](https://github.com/SwinZh)      |
+| [Support Libraries v22.1.0](issue-8/Support Libraries v22.1.0.md)  | [tiiime](https://github.com/tiiime)      |
+| [检测Android应用的启动与关闭](issue-8/检测Android应用的启动与关闭.md)  | [xianjiajun](https://github.com/xianjiajun)      |
+| [开始学习Material Design](issue-8/开始学习Material Design.md)  | [xu6148152](https://github.com/xu6148152)      |
+| [如何在Android上响应各种信息通知](issue-8/如何在Android上响应各种信息通知.md)  | [MrLoong](https://github.com/MrLoong)      |
 
 
 
