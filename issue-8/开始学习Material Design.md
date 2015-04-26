@@ -1,8 +1,9 @@
-`开始学习Material Design`
+开始学习Material Design
 ---
 
 > * 原文链接 : [Android Getting Started with Material Design](http://www.androidhive.info/2015/04/android-getting-started-with-material-design/)
-* 作者 : [Ravi Tamada](http://www.androidhive.info/)
+* 原文作者 : [Ravi Tamada](http://www.androidhive.info/)
+* [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [xu6148152](https://github.com/xu6148152) 
 * 校对者: [chaossss](https://github.com/chaossss)   
 * 状态 :  完成
