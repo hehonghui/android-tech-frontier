@@ -5,7 +5,7 @@
 * 原文作者 : [Matthew Dupree](http://philosophicalhacker.com/)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [Rocko](https://github.com/zhengxiaopeng) 
-* 校对者: [chaossss](https://github.com/zhengxiaopeng)  
+* 校对者: [chaossss](https://github.com/chaossss)  
 * 状态 :  完成 
 
 其实不仅仅只有普通 Android 开发工程师觉得测试 Android 应用很恼火，大牛们也受此困扰已久。例如 Jake Wharton 曾经明确地表示：Android 平台自诞生之初就与应用测试势如水火。Don Felker 和 Kaushik Gopal 也在他们的[博文](http://fragmentedpodcast.com/episodes/1/)里也提出了相同的观点。当然了，他们还提到 Google 的 [IOSched 应用](https://github.com/google/iosched)，根本就没有进行过测试，据说 IOSched 还是 Android 开发环境中应用开发的最优集合体呢。IOSched 没有进行测试让我们这些开发者很困扰：1、Google 所谓的“测试是高效地进行 Android 开发中的关键一环”真的不是来唬小孩的吗；2、还是 Google 官方的工程师觉得测试 Android 应用简直就是浪费时间？不管怎样，如果这个世界上最优秀的 Android 开发工程师都觉得在 Android 中进行测试很麻烦，那我们这些小菜鸡玩不好测试也是理所当然的了。
@@ -14,7 +14,7 @@
 
 我坚信那些和 Square 站在统一战线上的开发团队肯定也在想办法将 UI 从实际的业务逻辑中剥离为纯 Java对象，为提高应用的可测试性不懈努力。换句话说，我觉得我们可以不在 Android 中进行单元测试，也不用实现依赖于 Android SDK 的测试单元。我们应该做的是重构应用，让我们能够为应用中的代码实现纯 Java 的测试单元，无论最终能不能真正地提高 Android 的可测试性和健壮性，我觉得这都值得一试。
 
-我意识到这是个治本良方，我们要做的，就改变下图这样的 Android 的应用架构
+我感觉到这个思路会是治本良方，所以我们要做的，就是将下图这样的 Android 的应用架构
 
 ![](http://img.my.csdn.net/uploads/201504/26/1430014189_2164.png)
 
@@ -22,7 +22,7 @@
 
 ![](http://img.my.csdn.net/uploads/201504/26/1430014189_8490.png)
 
-虽然这个方法可能能从根本上解决问题，但它也有很大的风险，尽管如此，我还是坚持认为这个方法值得一试，因为它能拯救万千挣扎在实现 Android 测试单元的开发者们于水火之中，而且不用强迫他们使用第三方的库，毕竟第三库总会让他们滞后于最新的 Android 系统特性。此外，Kent Beck 提出可测试性好的代码就是架构优秀的代码，如果他的观点是对的，或许我们也能找到架构应用更好的办法。
+虽然这个方法可能能从根本上解决问题，但它也有很大的风险，尽管如此，我还是坚持认为这个方法值得一试，因为它能拯救万千挣扎在实现 Android 测试单元的开发者们于水火之中，而且不用强迫他们使用第三方的库，毕竟第三库总会让他们滞后于最新的 Android 系统特性。此外，Kent Beck 认为：可测试性好的代码就是架构优秀的代码，如果他的观点是对的，或许我们还能找到架构应用更好的办法。
 
 在接下来的博文里，我将探索“重构 Android 应用以使它们能轻易地通过标准的 Java 工具进行测试”这个方案的可操作性。
 
