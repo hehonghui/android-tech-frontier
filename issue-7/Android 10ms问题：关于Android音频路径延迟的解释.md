@@ -7,31 +7,66 @@
 * 校对者:    
 * 状态 : 
 
+	
+Many mobile apps that are critically dependent on low latency audio functionality such as some games, synthesizers, DAWs (Digital Audio Workstations), interactive audio apps and virtual instrument apps, and the coming wave of virtual reality apps, all of which thrive on Apple’s platform (App Store + iOS devices) — and generate big revenues for App Store and iOS developers are **largely non-existent** on Android.
+
    许多手机应用是非常依赖低音频功能比如游戏类，合成软件，DAWs(数字音频工作站)，音频交互应用和模拟乐器应用，以及模拟现实应用的到来，所有的这些因为Apple平台(AppStore+IOS devices)都在得以快速发展，在App Store 和 IOS开发者产生的巨大收入在Android上**是不存在的**
    
+   
+**Android’s 10 Millisecond Problem**, a little understood yet extremely difficult technical challenge with enormous ramifications, **prevents these sorts of revenue producing apps from performing in an acceptable manner** and even being published (!) on Android at this point in time.
+
    **Android 10ms 问题**了解的不多但如果在android这个关键点上可以**以一种可接受的方式阻止这类应用产生**甚至发布那将是巨大的技术挑战并且产生巨大的影响
+   
+   Startups and developers are unwilling to port and publish otherwise successful iOS apps (with ~10 ms audio latency needs) on Android for fear of degraded audio performance resulting in negative word-of-mouth and a hit to their professional reputation and brand.
 
 初创公司和开发者不原意开发那些成功的IOS app(需要10ms音频延迟)的android版本，他们担心音频的处理结果会给他们的口碑带来负面影响以及给品牌和名声带来重重的一击。
 
+Consumers lose because have a strong desire to buy such apps on Android, as shown by revenue data on iOS, and currently, are unable to do so. One can appreciate the scale of this problem/opportunity when one takes into account the so-called ‘next billion’ consumers who will be ‘mobile-only’.
+
 这样会失去一部分消费者。他们还是非常愿意买一些这样的android应用，就像目前在ios上的收入数据显示一样但不能如愿。人们会感激问题/机会的规模当有人考虑解释“下一个十亿”消费者将会成为‘mobile-only’。
+
+We want to solve this. This explainer provides an easily understood overview of the Android 10 Millisecond Problem with actual latency data from the Google Nexus 9.
 
 我们要解决这个问题。这篇说明提供了非常容易理解在谷歌Nexus 9Android 10毫秒问题的概述。
 
+###How Android’s 10 Millisecond Problem and Android Audio Path Latency Impacts App Developers and Android OEMs
+
+
 ###Android's 10ms问题和Android 音频路径延迟是如何影响App开发才和Android厂商的
+
+Even though music apps make up only 3% of all downloads in the iOS App Store, the Music app category is the 3rd highest revenue generating app category after Games and Social Networking. Which suggests that music apps monetize disproportionately well on platforms that offer low latency performance such as the App Store/iOS devices.
 
 尽管音乐类应用占IOS App Store总下裁量的3%，但是在收入方面却是位居游戏和社交类之后第三名。它表明那些在App Store/IOS devices提供低延执行的音乐应用收入不成比例。
 
-在安卓方面。那是一个苦逼的故事。在play store音乐类应用的收入从没有挤进前5名。
+On Android, it is a different story. In the Google Play store, the Music category is not even a top five revenue producing app category.
+
+在安卓方面。那是一个悲伤的故事。在play store音乐类应用的收入从没有挤进前5名。
+
+The overwhelming majority of Android devices suffer from too high audio latency, preventing developers from building apps that would satisfy consumer demand on Android.
 
 绝大多数的android设备都被高声音延迟蹂躏过。阻止开发者开发应用以满足消费者的强烈需求。
 
+As such, Google and Android app developers are leaving billions of dollars on the table for Apple and iOS developers because of Android’s 10 Millisecond Problem.
+
 同样的由于Android 10ms问题，Google和Android开发者正在无缘于与Apple和IOS开发者共享的数十亿美元。
+
+
+For the purposes of this explainer, roundtrip audio latency is simply the difference in time between when an audio input is introduced into a mobile device, undergo some sort of needed processing, and exits the same device. As any musician will tell you, we as humans are most comfortable with latencies of ~10 milliseconds. Anything significantly higher tends to disturb us.
 
 同款移动设备音频的输入和输出都需要某种处理，延迟是不同的。正如音乐家告诉你。我们人类对于这种10ms的延迟是非常舒适的。只要偏高就会影响我们的舒适度。
 
-大多数的Android应用有超过100ms的音频输入延迟和多于200ms的来回(音频的输入和输出)延迟。
+Most Android apps have more than 100 ms of audio output latency, and more than 200 ms of round-trip (audio input to audio output) latency. To give you a quick example from the Oscar winning film Whiplash, it’s like the drummer is dragging by a half beat behind the band!
 
+大多数的Android应用有超过100ms的音频输入延迟和多于200ms的来回(音频的输入和输出)延迟。
 为你提供一个快速理解的说法，就像奥斯卡电影Whiplash。就像鼓手拖了半打背后的乐队
+
+Some specific examples on how audio related applications suffer from roundtrip audio latency greater than ~10 ms:
+
+- Music instruments apps, audio effect apps: musicians cannot play together on stage, as the performer using an Android device will be half beat behind the others. It’s not even usable for practicing.
+- DJs can not perform beat-matching, as their pre-listening signal in their headphones is far behind the master signal playing for the audience. Applying effects like a loop roll or echo is very hard too.
+- Games: sound effects, such as explosions or gun sounds lag behind by a few frames. Game audio is then “detached” from visuals, making for poor user-experience, preventing immersive gaming experiences.
+- VOIP apps, such as Skype: if both users are using a high latency Android phone, the overall audio latency is higher than the network latency. In other words, it takes more time for audio to “flow” through Android, than data packets to be transferred between continents.
+- Virtual reality (VR): when the viewer turns his head, the audio “follows” too late, destroying the 3D audio experience. Check the Paul McCartney Google Cardboard app for an example. Google is on the verge of leaving billions in revenue in VR opportunities for Apple.
 
 下面是一些与音频有关系但正在遭受10ms延迟的蹂躏的应用。
 
@@ -41,28 +76,65 @@
 - 通讯类：比如Skype。如果两个人同时用一部高延迟的Android手机，综合来说声音延迟比网络延迟更严重。换句话说处理音频流比处理网络数据更浪费时间
 - 模拟现实类：当用户转动他的头部时，声音"跟随"的慢了，破坏了这种3D音频体验，你可以下载"Paul McCartney Google Cardboard app"这个应用试一下。Google正在丧失与Apple共享数十亿美元VR机会。
 
+In order to educate and inform tech industry leaders, app developers, technologists, product managers, executives, journalists, entrepreneurs, musicians, gamers and investors about the scope and ramifications of Android’s 10 Millisecond Problem, one whose existence that no one benefits from, we at Superpowered have developed the explainer you are reading right now to provide an easily digestible overview of the entire Android audio chain and potential bottlenecks.
+
 为了教育和通知科技行业leaders,应用程序开发人员、技术人员、产品经理、高管、记者、企业家、音乐家、玩家和投资者关于 Android 10ms的问题～还没有从中获取益的那些人，我们在Superpowered发表了你正在阅读的这篇问题概述提供了更简单的消化整个安卓音频链和潜在的瓶颈。
 
-我们的目标是在Android 10ms音频延迟的挑战上我们要团结一起。此外，将其转化为促进创新，更好的用户体验，消费者从Google Play受益，Android开发者，And如前置放大器的内置麦克风。这些模拟​​元件可以被认为是“零延迟”，在这种情况下，因为它们的真实延迟通常是幅度低于1毫秒。roid的OEM厂商和整个Android生态系统的机会。
+Our goal is that we rally and to unite around this challenge of 10 ms roundtrip audio latency on Android, and moreover, transform it into an opportunity that fosters innovation, better user-experiences and benefits Google Play customers, Android developers, Android OEMs and the entire Android ecosystem.
 
+我们的目标是在Android 10ms音频延迟的挑战上我们要团结一起。此外，将其转化为促进创新，更好的用户体验，消费者从Google Play受益，Android开发者，Android的OEM厂商和整个Android生态系统的机会。
+
+###Notes about Audio Latency
 ###音频延迟说明
+
+Digital audio latency measurement has two useful measurement units:
+
+- Millisecond (ms): the 1/1000 of one second. Most latency is referred to with this measurement unit and happens in this time scale.
+- Sample (or frame): represents one discrete digital point (a number) in the audio stream. Sampling is how software converts a continuous signal like a sound wave to a sequence of samples. Samples are independent of the number of audio channels. For a one channel signal, one sample means one number. One sample for a two channel signal means two numbers and so on.
+
 数字音频延迟的计量有两种有用的计量单位
 
 - 毫秒：1/1000秒，大多数的延迟指的是这种。发生在时间上的单位
-- 样品（或帧）：表示在音频流中的一个离散的数字值（数字）。取样是如何软件转换的连续信号像声波为样值的序列。样本是独立的音频通道的数目。对于一个信道信号，一个样本是指一个号码。对于双信道信号的一个样本装置的两个数字等。
+- 样品（或帧）：表示在音频流中的一个离散的数字值（数字）。取样是如何软件转换的连续信号像声波为样值的序列。样本是独立的音频通道的数目。对于一个信道信号，一个样本是指一个号码。对于双信道信号的一个样本装置是指两个数字等。
+
+We calculate the audio signal flow’s overall latency using the very best case scenario:
+
+- Audio in Android’s native layer (Android NDK) is set up using Google’s low latency recommendations. Unfortunately, most Android applications do not follow Google’s low latency recommendations.
+- On-device Android is configured appropriately and can make use of the “Fast Mixer” path for both audio input and output. Apart from the most recent Nexus models, most other manufacturers do not configure Android to support Fast Mixer, hence round-trip latency is significantly higher on those devices. Please see Superpowered’s Mobile Audio Census and Latency Test App for latency measurement data on many popular Android devices.
+
 
 我们用最好的情况计算音频信号流综合延迟
 
 - 音频处理Android的原生层(Android NDK),并且使用Google推荐的低延迟配置。不幸得是大多的应用都没有遵循Google的低延迟推荐
 - 设备上Android使用了适当的配置并且可以利用"Fast Mixer"路径用于输入和输出音频，除了最近的新款Nexus设备，大多数的其它厂家没有配置Android支持Fast Mixer，所以这些设备的延迟明显高于其它的设备，详情请看[ Superpowered’s Mobile Audio Census and Latency Test App](http://superpowered.com/latency)延迟在更多设备上的测试数据
 
+###Android 5.0 Lollipop Audio Path Latency Explanation in Plain English
 ###Android 5.0 Lollipop 音频路径延迟的说明
+
+####Analog audio input
+
+There may be several different analog components, such as a pre-amplifier for the built-in microphone. These analog components can be considered as “zero latency” in this case, because their true latency is typically magnitudes below 1 ms.
+
+Latency: 0
+
+
+
 ####模拟音频输入
+
 可能有许多不同的模拟元件，比如前置放大器的内置麦克风。这些模拟​​元件可以被认为是“零延迟”，在这种情况下，因为它们的真实延迟通常是幅度低于1毫秒。
 
 延迟:0
 
 ---
+
+####Analog to digital conversion (ADC)
+The audio chip measures the incoming audio stream in predefined intervals and converts every measurement to a number. This predefined interval is called the sampling rate, measured in Hz. Our Mobile Audio Census and Latency Test App shows that the 48000 Hz is the native sample rate for most audio chips on Android and iOS devices, meaning that the audio stream is sampled 48000 times in every second.
+
+Because ADC implementations often contain an oversampling filter inside, a rule of thumb is to attribute 1 ms latency for the ADC step.
+
+Now that the audio stream has been digitized, from this point forward the audio stream is now digital audio. Digital audio almost never travels one-by-one, but rather, in chunks, called “buffers” or “periods”.
+
+Latency: 1 ms
 
 ####模拟到数字转换(ADC)
 
@@ -76,6 +148,13 @@
 
 ---
 
+####Bus transfer from the audio chip to the audio driver
+The audio chip has several tasks. It handles ADC and DAC, switches between or mixes several inputs and outputs, applies volume, etc. It also “groups” the discrete digital audio samples into buffers and handles the transfer of these buffers to the operating system.
+
+The audio chip is connected to the CPU with a bus, such as USB, PCI, Firewire, etc. Every bus has its own transfer latency depending on its internal buffer sizes and buffer counts. The latency here ranges from 1 ms (audio chip on an internal system bus) to 6 ms (USB sound card with conservative USB bus settings) typically.
+
+Latency: 1-6 ms
+
 ####从音频芯片总线传输至音频驱动
 音频芯片有几个任务。它处理的ADC和DAC，之间切换或混合多个输入和输出，适用于体积，等，它也“群体”离散数字音频样本到缓冲区并处理这些缓冲器的传送给操作系统。
 
@@ -84,6 +163,34 @@
 延迟：1-6毫秒
 
 ---
+
+####Audio driver (ALSA, OSS, etc.)
+The audio driver receives the incoming audio into a ring buffer in “bus buffer size” steps using the audio chip’s native sample rate, 48000 Hz in most cases.
+
+This ring buffer plays an essential part in smoothing bus transfer jitter (“roughness”), and “connects” the bus transfer buffer size to the operating system audio stack’s buffer size. Consuming data from the ring buffer happens in the operating system audio stack’s buffer size, so it naturally adds some latency.
+
+Android runs “on top” of Linux, and most Android devices use the most popular Linux audio driver system, ALSA (Advanced Linux Sound Architecture). ALSA handles the ring buffer like this:
+
+- Audio is consumed from the ring buffer in “period size” steps.
+- The ring buffer’s size is a multiple of the “period size”.
+For example:
+
+- Period size = 480 samples.
+- Period count = 2.
+- The ring buffer’s size is 480×2 = 960 samples.
+- Audio input is received into one period (480 samples), while the audio stack reads/processes the other period (480 samples).
+- Latency = 1 period, 480 samples. It equals to 10 ms at 48000 Hz.
+
+|
+|
+|ring buffer (960 samples)|
+|period (480 samples)	period (480 samples)|
+
+A common period count is 2, but some systems may go higher..
+
+Latency: one or more periods
+
+
 ####音频驱动（ALSA，OSS等）
 音频驱动程序接收传入的音频成使用音频芯片的本地采样率，48000赫兹，在大多数情况下，“公交缓冲区大小”步骤的环形缓冲区。
 
@@ -113,6 +220,22 @@
 延迟：一个或多个时期
 
 ---
+
+####Android audio Hardware Abstraction Layer (HAL)
+The HAL acts as a middleman between the Android media server and the Linux audio driver. HAL implementations are provided by the mobile device’s manufacturer upon “porting” Android onto the device.
+
+Implementations are open, vendors are free to create any kind of HAL code. Communication with the media server happens using predefined structures. The media server loads the HAL and asks to create input or output streams with optional preferred parameters such as the sample rate, buffer size or audio effects.
+
+Note: The HAL may or may not perform according to the parameters and the media server must “adapt” to the HAL.
+
+The typical HAL implementation is tinyALSA, which is used to communicate with the ALSA audio driver. Some vendors put closed source code here to implement audio features they feel important.
+
+After analyzing the code of a number of open source HAL implementations in the Android source repository, we found a few quirks adding significant amount of latency and CPU load unnecessarily to the audio path due strange configurations and poor coding.
+
+A good HAL implementation should not add any latency.
+
+Latency: 0 or more samples
+
 ####Android的音频硬件抽象层（HAL）
 该HAL作为Android的媒体服务器以及Linux音频驱动程序之间的中间人。HAL实现是由所述移动设备的制造商在“移植”机器人到设备上提供的。
 
@@ -130,7 +253,26 @@
 
 ---
 
+
 ####Audio Flinger
+The Android media server consists of two services:
+
+- The AudioPolicy service handles audio session and permission handling, such as enabling access to the microphone or interrupts on calls. It’s very similar to iOS’ audio session handling.
+- The AudioFlinger service handles the digital audio streams.
+Audio Flinger creates a RecordThread, which acts as a middleman between an application and the audio driver. Its basic job is:
+
+- Obtaining the next input audio buffer from the driver’s ring buffer using the Android HAL.
+- Resampling the buffer if the application requests different sample rate than the native sample rate.
+- Performing additional buffering if the application requests different buffer size than the native period size.
+Audio Flinger has a “fast mixer” path, if Android is configured that way. If a user application is using native (Android NDK) code and sets up an audio buffer queue with the native hardware sample rate and period size, no resampling, additional buffering or mixing (“MixerThread”) will happen in this step.
+
+The RecordThread works with a “push” method, without any strict synchronization to the audio driver. It tries to make an “educated guess” when to wake up and run, but the “push” method is way more sensitive to dropouts. Low latency systems always use the “pull” method, where the audio driver “dictates” audio i/o through the entire audio chain. It’s clear that when Android OS was initially conceived, designed and developed, low latency audio was not a priority.
+
+Latency: 1 period (best case scenario)
+
+####Audio Flinger
+
+
 Android的媒体服务器包括两个服务：
 
 - 该AudioPolicy服务处理音频会话和权限处理，如启用访问上的调用麦克风或中断。这非常类似于iOS的“音频会话处理。
@@ -150,11 +292,23 @@ Android的媒体服务器包括两个服务：
 
 ---
 ####Binder
+Shared memory in Android’s main inter-process communication system is used to transfer the audio buffers between Audio Flinger and the user application. It’s the heart of Android, used everywhere internally in Android.
+
+Latency: 0
+
+####Binder
 Android的主要进程间通信系统的共享内存是用来传输音频抛油环和用户应用程序之间的音频缓冲区。这是Android系统的心脏，用于Andr​​oid内部的每个地方。
 
 延迟：0
 
 ---
+
+####AudioRecord
+We are in the user application’s process now. AudioRecord implements the application side of the audio input. This is a client library feature accessible via OpenSL ES for example.
+
+AudioRecord runs a thread to periodically acquire a new buffer from Audio Flinger, with the “push” philosophy described at Audio Flinger. It doesn’t add latency to the audio path if the developer sets it to work with only one buffer.
+
+Latency: 0+ samples
 
 ####AudioRecord
 
@@ -163,6 +317,14 @@ Android的主要进程间通信系统的共享内存是用来传输音频抛油�
 潜伏期：0+samples
 
 ---
+####User Application
+Finally, the audio input reaches its destination, the user application.
+
+Because the input and output threads are not the same, a user application must implement a ring buffer between the threads. Its size is 2 periods minimum (1 for audio input and 1 for audio output), but poorly written applications often use brute force and use more periods to solve CPU bottlenecks.
+
+From this point, we are we start traveling back out with some audio output.
+
+Latency: more than 1 period, near 2 typically (best case scenario)
 
 ####用户应用程序
 最后，音频输入到达了目的地那就是用户的应用程序。
@@ -174,6 +336,10 @@ Android的主要进程间通信系统的共享内存是用来传输音频抛油�
 延迟：超过1期，近2通常（最理想的情况）
 
 ---
+####AudioTrack
+AudioTrack Implements the user application’s side of the audio output. This is a client library feature accessible via OpenSL ES for example. It runs a thread to periodically send the next audio buffer to Audio Flinger. After Android 4.4.4, AudioTrack doesn’t add latency to the audio path as it can be set up to use one buffer only.
+
+Latency: 0+ samples
 
 ####AudioTrack
 AudioTrack实现音频输出的用户应用程序的一面。这是通过OpenSL ES访问客户端库的特性。运行一个定期发送下一个音频缓冲区到Audio Flinger的线程。Android 4.4.4之后，AudioTrack不添加延迟的音频路径，因为它可以被设置为只使用一个缓冲区。
@@ -181,12 +347,23 @@ AudioTrack实现音频输出的用户应用程序的一面。这是通过OpenSL 
 延迟：0+ samples
 
 ---
+####Binder
+Same as for audio input.
+
+Latency: 0
 
 ####Binder
 
 同音频输入
 
 延迟：0
+
+---
+
+####Audio Flinger
+Creates a PlaybackThread, which works as the inverse of the RecordThread described at audio input.
+
+Latency: 1 period (best case scenario)
 
 ####Audio Flinger
 创建一个PlaybackThread，其工作方式为RecordThread的音频输入反向。
@@ -195,12 +372,22 @@ AudioTrack实现音频输出的用户应用程序的一面。这是通过OpenSL 
 
 ---
 
+####Android audio HAL
+Same as for audio input.
+
+Latency: 0 or more samples
+
 ####Android audio HAL 
 同音频输入
 
 延迟:0 or more samples
 
 ---
+
+####Audio driver (ALSA, OSS, etc.)
+Audio output in the audio driver works identically to the audio input and uses a ring buffer too.
+
+Latency: one or more periods
 
 ####音频驱动（ALSA，OSS等）
 音频输入与输出的工作方式一样并且使用同一个缓冲区
@@ -209,6 +396,11 @@ AudioTrack实现音频输出的用户应用程序的一面。这是通过OpenSL 
 
 ---
 
+####Bus transfer from the audio driver to the audio chip
+Similar to the audio input’s bus transfer, the latency here ranges from 1 ms to 6 ms typically.
+
+Latency: 1-6 ms
+
 ####从音频驱动总线传输到音频芯片
 与音频输入的总线传输类似，延迟范围是典型的从1 ms到6毫秒。
 
@@ -216,11 +408,21 @@ AudioTrack实现音频输出的用户应用程序的一面。这是通过OpenSL 
 
 ---
 
+####Digital to analog conversion (DAC)
+The inverse of ADC, digital audio is “converted” back to analog in this point. For the same reasons at ADC, a rule of thumb is to assume 1 ms of latency for DAC.
+
+Latency: 1 ms
+
 ####数字到模拟转换器（DAC）
 ADC的反向，数字音频被“转换”成模拟这一点上，对于同种原因的ADC，一个经验法则是为DAC假设1毫秒的延迟。
 延迟：1ms
 
 ---
+
+####Analog audio output
+The DAC’s output signal is analog audio, but it needs additional components to drive connected devices, such as headphones. Similar to the analog audio input, the analog components can be considered to be “zero latency”.
+
+Latency: 0
 
 ####模拟音频输出
 
@@ -233,6 +435,14 @@ DAC的输出信号是模拟音频，但它需要额外的组件来驱动连接�
 ###Android Audio Path Latency Animation
 ![Alt text](http://bit.ly/1I9MKxo)
 
+###Android Audio Path Latency Case study: Google Nexus 9
+To date, the Google Nexus 9 performs best in Android round-trip audio latency measurement tests.
+
+The best result is 35 ms using a USB sound card or a special audio dongle directly connecting the headphone connector’s mic input and output, to disable the built-in microphone array’s noise canceling/feedback destroying feature which adds about ~13 ms of additional latency.
+
+So, using the same model as above, let’s decompose the 35 ms best-case round-trip audio latency of Google Nexus 9:
+
+How the 35 ms round-trip latency of Google Nexus 9 comes up?
 ###Android的音频路径延迟案例分析：Google Nexus 9
 
 到目前为止Nexus9在音频延迟测试中表现得最好
@@ -256,6 +466,26 @@ Google Nexus 9的35ms延迟是如何产生的
 |DAC||1|
 |||Result: 	35.8|
 
+
+###About Superpowered
+Our mission is to extend the makers’ creative and productive capabilities – allowing them to create and make things real – profoundly shaping them, the builders, to build things that weren’t possible without Superpowered audio technology.
+
+To that end, we are building technology, traversing the audio stack, that will solve Android’s 10 Millisecond Problem.
+
+In the meantime, the Superpowered Audio SDK for Android and iOS is:
+
+- Cross-platform: Developers can use and re-use the same code on Android, iOS and OSX.
+- Super fast: it has the highest performance audio DSP on mobile devices, providing desktop-grade processing and pro audio quality. The reduced CPU load improves battery life and smoothness of all applications.
+- Works great for both “push” and “pull” audio stacks, and even offline processing.
+- 0 latency: Superpowered features and processing don’t add any latency. User applications built with the Superpowered Audio SDK easily run with the lowest audio latency possible on any iOS or Android device.
+We’d love to hear from you. Please email us with your suggestions, comments and questions. Hello@Superpowered.com
+
+Thanks for reading.
+
+-Gabor (@szantog) and Patrick (@Pv), founders of Superpowered
+
+PS Please join the great conversations about Android’s 10 ms problem at and Hacker News.
+
 ###About Superpowered
 我们的使命是扩大制造商的创造力和生产力的能力-使其更加的真实-深刻塑造他们，生产者生产出来的东西没有超音频技术是不可能的。
 
@@ -268,7 +498,7 @@ Superpowered Audio SDK for Android and iOS is
 - “push” and “pull” audio stacks处理更好即使是离线。
 - 0延迟：Superpowered的特性和处理不添加任何的延迟。使用Superpowered Audio SDK开发的应用程序在Android和IOS的低音频延迟设备上更容易的运行。
 
-我们很乐意听取您的意见。请给我们发电子邮件您的建议，意见和问题。
+我们很乐意听取您的意见。请将你的建议、意见和问题以邮件方式发给我们。
 
 感谢您的阅读。
 
