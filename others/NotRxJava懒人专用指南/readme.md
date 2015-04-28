@@ -5,30 +5,30 @@ NotRxJava懒人专用指南
 * 原文作者 : [Yaroslav Heriatovych](http://yarikx.github.io/)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [Rocko](https://github.com/zhengxiaopeng) 
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  校对中
+* 校对者: [Mr.Simple](https://github.com/bboyfeiyu)  
+* 状态 :  完成校对
 
 
 
 These days if you are an android developer, you might hear some hype about RxJava. RxJava is library which can help you get rid of all you complex write-only code that deals with asynchronous events. Once you start using it in your project – you will use it everywhere.
 
-这些天，如果你是一位 Android 开发者，那么你可能已经听到或看到一些关于 RxJava 满天飞的宣传了。RxJava 是一个能让你摆脱编写一些复杂繁多的代码去处理异步事件的库。一旦开始在你的项目中使用，你会对它爱不释手的。
+如果你是一位 Android 开发者，那么这些天你可能已经听到或看到一些关于 RxJava 满天飞的宣传了。RxJava 是一个能让你摆脱编写一些复杂繁琐的代码去处理异步事件的库。一旦开始在你的项目中使用，你会对它爱不释手的。
 
 The main pitfall here is steep learning curve. If you have never used RxJava before, it will be hard or confusing to take full advantage of it for the first time. The whole way you think about writing code is a little different. Such learning curve creates problems for massive RxJava adoption in most projects.
 
-然而，RxJava 有个缺陷，它需要一个陡峭的学习曲线过程。对于一个从未接触使用过 RxJava 的人来说，是很难一次就领会到它的精髓所在的，对于它的一些使用方法你也可能会很迷惑。在项目中使用它意味着你需要稍微地改变一下你的代码编写思路，另外，这样的学习曲线也会在项目中大规模地使用 RxJava 造成一些问题。
+然而，RxJava 有个缺陷，它需要一个陡峭的学习过程。对于一个从未接触使用过 RxJava 的人来说，是很难一次就领会到它的精髓所在的，对于它的一些使用方法你也可能会很迷惑。在项目中使用它意味着你需要稍微地改变一下你的代码编写思路，另外，这样的学习曲线会使得在项目中因为大规模的使用RxJava而引发一些问题。
 
 Of course there are a lot of tutorials and code examples around that explain how to use RxJava. Developer interested in learning and using RxJava can first visit the official Wiki that contains great explanation of what Observable is, how it’s related to Iterable and Future. Another useful resource is How To Use RxJava page which shows code examples of how to emit items and println them.
 
-当然，关于如何去使用 RxJava 已经有许多的教程和代码范例了。感兴趣的开发者可以访问 RxJava 的官方 [Wiki](https://github.com/ReactiveX/RxJava/wiki)，里面有如什么是 Observable 以及它和 Iterable、Future 之间关系的很好的解释。Wiki 里另外一个很有用的资源是这篇文章：[How To Use RxJava](https://github.com/ReactiveX/RxJava/wiki/How-To-Use-RxJava)，这篇文章包含怎么去发送事件流并且打印出它们的介绍以及它的样例代码。
+当然，关于如何去使用 RxJava 已经有许多的教程和代码范例了。感兴趣的开发者可以访问 RxJava 的官方 [Wiki](https://github.com/ReactiveX/RxJava/wiki)，里面有关于什么是 Observable 以及它和 Iterable、Future 之间关系的很好的解释。Wiki 里有一篇很有用的文章：[How To Use RxJava](https://github.com/ReactiveX/RxJava/wiki/How-To-Use-RxJava)，这篇文章包含怎么去发送事件流并且打印出它们的介绍以及它的样例代码。
 
 But what one really wants to know, is what problem RxJava will solve and how it will help organize async code without actually learning what Observable is.
 
-但是需要明确我们想要了解的信息，就是 RxJava 用来解决的问题以及它是怎么帮助我们组织起异步代码的（在我们还没学习什么是 Observable 的前提下）。
+但我们要明确的是在还没有学习什么是 Observable 的前提下了解 RxJava 用来解决什么问题以及它是怎么帮助我们组织起异步代码的。
 
 My goal here is to show some “prequel” to read before the official documentation in order to better understand the problems that RxJava tries to solve. This article is positioned as a small walk-through on how to reorganize messy Async code by ourselfs to see how we can implement basic principles of RxJava without actually using RxJava.
 
-我这篇文章的定位就是 RxJava 官方文档的“前篇”，读完这篇文章能更好地去理解 RxJava 所解决的问题。文章中也有一个小演练，就是自己怎么去整理那些凌乱的代码，然后看看我们在没有使用 RxJava 的情况下是怎么去遵循 RxJava 基本原则的。
+我这篇文章的定位就是 RxJava 官方文档的“前篇”，读完这篇文章能更好地去理解 RxJava 所解决的问题。文章中也有一个小 Demo，就是自己怎么去整理那些凌乱的代码，然后看看我们在没有使用 RxJava 的情况下是怎么去遵循 RxJava 基本原则的。
 
 So If you are still curious let’s get started!
 
@@ -573,7 +573,7 @@ public class CatsHelper {
 
 Wow, the previous version was simpler. What benefits do we have now? – Now we actually return AsyncJob<Uri> of ‘composed’ operations to the client side. So a client (in activity or fragment) can operate with the composed job.
 
-哇，之前的版本更简单些，我们现在这么多的优势是什么？答案就是现在我们可以给客户端返回“组合”操作的` AsyncJob<Uri> `。所以一个客户端（在 activity 或者 fragment 处）可以用组合起来的工作来操作。
+哇，之前的版本更简单些啊，我们现在新的突破是什么？答案就是现在我们可以给客户端返回“组合”操作的` AsyncJob<Uri> `。所以一个客户端（在 activity 或者 fragment 处）可以用组合起来的工作来操作。
 
 Breaking things
 
