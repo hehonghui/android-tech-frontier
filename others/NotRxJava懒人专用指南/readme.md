@@ -6,7 +6,7 @@ NotRxJava懒人专用指南
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [Rocko](https://github.com/zhengxiaopeng) 
 * 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  未完成
+* 状态 :  校对中
 
 
 
@@ -590,3 +590,610 @@ query ===========> List<Cat> -------------> Cat ==========> Uri
 
 To make code readable again let’s break this flow into these operations. But one more thing, let’s think about it little bit: if some operation is async, then any operation with it is async too, Example: if querying cats is an async operation, then finding the cutest cat (even with single blocking call) is an async operation too (for the client that want to receive the result).
 
+为了让我们的代码拥有之前的可读性，我们从这个事件流中强行进入到里面的操作里。但有件事需要注意，如果某些操作（方法）是异步的，然后调用它的操作（方法）又是异步的，就比如，查询猫的操作是异步的，然后寻找出最可爱的猫（即使有一个阻塞调用）也是一个异步操作（客户端希望接收的结果）。
+
+So we can divide our whole method into smaller operations with AsyncJobs:
+
+所以我们可以使用 AsyncJobs 把我们的方法分解成更小的操作：
+
+``` Java
+public class CatsHelper {
+
+    ApiWrapper apiWrapper;
+
+    public AsyncJob<Uri> saveTheCutestCat(String query) {
+        AsyncJob<List<Cat>> catsListAsyncJob = apiWrapper.queryCats(query);
+        AsyncJob<Cat> cutestCatAsyncJob = new AsyncJob<Cat>() {
+            @Override
+            public void start(Callback<Cat> callback) {
+                catsListAsyncJob.start(new Callback<List<Cat>>() {
+                    @Override
+                    public void onResult(List<Cat> result) {
+                        callback.onResult(findCutest(result));
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        callback.onError(e);
+                    }
+                });
+            }
+        };
+
+        AsyncJob<Uri> storedUriAsyncJob = new AsyncJob<Uri>() {
+            @Override
+            public void start(Callback<Uri> cutestCatCallback) {
+                cutestCatAsyncJob.start(new Callback<Cat>() {
+                    @Override
+                    public void onResult(Cat cutest) {
+                        apiWrapper.store(cutest)
+                                .start(new Callback<Uri>() {
+                                    @Override
+                                    public void onResult(Uri result) {
+                                        cutestCatCallback.onResult(result);
+                                    }
+
+                                    @Override
+                                    public void onError(Exception e) {
+                                        cutestCatCallback.onError(e);
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        cutestCatCallback.onError(e);
+                    }
+                });
+            }
+        };
+        return storedUriAsyncJob;
+    }
+
+    private Cat findCutest(List<Cat> cats) {
+        return Collections.max(cats);
+    }
+}
+```
+
+Looks bigger, but cleaner. Lower level of nested callback, understandable variable names (catsListAsyncJob, cutestCatAsyncJob, storedUriAsyncJob)
+
+代码量多了许多，但是更加清晰了。低层次嵌套的回调，利于理解的变量名（` catsListAsyncJob `、` cutestCatAsyncJob `、` storedUriAsyncJob `）。
+
+Looks better now, but let’s do something more:
+
+看起来好了许多，但我们要再做一些事情：
+
+Simple Mapping
+
+### 简单映射
+
+Now I want you to look at the part where we create AsyncJob<Cat> cutestCatAsyncJob:
+
+现在看看 ` AsyncJob<Cat> cutestCatAsyncJob `的部分：
+
+``` Java
+AsyncJob<Cat> cutestCatAsyncJob = new AsyncJob<Cat>() {
+            @Override
+            public void start(Callback<Cat> callback) {
+                catsListAsyncJob.start(new Callback<List<Cat>>() {
+                    @Override
+                    public void onResult(List<Cat> result) {
+                        callback.onResult(findCutest(result));
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        callback.onError(e);
+                    }
+                });
+            }
+        };
+```
+
+All these 16 lines of code have only one useful operation (for our logic):
+
+这 16 行代码只有一行是对我们有用（对于逻辑来说）的操作：
+
+``` Java
+findCutest(result)
+```
+
+Remaining code is just boilerplate noise to start another AsyncJob and to propagate result and error. Moreover, this noise isn’t task-specific – so we can actually move it somewhere to not distract us from the actual code.
+
+剩下的仅仅是开启另外一个` AsyncJob `和传递结果与错误的样板代码。此外，这些代码并不用于特定的任务，我们可以把其移动到其它地方而不影响编写我们真正需要的业务代码。
+
+So how could we write it? Two thing we need to have to implement this operation:
+
+AsyncJob which result we will transform
+Transforming function
+
+我们该怎么写呢？我们必须做下面的两件事情：
+
+- ` AsyncJob `是我们转换的结果
+
+- 转换方法
+
+Here is one more problem: as we can’t pass functions directly in java, we need to do it with classes (and interfaces), so we need to define what is ‘function’:
+
+这又有另外一个问题，因为在 Java 中不能直接传递方法（函数）所以我们需要通过类（和接口）来间接实现这样的功能，然后我们就来定义这个 “方法”：
+
+``` Java
+public interface Func<T, R> {
+    R call(T t);
+}
+```
+
+Pretty simple. Func interface have two type members T which corresponds to argument type and R which is result type.
+
+相当简单，` Func `接口有两个类型成员，` T `对应于参数类型而` R `对应于返回类型。
+
+As we transform the result from one AsyncJob we will do some kind of mapping between values, so let’s call the function map. Good place to define this function is to make it an instance method of AsyncJob class, so we can access source AsyncJob as this:
+
+当我们从一个` AsyncJob `中装换处结果后我们就需要做一些值之间的映射，这样的方法我们就叫它` map `。定义这个方法实例（Func 类型）最好的地方就在` AsyncJob `类中，所以` AsyncJob `代码里看起来就是这样了：
+
+``` Java
+public abstract class AsyncJob<T> {
+    public abstract void start(Callback<T> callback);
+
+    public <R> AsyncJob<R> map(Func<T, R> func){
+        final AsyncJob<T> source = this;
+        return new AsyncJob<R>() {
+            @Override
+            public void start(Callback<R> callback) {
+                source.start(new Callback<T>() {
+                    @Override
+                    public void onResult(T result) {
+                        R mapped = func.call(result);
+                        callback.onResult(mapped);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        callback.onError(e);
+                    }
+                });
+            }
+        };
+    }
+}
+```
+
+Cool, but how CatsHelper will look now:
+
+赞，这时` CatsHelper `就是下面这样了：
+
+``` Java
+public class CatsHelper {
+
+    ApiWrapper apiWrapper;
+
+    public AsyncJob<Uri> saveTheCutestCat(String query) {
+        AsyncJob<List<Cat>> catsListAsyncJob = apiWrapper.queryCats(query);
+        AsyncJob<Cat> cutestCatAsyncJob = catsListAsyncJob.map(new Func<List<Cat>, Cat>() {
+            @Override
+            public Cat call(List<Cat> cats) {
+                return findCutest(cats);
+            }
+        });
+
+        AsyncJob<Uri> storedUriAsyncJob = new AsyncJob<Uri>() {
+            @Override
+            public void start(Callback<Uri> cutestCatCallback) {
+                cutestCatAsyncJob.start(new Callback<Cat>() {
+                    @Override
+                    public void onResult(Cat cutest) {
+                        apiWrapper.store(cutest)
+                                .start(new Callback<Uri>() {
+                                    @Override
+                                    public void onResult(Uri result) {
+                                        cutestCatCallback.onResult(result);
+                                    }
+
+                                    @Override
+                                    public void onError(Exception e) {
+                                        cutestCatCallback.onError(e);
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        cutestCatCallback.onError(e);
+                    }
+                });
+            }
+        };
+        return storedUriAsyncJob;
+    }
+
+    private Cat findCutest(List<Cat> cats) {
+        return Collections.max(cats);
+    }
+}
+```
+
+Much better. Creating AsyncJob<Cat> cutestCatAsyncJob is now takes 6 lines of code and only single level of callback.
+
+现在好多了，创建` AsyncJob<Cat> cutestCatAsyncJob `只需要 6 行代码而回调也只有一个层级了。
+
+
+Advanced mapping
+
+### 高级映射
+
+Cool stuff, but another part of creating AsyncJob<Uri> storedUriAsyncJob is still ugly. Can we apply map here? Let’s give it a try:
+
+前面的那些已经很赞了，但是创建` AsyncJob<Uri> storedUriAsyncJob `的部分还有些不忍直视。能在这里创建映射吗？我们来试试吧：
+
+``` Java
+public class CatsHelper {
+
+    ApiWrapper apiWrapper;
+
+    public AsyncJob<Uri> saveTheCutestCat(String query) {
+        AsyncJob<List<Cat>> catsListAsyncJob = apiWrapper.queryCats(query);
+        AsyncJob<Cat> cutestCatAsyncJob = catsListAsyncJob.map(new Func<List<Cat>, Cat>() {
+            @Override
+            public Cat call(List<Cat> cats) {
+                return findCutest(cats);
+            }
+        });
+
+        AsyncJob<Uri> storedUriAsyncJob = cutestCatAsyncJob.map(new Func<Cat, Uri>() {
+            @Override
+            public Uri call(Cat cat) {
+                return apiWrapper.store(cat);
+        //      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ will not compile
+        //      Incompatible types:
+        //      Required: Uri
+        //      Found: AsyncJob<Uri>                
+            }
+        });
+        return storedUriAsyncJob;
+    }
+
+    private Cat findCutest(List<Cat> cats) {
+        return Collections.max(cats);
+    }
+}
+```
+
+Sigh… Not so easy, let’s fix type of resulting variable, another try:
+
+呃呃。。。并不容易哦，我们来修改下结果的类型变量，试下其它方法：
+
+``` Java
+public class CatsHelper {
+
+    ApiWrapper apiWrapper;
+
+    public AsyncJob<Uri> saveTheCutestCat(String query) {
+        AsyncJob<List<Cat>> catsListAsyncJob = apiWrapper.queryCats(query);
+        AsyncJob<Cat> cutestCatAsyncJob = catsListAsyncJob.map(new Func<List<Cat>, Cat>() {
+            @Override
+            public Cat call(List<Cat> cats) {
+                return findCutest(cats);
+            }
+        });
+
+        AsyncJob<AsyncJob<Uri>> storedUriAsyncJob = cutestCatAsyncJob.map(new Func<Cat, AsyncJob<Uri>>() {
+            @Override
+            public AsyncJob<Uri> call(Cat cat) {
+                return apiWrapper.store(cat);
+            }
+        });
+        return storedUriAsyncJob;
+        //^^^^^^^^^^^^^^^^^^^^^^^ will not compile
+        //      Incompatible types:
+        //      Required: AsyncJob<Uri>
+        //      Found: AsyncJob<AsyncJob<Uri>>
+    }
+
+    private Cat findCutest(List<Cat> cats) {
+        return Collections.max(cats);
+    }
+}
+```
+
+We can only have AsyncJob<AsyncJob<Uri>> at this point. Do we need to go deeper? What we want is to flatten one level of AsyncJob as two async operations are just another single async operation.
+
+在目前这点上我们只能有` AsyncJob<AsyncJob<Uri>> `。我们需要往更深处挖吗？我们希望的是，去把`AsyncJob `在一个级别上的两个异步操作扁平化成一个单一的异步操作。
+
+What we need now is to have map that will take function which returns not just R but AsyncJob<R>. This operation should behave like map, but in the end it should flatten our nested AsyncJob. Let’s call it flatMap and try to implement it:
+
+现在我们需要的是得到能使方法返回映射成` R `类型也是` AsyncJob<R> `类型的操作。这个操作应该像` map `，但在最后应该` flatten `我们嵌套的` AsyncJob `。我们叫它为` flatMap `吧，然后就是来实现它：
+
+``` Java
+public abstract class AsyncJob<T> {
+    public abstract void start(Callback<T> callback);
+
+    public <R> AsyncJob<R> map(Func<T, R> func){
+        final AsyncJob<T> source = this;
+        return new AsyncJob<R>() {
+            @Override
+            public void start(Callback<R> callback) {
+                source.start(new Callback<T>() {
+                    @Override
+                    public void onResult(T result) {
+                        R mapped = func.call(result);
+                        callback.onResult(mapped);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        callback.onError(e);
+                    }
+                });
+            }
+        };
+    }
+
+    public <R> AsyncJob<R> flatMap(Func<T, AsyncJob<R>> func){
+        final AsyncJob<T> source = this;
+        return new AsyncJob<R>() {
+            @Override
+            public void start(Callback<R> callback) {
+                source.start(new Callback<T>() {
+                    @Override
+                    public void onResult(T result) {
+                        AsyncJob<R> mapped = func.call(result);
+                        mapped.start(new Callback<R>() {
+                            @Override
+                            public void onResult(R result) {
+                                callback.onResult(result);
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                callback.onError(e);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        callback.onError(e);
+                    }
+                });
+            }
+        };
+    }
+}
+```
+
+Yeah, noisy implementation of flatMap, but all of it is in the same place, and we will not see it in our client code. So our fixed CatsHelper:
+
+FlatMap 的粗略实现，但这些东西的实现都在一个地方了，在客户端的业务代码中不会再见到它。接下来我们修复下` CatsHelper `:
+
+``` Java
+public class CatsHelper {
+
+    ApiWrapper apiWrapper;
+
+    public AsyncJob<Uri> saveTheCutestCat(String query) {
+        AsyncJob<List<Cat>> catsListAsyncJob = apiWrapper.queryCats(query);
+        AsyncJob<Cat> cutestCatAsyncJob = catsListAsyncJob.map(new Func<List<Cat>, Cat>() {
+            @Override
+            public Cat call(List<Cat> cats) {
+                return findCutest(cats);
+            }
+        });
+
+        AsyncJob<Uri> storedUriAsyncJob = cutestCatAsyncJob.flatMap(new Func<Cat, AsyncJob<Uri>>() {
+            @Override
+            public AsyncJob<Uri> call(Cat cat) {
+                return apiWrapper.store(cat);
+            }
+        });
+        return storedUriAsyncJob;
+    }
+
+    private Cat findCutest(List<Cat> cats) {
+        return Collections.max(cats);
+    }
+}
+```
+
+Yeah! It works, and it’s much more simpler to read and to write.
+
+哈哈！它能用了，读和写也简单了不少。
+
+
+Final point
+
+### 最后的要点
+
+Look at the resulting code again. Does it look familiar to you? Take one more look. No? Will it be more easy if I will convert anonymous classes to java8 lambdas (just for better look, the logic is the same).
+
+再来看看我们编写的代码，眼熟吗？如果我们使用 Java 8 的 lambdas（逻辑是一样的但是看起来更爽一些） 代码会更加地简洁。
+
+``` Java
+public class CatsHelper {
+
+    ApiWrapper apiWrapper;
+
+    public AsyncJob<Uri> saveTheCutestCat(String query) {
+        AsyncJob<List<Cat>> catsListAsyncJob = apiWrapper.queryCats(query);
+        AsyncJob<Cat> cutestCatAsyncJob = catsListAsyncJob.map(cats -> findCutest(cats));
+        AsyncJob<Uri> storedUriAsyncJob = cutestCatAsyncJob.flatMap(cat -> apiWrapper.store(cat));
+        return storedUriAsyncJob;
+    }
+
+    private Cat findCutest(List<Cat> cats) {
+        return Collections.max(cats);
+    }
+}
+```
+
+Is it better now? I think this code looks very similar to our first blocking version:
+
+它看起来会更好吗？我认为这样的代码跟我们第一次阻塞的版本差不多：
+
+``` Java
+public class CatsHelper {
+
+    Api api;
+
+    public Uri saveTheCutestCat(String query){
+        List<Cat> cats = api.queryCats(query);
+        Cat cutest = findCutest(cats);
+        Uri savedUri = api.store(cutest);
+        return savedUri;
+    }
+
+    private Cat findCutest(List<Cat> cats) {
+        return Collections.max(cats);
+    }
+}
+```
+
+Yes! This is it! Logic is the same! And even more – semantics are the same too.
+
+Do we have composability? Heck yeah! We combined async operations and return composed one!
+
+Error propagation? Sure! All errors will be passed directly to the final callback.
+
+And finally…
+
+是的，就是这样，逻辑是相似的！也有可能会复杂些（语义是一样的）。
+我们这样的代码有组合性吗？请大声的说有！我们组合了所有的异步操作然后作为返回结果我们仅需一个组合后的结果对象而已。
+错误传递呢？当然也有！所有的错误都会传递到最后的回调中。
+接下来的最后呢。。。
+
+
+RxJava
+
+## [RxJava](https://github.com/ReactiveX/RxJava)
+
+Hey, you don’t need to copy these classes into your current project. Because we just implemented poorly written, non thread safe version of small part of RxJava.
+
+嘿，你不需要把那些代码拷到你的项目中，因为我们还是实现地不够完全的，仅仅算是非线程安全的 RxJava 的一小部分而已。
+
+There are only some differences:
+
+AsyncJob<T> is actually Observable<T> and it can deliver not just a single result but a sequence (possibly empty) of them.  
+
+Callback<T> is Observer<T> and besides of methods onNext(T t), onError(Throwable t) has method onCompleted() that will notify that the Observable it wraps finished emitting items (as it can emit a sequence of them)   
+
+abstract void start(Callback<T> callback) corresponds to Subscription subscribe(final Observer<? super T> observer) that also returns Subscription which you can use to cancel receiving items, when you don’t need them anymore.
+
+Besides methods map and flatMap Observable has additional useful operations over Observalbes.
+
+它们之间只有一些差异：
+
+- ` AsyncJob<T> ` 就是实际上的 [Observable<T>](http://reactivex.io/documentation/observable.html)，它不仅可以只分发一个单一的结果也可以是一个序列（可以为空）。
+
+- ` Callback<T> ` 就是 [Observer<T>](http://reactivex.io/documentation/operators/subscribe.html)，除了 Callback 少了` onNext(T t) `方法。Observer<T> 中在` onError(Throwable t) `方法被调用后，会继而调用` onCompleted() `，然后 Observer 会包装好并发送出事件流（因为它能发送一个序列）。
+
+- ` abstract void start(Callback<T> callback) `对应 [Subscription subscribe(final Observer<? super T> observer)](http://reactivex.io/RxJava/javadoc/rx/Observable.html#subscribe(rx.Observer))，这个方法也返回 [Subscription](http://reactivex.io/RxJava/javadoc/rx/Subscription.html) ，在不需要它时你可以决定取消接收事件流。
+
+- 除了` map `和` flatMap `方法，` Observable `在 Observalbes 之上也有一些[其它](http://reactivex.io/documentation/operators.html)有用的操作。
+
+Here is an example how our code will look like with using RxJava:
+
+下面的代码是使用 RxJava 来完成我们前面自己写的代码的功能：
+
+``` Java
+public class ApiWrapper {
+    Api api;
+
+    public Observable<List<Cat>> queryCats(final String query) {
+        return Observable.create(new Observable.OnSubscribe<List<Cat>>() {
+            @Override
+            public void call(final Subscriber<? super List<Cat>> subscriber) {
+                api.queryCats(query, new Api.CatsQueryCallback() {
+                    @Override
+                    public void onCatListReceived(List<Cat> cats) {
+                        subscriber.onNext(cats);
+                    }
+
+                    @Override
+                    public void onQueryFailed(Exception e) {
+                        subscriber.onError(e);
+                    }
+                });
+            }
+        });
+    }
+
+    public Observable<Uri> store(final Cat cat) {
+        return Observable.create(new Observable.OnSubscribe<Uri>() {
+            @Override
+            public void call(final Subscriber<? super Uri> subscriber) {
+                api.store(cat, new Api.StoreCallback() {
+                    @Override
+                    public void onCatStored(Uri uri) {
+                        subscriber.onNext(uri);
+                    }
+
+                    @Override
+                    public void onStoreFailed(Exception e) {
+                        subscriber.onError(e);
+                    }
+                });
+            }
+        });
+    }
+}
+
+public class CatsHelper {
+
+    ApiWrapper apiWrapper;
+
+    public Observable<Uri> saveTheCutestCat(String query) {
+        Observable<List<Cat>> catsListObservable = apiWrapper.queryCats(query);
+        Observable<Cat> cutestCatObservable = catsListObservable.map(new Func1<List<Cat>, Cat>() {
+            @Override
+            public Cat call(List<Cat> cats) {
+                return CatsHelper.this.findCutest(cats);
+            }
+        });
+        Observable<Uri> storedUriObservable = cutestCatObservable.flatMap(new Func1<Cat, Observable<? extends Uri>>() {
+            @Override
+            public Observable<? extends Uri> call(Cat cat) {
+                return apiWrapper.store(cat);
+            }
+        });
+        return storedUriObservable;
+    }
+
+    private Cat findCutest(List<Cat> cats) {
+        return Collections.max(cats);
+    }
+}
+```
+
+You can see that the code is the same except using Observable instead of AsyncJob
+
+你可以看到代码是相同的，除了使用` Observable `来替代` AsyncJob `。
+
+Conclusion
+
+### 总结
+
+We see how with simple transformation we can create an abstraction over Async operations. This abstraction can be used to operate and compose async tasks just like simple functions. With this approach we can get rid of nested callbacks and hand-written error propagation during handling Async results.
+
+我们看到，通过简单的转化我们可以把异步操作给抽象出来。这个抽象出来的东西可以被用来操作和组合异步操作就像简单的方法那样。通过这种方法我们可以摆脱嵌套的回调，在处理异步结果时也能手动处理错误的传递。
+
+If you still here I suggest you to relax, think a bit about duality of sync/async and watch this awesome video from Erik Meijer.
+
+如果你看到了这里的话建议你放松下，思考下 sync/async 之间的二元关系，然后看看这个很棒的来自[Erik Meijer](http://en.wikipedia.org/wiki/Erik_Meijer_(computer_scientist))的[视频](https://channel9.msdn.com/Events/Lang-NEXT/Lang-NEXT-2014/Keynote-Duality)。
+
+Useful Links
+
+## 一些有用的链接
+- [http://reactivex.io](http://reactivex.io)
+- [https://github.com/ReactiveX/RxJava](https://github.com/ReactiveX/RxJava)
+- [https://github.com/ReactiveX/RxJava/wiki](https://github.com/ReactiveX/RxJava/wiki)
+- [http://queue.acm.org/detail.cfm?id=2169076](http://queue.acm.org/detail.cfm?id=2169076)
+- [https://www.coursera.org/course/reactive](https://www.coursera.org/course/reactive)
+- [http://blog.danlew.net/2014/09/15/grokking-rxjava-part-1](http://blog.danlew.net/2014/09/15/grokking-rxjava-part-1/)
+
+Acknowledgment
+
+## 感谢
+
+Thanks to my friend Alexander Yakushev for help with translation
+
+感谢我的朋友 Alexander Yakushev 帮忙翻译。
