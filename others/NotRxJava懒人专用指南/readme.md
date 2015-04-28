@@ -371,7 +371,7 @@ And let’s just create ApiWrapper to change signature of our calls:
 public class ApiWrapper {
     Api api;
 
-    private void queryCats(String query, Callback<List<Cat>> catsCallback){
+    public void queryCats(String query, Callback<List<Cat>> catsCallback){
         api.queryCats(query, new Api.CatsQueryCallback() {
             @Override
             public void onCatListReceived(List<Cat> cats) {
@@ -385,7 +385,7 @@ public class ApiWrapper {
         });
     }
 
-    private void store(Cat cat, Callback<Uri> uriCallback){
+    public void store(Cat cat, Callback<Uri> uriCallback){
         api.store(cat, new Api.StoreCallback() {
             @Override
             public void onCatStored(Uri uri) {
