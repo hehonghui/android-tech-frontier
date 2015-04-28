@@ -5,19 +5,9 @@ Support Libraries v22.1.0
 * 原文作者 : [Chris Banes](https://chris.banes.me/)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [tiiime](https://github.com/tiiime)
-* 校对者: [这里校对者的github用户名](github链接)
-* 状态 :  未完成 / 校对中 / 完成
+* 校对者: [chaossss](https://github.com/chaossss)
+* 状态 :  完成
 
-
-
-#Support Libraries v22.1.0
-22 Apr 2015
-
-It’s been a while since my last post so here we are. You may have seen that the 22.1.0 support libraries were released yesterday, which is probably the biggest non-platform release we’ve done with the support library.
-
-Before we go any further, have a read of Ian’s official release blog post. It outlines all of the new features in this release, for all of the libraries.
-
-In this post I will concentrate more on the how and why certain things were done, particularly on the things I worked on (since I actually know the how and why on those).
 
 
 #Support Libraries v22.1.0
@@ -34,28 +24,11 @@ In this post I will concentrate more on the how and why certain things were done
 
 ---
 
-##AppCompat
-
-Lets start with AppCompat which has had a large update in this release. First, its refactoring…
-
 ## AppCompat
 
 先从 AppCompat 说起吧，我们在这个版本中对它做了很大的更新。首先，它的重构...
 
 ---
-
-###Refactoring
-Previously the only entry point into AppCompat was through the now deprecated ActionBarActivity class. Unfortunately this forced you into using a set Activity hierarchy which made things like using PreferenceActivity impossible.
-
-We’ve now extracted all of the internal stuff and exposed it as a single delegate API, AppCompatDelegate. AppCompatDelegate can be created by any Android object which exposes a Window.Callback, such as any Activity or Dialog subclass. You create one via its static create() methods.
-
-There is a contract to maintain when you create a delegate. You must callback to it at every call it exposes (for instance onCreate()), but it’s really simple and can be extracted into a base class.
-
-The end result is that you can attach all of AppCompat’s functionality to any Activity sub-class, as long as you call it as it wants.
-
-If you plan on playing with AppCompatDelegate, I urge you to have a look at the AppCompatActivity source when you get a chance. It’s an (extreme) example of how to integrate AppCompatDelegate.
-
-Most people though won’t need this level of customization though and can just use AppCompatActivity (as you used to use ActionBarActivity).
 
 
 ###Refactoring
@@ -83,17 +56,6 @@ Most people though won’t need this level of customization though and can just 
 ---
 
 ###Dialogs
-I just mentioned Dialogs in the refactoring step which should give you an idea of what else we’ve added. After completing the refactoring work, Dialogs were a natural next step. There is actually very little difference between an Activity and Dialog from a decor-setup point of view.
-
-This means that we can finally close one of the biggest requests for AppCompat since v21: material styled dialogs.
-
-We now have the new AppCompatDialog class which you should now use any time you use reference Theme.AppCompat.Dialog (or related).
-
-To cap this section off, AppCompat now also has its own AlertDialog implementation for material styled AlertDialog everywhere. To use it, just change your usage to android.support.v7.app.AlertDialog. It handles the rest.
-
-One thing to note is that AppCompat’s AlertDialog does not implement everything that the framework version does. It only exposes things which are valuable in this ‘material world’ (groan).
-
-###Dialogs
 
 上面刚刚提到了 Dialog ，你应该也想到了我们还加入了什么。在完成重构工作后，
 Dialog 很自然就是我们下一步工作对象。实际上从 decor-setup 角度来看，
@@ -113,26 +75,6 @@ material 样式的 AlertDialog。只要使用
 它只暴露了在这个 ‘material 世界’ 中有价值的部分。( (╯°□°）╯︵ ┻━┻ )
 
 ---
-
-###android:theme
-Before we go into this section, make sure you have read my Theme vs Style post. It explains the basis of what we’re about to talk about.
-
-In AppCompat v21, we exposed a quick-hack-get-it-out way for you to be able to set a theme on a Toolbar using app:theme.
-
-In 22.1.0 we now have expanded that functionality so that you can set a theme on any view in your layouts. We have also moved to using android:theme which allows seamless handover between the compat and framework functionality.
-
-The best bit though, is that the automatic theme inheritance from a view’s parent also works on all devices running API v11 and above. Here’s a quick example:
-
-<Toolbar
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-    <!-- This TextView inherits its theme from the parent Toolbar -->
-    <TextView android:text="I'm light!" />
-
-</Toolbar>
-For devices running API v10 and older, you can still use android:theme but the parent theme inheritance will not work. This means that you should either rethink your layouts, or set android:theme on all of the children (this is really inefficient though).
-
-For those that are interested, the thing that enables the parent theme inheritance is LayoutInflater.Factory2.
 
 ###android:theme
 
@@ -169,16 +111,6 @@ compat 和 framework 之间无缝地切换功能。
  
 ###Widgets
 
-If you read Ian’s post then you’ll have seen that the tinting widgets have now been exposed publicly (there’s even a few new ones).
-
-That’s great, but there’s another change that happened related to this: we no longer change the platform theme’s default widget styles. What this means is that you will only get the material styling on a pre-v21 device, if you’re using the AppCompat implementation of that widget (either implicitly or explicitly). In practice you should not see a difference since we insert AppCompat’s implementation in-place automatically.
-
-This allows us to fix an issue where our material styles were being used, but not tinted. This happened when the platform implementation of the widget was used with our style, and showed up in various places such as Preferences.
-
-Instead, you will now see the default platform style (Holo, etc). This may look a little bit weird but it’s better than a black un-tinted drawable you can’t actually see.
-
-###Widgets
-
 如果读过了 Ian 的文章，你可能看到了和 控件着色 (tinting widgets)相关的内容
 (这里还有一些新的内容)。
 
@@ -198,19 +130,6 @@ widget 的平台实现使用了我们的样式，并且出现在不同的位置�
 ---
 
 ###Theme window features
-AppCompat is now more strict on what it expects in theme window flags, more closely matching what you would get from the framework.
-
-The main reason behind this is to support dialogs which we mentioned earlier. They make heavy use of the windowNoTitle flag, which AppCompat previously did not pay much attention to.
-
-You might be seeing the following exception once you have updated to v22.1.0:
-
-	IllegalArgumentException: AppCompat does not support the current theme features
-	
-Have a look at my StackOverflow answer on how to fix your theme: 
-http://stackoverflow.com/q/29790070/474997
-
-
-###Theme window features
 现在 AppCompat 预测 窗口主题 flag 时会更严格 ，配合框架更密切。
 
 背后的原因是为我们早些时候提到的 dialogs 提供支持。它们大量使用了
@@ -223,25 +142,6 @@ AppCompat 之前并没有重视的 `windowNoTitle ` 标志。
 [http://stackoverflow.com/q/29790070/474997][stackoverflow]
 
 ---
-
-## v4
-The grandfather of the support libraries, support-v4 continues to grow and have new stuff added.
-
-### ColorUtils
-ColorUtils has been moved out of Palette and into support-v4 as a public class. It contains some really nice stuff in there for working with colors. For instance, you can calculate the minimum color alpha for text over a background color:
-
-int backgroundColor = ...;
-int textColor = Color.WHITE;
-float minContrastRatio = 4.5f; // We want a minimum contrast ration of 1:4.5
-
-int minAlpha = ColorUtils.calculateMinimumAlpha(
-        textColor, backgroundColor, minContrastRatio);
-
-if (minAlpha != -1) {
-    // There is an alpha value which has enough contrast, use it!
-    return ColorUtils.setAlphaComponent(textColor, minAlpha);
-}
-There’s other goodies in the class to, like colour composition and luminance calculation utilities. Have a look in the javadoc for more info.
 
 
 ## v4
@@ -269,28 +169,6 @@ if (minAlpha != -1) {
 去看文档。
 
 ---
-
-### Drawable tinting
-The Drawable tinting methods added in Lollipop are super useful for letting you dynamically tint assets. AppCompat had its own baked in implementation in the v21 support library and we’ve now extracted that into DrawableCompat in support-v4 for everyone to use. It’s important to know how it works though.
-
-```java
-Drawable drawable = ...;
-
-// Wrap the drawable so that future tinting calls work
-// on pre-v21 devices. Always use the returned drawable.
-drawable = DrawableCompat.wrap(drawable);
-
-// We can now set a tint
-DrawableCompat.setTint(drawable, Color.RED);
-// ...or a tint list
-DrawableCompat.setTintList(drawable, myColorStateList);
-// ...and a different tint mode
-DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
-```
-
-The thing to remember is that after you call DrawableCompat.wrap(), you can not rely on the result being the same type as what you give it. Instead you should use DrawableCompat.unwrap() to retrieve the original Drawable.
-
-Internally, we now wrap your Drawable in a special ‘tint drawable’ will automatically update your Drawable’s color filter from the specified tint. This allows us to handle ColorStateList instances.
 
 
 ### Drawable 着色
@@ -322,26 +200,6 @@ DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
 [ColorStateList][ColorStateList] 实例。
 
 ---
-
-## Palette
-Palette has also recieved a bit of love in this release. The first thing is that we’ve added a new Builder class to help with instantiation. We found that we were adding more and more ‘knobs’ and settings to Palette which was making the API convoluted. Builders are a nice way to make this less painful as an API.
-
-The second (and more important) change is the large performance increase in generating Palettes. The most costly piece of work in Palette is the colour quantization step. This take all of the pixels in a image and reduces the colour depth down to a small number of colours (usually 16).
-
-In this release, we went back to some old-style optimizations for the colour quantization. Things like less object allocations, more appropriate data structures and a reduction in algorithmic complexity. These have resulted in a massive increase in speed.
-
-Here are some quick tests I did. As you can see the speed-up is roughly 5-6x on a device using ART, but on a Dalvik device the increase is greater.
-
-
- Device          | 22.0		 | 22.1.0  	| Speedup
- ----------|--------| ------|------
-Nexus 6		| 55ms 	| 8ms    	 |~6x
-Nexus 5 		| 55ms 	| 11ms	 |~5x
-Nexus One	| 1200ms	| 120ms 	 |~10x
-
-The results are not scientific and only give a rough indication, but you get the idea.
-
-Cover photo:[Scaffolding][cover] by Brett Weinstein
 
 ##Palette
 Palette 在这次发布中也获得了一些更新。首先，我们给它加入了新的 

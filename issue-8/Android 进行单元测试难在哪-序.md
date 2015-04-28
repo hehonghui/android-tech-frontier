@@ -1,4 +1,4 @@
-`Android 进行单元测试难在哪-序`
+Android 进行单元测试难在哪-序
 ---
 
 > * 原文链接 : [Against Android Unit Tests](http://philosophicalhacker.com/2015/04/10/against-android-unit-tests/)
