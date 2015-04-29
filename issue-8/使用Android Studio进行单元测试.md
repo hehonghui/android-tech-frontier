@@ -5,8 +5,8 @@
 * 原文作者 : [Rex St John](http://rexstjohn.com/)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang) 
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  翻译完成 
+* 校对者: [zhengxiaopeng](https://github.com/zhengxiaopeng)  
+* 状态 :  校对完
 
 This article covers the basics of using Android Unit Tests with Android Studio.
 这篇文章介绍了在Android Studio中进行单元测试的基础部分。
@@ -16,7 +16,7 @@ This article covers the basics of using Android Unit Tests with Android Studio.
 
 Many guides out there will encourage you to add some lines  in your “build.gradle” to enable “instrument tests” and also tell you to include the Android testing libraries in your dependencies…
 
-很多的教程指导你应该在“build.gradle”文件里面添加几行代码从而允许单元测试，并且告诉你应该在项目依赖中添加Android测试库。
+很多教程都指导你应该在“build.gradlew”中添加几行代码来开启“instrument tests” 功能，而且还需要添加 Android 测试库的项目依赖。
 
 This is completely unnecessary and you won’t need to worry about doing that.
 
@@ -68,7 +68,7 @@ All test methods MUST start with the “test-” prefix or Android Studio will n
 Now that we have a test case which is doomed for failure, we must now run it.
 Start by clicking “Run -> Edit Configurations.”
 
-现在我们已经有了一个必然会运行失败的测试案例，我们必须把它run起来。
+现在我们已经有了一个必然会运行失败的测试用例，我们必须把它run起来。
 
 首先点击"Run-> Edit Configurations"
 
@@ -82,7 +82,7 @@ Now select “+ -> Android Tests” from the upper left hand corner and select �
 
 This will create a new test project configuration like this:
 
-然后就会创建一下像下面这样的测试项目配置
+然后就会创建如下的测试项目配置
 
 ![](http://i2.tietuku.com/2183cac60bbed220.png)
 
@@ -140,7 +140,7 @@ When your test fails, click “Logcat” and view the results for a comprehensiv
 
 If you go through the console, you will find the given reason should be: “junit.framework.AssertionFailedError: expected:<1> but was:<5>”
 
-通过控制台，你会发现给出的错误理由应该是
+通过控制台，可以看到打印出的错误原因：
 
 ```
 “junit.framework.AssertionFailedError: expected:<1> but was:<5>”
