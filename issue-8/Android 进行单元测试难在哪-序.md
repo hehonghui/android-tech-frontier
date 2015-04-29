@@ -4,8 +4,8 @@ Android 进行单元测试难在哪-序
 > * 原文链接 : [Against Android Unit Tests](http://philosophicalhacker.com/2015/04/10/against-android-unit-tests/)
 * 原文作者 : [Matthew Dupree](http://philosophicalhacker.com/)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
-* 译者 : [Rocko](https://github.com/zhengxiaopeng) 
-* 校对者: [chaossss](https://github.com/chaossss)  
+* 译者 : [chaossss](https://github.com/chaosssss) 
+* 校对者: [Rocko](https://github.com/zhaoxiaopeng)  
 * 状态 :  完成 
 
 其实不仅仅只有普通 Android 开发工程师觉得测试 Android 应用很恼火，大牛们也受此困扰已久。例如 Jake Wharton 曾经明确地表示：Android 平台自诞生之初就与应用测试势如水火。Don Felker 和 Kaushik Gopal 也在他们的[博文](http://fragmentedpodcast.com/episodes/1/)里也提出了相同的观点。当然了，他们还提到 Google 的 [IOSched 应用](https://github.com/google/iosched)，根本就没有进行过测试，据说 IOSched 还是 Android 开发环境中应用开发的最优集合体呢。IOSched 没有进行测试让我们这些开发者很困扰：1、Google 所谓的“测试是高效地进行 Android 开发中的关键一环”真的不是来唬小孩的吗；2、还是 Google 官方的工程师觉得测试 Android 应用简直就是浪费时间？不管怎样，如果这个世界上最优秀的 Android 开发工程师都觉得在 Android 中进行测试很麻烦，那我们这些小菜鸡玩不好测试也是理所当然的了。
