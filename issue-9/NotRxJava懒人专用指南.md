@@ -4,7 +4,7 @@ NotRxJava懒人专用指南
 > * 原文链接 : [NotRxJava guide for lazy folks](http://yarikx.github.io/NotRxJava/)
 * 原文作者 : [Yaroslav Heriatovych](http://yarikx.github.io/)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
-* 译者 : [Rocko](https://github.com/zhengxiaopeng) 
+* 译者 : [Rocko](https://github.com/Rocko) 
 * 校对者: [Mr.Simple](https://github.com/bboyfeiyu)  
 * 状态 :  完成校对
 
