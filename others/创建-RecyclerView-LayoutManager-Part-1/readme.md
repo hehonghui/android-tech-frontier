@@ -87,7 +87,7 @@ and vertical directions.
 >是一个自定义 vertical linear list  的实现：
 >[SDK_PATH]/extras/android/compatibility/samples/Support7Demos/src/com/example/android/supportv7/widget/RecyclerViewActivity.java
 >
->同时， 大部分 Android L 和 新的 support libraries 可能不在 AOSP
+>同时，Android L 和 新的 support libraries 可能还没加入 AOSP
 >之中，不过 RecyclerView 提供了 **JAR** 资源，可以在这里找到：
 >[SDK_PATH]/extras/android/m2repository/com/android/support/recyclerview-v7/21.0.0-rc1/recyclerview-v7-21.0.0-rc1-sources.jar
 
@@ -105,13 +105,12 @@ The Recycler also removes the need to directly access the view’s current adapt
 回收旧的 view 或者 获取新的 view 时，
 你的 LayoutManager 可以访问一个 `Recycler` 实例。
 
-Recycler 也免掉了直接访问当前 view 适配器方法的麻烦。当你的
+Recycler 也免掉了直接访问 view 当前适配器方法的麻烦。当你的
 LayoutManager 需要一个新的子视图时，只要调用 `getViewForPosition() `
-这个方法，Recycler 就会返回已经正确绑定数据的 view 。
-Recycler 会判断新的视图到底是从头创建
-还是从一个已存在的废弃视图之中再生。
-你的 LayoutManager 需要保证及时的将不再显示的视图传递给 Recycler；
-这样可以避免 Recycler 创建不必要的 view 对象。
+这个方法，Recycler 会决定到底是从头创建一个新的视图
+还是重用一个已存在的废弃视图。
+你的 LayoutManager 需要及时将不再显示的视图传递给 Recycler，
+避免 Recycler 创建不必要的 view 对象。
 
 ---
 
@@ -125,8 +124,8 @@ Remove is meant for views that are no longer needed. Any view that is permanentl
 
 布局更新时有两个方法处理已存在的子视图：detach 和
 remove (分离和移除)。Detach 是一个轻量的记录 view 操作。
-被 detach 的视图在你的代码返回前能够重新连接。通过 Recycler 
-可以修改附加子视图的索引而不需要重新绑定/重新构建那些视图。
+被 detach 的视图在你的代码返回前能够重新连接。可以通过 Recycler
+在不 重新绑定/重新构建 子视图的情况下修改已连接子视图的索引。
 
 Remove 意味着这个 view 已经不需要了。任何被永久移除的 view 都应该
 放到 Recycler 中，方便以后重用，不过 API 并没有强制要求。
@@ -155,7 +154,7 @@ LayoutManager 。通常被 detach
 Recycler 就会从 recycle pool 里弄一个合适的视图出来，
 然后用 adapter 给它绑定必要的数据
 (就是调用 `RecyclerView.Adapter.bindViewHolder()`) 再返回。
-如果 recycle pool 中不存在有效 view 时，就会在绑定数据前
+如果 recycle pool 中也不存在有效 view ，就会在绑定数据前
 创建新的 view (就是 `RecyclerView.Adapter.createViewHolder()`)，
 最后返回数据。
 
@@ -167,7 +166,7 @@ The LayoutManager API lets you do pretty much all of these tasks independently i
 
 ## 经验法则
 
-只要你想做，LayoutManager 的 API 允许你独立完成所有这些任务，
+只要你原意，LayoutManager 的 API 允许你独立完成所有这些任务，
 所以可能的组合有点多。通常来说，
 如果你想要临时整理并且希望稍后在同一布局中重新使用某个 view 的话，
  可以对它调用 `detachAndScrapView()` 。如果基于当前布局
@@ -184,7 +183,7 @@ You will need to override and implement the following method to create a minimum
 # Building The Core
 
 LayoutManager 需要实时添加，测量和布局所有它需要的子视图。当用户
-滚动屏幕时，布局管理器将来决定什么时候需要添加新的子视图，
+滚动屏幕时，布局管理器将来决定什么时候添加新的子视图，
 什么时候可以 detache/scrap (分离/废弃)视图。
 
 你需要实现下面这些方法创建一个可行的 LayoutManager 最小系统。
@@ -208,7 +207,7 @@ public RecyclerView.LayoutParams generateDefaultLayoutParams() {
 
 事实上你只要重写这个方法你的 LayoutManager 就能编译通过了。
 实现也很简单，返回一个你想要默认应用给所有从 
-Recycler 中返回的子视图的 `RecyclerView.LayoutParams` 实例。
+Recycler 中获得的子视图做参数的 `RecyclerView.LayoutParams` 实例。
 这些参数会在对应的 `getViewForPosition()` 返回前赋值给相应的子视图。
 
 ```java
@@ -239,12 +238,12 @@ In the next segment, we will look at how this can be used to do a fresh layout b
 它会在 view 需要初始化布局时调用，
 当适配器的数据改变时(或者整个适配器被换掉时)会再次调用。
 **注意！这个方法不是在每次你对布局作出改变时调用的。**
-它是 初始化布局 或者 数据改变 时重置子视图布局的好机会。
+它是 初始化布局 或者 在数据改变时重置子视图布局的好位置。
 
 在接下来的部分，我们会分析在适配器更新时
 是怎样使用它基于当前可见元素刷新布局的。
 现在，我们将简单地解决这个问题当做子视图布局第一关。
-下面是 `FixedGridLayoutManager` 示例的简化版：
+下面是 `FixedGridLayoutManager` 示例的精简版：
 
 ```java
 @Override
@@ -286,7 +285,7 @@ public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State 
 We do some bookkeeping and setup (this manager assumes all child views from the adapter will be the same size, for simplicity), and make sure all views that might have existed are in the scrap heap. I have abstracted the bulk of the work to a fillGrid() helper method for re-use. We will see shortly this method gets called a lot to update the visible views as scrolling occurs as well.
 
 我们做一些记录和安排
-(为了简便，假设所有来自适配器的子视图都是一样大的)，
+(为了简便，假设来自适配器的所有子视图都是一样大的)，
 确保所有已存在的视图在 scrap heap 之中。我将
 大部分工作抽象到 `fillGrid()` 这个辅助方法中以便重用。
 我们很快就会看到这个方法在更新可见视图和滚动屏幕中被大量调用。
@@ -345,7 +344,7 @@ This manager orders positions right-to-left, wrapping when the max column count 
 
 ---
 
-1. 清点目前我们所有的视图。将他们 Detach 以便稍后可以重新连接。
+1. 清点目前我们所有的视图。将他们 Detach 以便稍后重新连接。
 	
 	```java
 	SparseArray<View> viewCache = new SparseArray<View>(getChildCount());
@@ -433,7 +432,7 @@ At this stage we have a very nice initial layout, but no way to move around. The
 
 # 添加用户交互
 
-在这一阶段，我们有一个非常好的初始布局，但是它并不能动起来。
+目前，我们已经有一个非常好的初始布局，但是它并不能动起来。
 RecyclerView 的关键就在于当用户浏览一组数据时动态提供视图。
 覆盖一些方法就能实现我们的目的。
 
@@ -453,8 +452,8 @@ public boolean canScrollVertically() {
 
 #### canScrollHorizontally() & canScrollVertically()
 
-这些方法很简单，在你想要滚动的方向对应的方法里返回 true ，
-不想要滚动的方向对应的方法里返回 false。
+这些方法很简单，在你想要滚动方向对应的方法里返回 true ，
+不想要滚动方向对应的方法里返回 false。
 
 ```java
 @Override
@@ -476,10 +475,10 @@ Here you will implement the logic by which the content should shift. Scrolling a
 
 #### scrollHorizontallyBy() & scrollVerticallyBy()
 
-在这里你应该实现 content 移动的逻辑。RecyclerView 已经处理了滚动
+在这里你应该实现 content 移动的逻辑。RecyclerView 已经处理了 scrolling
 和 [flinging][flinging] (注：Fling: Gross gesture, no on-screen target)
 触摸操作，不需要处理 MotionEvents 或者 GestureDetectors 这些麻烦事。
-只要完成下面这三个任务：
+你只需要完成下面这三个任务：
 
 1. 将所有的子视图移动适当的位置 (对的，你得自己做这个)。
 2. 决定移动视图后 添加/移除 视图。
@@ -493,7 +492,7 @@ In FixedGridLayoutManager, both methods are very similar. Here is the condensed 
 //code code...
 ```
 
-在 FixedGridLayoutManager 里，这两个方法很像。这里是压缩后的垂直滚动实现：
+在 FixedGridLayoutManager 里，这两个方法很像。这里是精简后的垂直滚动实现：
 
 ```java
 @Override
@@ -593,8 +592,8 @@ Notice we are given the incremental scroll distance (dx/dy) to validate. The fir
 We must manually move the views ourselves inside of this method. The offsetChildrenVertical() and offsetChildrenHorizontal() methods assist us in applying the uniform translation. If you don’t do this, your views won’t scroll. After moving the views, we trigger another fill operation to swap views based on the direction we scrolled.
 
 在这个方法里，我们需要自己手工移动这些视图。
-`offsetChildrenVertical() ` 和 `offsetChildrenHorizontal() `
-方法 可以帮助我们处理匀速移动。
+`offsetChildrenVertical() ` 和 `offsetChildrenHorizontal() ` 
+这两个方法 可以帮助我们处理匀速移动。
 **如果你不实现它，你的视图就不会滚动**
 移动视图操作完成后，我们触发另一个填充操作，
 根据滚动的距离替换视图。
@@ -606,8 +605,8 @@ Finally, we return the actual shift value applied to the children. RecyclerView 
 最后，将实际位移距离应用给子视图。RecyclerView 根据这个值判断是否
 绘制到达边界的效果。一般意义上，如果返回值不等于传入的值就意味着
 需要绘制边缘的发光效果了。
-**如果你返回了一个带有错误方向的值，框架的函数会将这个当做一个大的变化
-你不能获得正确的边缘发光特效。**
+**如果你返回了一个带有错误方向的值，框架的函数会把这个当做一个大的变化
+你将不能获得正确的边缘发光特效。**
 
 ---
 
@@ -615,7 +614,7 @@ In addition to drawing edge effects, this return value is also used to determine
 
 除了用来判断绘制边界特效外，返回值还被用来决定什么时候取消 flings。
 返回错误的值会让你失去对 content  fling 的控制。框架会认为你已经提前
-触碰到边缘并终止了 fling。
+触碰到边缘并取消了 fling。
 
 ---
 
