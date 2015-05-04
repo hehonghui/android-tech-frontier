@@ -3,6 +3,8 @@
 
 >
 * 原文链接 : [Custom Drawables](http://www.ryanharter.com/blog/2015/04/03/custom-drawables/)
+* 原文作者 : [Ryan Harter](http://www.ryanharter.com/)
+* [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [SwinZh](https://github.com/SwinZh) 
 * 校对者: [Mr.Simple](https://github.com/bboyfeiyu)  
 * 状态 :  完成
