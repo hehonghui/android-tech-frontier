@@ -82,6 +82,18 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" />
 ## 已完成列表
+# 2015.5.10 ( 第九期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [Android 10ms问题：关于Android音频路径延迟的解释](issue-9/Android 10ms问题：关于Android音频路径延迟的解释.md)  | [objectlife](https://github.com/objectlife)      |
+| [Android 进行单元测试难在哪-part1](issue-9/Android 进行单元测试难在哪-part1.md)  | [chaossss](https://github.com/chaossss)|
+| [NotRxJava懒人专用指南](issue-9/NotRxJava懒人专用指南.md)  | [Rocko](https://github.com/Rocko)      |
+| [使用Android Studio进行单元测试](issue-9/使用Android-Studio进行单元测试.md)  | [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang)|
+| [通过Jenkins并行完成UI的自动化测试](issue-9/通过Jenkins并行完成UI的自动化测试.md)  | [chaossss](https://github.com/chaossss)     |
+
+
+
+
 # 2015.5.3 ( 第八期 )
 | 文章名称 |   译者  | 
 |---------|--------|
@@ -90,7 +102,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | [Support Libraries v22.1.0](issue-8/Support Libraries v22.1.0.md)  | [tiiime](https://github.com/tiiime)      |
 | [检测Android应用的启动与关闭](issue-8/检测Android应用的启动与关闭.md)  | [xianjiajun](https://github.com/xianjiajun)      |
 | [开始学习Material Design](issue-8/开始学习Material Design.md)  | [xu6148152](https://github.com/xu6148152)      |
-| [如何在Android上响应各种信息通知](issue-8/如何在Android上响应各种信息通知.md)  | [MrLoong](https://github.com/MrLoong)      |
+| [如何在Android上响应各种信息通知](issue-8/如何在Android上响应各种信息通知.md)  | [MrLoong](https://github.com/MrLoong)     |
 
 
 
