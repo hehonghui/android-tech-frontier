@@ -435,4 +435,4 @@ public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler,
 [res-3]:https://github.com/gabrielemariotti/RecyclerViewItemAnimators
 [demo]:https://github.com/devunwired/recyclerview-playground
 [flinging]:http://www.google.com/design/spec/patterns/gestures.html#gestures-touch-mechanics
-[next-session]:http://wiresareobsolete.com/2014/09/recyclerview-layoutmanager-2/ w
+[next-session]:http://wiresareobsolete.com/2014/09/recyclerview-layoutmanager-2/
