@@ -1,0 +1,707 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />
+        <title>深入浅出Android新特性-Transition-Part-3a | 开发技术前线 文章合集</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.0.2">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    
+    
+    <link rel="next" href="../../issue-7/深入浅出Android新特性-Transition-Part-3b/readme.html" />
+    
+    
+    <link rel="prev" href="../../issue-7/使用Robolectric和Android生成代码覆盖率报告/readme.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <link rel="stylesheet" href="../../gitbook/style.css">
+    
+    
+
+        
+    <div class="book" data-level="1.5" data-basepath="../.." data-revision="Fri May 08 2015 14:15:22 GMT+0800 (CST)">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+        
+
+        
+
+        
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../../index.html">
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="issue-7/readme.html">
+            
+                
+                    <a href="../../issue-7/readme.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        第七期
+                    </a>
+                
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="issue-7/Android测试框架：Dagger2+Espresso2+Mockito/readme.html">
+            
+            <span><b>1.1.</b> Android测试框架：Dagger2+Espresso2+Mockito</span>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="issue-7/Retrofit开发指南/readme.html">
+            
+            <span><b>1.2.</b> Retrofit开发指南</span>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="issue-7/使用Robolectric和Android生成代码覆盖率报告/readme.html">
+            
+                
+                    <a href="../../issue-7/使用Robolectric和Android生成代码覆盖率报告/readme.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        使用Robolectric和Android生成代码覆盖率报告
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="issue-7/在Activity中使用Thread导致的内存泄漏.html">
+            
+            <span><b>1.4.</b> 在Activity中使用Thread导致的内存泄漏</span>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5" data-path="issue-7/深入浅出Android新特性-Transition-Part-3a/readme.html">
+            
+                
+                    <a href="../../issue-7/深入浅出Android新特性-Transition-Part-3a/readme.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        深入浅出Android新特性-Transition-Part-3a
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="issue-7/深入浅出Android新特性-Transition-Part-3b/readme.html">
+            
+                
+                    <a href="../../issue-7/深入浅出Android新特性-Transition-Part-3b/readme.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.6.</b>
+                        
+                        深入浅出Android新特性-Transition-Part-3b
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="issue-7/Android-Support库22.1版.html">
+            
+                
+                    <a href="../../issue-7/Android-Support库22.1版.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.7.</b>
+                        
+                        Android-Support库22.1版
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="issue-7/Android-Lollipop-update.html">
+            
+                
+                    <a href="../../issue-7/Android-Lollipop-update.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.8.</b>
+                        
+                        Android 5.1.1面世
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="issue-8/readme.html">
+            
+                
+                    <a href="../../issue-8/readme.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        第八期
+                    </a>
+                
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="issue-8/如何在Android上响应各种信息通知.html">
+            
+                
+                    <a href="../../issue-8/如何在Android上响应各种信息通知.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        如何在Android上响应各种信息通知
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="issue-8/Android 进行单元测试难在哪-序.html">
+            
+                
+                    <a href="../../issue-8/Android 进行单元测试难在哪-序.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Android 进行单元测试难在哪-序
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="issue-8/Custom-Drawables.html">
+            
+                
+                    <a href="../../issue-8/Custom-Drawables.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        自定义Drawables
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="issue-8/检测Android应用的启动与关闭.html">
+            
+                
+                    <a href="../../issue-8/检测Android应用的启动与关闭.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        检测Android应用的启动与关闭
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="issue-8/开始学习Material Design.html">
+            
+                
+                    <a href="../../issue-8/开始学习Material Design.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        开始学习Material Design
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="issue-8/Support Libraries v22.1.0.html">
+            
+                
+                    <a href="../../issue-8/Support Libraries v22.1.0.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.</b>
+                        
+                        Support Libraries v22.1.0
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="issue-9/readme.html">
+            
+                
+                    <a href="../../issue-9/readme.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        第九期
+                    </a>
+                
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="issue-9/NotRxJava懒人专用指南.html">
+            
+                
+                    <a href="../../issue-9/NotRxJava懒人专用指南.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        NotRxJava懒人专用指南
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="issue-9/创建-RecyclerView-LayoutManager-Part-1.html">
+            
+                
+                    <a href="../../issue-9/创建-RecyclerView-LayoutManager-Part-1.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        创建-RecyclerView-LayoutManager-Part-1
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="issue-9/Android 进行单元测试难在哪-part1.html">
+            
+                
+                    <a href="../../issue-9/Android 进行单元测试难在哪-part1.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Android 进行单元测试难在哪-part1
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="issue-9/Android 10ms问题：关于Android音频路径延迟的解释.html">
+            
+                
+                    <a href="../../issue-9/Android 10ms问题：关于Android音频路径延迟的解释.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Android 10ms问题：关于Android音频路径延迟的解释
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="issue-9/使用Android-Studio进行单元测试.html">
+            
+                
+                    <a href="../../issue-9/使用Android-Studio进行单元测试.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        使用Android-Studio进行单元测试
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="issue-9/通过Jenkins并行完成UI的自动化测试.html">
+            
+                
+                    <a href="../../issue-9/通过Jenkins并行完成UI的自动化测试.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.</b>
+                        
+                        通过Jenkins并行完成UI的自动化测试
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                Published with GitBook
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Google"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../../" >开发技术前线 文章合集</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h2 id="-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-shared-element-transition-part-3a"><code>&#x6DF1;&#x5165;&#x7406;&#x89E3; Shared Element Transition (part 3a)</code></h2>
+<p>&gt;</p>
+<ul>
+<li>&#x539F;&#x6587;&#x94FE;&#x63A5; :  <a href="http://www.androiddesignpatterns.com/2015/01/activity-fragment-shared-element-transitions-in-depth-part3a.html" target="_blank">Shared Element Transitions In-Depth (part 3a)</a></li>
+<li>&#x4F5C;&#x8005; : <a href="https://plus.google.com/+AlexLockwood" target="_blank">Alex Lockwood</a></li>
+<li><a href="http://www.devtf.cn" target="_blank">&#x8BD1;&#x6587;&#x51FA;&#x81EA; :  &#x5F00;&#x53D1;&#x6280;&#x672F;&#x524D;&#x7EBF; www.devtf.cn</a></li>
+<li>&#x8BD1;&#x8005; : <a href="https://github.com/tiiime" target="_blank">tiiime</a></li>
+<li>&#x6821;&#x5BF9;&#x8005;: <a href="https://github.com/chaossss" target="_blank">chaossss</a>  </li>
+<li>&#x72B6;&#x6001; :  &#x5B8C;&#x6210;</li>
+</ul>
+<h2 id="%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%85%B1%E4%BA%AB%E5%85%83%E7%B4%A0-transition">&#x6DF1;&#x5165;&#x7406;&#x89E3;&#x5171;&#x4EAB;&#x5143;&#x7D20; Transition</h2>
+<p>&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x4F1A;&#x6DF1;&#x5EA6;&#x5206;&#x6790;&#x5171;&#x4EAB;&#x5143;&#x7D20; transitions &#x548C;&#x5B83;&#x5728; Activity &amp; Fragment Transitions API &#x4E2D;&#x7684;&#x4F5C;&#x7528;&#x3002;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x662F;&#x4E0B;&#x9762;&#x8FD9;&#x4E2A;&#x7CFB;&#x5217;&#x4E2D;&#x7684;&#x7B2C;&#x4E09;&#x7BC7;&#xFF1A;</p>
+<ul>
+<li>Part 1: <a href="http://www.androiddesignpatterns.com/2014/12/activity-fragment-transitions-in-android-lollipop-part1.html" target="_blank">&#x5728; Activity &#x548C; Fragment &#x4E2D;&#x4F7F;&#x7528; Transition </a></li>
+<li>Part 2: <a href="http://www.androiddesignpatterns.com/2014/12/activity-fragment-content-transitions-in-depth-part2.html" target="_blank">&#x6DF1;&#x5165;&#x7406;&#x89E3; Content Transition</a></li>
+<li>Part 3a: <a href="http://www.androiddesignpatterns.com/2015/01/activity-fragment-shared-element-transitions-in-depth-part3a.html" target="_blank">&#x6DF1;&#x5165;&#x7406;&#x89E3;&#x5171;&#x4EAB;&#x5143;&#x7D20; Transition</a></li>
+<li>Part 3b:  <a href="http://www.androiddesignpatterns.com/2015/03/activity-postponed-shared-element-transitions-part3b.html" target="_blank">&#x5EF6;&#x8FDF;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x7684; Transition</a></li>
+<li>Part 3c: &#x5171;&#x4EAB;&#x5143;&#x7D20;&#x56DE;&#x8C03;&#x5B9E;&#x8DF5; (coming soon!)</li>
+<li>Part 4:  Activity &amp; Fragment &#x8FC7;&#x6E21;&#x52A8;&#x753B;&#x793A;&#x4F8B;(coming soon!)</li>
+</ul>
+<p>Part 3 &#x4F1A;&#x5206;&#x6210;&#x4E09;&#x4E2A;&#x90E8;&#x5206;: part3a &#x4ECB;&#x7ECD; &#x5171;&#x4EAB;&#x5143;&#x7D20; transitions &#x7684;&#x5E95;&#x5C42;&#x64CD;&#x4F5C;&#xFF0C;part3b &#x548C; part3c 
+&#x4E3B;&#x8981;&#x5173;&#x6CE8; API &#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x7EC6;&#x8282;&#xFF0C;&#x4F8B;&#x5982;&#x63A8;&#x8FDF;&#x67D0;&#x4E9B; &#x5171;&#x4EAB;&#x5143;&#x7D20; transition &#x7684;&#x91CD;&#x8981;&#x6027;&#x548C;&#x5982;&#x4F55;&#x5B9E;&#x73B0;
+<strong>SharedElementCallbacks</strong>&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x9996;&#x5148;&#x4F1A;&#x603B;&#x7ED3;&#x4E0B;&#x5728; <a href="http://www.androiddesignpatterns.com/2014/12/activity-fragment-transitions-in-android-lollipop-part1.html" target="_blank">part 1</a> &#x4E2D;&#x63D0;&#x5230;&#x7684;&#x5173;&#x4E8E; &#x5171;&#x4EAB;&#x5143;&#x7D20; transition &#x7684;&#x77E5;&#x8BC6;&#x70B9;&#xFF0C;&#x7136;&#x540E;&#x8BF4;&#x4E00;&#x8BF4;&#x5728; Android Lollipop &#x4E2D;&#x662F;&#x600E;&#x6837;&#x4F7F;&#x7528;&#x5B83;&#x6765;&#x6784;&#x5EFA;&#x5408;&#x9002;&#x7684;&#x8FC7;&#x6E21;&#x52A8;&#x753B;&#x3002;</p>
+<h2 id="%E4%BB%80%E4%B9%88%E6%98%AF-%E5%85%B1%E4%BA%AB%E5%85%83%E7%B4%A0-transition">&#x4EC0;&#x4E48;&#x662F; &#x5171;&#x4EAB;&#x5143;&#x7D20; Transition ?</h2>
+<p>&#x5171;&#x4EAB;&#x5143;&#x7D20; transition &#x51B3;&#x5B9A;&#x4E86; &#x5171;&#x4EAB;&#x5143;&#x7D20; &#x89C6;&#x56FE;(&#x4E5F;&#x53EB;&#x505A;&#x4E3B;&#x89D2;&#x89C6;&#x56FE;)&#x5728;
+Activity/Fragment &#x573A;&#x666F;&#x8FC7;&#x6E21;&#x65F6;&#x7684;&#x52A8;&#x753B;&#x6548;&#x679C;&#x3002;&#x5171;&#x4EAB;&#x5143;&#x7D20; &#x7684;&#x52A8;&#x753B;
+&#x5728;&#x88AB;&#x8C03;&#x7528; Activity/Fragment  &#x7684; <strong>&#x8FDB;&#x5165;/&#x8FD4;&#x56DE;</strong>  &#x5171;&#x4EAB;&#x5143;&#x7D20; transition
+<a id="1" href="#b1">(1)</a> &#x4E2D;&#x6267;&#x884C;&#xFF0C;
+&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4E0B;&#x9762;&#x7684;<a href="http://developer.android.com/reference/android/view/Window.html" target="_blank">Window</a>/<a href="http://developer.android.com/reference/android/app/Fragment.html" target="_blank">Fragment</a> &#x65B9;&#x6CD5;&#x8BBE;&#x7F6E;&#xFF1A;</p>
+<ul>
+<li><strong>setSharedElementEnterTransition()</strong> -  <strong>B</strong> &#x7684; <strong>&#x8FDB;&#x5165;</strong> &#x5171;&#x4EAB;&#x5143;&#x7D20; transition &#xFF0C;&#x6267;&#x884C;&#x5C06; 
+  &#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE; &#x4ECE; <strong>A</strong> &#x4E2D;&#x7684;&#x8D77;&#x59CB;&#x4F4D;&#x7F6E;&#x79FB;&#x52A8;&#x5230;&#x5B83;&#x5728; <strong>B</strong> &#x4E2D;&#x7684;&#x6700;&#x7EC8;&#x4F4D;&#x7F6E;&#x7684;&#x52A8;&#x753B;&#x3002;</li>
+<li><strong>setSharedElementReturnTransition()</strong>  - <strong>B</strong> &#x7684; <strong>&#x8FD4;&#x56DE;</strong> &#x5171;&#x4EAB;&#x5143;&#x7D20; transition &#xFF0C;&#x6267;&#x884C;&#x5C06; 
+  &#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE; &#x4ECE; <strong>B</strong> &#x4E2D;&#x8D77;&#x59CB;&#x4F4D;&#x7F6E;&#x79FB;&#x52A8;&#x5230;&#x5B83;&#x5728; <strong>A</strong> &#x4E2D;&#x7684;&#x6700;&#x7EC8;&#x4F4D;&#x7F6E;&#x7684;&#x52A8;&#x753B;&#x3002;</li>
+</ul>
+<p><a href="http://www.androiddesignpatterns.com/assets/videos/posts/2015/01/12/music-opt.mp4" target="_blank"><strong>Video 3.1</strong></a> &#x5C55;&#x793A;&#x4E86;&#x5728; Google Play Music &#x4E2D;&#x662F;&#x600E;&#x6837;&#x4F7F;&#x7528;&#x5171;&#x4EAB;&#x5143;&#x7D20; transition 
+&#x7684;&#x3002;&#x8FD9;&#x4E2A; transition &#x5305;&#x542B;&#x4E24;&#x4E2A;&#x5143;&#x7D20;&#xFF1A;&#x4E00;&#x4E2A; <strong>ImageView</strong>&#x548C;&#x5B83;&#x7684;&#x7236;&#x89C6;&#x56FE; <strong>CardView</strong>&#x3002;
+Transition &#x671F;&#x95F4;&#xFF0C;<strong>CardView</strong> &#x4F1A;&#x6269;&#x5C55;&#x5230;&#x5168;&#x5C4F;&#x6216;&#x6536;&#x7F29;&#x56DE;&#x539F;&#x72B6;&#xFF0C; 
+<strong>ImageView</strong> &#x80FD;&#x5728;&#x8FD9;&#x4E24;&#x4E2A; Activity &#x91CC;&#x65E0;&#x7F1D;&#x7684;&#x8854;&#x63A5;&#x3002;</p>
+<p>&#x5728; <a href="http://www.androiddesignpatterns.com/2014/12/activity-fragment-transitions-in-android-lollipop-part1.html" target="_blank">part1 </a> &#x91CC;&#x53EA;&#x662F;&#x7B80;&#x5355;&#x7684;&#x4ECB;&#x7ECD;&#x4E86;&#x4E0B;&#x8FD9;&#x4E2A;&#x8BDD;&#x9898;&#xFF0C;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x5C06;&#x4F1A;&#x5BF9; &#x5171;&#x4EAB;&#x5143;&#x7D20; transition
+&#x505A;&#x66F4;&#x6DF1;&#x5EA6;&#x7684;&#x5206;&#x6790;&#x3002;&#x4F8B;&#x5982; &#x5171;&#x4EAB;&#x5143;&#x7D20; Transition &#x5728;&#x5E95;&#x5C42;&#x662F;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x7684;&#xFF1F;&#x90FD;&#x6709;&#x54EA;&#x4E9B;&#x7C7B;&#x578B;&#x7684; Transition &#x5BF9;&#x8C61;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;? Transition &#x671F;&#x95F4; &#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE; &#x662F;&#x5728;&#x54EA;&#x91CC;&#x600E;&#x6837;&#x7ED8;&#x5236;&#x7684;&#xFF1F;&#x63A5;&#x4E0B;&#x6765;&#x7684;&#x51E0;&#x7AE0;&#x91CC;
+&#x6211;&#x4EEC;&#x4F1A;&#x9010;&#x4E2A;&#x89E3;&#x7B54;&#x8FD9;&#x4E9B;&#x95EE;&#x9898;&#x3002;</p>
+<h2 id="%E6%B7%B1%E5%85%A5%E5%85%B1%E4%BA%AB%E5%85%83%E7%B4%A0-transitions-%E5%BA%95%E5%B1%82">&#x6DF1;&#x5165;&#x5171;&#x4EAB;&#x5143;&#x7D20; Transitions &#x5E95;&#x5C42;</h2>
+<p>&#x4E4B;&#x524D;&#x7684;&#x6587;&#x7AE0;&#x5DF2;&#x7ECF;&#x4ECB;&#x7ECD;&#x8FC7; Transition &#x7684;&#x4E24;&#x4E2A;&#x4E3B;&#x8981;&#x4EFB;&#x52A1;&#x5206;&#x522B;&#x662F;&#x83B7;&#x53D6;&#x76EE;&#x6807;&#x89C6;&#x56FE;&#x7684; &#x5F00;&#x59CB;&amp;&#x7ED3;&#x675F; &#x72B6;&#x6001;&#x548C;&#x521B;&#x5EFA;&#x8FD9;&#x4E24;&#x4E2A;&#x72B6;&#x6001;&#x95F4;&#x89C6;&#x56FE;&#x7684;&#x8FC7;&#x6E21;&#x52A8;&#x753B;(Animator)&#x3002;&#x5171;&#x4EAB;&#x5143;&#x7D20; Transition &#x4E5F;&#x4E00;&#x6837;&#xFF1A;
+&#x5728;&#x521B;&#x5EFA;&#x52A8;&#x753B;&#x524D;&#x9700;&#x8981;&#x6355;&#x83B7;&#x6BCF;&#x4E00;&#x4E2A;
+&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE;&#x7684;&#x8D77;&#x59CB;&#x548C;&#x7ED3;&#x675F;&#x72B6;&#x6001;(&#x5C31;&#x662F;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x5728; <strong>&#x8C03;&#x7528;/&#x88AB;&#x8C03;&#x7528;</strong> Activity/Fragment
+&#x91CC;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x5927;&#x5C0F;&#x548C;&#x5916;&#x89C2;)&#x3002;&#x6709;&#x4E86;&#x8FD9;&#x4E9B;&#x4FE1;&#x606F; &#x5171;&#x4EAB;&#x5143;&#x7D20; Transition &#x5C31;&#x53EF;&#x4EE5;&#x786E;&#x5B9A;&#x6BCF;&#x4E00;&#x4E2A; &#x5171;&#x4EAB;&#x5143;&#x7D20;
+&#x89C6;&#x56FE;&#x5E94;&#x8BE5;&#x6267;&#x884C;&#x7684;&#x52A8;&#x753B;&#x3002;</p>
+<p>&#x548C; <a href="http://www.androiddesignpatterns.com/2014/12/activity-fragment-content-transitions-in-depth-part2.html" target="_blank">Content Transitions &#x7684;&#x5E95;&#x5C42;</a>&#x76F8;&#x4F3C;&#xFF0C;&#x6846;&#x67B6;&#x901A;&#x8FC7;&#x5728;&#x8FD0;&#x884C;&#x65F6;&#x660E;&#x786E;&#x7684;
+&#x66F4;&#x6539;&#x6BCF;&#x4E2A; &#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE; &#x7684;&#x5C5E;&#x6027;&#x5C06;&#x8FD9;&#x4E2A;&#x72B6;&#x6001;&#x4FE1;&#x606F;&#x63D0;&#x4F9B;&#x7ED9; &#x5171;&#x4EAB;&#x5143;&#x7D20; Transition &#x3002;
+&#x66F4;&#x51C6;&#x786E;&#x5730;&#x8BF4; Activity <strong>A</strong> &#x542F;&#x52A8; Activity <strong>B</strong> &#x65F6;&#x5C06;&#x4F1A;&#x51FA;&#x73B0;&#x4EE5;&#x4E0B;&#x4E8B;&#x4EF6;&#xFF1A;<a id="2" href="#b2">(2)</a></p>
+<hr>
+<ol>
+<li>Activity <strong>A</strong> &#x8C03;&#x7528; <strong>startActivity()</strong> &#x6784;&#x9020;&#xFF0C;&#x6D4B;&#x91CF;&#xFF0C;&#x5E03;&#x5C40;&#x4E86;&#x4E00;&#x4E2A;
+ &#x6700;&#x521D;&#x80CC;&#x666F;&#x8272;&#x4E3A;&#x900F;&#x660E;&#x7684;&#x534A;&#x900F;&#x660E;&#x7A97;&#x53E3; Activity <strong>B</strong> &#x3002;</li>
+<li>&#x6846;&#x67B6;&#x5C06; <strong>B</strong> &#x4E2D;&#x6BCF;&#x4E00;&#x4E2A;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE;&#x590D;&#x4F4D;&#x5230;&#x5BF9;&#x5E94;&#x7684;&#x539F;&#x6765;&#x5728; <strong>A</strong> &#x4E2D;&#x65F6;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x63A5;&#x7740; <strong>B</strong> &#x7684;&#x8FDB;&#x5165; transition &#x6355;&#x83B7; <strong>B</strong> &#x4E2D;&#x6240;&#x6709;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE;&#x7684;&#x8D77;&#x59CB;&#x72B6;&#x6001;&#x3002;</li>
+<li>&#x6846;&#x67B6;&#x5C06; <strong>B</strong> &#x4E2D;&#x6BCF;&#x4E00;&#x4E2A;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE;&#x590D;&#x4F4D;&#x5230;&#x5BF9;&#x5E94;&#x7684;&#x5728; <strong>B</strong> &#x7684;&#x6700;&#x7EC8;&#x4F4D;&#x7F6E;&#xFF0C;&#x63A5;&#x7740; <strong>B</strong> &#x7684;&#x8FDB;&#x5165; transition &#x6355;&#x83B7; B &#x4E2D;&#x6240;&#x6709;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE;&#x7684;&#x7ED3;&#x675F;&#x72B6;&#x6001;&#x3002;</li>
+<li><strong>B</strong> &#x7684;&#x8FDB;&#x5165; transition &#x6BD4;&#x8F83;&#x6240;&#x6709;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE;&#x7684;&#x8D77;&#x59CB;&#x548C;&#x7ED3;&#x675F;&#x72B6;&#x6001;&#xFF0C;&#x6839;&#x636E;&#x5B83;&#x4EEC;&#x7684;&#x4E0D;&#x540C;
+ &#x521B;&#x5EFA;&#x4E00;&#x4E2A; <strong>Animator</strong>&#x3002;</li>
+<li>&#x6846;&#x67B6;&#x547D;&#x4EE4; <strong>A</strong> &#x9690;&#x85CF;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE;&#xFF0C;&#x5E76;&#x8FD0;&#x884C;&#x8FD4;&#x56DE;&#x7684; <strong>Animator</strong>&#x3002;<strong>B</strong> &#x4E2D;&#x7684;
+ &#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE;&#x5230;&#x4F4D;&#x4E4B;&#x540E;&#xFF0C;<strong>B</strong> &#x7684;&#x7A97;&#x53E3;&#x80CC;&#x666F;&#x5728; <strong>A </strong>&#x4E0A;&#x9010;&#x6E10;&#x663E;&#x793A;&#xFF0C;&#x76F4;&#x5230; <strong>B</strong> 
+ &#x5B8C;&#x5168;&#x7684;&#x663E;&#x793A;&#x51FA;&#x6765;&#xFF0C;transition &#x8FD0;&#x884C;&#x5B8C;&#x6BD5;&#x3002;</li>
+</ol>
+<hr>
+<p>Content transitions &#x662F;&#x6839;&#x636E;&#x6BCF;&#x4E2A;&#x8FC7;&#x6E21;&#x89C6;&#x56FE;&#x7684;&#x53EF;&#x89C1;&#x6027;&#x53D8;&#x5316;&#x6765;&#x8C03;&#x8282;&#x7684;&#xFF0C;<strong>&#x5171;&#x4EAB;&#x5143;&#x7D20; transition 
+&#x662F;&#x6839;&#x636E;&#x6BCF;&#x4E2A;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x5927;&#x5C0F;&#x548C;&#x5916;&#x89C2;&#x7684;&#x53D8;&#x5316;&#x6765;&#x8C03;&#x8282;&#x7684;</strong>&#x3002;&#x4ECE; API 21 &#x5F00;&#x59CB;&#xFF0C;&#x6846;&#x67B6;&#x63D0;&#x4F9B;&#x4E86;
+&#x51E0;&#x4E2A;&#x81EA;&#x5B9A;&#x4E49;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x573A;&#x666F;&#x5207;&#x6362;&#x52A8;&#x753B;&#x7684; <strong>Transition</strong> &#x5B9E;&#x73B0;&#x3002;</p>
+<ul>
+<li><a href="https://developer.android.com/reference/android/transition/ChangeBounds.html" target="_blank">ChangeBounds</a> - &#x6355;&#x83B7;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x5E03;&#x5C40;&#x8FB9;&#x754C;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x6784;&#x9020;&#x52A8;&#x753B;&#x3002;
+  <strong>ChangeBounds</strong> &#x5728;&#x5171;&#x4EAB;&#x5143;&#x7D20; Transition &#x4E2D;&#x7ECF;&#x5E38;&#x4F7F;&#x7528;&#xFF0C;&#x5927;&#x591A;&#x6570;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x5728;&#x4E24;&#x4E2A;
+  Activity/Fragment &#x95F4;&#x4F1A;&#x6709;&#x5927;&#x5C0F; &#x6216;/&#x548C; &#x4F4D;&#x7F6E;&#x4E0D;&#x540C;&#x3002; </li>
+<li><a href="https://developer.android.com/reference/android/transition/ChangeTransform.html" target="_blank">ChangeTransform</a>  - &#x6355;&#x83B7;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x7F29;&#x653E;&#x548C;&#x89D2;&#x5EA6;&#xFF0C;
+  &#x6839;&#x636E;&#x4E0D;&#x540C;&#x6784;&#x5EFA;&#x52A8;&#x753B;<a id="3" href="#b3">(3)</a>&#x3002;</li>
+<li><a href="https://developer.android.com/reference/android/transition/ChangeClipBounds.html" target="_blank">ChangeClipBounds</a> - &#x6355;&#x83B7;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x7684; <a href="https://developer.android.com/reference/android/view/View.html#getClipBounds()" target="_blank">clip bounds</a> 
+  (&#x526A;&#x8F91;&#x8FB9;&#x754C;) &#xFF0C;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x6784;&#x5EFA;&#x52A8;&#x753B;&#x3002;</li>
+<li><a href="https://developer.android.com/reference/android/transition/ChangeImageTransform.html" target="_blank">ChangeImageTransform</a> - &#x6355;&#x83B7;&#x5171;&#x4EAB;&#x5143;&#x7D20; ImageView &#x7684;
+  &#x53D8;&#x6362;&#x77E9;&#x9635;( transform matrices) &#xFF0C;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x6784;&#x5EFA;&#x52A8;&#x753B;&#x3002;&#x7ED3;&#x5408; <strong>ChangeBounds</strong>&#xFF0C;
+  &#x53EF;&#x4EE5;&#x8BA9; ImageView
+   &#x65E0;&#x7F1D;&#x7684;&#x6539;&#x53D8;&#x5927;&#x5C0F;&#xFF0C;&#x5F62;&#x72B6;&#x548C; <a href="https://developer.android.com/reference/android/widget/ImageView.ScaleType.html" target="_blank"> ImageView.ScaleType </a>&#x3002; </li>
+<li><a href="https://github.com/android/platform_frameworks_base/blob/lollipop-release/core/res/res/transition/move.xml" target="_blank">@android:transition/move</a> - &#x4E00;&#x4E2A; <strong>TransitionSet</strong> &#xFF0C;&#x540C;&#x65F6;&#x6267;&#x884C;&#x4E0A;&#x9762;&#x56DB;&#x79CD;
+  transition &#x3002;&#x5728; <a href="http://www.androiddesignpatterns.com/2014/12/activity-fragment-transitions-in-android-lollipop-part1.html" target="_blank">part 1</a> &#x91CC;&#x63D0;&#x5230;&#x8FC7;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x660E;&#x786E;&#x7684;&#x58F0;&#x660E; &#x8FDB;&#x5165;/&#x8FD4;&#x56DE; &#x5171;&#x4EAB;&#x5143;&#x7D20; 
+  transition &#xFF0C;&#x6846;&#x67B6;&#x4F1A;&#x9ED8;&#x8BA4;&#x8FD0;&#x884C;&#x8FD9;&#x4E2A; transition&#x3002;</li>
+</ul>
+<hr>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x53EF;&#x4EE5;&#x53D1;&#x73B0; <strong>&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE;&#x5B9E;&#x4F8B;&#x5E76;&#x6CA1;&#x6709;&#x5728; Activities/Fragments &#x95F4;
+&#x201C;&#x5171;&#x4EAB;&#x201D;</strong>&#x3002;&#x4E8B;&#x5B9E;&#x4E0A;&#xFF0C;&#x8FDB;&#x5165;/&#x8FD4;&#x56DE; &#x5171;&#x4EAB;&#x5143;&#x7D20; transitions&#x671F;&#x95F4;&#xFF0C;&#x7528;&#x6237;&#x770B;&#x5230;&#x7684;&#x7EDD;&#x5927;&#x591A;&#x6570;&#x4E1C;&#x897F;&#x90FD;&#x662F;&#x5728;
+<strong>B</strong> &#x7684; content view &#x4E2D;&#x7ED8;&#x5236;&#x7684;&#x3002;&#x6846;&#x67B6;&#x5E76;&#x6CA1;&#x6709;&#x4ECE; <strong>A</strong> &#x5411; <strong>B</strong> 
+&#x4F20;&#x9012; &#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE;&#x5B9E;&#x4F8B;&#xFF0C;
+&#x800C;&#x662F;&#x91C7;&#x7528;&#x4E86;&#x4E0D;&#x540C;&#x7684;&#x65B9;&#x6CD5;&#x5B9E;&#x73B0;&#x76F8;&#x540C;&#x7684;&#x89C6;&#x89C9;&#x6548;&#x679C;&#x3002;&#x5F53; <strong>A</strong> &#x542F;&#x52A8; <strong>B</strong> &#xFF0C;&#x6846;&#x67B6;&#x6536;&#x96C6; <strong>A</strong>
+&#x4E2D;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x7684;&#x6240;&#x6709;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#xFF0C;&#x5E76;&#x4F20;&#x9012;&#x7ED9; <strong>B</strong>&#x3002;&#x63A5;&#x4E0B;&#x6765; <strong>B</strong> &#x4F7F;&#x7528;&#x8FD9;&#x4E9B;&#x4FE1;&#x606F;&#x521D;&#x59CB;&#x5316;
+&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE;&#x7684;&#x8D77;&#x59CB;&#x72B6;&#x6001;(&#x5B83;&#x4EEC;&#x5728; <strong>A</strong> &#x4E2D;&#x65F6;&#x5BF9;&#x5E94;&#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x4F4D;&#x7F6E;&#x548C;&#x5916;&#x89C2;)&#x3002;Transition 
+&#x5F00;&#x59CB;&#x65F6;&#xFF0C;B &#x4E2D;&#x9664;&#x4E86;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE;&#x5916;&#x7684;&#x6240;&#x6709;&#x4E1C;&#x897F;&#x90FD;&#x88AB;&#x521D;&#x59CB;&#x5316;&#x4E3A;&#x5BF9;&#x7528;&#x6237;&#x4E0D;&#x53EF;&#x89C1;&#x3002;Tansition
+&#x7684;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6846;&#x67B6;&#x5C06; B &#x7684; Activity &#x7A97;&#x53E3;&#x9010;&#x6E10;&#x663E;&#x793A;&#xFF0C;&#x76F4;&#x5230; B 
+&#x4E2D;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x7ED3;&#x675F;&#x52A8;&#x753B;&#x7A97;&#x53E3;&#x53D8;&#x4E3A;&#x4E0D;&#x900F;&#x660E;&#x3002;</p>
+<hr>
+<h2 id="%E4%BD%BF%E7%94%A8%E5%85%B1%E4%BA%AB%E5%85%83%E7%B4%A0-overlay-a-id-4-href-b4-4-a">&#x4F7F;&#x7528;&#x5171;&#x4EAB;&#x5143;&#x7D20; Overlay <a id="4" href="#b4">(4)</a></h2>
+<p>&#x6700;&#x540E;&#xFF0C;&#x5982;&#x679C;&#x60F3;&#x8981;&#x5B8C;&#x5168;&#x7406;&#x89E3;&#x5171;&#x4EAB;&#x5143;&#x7D20; transition &#x7684;&#x8FD0;&#x4F5C;&#xFF0C;&#x6211;&#x4EEC;&#x5FC5;&#x987B;&#x5148;&#x8BF4;&#x8BF4;&#x5171;&#x4EAB;&#x5143;&#x7D20; overlay&#x3002;
+&#x53EF;&#x80FD;&#x4E0D;&#x662F;&#x5F88;&#x660E;&#x663E;&#xFF0C;<strong>&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x9ED8;&#x8BA4;&#x662F;&#x5728;&#x6574;&#x4E2A;&#x7A97;&#x53E3;&#x89C6;&#x56FE;&#x5C42;&#x7684;&#x9876;&#x5C42;  <a href="https://developer.android.com/reference/android/view/ViewOverlay.html" target="_blank">ViewOverlay</a> 
+&#x4E0A;&#x7ED8;&#x5236;</strong>&#x3002;&#x7B80;&#x5355;&#x4ECB;&#x7ECD;&#x4E0B; &#xFF0C;
+<strong>ViewOverlay</strong> &#x8FD9;&#x4E2A;&#x7C7B;&#x662F;&#x5728; API 18 &#x4E2D;&#x4E3A;&#x4E86;&#x65B9;&#x4FBF;&#x5728;&#x89C6;&#x56FE;&#x5C42;&#x9876;&#x5C42;
+&#x7ED8;&#x5236;&#x5F15;&#x5165;&#x7684;&#x3002;&#x6DFB;&#x52A0;&#x5230;&#x89C6;&#x56FE; <strong>ViewOverlay</strong> &#x4E4B;&#x4E2D;&#x7684;Drawable 
+&#x548C; view (&#x751A;&#x81F3;&#x662F;&#x4E00;&#x4E2A; <strong>ViewGroup</strong> &#x7684;&#x5B50;&#x7C7B;) &#xFF0C;
+&#x5C06;&#x4F1A;&#x88AB;&#x7ED8;&#x5236;&#x5728;&#x89C6;&#x56FE;&#x7684;&#x6700;&#x4E0A;&#x5C42;&#x3002;&#x8FD9;&#x5C31;&#x89E3;&#x91CA;&#x4E86;&#x6846;&#x67B6;&#x4E3A;&#x4EC0;&#x4E48;
+&#x9ED8;&#x8BA4;&#x9009;&#x62E9;&#x5728;&#x7A97;&#x53E3;&#x89C6;&#x56FE;&#x5C42;&#x7684;  <strong>ViewOverlay</strong> &#x4E2D;&#x7ED8;&#x5236;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x3002;
+&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE;&#x5E94;&#x8BE5;&#x662F;&#x8D2F;&#x7A7F;&#x6574;&#x4E2A; transition &#x7684;&#x7126;&#x70B9;&#xFF1B;
+&#x5982;&#x679C; transitioning views &#x610F;&#x5916;&#x7684;&#x7ED8;&#x5236;&#x5728;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x4E4B;&#x4E0A;&#x5C31;&#x4F1A;
+&#x7834;&#x574F;&#x8FD9;&#x4E2A;&#x6548;&#x679C;<a id="5" href="#b5">(5)</a>&#x3002;</p>
+<hr>
+<p>&#x867D;&#x7136;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x9ED8;&#x8BA4;&#x7ED8;&#x5236;&#x5728;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x7684; ViewOverlay &#x4E4B;&#x4E2D;&#xFF0C;&#x4F46;&#x662F;
+&#x6846;&#x67B6;&#x4E5F;&#x63D0;&#x4F9B;&#x4E86;&#x5173;&#x95ED; overlay &#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x53EA;&#x8981;&#x8C03;&#x7528;
+<a href="https://developer.android.com/reference/android/view/Window.html#setSharedElementsUseOverlay(boolean)" target="_blank">Window#setSharedElementsUseOverlay(false) </a> 
+&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;&#x5982;&#x679C;&#x4F60;&#x5173;&#x95ED;&#x4E86; overlay
+&#xFF0C;&#x8981;&#x7559;&#x610F;&#x8FD9;&#x6837;&#x505A;&#x53EF;&#x80FD;&#x4F1A;&#x5F15;&#x8D77;&#x7684;&#x526F;&#x4F5C;&#x7528;&#x3002;&#x4F8B;&#x5982;&#xFF0C;<a href="http://www.androiddesignpatterns.com/assets/videos/posts/2015/01/12/overlay-opt.mp4" target="_blank">Video 3.2</a>
+ &#x6267;&#x884C;&#x4E86;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x5171;&#x4EAB;&#x5143;&#x7D20; transition &#x4E24;&#x6B21;&#xFF0C;
+&#x4E00;&#x6B21;&#x5F00;&#x542F;&#x548C;&#x4E00;&#x6B21;&#x5173;&#x95ED; &#x5171;&#x4EAB;&#x5143;&#x7D20; overlay &#x3002;&#x7B2C;&#x4E00;&#x6B21;&#x8FBE;&#x5230;&#x4E86;&#x9884;&#x671F;&#x60F3;&#x8981;&#x7684;&#x7ED3;&#x679C;&#xFF0C;
+&#x7B2C;&#x4E8C;&#x6B21;&#x5173;&#x95ED; overlay &#x540E;&#x8FD0;&#x884C;&#x7684;&#x6548;&#x679C;&#x4E0D;&#x7406;&#x60F3;&#x3002;Transition view &#x4ECE;&#x5E95;&#x90E8;&#x5411;&#x4E0A;&#x79FB;&#x5165;
+&#x8C03;&#x7528; Activity &#x7684; content view &#x65F6;&#x6321;&#x4F4F;&#x4E86;&#x90E8;&#x5206; &#x5171;&#x4EAB;&#x5143;&#x7D20; <strong>ImageView</strong> &#x3002;&#x867D;&#x7136;
+&#x53EF;&#x4EE5;&#x6539;&#x53D8;&#x5728; View &#x4E0A;&#x7ED8;&#x5236;&#x89C6;&#x56FE;&#x7684;&#x987A;&#x5E8F;&#x6216;&#x8005;&#x901A;&#x8FC7;&#x5728;&#x5171;&#x4EAB;&#x5143;&#x7D20; parent &#x91CC;&#x8C03;&#x7528;
+ <strong>setClipChildren(false)</strong> &#x8FD9;&#x4E9B;&#x65C1;&#x95E8;&#x5DE6;&#x9053;&#x6765;&#x4FEE;&#x590D;&#x95EE;&#x9898;&#xFF0C;&#x4F46;&#x662F;&#x4E0E;&#x53EF;&#x80FD;&#x5E26;&#x6765;&#x7684;&#x7EF4;&#x62A4;&#x95EE;&#x9898;
+ &#x76F8;&#x6BD4;&#x771F;&#x662F;&#x5F97;&#x4E0D;&#x507F;&#x5931;&#x3002;&#x603B;&#x4E4B;&#xFF0C;&#x9664;&#x975E;&#x4F60;&#x611F;&#x89C9;&#x5FC5;&#x987B;&#x8981;&#x5173;&#x6389;&#x5171;&#x4EAB;&#x5143;&#x7D20; overlay &#x624D;&#x80FD;&#x8FBE;&#x5230;&#x4F60;&#x60F3;&#x8981;&#x7684;&#x6548;&#x679C;&#xFF0C;
+ &#x5176;&#x4ED6;&#x60C5;&#x51B5;&#x5C3D;&#x91CF;&#x4E0D;&#x8981;&#x5173;&#x95ED;&#x5B83;&#xFF0C;&#x8FD9;&#x6837;&#x4F1A;&#x4FDD;&#x6301;&#x4EE3;&#x7801;&#x7B80;&#x6D01;&#xFF0C;&#x5E76;&#x4E14;&#x5171;&#x4EAB;&#x5143;&#x7D20; transition &#x6548;&#x679C;&#x66F4;&#x5F15;&#x4EBA;&#x6CE8;&#x76EE;&#x3002;</p>
+<h2 id="%E7%BB%93%E8%AF%AD">&#x7ED3;&#x8BED;</h2>
+<p>&#x7EFC;&#x4E0A;&#x6240;&#x8BC9;&#xFF0C;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x8BB2;&#x4E86;&#x4E09;&#x4E2A;&#x91CD;&#x70B9;:</p>
+<ol>
+<li>&#x5171;&#x4EAB;&#x5143;&#x7D20; transition &#x786E;&#x5B9A; &#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE;(&#x4E3B;&#x89D2;&#x89C6;&#x56FE;) &#x4ECE;&#x4E00;&#x4E2A; Activity/Fragment &#x79FB;&#x52A8;&#x5230;
+ &#x53E6;&#x4E00;&#x4E2A;&#x5176;&#x95F4;&#x573A;&#x666F;&#x8FC7;&#x6E21;&#x7684;&#x52A8;&#x753B;&#x3002;</li>
+<li>&#x5171;&#x4EAB;&#x5143;&#x7D20; transition &#x662F;&#x6839;&#x636E;&#x6BCF;&#x4E00;&#x4E2A; &#x5171;&#x4EAB;&#x5143;&#x7D20;&#x89C6;&#x56FE; &#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x5927;&#x5C0F;&#xFF0C;&#x548C;&#x5916;&#x89C2;&#x7684;&#x53D8;&#x5316;&#x8C03;&#x8282;&#x7684;&#x3002;</li>
+<li>&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x9ED8;&#x8BA4;&#x662F;&#x7ED8;&#x5236;&#x5728;&#x7A97;&#x53E3;&#x89C6;&#x56FE;&#x7684;&#x9876;&#x5C42; <strong>ViewOverlay</strong> &#x4E0A;&#x9762;&#x7684;&#x3002;</li>
+</ol>
+<p>&#x5E0C;&#x671B;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x5BF9;&#x4F60;&#x6709;&#x6240;&#x5E2E;&#x52A9; &#xFF5E;</p>
+<hr>
+<p>1 Note that the Activity Transition API gives you the ability to also specify exit and reenter shared element transitions using the setSharedElementExitTransition() and setSharedElementReenterTransition() methods, although doing so is usually not necessary. For an example illustrating one possible use case, check out this blog post. For an explanation why exit and reenter shared element transitions are not available for Fragment Transitions, see George Mount&apos;s answer and comments in this StackOverflow post. &#x21A9;</p>
+<p>2 A similar sequence of events occurs during the exit/return/reenter transitions for both Activities and Fragments. &#x21A9;</p>
+<p>3 One other subtle feature of ChangeTransform is that it can detect and handle changes made to a shared element view&apos;s parent during a transition. This comes in handy when, for example, the shared element&apos;s parent has an opaque background and is by default selected to be a transitioning view during the scene change. In this case, the ChangeTransform will detect that the shared element&apos;s &#xFF40;parent is being actively modified by the content transition, pull out the shared element from its parent, and animate the shared element separately. See George Mount&apos;s StackOverflow answer for more information. &#x21A9;</p>
+<p>4 Note that this section only pertains to Activity Transitions. Unlike Activity Transitions, shared elements are not drawn in a ViewOverlay by default during Fragment Transitions. That said, you can achieve a similar effect by applying a ChangeTransform transition, which will have the shared element drawn on top of the hierarchy in a ViewOverlay if it detects that its parent has changed. See this StackOverflow post for more information. &#x21A9;</p>
+<p>5 Note that one negative side-effect of having shared elements drawn on top of the entire view hierarchy is that this means it will become possible for shared elements to draw on top of the System UI (such as the status bar, navigation bar, and action bar). For more information on how you can prevent this from happening, see this Google+ post. &#x21A9;</p>
+<ol>
+<li><p>Activity Transition API &#x4E5F;&#x63D0;&#x4F9B;&#x4E86;
+<strong>setSharedElementExitTransition()</strong> &#x548C; <strong>setSharedElementReenterTransition()</strong>
+&#x8FD9;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x6765;&#x8BBE;&#x7F6E; &#x9000;&#x51FA;/&#x91CD;&#x5165; &#x5171;&#x4EAB;&#x5143;&#x7D20;&#x8FC7;&#x6E21;&#xFF0C;&#x867D;&#x7136;&#x901A;&#x5E38;&#x6765;&#x8BF4;&#x662F;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x3002;
+<a href="https://halfthought.wordpress.com/2014/12/08/what-are-all-these-dang-transitions/" target="_blank">&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;</a>&#x4ECB;&#x7ECD;&#x4E86;&#x4E00;&#x4E2A;&#x53EF;&#x80FD;&#x4F1A;&#x9047;&#x5230;&#x7684;&#x7528;&#x4F8B;&#x3002;&#x5728;&#x8FD9;&#x4E2A; <a href="http://stackoverflow.com/questions/27346020/understanding-exit-reenter-shared-element-transitions" target="_blank">stackoverflow</a>
+&#x63D0;&#x95EE;&#x4E2D; George Mount &#x7684;&#x56DE;&#x7B54;&#x89E3;&#x91CA;&#x4E86;&#x4E3A;&#x4EC0;&#x4E48; &#x9000;&#x51FA;/&#x91CD;&#x5165; &#x5171;&#x4EAB;&#x5143;&#x7D20; transition &#x5728;
+Fragment Transitions &#x4E2D;&#x4E0D;&#x53EF;&#x7528;&#x3002; <a id="b1" href="#1">&#x21A9;</a></p>
+</li>
+<li><p>Activities &#x548C; Fragments &#x7684; &#x9000;&#x51FA;/&#x8FD4;&#x56DE;/&#x91CD;&#x5165; transition &#x8FC7;&#x7A0B;&#x4E2D;&#x51FA;&#x73B0;&#x4E8B;&#x4EF6;&#x5E8F;&#x5217;&#x76F8;&#x4F3C;  <a id="b2" href="#2">&#x21A9;</a></p>
+</li>
+<li><strong>ChangeTransform</strong> &#x8FD8;&#x6709;&#x4E00;&#x4E2A;&#x8D85;&#x8D5E;&#x7684;&#x7279;&#x6027;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x68C0;&#x6D4B;&#x5E76;&#x5904;&#x7406;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x7236;&#x89C6;&#x56FE;&#x8FC7;&#x6E21;&#x671F;&#x95F4;
+ &#x7684;&#x6539;&#x53D8;&#x3002;&#x5F53;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x7236;&#x89C6;&#x56FE;&#x6709;&#x4E00;&#x4E2A;&#x4E0D;&#x900F;&#x660E;&#x80CC;&#x666F;&#xFF0C;&#x5728;&#x573A;&#x666F;&#x53D8;&#x6362;&#x8FC7;&#x7A0B;&#x4E2D;&#x9ED8;&#x8BA4;&#x88AB;&#x9009;&#x4E3A;
+ transitioning view &#x65F6;&#xFF0C;<strong>ChangeTransform</strong> &#x5C31;&#x6709;&#x4E86;&#x7528;&#x6B66;&#x4E4B;&#x5730;&#x3002;&#x5982;&#x679C;&#x5B83;&#x68C0;&#x6D4B;&#x51FA;
+ &#x5171;&#x4EAB;&#x5143;&#x7D20;&#x7236;&#x89C6;&#x56FE;&#x5DF2;&#x88AB; content transition &#x66F4;&#x6539;&#xFF0C;&#x5C31;&#x4F1A;&#x5C06;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x63D0;&#x53D6;&#x51FA;&#x6765;&#xFF0C;&#x5355;&#x72EC;&#x6267;&#x884C;
+ &#x5171;&#x4EAB;&#x5143;&#x7D20;&#x7684;&#x52A8;&#x753B;&#x3002;<a href="http://stackoverflow.com/questions/26899779/enter-transition-on-a-fragment-with-a-shared-element-targets-the-shared-element" target="_blank">StackOverflow answer</a> &#x8FD9;&#x91CC;&#x6709; George Mount 
+ &#x7684;&#x8BE6;&#x7EC6;&#x8BF4;&#x660E;&#x3002;
+ <a id="b3" href="#3">&#x21A9;</a></li>
+<li>&#x6CE8;&#x610F;&#xFF0C;&#x8FD9;&#x90E8;&#x5206;&#x53EA;&#x4E0E; Activity Transition &#x6709;&#x5173;&#x3002;&#x548C;Activity Transition &#x4E0D;&#x540C;&#xFF0C;Fragment Transition
+ &#x671F;&#x95F4;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x9ED8;&#x8BA4;&#x4E0D;&#x5728; <strong>ViewOverlay</strong> &#x4E2D;&#x7ED8;&#x5236;&#x3002;&#x5C3D;&#x7BA1;&#x5982;&#x6B64;&#xFF0C;&#x4F60;&#x4ECD;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; ChangeTransform 
+ transition &#x6765;&#x8FBE;&#x5230;&#x76F8;&#x4F3C;&#x7684;&#x6548;&#x679C;&#xFF0C;&#x5982;&#x679C;&#x5B83;&#x68C0;&#x6D4B;&#x5230;&#x7236;&#x89C6;&#x56FE;&#x6539;&#x53D8;&#x4E86;&#xFF0C;&#x5C31;&#x4F1A;&#x628A;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x7ED8;&#x5236;&#x5728; 
+ <strong>ViewOverlay</strong> &#x7684;&#x9876;&#x5C42;&#x3002;<a href="http://stackoverflow.com/questions/27892033/is-there-a-setsharedelementsuseoverlay-method-for-fragment-transitions" target="_blank">StackOverflow</a> &#x8FD9;&#x91CC;&#x6709;&#x66F4;&#x591A;&#x4FE1;&#x606F;&#x3002;
+  <a id="b4" href="#4">&#x21A9;</a></li>
+<li>&#x6CE8;&#x610F;&#xFF0C;&#x5C06;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x7ED8;&#x5236;&#x5728;&#x6574;&#x4E2A;&#x56FE;&#x5C42;&#x6700;&#x9876;&#x5C42;&#x4E5F;&#x6709;&#x4E00;&#x4E9B;&#x8D1F;&#x9762;&#x6548;&#x679C;&#x3002;&#x6709;&#x53EF;&#x80FD;
+ &#x4F1A;&#x5C06;&#x5171;&#x4EAB;&#x5143;&#x7D20;&#x7ED8;&#x5236;&#x5728; System UI &#x4E4B;&#x4E0A;(&#x6BD4;&#x5982; status bar, navigation bar&#x8FD8;&#x6709; action bar)&#x3002;
+ &#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#x770B;&#x8FD9;&#x91CC; <a href="https://plus.google.com/+AlexLockwood/posts/RPtwZ5nNebb" target="_blank">Google+ post</a>&#x3002;
+ <a id="b5" href="#5">&#x21A9;</a></li>
+</ol>
+<hr>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../../issue-7/使用Robolectric和Android生成代码覆盖率报告/readme.html" class="navigation navigation-prev " aria-label="Previous page: 使用Robolectric和Android生成代码覆盖率报告"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../../issue-7/深入浅出Android新特性-Transition-Part-3b/readme.html" class="navigation navigation-next " aria-label="Next page: 深入浅出Android新特性-Transition-Part-3b"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../../gitbook/app.js"></script>
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

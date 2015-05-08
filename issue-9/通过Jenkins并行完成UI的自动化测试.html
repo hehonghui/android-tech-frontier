@@ -1,0 +1,598 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />
+        <title>通过Jenkins并行完成UI的自动化测试 | 开发技术前线 文章合集</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.0.2">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    
+    
+    
+    <link rel="prev" href="../issue-9/使用Android-Studio进行单元测试.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+    
+
+        
+    <div class="book" data-level="3.6" data-basepath=".." data-revision="Fri May 08 2015 14:15:22 GMT+0800 (CST)">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+        
+
+        
+
+        
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="issue-7/readme.html">
+            
+                
+                    <a href="../issue-7/readme.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        第七期
+                    </a>
+                
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="issue-7/Android测试框架：Dagger2+Espresso2+Mockito/readme.html">
+            
+            <span><b>1.1.</b> Android测试框架：Dagger2+Espresso2+Mockito</span>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="issue-7/Retrofit开发指南/readme.html">
+            
+            <span><b>1.2.</b> Retrofit开发指南</span>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="issue-7/使用Robolectric和Android生成代码覆盖率报告/readme.html">
+            
+                
+                    <a href="../issue-7/使用Robolectric和Android生成代码覆盖率报告/readme.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        使用Robolectric和Android生成代码覆盖率报告
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="issue-7/在Activity中使用Thread导致的内存泄漏.html">
+            
+            <span><b>1.4.</b> 在Activity中使用Thread导致的内存泄漏</span>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="issue-7/深入浅出Android新特性-Transition-Part-3a/readme.html">
+            
+                
+                    <a href="../issue-7/深入浅出Android新特性-Transition-Part-3a/readme.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        深入浅出Android新特性-Transition-Part-3a
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="issue-7/深入浅出Android新特性-Transition-Part-3b/readme.html">
+            
+                
+                    <a href="../issue-7/深入浅出Android新特性-Transition-Part-3b/readme.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.6.</b>
+                        
+                        深入浅出Android新特性-Transition-Part-3b
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="issue-7/Android-Support库22.1版.html">
+            
+                
+                    <a href="../issue-7/Android-Support库22.1版.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.7.</b>
+                        
+                        Android-Support库22.1版
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="issue-7/Android-Lollipop-update.html">
+            
+                
+                    <a href="../issue-7/Android-Lollipop-update.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.8.</b>
+                        
+                        Android 5.1.1面世
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="issue-8/readme.html">
+            
+                
+                    <a href="../issue-8/readme.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        第八期
+                    </a>
+                
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="issue-8/如何在Android上响应各种信息通知.html">
+            
+                
+                    <a href="../issue-8/如何在Android上响应各种信息通知.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        如何在Android上响应各种信息通知
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="issue-8/Android 进行单元测试难在哪-序.html">
+            
+                
+                    <a href="../issue-8/Android 进行单元测试难在哪-序.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Android 进行单元测试难在哪-序
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="issue-8/Custom-Drawables.html">
+            
+                
+                    <a href="../issue-8/Custom-Drawables.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        自定义Drawables
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="issue-8/检测Android应用的启动与关闭.html">
+            
+                
+                    <a href="../issue-8/检测Android应用的启动与关闭.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        检测Android应用的启动与关闭
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="issue-8/开始学习Material Design.html">
+            
+                
+                    <a href="../issue-8/开始学习Material Design.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                        开始学习Material Design
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="issue-8/Support Libraries v22.1.0.html">
+            
+                
+                    <a href="../issue-8/Support Libraries v22.1.0.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.</b>
+                        
+                        Support Libraries v22.1.0
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="issue-9/readme.html">
+            
+                
+                    <a href="../issue-9/readme.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        第九期
+                    </a>
+                
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="issue-9/NotRxJava懒人专用指南.html">
+            
+                
+                    <a href="../issue-9/NotRxJava懒人专用指南.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        NotRxJava懒人专用指南
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="issue-9/创建-RecyclerView-LayoutManager-Part-1.html">
+            
+                
+                    <a href="../issue-9/创建-RecyclerView-LayoutManager-Part-1.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        创建-RecyclerView-LayoutManager-Part-1
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="issue-9/Android 进行单元测试难在哪-part1.html">
+            
+                
+                    <a href="../issue-9/Android 进行单元测试难在哪-part1.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Android 进行单元测试难在哪-part1
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="issue-9/Android 10ms问题：关于Android音频路径延迟的解释.html">
+            
+                
+                    <a href="../issue-9/Android 10ms问题：关于Android音频路径延迟的解释.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        Android 10ms问题：关于Android音频路径延迟的解释
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="issue-9/使用Android-Studio进行单元测试.html">
+            
+                
+                    <a href="../issue-9/使用Android-Studio进行单元测试.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        使用Android-Studio进行单元测试
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="3.6" data-path="issue-9/通过Jenkins并行完成UI的自动化测试.html">
+            
+                
+                    <a href="../issue-9/通过Jenkins并行完成UI的自动化测试.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.</b>
+                        
+                        通过Jenkins并行完成UI的自动化测试
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                Published with GitBook
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Google"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >开发技术前线 文章合集</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h2 id="%E9%80%9A%E8%BF%87jenkins%E5%B9%B6%E8%A1%8C%E5%AE%8C%E6%88%90ui%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95">&#x901A;&#x8FC7;Jenkins&#x5E76;&#x884C;&#x5B8C;&#x6210;UI&#x7684;&#x81EA;&#x52A8;&#x5316;&#x6D4B;&#x8BD5;</h2>
+<blockquote>
+<ul>
+<li>&#x539F;&#x6587;&#x94FE;&#x63A5; : <a href="http://www.hidroh.com/2015/04/14/concurrent-android-ui-automation-jenkins/" target="_blank">Concurrent Android UI automation with Jenkins</a></li>
+<li>&#x539F;&#x6587;&#x4F5C;&#x8005; : <a href="http://www.hidroh.com/" target="_blank">Ha Duy Trung</a></li>
+<li><a href="http://www.devtf.cn" target="_blank">&#x8BD1;&#x6587;&#x51FA;&#x81EA; :  &#x5F00;&#x53D1;&#x6280;&#x672F;&#x524D;&#x7EBF; www.devtf.cn</a></li>
+<li>&#x8BD1;&#x8005; : <a href="https://github.com/chaossss" target="_blank">chaossss</a> </li>
+<li>&#x6821;&#x5BF9;&#x8005;: <a href="https://github.com/tiiime" target="_blank">tiiime</a></li>
+<li>&#x72B6;&#x6001; :  &#x5B8C;&#x6210;</li>
+</ul>
+</blockquote>
+<p><img src="http://www.hidroh.com/assets/img/parallel-cover.jpg" alt=""></p>
+<p>&#x73B0;&#x5728;&#x7684; IT &#x516C;&#x53F8;&#x4F1A;&#x4E3A;&#x4E86;&#x8FDB;&#x5165;&#x4E0D;&#x540C;&#x7684;&#x5E02;&#x573A;&#x5F00;&#x53D1;&#x76F8;&#x5E94;&#x7684; App&#xFF0C;&#x6765;&#x81EA;&#x540C;&#x4E00;&#x5BB6;&#x516C;&#x53F8;&#x7684; App &#x603B;&#x4F1A;&#x5177;&#x6709;&#x76F8;&#x4F3C;&#x7684; UI &#x903B;&#x8F91;&#xFF0C;&#x4F46; UI &#x7684;&#x7EC6;&#x8282;&#x3001;&#x98CE;&#x683C;&#x53C8;&#x5404;&#x6709;&#x533A;&#x5206;&#x3002;&#x968F;&#x7740;&#x4EA7;&#x54C1;&#x7684;&#x53D1;&#x5C55;&#xFF0C;&#x6291;&#x6216;&#x662F;&#x5728;&#x4EA7;&#x54C1;&#x5E94;&#x7528;&#x4E8E;&#x65B0;&#x5E02;&#x573A;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x4EA7;&#x751F;&#x4E86;&#x65E7; UI &#x903B;&#x8F91;&#x7684;&#x53D8;&#x79CD;&#xFF0C;&#x7528;&#x4E8E;&#x6D4B;&#x8BD5;&#x6240;&#x6709; UI &#x903B;&#x8F91;&#x7684;&#x65F6;&#x95F4;&#x4F1A;&#x4E0E;&#x65B0; UI &#x7684;&#x6570;&#x91CF;&#x5448;&#x6B63;&#x6BD4;&#x4F8B;&#x5173;&#x7CFB;&#x589E;&#x957F;&#x3002;&#x5373;&#x4F7F;&#x6709; UI &#x7684;&#x81EA;&#x52A8;&#x5316;&#x6846;&#x67B6;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x51CF;&#x5C11;&#x6D4B;&#x8BD5;&#x6240;&#x9700;&#x7684;&#x65F6;&#x95F4;&#xFF08;&#x4F8B;&#x5982; Calabash Android&#xFF09;&#xFF0C;&#x4F7F;&#x5F97;&#x6BCF;&#x5929;&#x53EA;&#x9700;&#x8981;2&#x4E2A;&#x5C0F;&#x65F6;&#x5C31;&#x80FD;&#x5B8C;&#x6210;&#x5BF9; UI &#x7684;&#x6D4B;&#x8BD5;&#xFF0C;&#x4F46;&#x5728;&#x8FD9;&#x5957; UI &#x884D;&#x751F;&#x51FA;&#x56DB;&#x5957;&#x201C;&#x53D8;&#x79CD; UI&#x201D;&#x540E;&#xFF0C;&#x5374;&#x8981;&#x82B1;&#x8D39;8&#x4E2A;&#x5C0F;&#x65F6;&#x624D;&#x80FD;&#x5B8C;&#x6210;&#x6D4B;&#x8BD5;&#x3002;</p>
+<p>&#x8FD9;&#x7BC7;&#x535A;&#x6587;&#x5C06;&#x5229;&#x7528; Continuous Integration (CI) &#x670D;&#x52A1;&#xFF0C;&#x540C;&#x65F6;&#x5728;&#x4E0D;&#x540C;&#x7684;&#x8BBE;&#x5907;&#x4E2D;&#x6267;&#x884C; UI &#x6D4B;&#x8BD5;&#xFF0C;&#x5E76;&#x4ECB;&#x7ECD;&#x4E00;&#x79CD;&#x4ECE;&#x6839;&#x6E90;&#x4E0A;&#x51CF;&#x5C11;&#x8FD9;&#x79CD;&#x5B9E;&#x9645;&#x573A;&#x666F;&#x4E0B;&#x81EA;&#x52A8;&#x5316;&#x6D4B;&#x8BD5;&#x6240;&#x9700;&#x65F6;&#x95F4;&#x7684;&#x65B9;&#x6CD5;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x6D4B;&#x8BD5;&#x90FD;&#x662F;&#x5728;&#x771F;&#x673A;&#x4E0A;&#x8FD0;&#x884C;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x865A;&#x62DF;&#x673A;&#x3002;</p>
+<p>&#x66F4;&#x8D34;&#x8FD1;&#x73B0;&#x5B9E;&#x7684;&#x81EA;&#x52A8;&#x5316;&#x6D4B;&#x8BD5;&#xFF1A;&#x6709;&#x5F88;&#x591A;&#x4E1C;&#x897F;&#x53EA;&#x80FD;&#x901A;&#x8FC7;&#x771F;&#x673A;&#x6765;&#x53CD;&#x6620;&#xFF0C;&#x50CF;&#x5185;&#x5B58;&#x6D88;&#x8017;&#xFF0C;CPU &#x6D88;&#x8017;&#xFF1A;&#x865A;&#x62DF;&#x673A;&#x901A;&#x5E38;&#x90FD;&#x662F;&#x6D88;&#x8017;&#x7535;&#x8111;&#x7684;&#x8D44;&#x6E90;&#xFF0C;&#x800C;&#x771F;&#x673A;&#x57FA;&#x672C;&#x4E0D;&#x4F1A;&#x6D88;&#x8017;&#x7535;&#x8111;&#x8D44;&#x6E90;&#x3002;</p>
+<p>&#x800C;&#x4E14;&#x7528;&#x771F;&#x673A;&#x8FDB;&#x884C;&#x6D4B;&#x8BD5;&#x6027;&#x4EF7;&#x6BD4;&#x8F83;&#x9AD8;&#xFF01;Android &#x8BBE;&#x5907;&#x90FD;&#x5F88;&#x4FBF;&#x5B9C;&#xFF0C;&#x6240;&#x4EE5;&#x4F60;&#x53EF;&#x4EE5;&#x5728;&#x9700;&#x8981;&#x8BBE;&#x5907;&#x8FDB;&#x884C;&#x6D4B;&#x8BD5;&#x7684;&#x65F6;&#x5019;&#x6BEB;&#x4E0D;&#x72B9;&#x8C6B;&#x5730;&#x4E70;&#x4E70;&#x4E70;&#xFF0C;&#x5982;&#x679C;&#x7528;&#x865A;&#x62DF;&#x673A;&#x6D4B;&#x8BD5;&#x7684;&#x8BDD;&#xFF0C;&#x7531;&#x4E8E;&#x865A;&#x62DF;&#x673A;&#x4F1A;&#x6D88;&#x8017;&#x5F88;&#x591A;&#x7535;&#x8111;&#x8D44;&#x6E90;&#x800C;&#x4E14;&#x62D3;&#x5C55;&#x7535;&#x8111;&#x786C;&#x4EF6;&#x5F88;&#x70E7;&#x94B1;&#xFF0C;&#x8FD9;&#x65E0;&#x7591;&#x4F1A;&#x9650;&#x5236;&#x6D4B;&#x8BD5;&#x8BBE;&#x5907;&#x7684;&#x6570;&#x91CF;&#x3002;</p>
+<p>&#x867D;&#x8BF4;&#x535A;&#x6587;&#x91CC;&#x540C;&#x65F6;&#x4F7F;&#x7528;&#x4E86; Calabash Android &#x81EA;&#x52A8;&#x5316;&#x6846;&#x67B6; &#x548C; <a href="https://jenkins-ci.org/" target="_blank">Jenkins CI</a>&#xFF0C;&#x4F46;&#x6211;&#x63D0;&#x5230;&#x7684;&#x5927;&#x90E8;&#x5206;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8FD0;&#x884C;&#x5728;&#x4EFB;&#x610F; CI &#x670D;&#x52A1;&#x4E0A;&#x7684; <a href="https://wiki.jenkins-ci.org/display/JENKINS/Distributed+builds#Distributedbuilds-RunningMultipleSlavesontheSameMachine" target="_blank">Android Debug Bridge (ADB)</a> &#x5E94;&#x7528;&#x4E8E;&#x5176;&#x4ED6;&#x7684;&#x81EA;&#x52A8;&#x5316;&#x6D4B;&#x8BD5;&#x6846;&#x67B6;&#x91CC;&#x3002;</p>
+<h2 id="%E5%88%9B%E5%BB%BA-jenkins-slaves-%E5%92%8C-slave-group">&#x521B;&#x5EFA; Jenkins slaves &#x548C; slave group</h2>
+<p>&#x5B8C;&#x6210;<a href="https://wiki.jenkins-ci.org/display/JENKINS/Distributed+builds" target="_blank">&#x5206;&#x5E03;&#x5F0F;&#x6784;&#x5EFA;</a>&#x7684;&#x7B2C;&#x4E00;&#x6B65;&#x5C31;&#x662F;&#x521B;&#x5EFA; Jenkins slave&#xFF0C;&#x6388;&#x6743;&#x5B83;&#x7BA1;&#x7406;&#x591A;&#x4E2A;&#x201C;&#x5974;&#x96B6;&#x201D;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; Jenkins -&gt; Manage Jenkins -&gt; Manage Nodes &#x5BFC;&#x822A;&#x5230; Jenkins slaves/nodes &#x7684;&#x914D;&#x7F6E;&#x754C;&#x9762;&#x3002;</p>
+<p>&#x6839;&#x636E;&#x5B9A;&#x4E49;&#xFF0C;Jenkins slave &#x7528;&#x4E8E;&#x5B8C;&#x6210; Jenkins &#x4E3B;&#x673A;&#x5206;&#x53D1;&#x4E0B;&#x6765;&#x7684;&#x4EFB;&#x52A1;&#x3002;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x4F7F;&#x7528;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x9700;&#x8981;&#x5B8C;&#x6210;&#x7684;&#x4EFB;&#x52A1;&#x5219;&#x662F;&#x8FD0;&#x884C;&#x5728; Android &#x8BBE;&#x5907;&#x4E0A;&#x7684;&#x81EA;&#x52A8;&#x5316;&#x6D4B;&#x8BD5;&#x3002;&#x4E3A;&#x4E86;&#x5B8C;&#x6210;&#x8FD9;&#x9879;&#x4EFB;&#x52A1;&#xFF0C;&#x6240;&#x6709;&#x5974;&#x96B6;&#x90FD;&#x53EF;&#x4EE5;<a href="https://wiki.jenkins-ci.org/display/JENKINS/Distributed+builds#Distributedbuilds-RunningMultipleSlavesontheSameMachine" target="_blank">&#x8FD0;&#x884C;&#x5728;&#x76F8;&#x540C;&#x7684;&#x673A;&#x5668;&#x4E0A;</a>&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x901A;&#x8FC7; USB &#x8FDE;&#x63A5;&#x5728;&#x7535;&#x8111;&#x4E0A;&#x7684;&#xFF0C;&#x5177;&#x6709;&#x6267;&#x884C; ADB &#x547D;&#x4EE4;&#x7684; Android &#x8BBE;&#x5907;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x662F;&#x4E00;&#x4E2A;&#x4E0E; Samsung S3 &#x5173;&#x8054;&#x7684;&#x5974;&#x96B6;&#x7684;&#x5B89;&#x88C5;&#x7EC6;&#x8282;&#xFF1A;</p>
+<p><img src="http://www.hidroh.com/assets/img/parallel-slave-1.png" alt=""></p>
+<p>&#x5F53;&#x6240;&#x6709;&#x5974;&#x96B6;&#x90FD;&#x8FD0;&#x884C;&#x5728;&#x540C;&#x4E00;&#x53F0;&#x673A;&#x5668;&#x4E0A;&#x65F6;&#xFF0C;&#x6211;&#x5EFA;&#x8BAE;&#x4E3A;&#x4E0D;&#x540C;&#x7684;&#x5974;&#x96B6;&#x7ED3;&#x70B9;&#x63D0;&#x4F9B;&#x4E0D;&#x540C;&#x7684;&#x7CFB;&#x7EDF; roots &#x6587;&#x4EF6;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x4EEC;&#x5F88;&#x53EF;&#x80FD;&#x4F1A;&#x5728;&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;&#x5904;&#x88AB;&#x5B58;&#x50A8;&#xFF0C;&#x5982;&#x679C;&#x5B83;&#x4EEC;&#x6307;&#x5411;&#x540C;&#x4E00;&#x4E2A; root &#x6587;&#x4EF6;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x8BA9;&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;&#x88AB;&#x4E0D;&#x540C;&#x7684;&#x7ED3;&#x70B9;&#x91CD;&#x5199;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; Remote FS root &#x8FDB;&#x884C;&#x8FD9;&#x6837;&#x7684;&#x8BBE;&#x7F6E;&#x3002;</p>
+<blockquote>
+<p><strong>Remote FS root</strong></p>
+<p>&#x6BCF;&#x4E2A;&#x5974;&#x96B6;&#x90FD;&#x9700;&#x8981;&#x62E5;&#x6709; Jenkins &#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x4E13;&#x7528;&#x76EE;&#x5F55;&#xFF0C;&#x6211;&#x4EEC;&#x5728;&#x5974;&#x96B6;&#x4E2D;&#x4E3A;&#x5176;&#x6307;&#x5B9A;&#x7EDD;&#x5BF9;&#x8DEF;&#x5F84;&#xFF0C;&#x5982;&#xFF1A;&apos;/var/jenkins&apos; &#x6216; &apos;c:\jenkins&apos;&#xFF0C;&#x800C;&#x4E14;&#x8BE5;&#x8DEF;&#x5F84;&#x5E94;&#x8BE5;&#x662F;&#x5974;&#x96B6;&#x8BBE;&#x5907;&#x4E2D;&#x7684;&#x672C;&#x5730;&#x8DEF;&#x5F84;&#x3002;&#x4F46;&#x662F;&#x8BE5;&#x8DEF;&#x5F84;&#x4E0D;&#x9700;&#x8981;&#x5BF9; Jenkins &#x53EF;&#x89C1;&#xFF0C;&#x600E;&#x4E48;&#x6B63;&#x5E38;&#x600E;&#x4E48;&#x6765;&#x5C31;&#x884C;&#x3002;</p>
+<p>&#x5974;&#x96B6;&#x4E0D;&#x4F1A;&#x6301;&#x6709;&#x91CD;&#x8981;&#x6570;&#x636E;&#xFF08;&#x4E0D;&#x540C;&#x4E8E;&#x6700;&#x540E;&#x521B;&#x5EFA;&#x4E8E;&#x5176;&#x4E0A;&#x7684;&#x9879;&#x76EE;&#x7684;&#x6D3B;&#x8DC3;&#x5DE5;&#x4F5C;&#x533A;&#xFF09;&#xFF0C;&#x6240;&#x4EE5;&#x4F60;&#x53EF;&#x4EE5;&#x5C06;&#x5974;&#x96B6;&#x7684;&#x5DE5;&#x4F5C;&#x533A;&#x8BBE;&#x7F6E;&#x5230;&#x4E00;&#x4E2A;&#x4E34;&#x65F6;&#x76EE;&#x5F55;&#x3002;&#x8FD9;&#x6837;&#x505A;&#x7684;&#x552F;&#x4E00;&#x7F3A;&#x70B9;&#x5728;&#x4E8E;&#xFF1A;&#x4F60;&#x53EF;&#x80FD;&#x4F1A;&#x5728;&#x5974;&#x96B6;&#x8BBE;&#x5907;&#x5173;&#x673A;&#x540E;&#x5931;&#x53BB;&#x6700;&#x65B0;&#x7684;&#x5DE5;&#x4F5C;&#x533A;&#x3002;</p>
+</blockquote>
+<p>&#x5F53; separate FS roots &#x548C;&#x591A;&#x5904;&#x7406;&#x5668;&#x5141;&#x8BB8; Calabash &#x7684;&#x5E76;&#x884C;&#x64CD;&#x4F5C;&#x65F6;&#xFF0C;ADB_DEVICE_ARG &#x73AF;&#x5883;&#x53D8;&#x91CF;&#x9700;&#x8981;&#x7528;&#x4E8E;&#x901A;&#x77E5; Calabash&#xFF0C;&#x56E0;&#x4E3A; Calabash &#x8FD0;&#x884C;&#x7684;&#x8BBE;&#x5907;&#x5E94;&#x8BE5;&#x5411;&#x5176;&#x53D1;&#x9001; ADB &#x547D;&#x4EE4;&#xFF0C;&#x9632;&#x6B62;&#x8BBE;&#x5907;&#x7684;&#x591A;&#x91CD;&#x8FDE;&#x63A5;&#x3002;&#x5E95;&#x5C42;&#x4E2D;&#xFF0C;Calabash &#x901A;&#x8FC7; ADB &#x8BBE;&#x5907;&#x547D;&#x4EE4;&#x81EA;&#x52A8;&#x5316; UI&#xFF0C;&#x5F53;&#x4E00;&#x4E2A;&#x8BBE;&#x5907;&#x5339;&#x914D;&#x4E8E;&#x53E6;&#x4E00;&#x4E2A;&#x5974;&#x96B6;&#x7ED3;&#x70B9;&#xFF0C;ADB_DEVICE_ARG &#x5E94;&#x8BE5;&#x901A;&#x8FC7;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x7684;&#x914D;&#x7F6E;&#x5E94;&#x7528;&#x5230; node &#x7ED3;&#x70B9;&#x5C42;&#x4E2D;&#xFF0C;&#x5E76;&#x5728;&#x5176;&#x540E;&#x5728;&#x4EFB;&#x52A1;&#x5C42;&#x53D8;&#x4E3A;&#x53EF;&#x7528;&#x3002;</p>
+<blockquote>
+<p><strong>&#x73AF;&#x5883;&#x53D8;&#x91CF;</strong></p>
+<p>&#x8FD9;&#x4E9B;&#x952E;&#x503C;&#x5BF9;&#x5C06;&#x4F1A;&#x5E94;&#x7528;&#x4E8E;&#x7ED3;&#x70B9;&#x4E0A;&#x7684;&#x6BCF;&#x4E00;&#x4E2A;&#x6784;&#x5EFA;&#xFF0C;&#x5E76;&#x91CD;&#x5199;&#x4EFB;&#x610F;&#x5168;&#x5C40;&#x503C;&#xFF0C;&#x6240;&#x4EE5;&#x4ED6;&#x4EEC;&#x80FD;&#x5728; Jenkins &#x7684;&#x914D;&#x7F6E;&#x4E2D;&#x88AB;&#x4F7F;&#x7528;&#xFF08;&#x5982; $key &#x6216; ${key}&#xFF09;&#xFF0C;&#x800C;&#x4E14;&#x5C06;&#x4F1A;&#x88AB;&#x6DFB;&#x52A0;&#x5230;&#x6784;&#x5EFA;&#x4E0A;&#x542F;&#x52A8;&#x7684;&#x8FDB;&#x7A0B;&#x3002;</p>
+</blockquote>
+<p>&#x5728; Nexus 4 &#x4E2D;&#x8BBE;&#x7F6E;&#x5974;&#x96B6;&#x7684;&#x65B9;&#x5F0F;&#x5982;&#x4E0A;</p>
+<p><img src="http://www.hidroh.com/assets/img/parallel-slave-2.png" alt=""></p>
+<p>&#x5982;&#x679C;&#x4F60;&#x7559;&#x5FC3;&#x6CE8;&#x610F;&#x4E00;&#x4E9B;&#x7EC6;&#x8282;&#x4F60;&#x4F1A;&#x53D1;&#x73B0;&#xFF0C;&#x6240;&#x6709;&#x5974;&#x96B6;&#x7ED3;&#x70B9;&#x90FD;&#x88AB;&#x914D;&#x7F6E;&#x4E86;&#x76F8;&#x540C;&#x7684; android-group &#x6807;&#x7B7E;&#x3002;&#x8FD9;&#x6837;&#x505A;&#x7684;&#x76EE;&#x7684;&#x4E3B;&#x8981;&#x662F;&#x5C06;&#x5974;&#x96B6;&#x5206;&#x7EC4;&#xFF0C;&#x4F7F;&#x5F97;&#x5F53;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x5974;&#x96B6;&#x65F6;&#xFF0C;&#x65B9;&#x4FBF;&#x6211;&#x4EEC;&#x8C03;&#x7528;&#x7279;&#x5B9A;&#x5206;&#x7EC4;&#x91CC;&#x7684;&#x6240;&#x6709;&#x5974;&#x96B6;&#x3002;</p>
+<blockquote>
+<p>&#x6807;&#x7B7E;</p>
+<p>&#x6807;&#x7B7E;&#xFF08;AKA &#x6807;&#x7B7E;&#xFF09;&#x7528;&#x4E8E;&#x5C06;&#x591A;&#x4E2A;&#x5974;&#x96B6;&#x5206;&#x5230;&#x4E00;&#x4E2A;&#x903B;&#x8F91;&#x7EC4;&#x4E2D;&#xFF0C;&#x800C;&#x6BCF;&#x4E00;&#x4E2A;&#x6807;&#x7B7E;&#x90FD;&#x4F1A;&#x6D88;&#x8017;&#x7A7A;&#x95F4;&#x3002;&#x4F8B;&#x5982; &apos;regression java6&apos; &#x5C06;&#x4E3A;&#x4E3A;&#x7ED3;&#x70B9;&#x5206;&#x914D; &apos;regression&apos; &#x548C; &apos;java6&apos; &#x6807;&#x7B7E;&#x3002;</p>
+<p>&#x4E3E;&#x4F8B;&#x6765;&#x8BF4;&#x5427;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x6709;&#x591A;&#x4E2A;&#x7A97;&#x53E3;&#x5974;&#x96B6;&#xFF0C;&#x800C;&#x4E14;&#x4F60;&#x8981;&#x5B8C;&#x6210;&#x7684;&#x4EFB;&#x52A1;&#x9700;&#x8981;&#x7A97;&#x53E3;&#xFF0C;&#x90A3;&#x4E48;&#x4F60;&#x53EF;&#x4EE5;&#x8BA9;&#x4F60;&#x7684;&#x6240;&#x6709;&#x7A97;&#x53E3;&#x5974;&#x96B6;&#x6301;&#x6709; &apos;windows&apos; &#x6807;&#x7B7E;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x9700;&#x8981;&#x6267;&#x884C;&#x7684;&#x4EFB;&#x52A1;&#x4E0E; &apos;windows&apos; &#x6807;&#x7B7E;&#x7ED1;&#x5B9A;&#x3002;&#x8FD9;&#x4F7F;&#x5F97;&#x4F60;&#x7684;&#x4EFB;&#x52A1;&#x5728;&#x6240;&#x6709;&#x7A97;&#x53E3;&#x5974;&#x96B6;&#x4E2D;&#x88AB;&#x6267;&#x884C;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x88AB;&#x968F;&#x610F;&#x6267;&#x884C;&#x3002;</p>
+</blockquote>
+<p><img src="http://www.hidroh.com/assets/img/parallel-slave-group.png" alt=""></p>
+<p>&#x73B0;&#x5728;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x68C0;&#x67E5; android-group&#xFF0C;&#x6211;&#x4EEC;&#x4F1A;&#x5F97;&#x5230;&#x4E00;&#x4E2A;&#x6240;&#x6709;&#x7ED3;&#x70B9;&#x90FD;&#x5E26;&#x7740; android-group &#x6807;&#x7B7E;&#x7684;&#x5217;&#x8868;&#xFF0C;&#x628A;&#x5176;&#x4ED6;&#x8BBE;&#x5907;&#x6DFB;&#x52A0;&#x5230;&#x8FD9;&#x4E2A;&#x7EC4;&#x91CC;&#x5C31;&#x50CF;&#x62F7;&#x8D1D;&#x4E00;&#x4E2A;&#x5DF2;&#x5B58;&#x5728;&#x7684;&#x7ED3;&#x70B9;&#x548C;&#x66F4;&#x65B0; ADB_DEVICE_ARG &#x73AF;&#x5883;&#x53D8;&#x91CF;&#x4E00;&#x6837;&#x7B80;&#x5355;&#x3002;</p>
+<h2 id="%E4%BD%BF%E7%94%A8%E5%A5%B4%E9%9A%B6%E7%BE%A4%E5%BB%BA%E7%AB%8B%E5%B9%B6%E8%A1%8C%E4%BB%BB%E5%8A%A1">&#x4F7F;&#x7528;&#x5974;&#x96B6;&#x7FA4;&#x5EFA;&#x7ACB;&#x5E76;&#x884C;&#x4EFB;&#x52A1;</h2>
+<p>&#x5728;&#x8FDB;&#x884C;&#x4E86;&#x4E0A;&#x9762;&#x7684;&#x914D;&#x7F6E;&#x4EE5;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x73B0;&#x5728;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; Jenkins &#x4EFB;&#x52A1;&#x4F7F;&#x7528;&#x8FDE;&#x63A5;&#x5230;&#x7535;&#x8111;&#x7684;&#x8BBE;&#x5907;&#xFF0C;&#x901A;&#x8FC7;&#x5404;&#x81EA;&#x7684;&#x5974;&#x96B6;&#x548C;&#x5177;&#x6709; android-group &#x7684;&#x5974;&#x96B6;&#x7FA4;&#x6267;&#x884C; Calabash Android&#x3002;</p>
+<p><img src="http://www.hidroh.com/assets/img/parallel-downstream-1.png" alt=""></p>
+<p>&#x901A;&#x8FC7;&#x9009;&#x4E2D;&#x201C;&#x5982;&#x679C;&#x5FC5;&#x8981;&#x7684;&#x8BDD;&#xFF0C;&#x6267;&#x884C;&#x5E76;&#x884C;&#x6784;&#x5EFA;&#x201D;&#x548C;&#x201C;&#x9650;&#x5236;&#x9879;&#x76EE;&#x8FD0;&#x884C;&#x4F4D;&#x7F6E;&#x201D;&#x4E24;&#x4E2A;&#x914D;&#x7F6E;&#x9009;&#x9879;&#xFF0C;&#x4F7F;&#x5F97;&#x4EFB;&#x52A1;&#x53EF;&#x4EE5;&#x88AB;&#x5E76;&#x884C;&#x6267;&#x884C;&#xFF0C;&#x4E3B;&#x9898;&#x5BF9;&#x7ED3;&#x70B9;&#x53EF;&#x7528;&#xFF0C;&#x4EC5;&#x4F7F;&#x7528;&#x6807;&#x6709;&#x201C;android-group&#x201D;&#x6807;&#x7B7E;&#x7684;&#x7ED3;&#x70B9;&#x3002;&#x4F46;&#x5176;&#x4E2D;&#x7684;&#x9650;&#x5236;&#x662F;&#xFF1A;&#x9700;&#x8981;&#x786E;&#x4FDD;&#x53EA;&#x6709;&#x4E0E;&#x5DF2;&#x8FDE;&#x63A5;&#x7684;&#x8BBE;&#x5907;&#x5173;&#x8054;&#x7684;&#x7ED3;&#x70B9;&#x624D;&#x80FD;&#x7528;&#x4E8E;&#x81EA;&#x52A8;&#x5316;&#x6D4B;&#x8BD5;&#xFF0C;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x6709;&#x7528;&#x4E8E;&#x5B8C;&#x6210;&#x5176;&#x4ED6;&#x4EFB;&#x52A1;&#x7684;&#x5176;&#x4ED6;&#x4E0E;&#x672A;&#x8FDE;&#x63A5;&#x8BBE;&#x5907;&#x5173;&#x8054;&#x7684;&#x7ED3;&#x70B9;&#x3002;</p>
+<blockquote>
+<p><strong>&#x5982;&#x679C;&#x5FC5;&#x8981;&#x7684;&#x8BDD;&#xFF0C;&#x6267;&#x884C;&#x5E76;&#x884C;&#x6784;&#x5EFA;</strong></p>
+<p>&#x5982;&#x679C;&#x9700;&#x8981;&#x5E76;&#x884C;&#x6267;&#x884C;&#x6784;&#x5EFA;&#xFF0C;Jenkins &#x4F1A;&#x5B89;&#x6392;&#x5E76;&#x5E76;&#x884C;&#x6267;&#x884C;&#x591A;&#x4E2A;&#x6784;&#x5EFA;&#xFF08;&#x5047;&#x8BBE;&#x4F60;&#x6709;&#x8DB3;&#x591F;&#x7684;&#x6267;&#x884C;&#x5668;&#x548C;&#x4F20;&#x5165;&#x7684;&#x6784;&#x5EFA;&#x8BF7;&#x6C42;&#xFF09;&#xFF0C;&#x8FD9;&#x5BF9;&#x4E8E;&#x8017;&#x65F6;&#x957F;&#x7684;&#x6784;&#x5EFA;&#x548C;&#x6D4B;&#x8BD5;&#x4EFB;&#x52A1;&#x6765;&#x8BF4;&#x975E;&#x5E38;&#x6709;&#x7528;&#x2026;&#x2026;&#x6B64;&#x5916;&#xFF0C;&#x53C2;&#x6570;&#x5316;&#x6784;&#x5EFA;&#x4E5F;&#x662F;&#x975E;&#x5E38;&#x5B9E;&#x7528;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x6BCF;&#x4E00;&#x4E2A;&#x6267;&#x884C;&#x5668;&#x7684;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#x4E0E;&#x5176;&#x4ED6;&#x6267;&#x884C;&#x5668;&#x7684;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#x76F8;&#x4E92;&#x72EC;&#x7ACB;&#x3002;</p>
+</blockquote>
+<p>&#x73B0;&#x5728;&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x6709;4&#x4E2A;&#x81EA;&#x52A8;&#x5316;&#x6D4B;&#x8BD5;&#x7684;&#x8BF7;&#x6C42;&#x548C;&#x4E09;&#x4E2A;&#x5DF2;&#x8FDE;&#x63A5;&#x7684;&#x8BBE;&#x5907;&#xFF0C;&#x5904;&#x7406;&#x5B8C;&#x6240;&#x6709;&#x8BF7;&#x6C42;&#x5C06;&#x9700;&#x8981;&#x4E24;&#x8F6E;&#x64CD;&#x4F5C;&#xFF08;&#x7B2C;&#x4E00;&#x8F6E;&#x4E09;&#x4E2A;&#x8BBE;&#x5907;&#x5C06;&#x4F1A;&#x88AB;&#x4F7F;&#x7528;&#xFF0C;&#x5269;&#x4E0B;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x5728;&#x961F;&#x5217;&#x4E2D;&#x7B49;&#x5F85;&#x5904;&#x7406;&#xFF0C;&#x5F53;&#x67D0;&#x4E2A;&#x8BBE;&#x5907;&#x53D8;&#x4E3A;&#x7A7A;&#x95F2;&#x72B6;&#x6001;&#x5219;&#x4F1A;&#x5904;&#x7406;&#x8BE5;&#x8BF7;&#x6C42;&#xFF09;&#x3002;&#x8FD9;&#x5C31;&#x610F;&#x5473;&#x7740;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;4&#x4E2A;&#x4EA7;&#x54C1;&#x98CE;&#x683C;&#x81EA;&#x52A8;&#x5316;&#x6D4B;&#x8BD5;&#x7684;&#x65F6;&#x95F4;&#x4ECE;8&#x5C0F;&#x65F6;&#x51CF;&#x5C11;&#x4E3A;4&#x5C0F;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x518D;&#x4E70;&#x4E00;&#x53F0;&#x6216;&#x8005;&#x591A;&#x53F0;&#x8BBE;&#x5907;&#x7684;&#x8BDD;&#xFF0C;&#x65F6;&#x95F4;&#x751A;&#x81F3;&#x4F1A;&#x66F4;&#x5C11;&#x3002;</p>
+<h2 id="%E9%80%9A%E8%BF%87%E4%B8%8A%E6%B8%B8%E4%BB%BB%E5%8A%A1%E8%A7%A6%E5%8F%91%E5%B9%B6%E8%A1%8C%E7%9A%84%E4%B8%8B%E6%B8%B8%E4%BB%BB%E5%8A%A1">&#x901A;&#x8FC7;&#x4E0A;&#x6E38;&#x4EFB;&#x52A1;&#x89E6;&#x53D1;&#x5E76;&#x884C;&#x7684;&#x4E0B;&#x6E38;&#x4EFB;&#x52A1;</h2>
+<p>&#x5199;&#x5230;&#x8FD9;&#x91CC;&#xFF0C;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x80FD;&#x591F;&#x968F;&#x5FC3;&#x6240;&#x6B32;&#x5730;&#x5BF9;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x7684;&#x8BBE;&#x5907;&#xFF08;&#x8FDE;&#x63A5;&#x5728; USB &#x7AEF;&#x53E3;&#x5904;&#x53EF;&#x7528;&#x7684;&#x8BBE;&#x5907;&#xFF01;&#xFF09;&#x624B;&#x52A8;&#x5730;&#x89E6;&#x53D1;&#x5E76;&#x884C;&#x7684;&#x81EA;&#x52A8;&#x5316;&#x6D4B;&#x8BD5;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x6211;&#x4EEC;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x624B;&#x52A8;&#x5730;&#x5B8C;&#x6210;&#x8FD9;&#x4E9B;&#x5DE5;&#x4F5C;&#x5462;&#xFF1F;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7528; Jenkins Parameterized Trigger Plugin &#x8BBE;&#x7F6E;&#x4E0A;&#x6E38;&#x4EFB;&#x52A1;&#xFF0C;&#x901A;&#x8FC7;&#x76F8;&#x5E94;&#x7684;&#x53C2;&#x6570;&#x89E6;&#x53D1;&#x591A;&#x4E2A;&#x4E0B;&#x6E38;&#x4EFB;&#x52A1;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x4F7F;&#x7528;&#x6240;&#x6709;&#x53EF;&#x7528;&#x8BBE;&#x5907;&#x5E76;&#x884C;&#x5730;&#x6D4B;&#x8BD5;&#x591A;&#x4E2A;&#x5E94;&#x7528; UI&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x8FD9;&#x6837;&#x7684;&#x4E0A;&#x6E38;&#x4EFB;&#x52A1;&#xFF0C;&#x5E76;&#x6267;&#x884C;&#x5B83;&#xFF1A;</p>
+<p><img src="http://www.hidroh.com/assets/img/parallel-upstream-2.png" alt=""></p>
+<p><img src="http://www.hidroh.com/assets/img/parallel-upstream-3.png" alt=""></p>
+<p>&#x4E0A;&#x9762;&#x7684;&#x914D;&#x7F6E;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x89E6;&#x53D1;&#x4E09;&#x4E2A;&#x5E76;&#x884C;&#x7684; MOBILE_TEST &#x4E0B;&#x6E38;&#x4EFB;&#x52A1;&#xFF08;&#x5FC5;&#x987B;&#x8FDB;&#x884C;&#x4E86;&#x201C;&#x5982;&#x679C;&#x5FC5;&#x8981;&#x7684;&#x8BDD;&#xFF0C;&#x6267;&#x884C;&#x5E76;&#x884C;&#x6784;&#x5EFA;&#x201D;&#x7684;&#x914D;&#x7F6E;&#xFF09;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x4E0B;&#x6E38;&#x4EFB;&#x52A1;&#x5C06;&#x4F1A;&#x6D4B;&#x8BD5;&#x4E00;&#x4E2A;&#x6307;&#x5B9A;&#x7684; App &#x98CE;&#x683C;&#x201C;cherry&#x201D;&#xFF0C;&#x201C;tomato&#x201D;&#xFF0C;&#x201C;rasberry&#x201D;&#xFF0C;&#x5E76;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x53EB;&#x4F5C;&#x98CE;&#x683C;&#x7684;&#x53C2;&#x6570;&#x53D1;&#x9001;&#x5230;&#x4E0B;&#x6E38;&#x4EFB;&#x52A1;&#x3002;&#x4E0A;&#x6E38;&#x4EFB;&#x52A1;&#x5C06;&#x4F1A;&#x88AB;&#x963B;&#x585E;&#xFF0C;&#x7B49;&#x5F85;&#x6240;&#x6709;&#x4E0B;&#x6E38;&#x4EFB;&#x52A1;&#x5B8C;&#x6210;&#x4EFB;&#x52A1;&#x5E76;&#x56E0;&#x6B64;&#x8BBE;&#x7F6E;&#x6784;&#x5EFA;&#x72B6;&#x6001;&#x3002;</p>
+<p>&#x6211;&#x5EFA;&#x8BAE;&#x5927;&#x5BB6;&#x628A;&#x4E0A;&#x6E38;&#x4EFB;&#x52A1;&#x8FD0;&#x884C;&#x5728;&#x4E0D;&#x540C;&#x7684;&#x5974;&#x96B6;&#x7ED3;&#x70B9;/&#x5974;&#x96B6;&#x7EC4;&#x4E2D;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x8FD0;&#x884C;&#x5728;&#x548C;&#x4E0B;&#x6E38;&#x4EFB;&#x52A1;&#x76F8;&#x540C;&#x7684;&#x5974;&#x96B6;&#x7ED3;&#x70B9;/&#x5974;&#x96B6;&#x7EC4;&#x4E2D;&#xFF0C;&#x5426;&#x5219;&#x5B83;&#x5C06;&#x5360;&#x7740;&#x8BBE;&#x5907;&#x4E0D;&#x5904;&#x7406;&#xFF0C;&#x6D6A;&#x8D39;&#x4E86;&#x8D44;&#x6E90;</p>
+<p><img src="http://www.hidroh.com/assets/img/parallel-upstream-1.png" alt=""></p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../issue-9/使用Android-Studio进行单元测试.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 使用Android-Studio进行单元测试"><i class="fa fa-angle-left"></i></a>
+        
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
