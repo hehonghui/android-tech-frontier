@@ -1,0 +1,42 @@
+.book .book-body .page-wrapper .page-inner .exercise {
+    display: block !important;
+    padding: 0px;
+    margin: 20px 0px;
+    border: 3px solid #2f8cde;
+    background: #fff;
+    color: #333;
+    font-family: sans-serif;
+}
+
+.page-inner .exercise .header {
+    padding: 5px 15px;
+    color: #fff;
+    background: #2f8cde;
+    font-size: 20px;
+}
+
+.page-inner .exercise .message {
+    margin: 5px 15px;
+}
+
+.page-inner .exercise .editor {
+    min-height: 50px;
+    font-size: 14px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.page-inner .exercise .alert {
+    display: none;
+    margin: 0px;
+    margin-bottom: 10px;
+    padding: 8px 15px;
+}
+
+.page-inner .exercise.return-error .alert-danger {
+    display: block;
+}
+
+.page-inner .exercise.return-success .alert-success {
+    display: block;
+}

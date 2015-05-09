@@ -1,0 +1,26 @@
+<div class="exercise">
+	<div class="header">Exercise</div>
+	<div class="alert alert-success">
+	    <b>Correct!</b>
+	</div>
+
+	<div class="alert alert-danger error-message">
+	    <b>False!</b>
+	</div>
+
+	<div class="message">
+	<%= message %>
+	</div>
+	<div class="editor" style="height: <%- codes.solution.split("\n").length*20 %>px"><%= codes.initial %></div>
+
+	<pre class="hidden code-solution"><%= codes.solution %></pre>
+	<pre class="hidden code-validation"><%= codes.validation %></pre>
+	<% if (codes.context) { %>
+	<pre class="hidden code-context"><%= codes.context %></pre>
+	<% } %>
+
+	<div class="buttons">
+	    <a href="#" class="button size-2 action-submit">Submit</a>
+	    <a href="#" class="button size-2 action-solution">Solution</a>
+	</div>
+</div>

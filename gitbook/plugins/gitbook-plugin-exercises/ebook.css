@@ -1,0 +1,20 @@
+.block-exercise {
+    display: block !important;
+    padding: 0px;
+    margin: 20px 0px;
+    border: 3px solid #2f8cde;
+    background: #fff;
+    color: #333;
+    font-family: sans-serif;
+}
+
+.block-exercise .exercise-header {
+    padding: 5px 15px;
+    color: #fff;
+    background: #2f8cde;
+    font-size: 20px;
+}
+
+.block-exercise .exercise-inner {
+    margin: 8px;
+}
