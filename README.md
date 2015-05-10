@@ -90,6 +90,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | [NotRxJava懒人专用指南](issue-9/NotRxJava懒人专用指南.md)  | [Rocko](https://github.com/Rocko)      |
 | [使用Android Studio进行单元测试](issue-9/使用Android-Studio进行单元测试.md)  | [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang)|
 | [通过Jenkins并行完成UI的自动化测试](issue-9/通过Jenkins并行完成UI的自动化测试.md)  | [chaossss](https://github.com/chaossss)     |
+| [创建-RecyclerView-LayoutManager-Part-1](issue-9/创建-RecyclerView-LayoutManager-Part-1.md)  | [tiiime](https://github.com/tiiime)     |
 
 
 
