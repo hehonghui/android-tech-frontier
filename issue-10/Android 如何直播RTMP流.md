@@ -11,7 +11,7 @@ Android 如何直播RTMP流
 
 Streaming live video/audio in android is one of the very few interesting parts. Whenever we talk of streaming, the possibility of using RTMP[(Real Time Messaging Protocol)](http://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol) cannot be ruled out. As RTMP is one of the basic protocols available for streaming live video/audio feed. But unfortunately Android’s standard [VideoView](http://developer.android.com/reference/android/widget/VideoView.html) does not support the playback of RTMP. Therefore to natively play a live RTMP stream in Android, an external library is required which can provide us an Android RTMP player. In this tutorial we will discuss how this can be achieved by the usage of Android [Vitamio](https://www.vitamio.org/en/) library.
 
-在android上，视频/音频流直播是极少有人关注的一部分。每当我们讨论流媒体，RTMP[(Real Time Messaging Protocol)](http://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol)是不可或缺的。RTMP是一个基本的视频/音频直播流协议，但是不幸的是Android标准的[VideoView](http://developer.android.com/reference/android/widget/VideoView.html)不支持RTMP的播放。因此，如果想在android上播放RTMP直播流，你必须使用支持RTMP协议的库。在本教程中，我们将讨论如何通过安卓[Vitamio]（https://www.vitamio.org/en/） 库的使用来实现。
+在android上，视频/音频流直播是极少有人关注的一部分。每当我们讨论流媒体，RTMP[(Real Time Messaging Protocol)](http://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol)是不可或缺的。RTMP是一个基本的视频/音频直播流协议，但是不幸的是Android标准的[VideoView](http://developer.android.com/reference/android/widget/VideoView.html)不支持RTMP的播放。因此，如果想在android上播放RTMP直播流，你必须使用支持RTMP协议的库。在本教程中我们将讨论如何通过使用安卓的 [Vitamio]（https://www.vitamio.org/en/） 库播放由 RTMP 协议传输的流媒体。
 
 
 ##Android Vitamio Library
@@ -35,7 +35,7 @@ Vitamio是一个android和ios上基于[FFmpeg](https://www.ffmpeg.org/)的开源
 2. 解压并且在Android Studio上File->Import Module
 3. 指定到VitamioBundle路径，选择vitamio文件夹 点击完成
 4. 在build.gradle(Module: app)依赖部分添加依赖项目(‘:vitamio’)
-5. 打开build.gradle (Module: vitamio) - 改变最新sdk版本为7
+5. 打开build.gradle (Module: vitamio) - 改变最小sdk版本为7
 6. 不要忘记在manifest.xml中添加internet权限
 7. 完成！
 
@@ -43,7 +43,7 @@ Vitamio是一个android和ios上基于[FFmpeg](https://www.ffmpeg.org/)的开源
 Before heading directly to the implementation part, first lets understand RTMP a little. Real Time Messaging Protocol (RTMP) is a protocol owned by Adobe Systems. This protocol was developed to stream audio and video content to company’s proprietary flash player. But later on as it evolved, a part of it was released for public use. More of it can be read [here](http://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol). Mostly this type of protocol is used for IPTV and live VoD streaming, but it can be used in many areas as well.
 
 ####Android RTMP流
-在讲述如何使用之前，让我们先了解下RTMP。Real Time Messaging Protocol (RTMP)是一个Adobe Systems所拥有的一个协议。该协议是Adobe公司独有的开发音视频流的flash player。后来该协议的部分被公开，供公众使用。更多请查看[这里](http://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol).这个协议大多用于IPTV和实时视频点播流，但它也用于其他领用。
+在讲述如何使用之前，让我们先了解下RTMP。Real Time Messaging Protocol (RTMP)是一个Adobe Systems所拥有的一个协议。该协议是Adobe公司拥有的开发音视频流的flash player。后来该协议的部分被公开，供公众使用。更多请查看[这里](http://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol).这个协议大多用于IPTV和实时视频点播流，但它也用于其他领用。
 
 
 To play an RTMP stream in Android, a normal VideoView cannot be used, as it does not support the RTMP playback. But a WebView can be used to play the RTMP stream without any external library. This solves the problem but in my personal opinion web apps don’t give a nice look and feel to an app. Hence in this Android RTMP example we will be using an external library – Vitamio for streaming a live RTMP stream. After including it in the project, please add Vitamio’s VideoView in your layout file:
@@ -114,7 +114,7 @@ public class MainActivity extends ActionBarActivity {
     }
 }
 ```
-在android上，标准的VideoView不支持RTMP播放。但WebView可以播放RTMP流。这解决了播放RTMP流的问题，但是我个人认为web apps 不能提供一个界面和体验很好的应用。因此这这个android RTMP例子中我们将运用第三方库-Vitamio 直播RTMP流的流媒体。在工程中引用Vitamio之后，请在你的layout文件添加Vitamio的VideoView：
+在android上，标准的VideoView不支持RTMP播放。但WebView可以播放RTMP流。这解决了播放RTMP流的问题，但是我认为web apps 不能提供一个很好的界面和体验。因此这这个android RTMP例子中我们将运用第三方库-Vitamio 直播RTMP流的流媒体。在工程中引用Vitamio之后，请在你的layout文件添加Vitamio的VideoView：
 activity_main.xmlXHTML
  ```
 1. <?xml version="1.0" encoding="utf-8"?>
@@ -185,7 +185,7 @@ public class MainActivity extends ActionBarActivity {
 Although the above code is self explanatory, please change the path to play your RTMP stream. At times to stream an RTMP stream in Android, you may have to pass the headers along with the path. Luckily you may see above that Vitamio RTMP player supports that too. Hence all types of RTMP streams can be used with Vitamio library. The above example would look something like this:
 ![Rtmpplayer](http://www.truiton.com/wp-content/uploads/2015/03/Android-RTMP-Stream-Live.png)
 
-虽然上面代码是很不需要多做说明的，但需要指出的是 请修改你播放RTMP流的路径。在android上，有时播放RTMP流，你可能通过报头和路径。幸运的是，Vitamio RTMP播放器也支持这种方式。因此，所有类型的RTMP流可以使用Vitamio库。上面的例子会是这个样子：
+虽然上面代码很清晰明了，但需要指出的是请修改你播放RTMP流的路径。在android上，有时可能使用带报头路径来播放RTMP流。幸运的是，Vitamio RTMP播放器也支持这种方式。因此，所有类型的RTMP流可以使用Vitamio库。上面的例子会是这个样子：
 ![Rtmpplayer](http://www.truiton.com/wp-content/uploads/2015/03/Android-RTMP-Stream-Live.png)
 
 ####Android RTSP Streaming
@@ -209,9 +209,9 @@ mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 ```
 
 ####Android RTMP流媒体
-实时流协议(RTSP)通过多媒体服务器传输内容。像YouTube使用RTSP流发布内容。关于RTSP流比较容易的部分是，它可以通过android标准的VideoView来完成，想了解更多，请参考我的[VideoView例子](http://www.truiton.com/2013/08/android-videoview-example-with-youtube-playback/)。
+实时流协议(RTSP)通过多媒体服务器传输内容，例如YouTube使用RTSP流发布内容。关于RTSP流比较容易的部分是，它可以通过android标准的VideoView来完成，想了解更多，请参考我的[VideoView例子](http://www.truiton.com/2013/08/android-videoview-example-with-youtube-playback/)。
 
-但是如果你使用Vitamio库，你可能更加喜欢使用相同的RTSP流。事实上Vitamio也支持RTSP流的播放。和上面过程是一样的，包括Vitamio的VideoView在布局文件，并使用路径变量指定的RTSP url
+但是如果你使用Vitamio库，可以更好的播放RTSP流。事实上Vitamio也支持RTSP流的回播。和上面过程是一样的，包括Vitamio的VideoView在布局文件，并使用路径变量指定的RTSP url
 
 ```
 mVideoView = (VideoView) findViewById(R.id.vitamio_videoView);
@@ -252,9 +252,9 @@ Playing m3u8 stream on Android with Vitamio would look something like this:
 ![m3u8](http://www.truiton.com/wp-content/uploads/2015/03/Android-m3u8-Streaming.png)
 
 ####Android m3u8 流媒体
-如何在android上播放m3u8视频？是一个android开发者最常见的问题之一。最容易的方式是HTTP Live Streaming (HLS) 通过使用标准的VideoView。通过标准的 Android VideoView 你能播放m3u8流但是只有在android3.0以上设备可以使用。这是因为HTTP/ HTTPS直播和HTTP/ HTTPS渐进式流媒体协议在Android 3.0的引入，使用HTTPS完全支持在3.1引入。
+“如何在android上播放m3u8视频”是android开发者最常见的问题之一。通过Http 协议进行视频流直播最简单的办法就是使用标准的 VideoView. 但只能在android3.0以上的设备上播放m3u8流。因为在Android 3.0引入HTTP/ HTTPS直播和HTTP/ HTTPS渐进式流媒体协议，在android3.1完全支持HTTPS。
 
-如果你希望在早期的版本 做HTTP实时流媒体 (HLS)，并且支持android m3u8流。你应该考虑使用Vitamio库，这个库支持播放m3u8在android API7以上。使用方式，同样的在布局文件中使用Vitamio的VideoView，并指定的HTTP实时流媒体URL。
+如果你希望在早期的版本上实现支持android m3u8流的HTTP实时流媒体 (HLS)。应该考虑使用Vitamio库，这个库支持在android API7以上播放m3u8。使用方式，同样的在布局文件中使用Vitamio的VideoView，并指定的HTTP实时流媒体URL。
 
 ```
 mVideoView = (VideoView) findViewById(R.id.vitamio_videoView);
@@ -313,5 +313,5 @@ mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 As we discussed above, I would like to conclude by saying that Vitamio is a very powerful multi-platform library, for iOS and Android both. By using Vitamio library one can stream many types of video formats and protocols like RTMP, RTSP, HTTP Live, and HTTP progressive streaming protocol. Another great playback feature that comes along with Vitamio is that it supports the playback of subtitles and multiple audio tracks. The only disadvantage with Vitamio is that, its not completely open-source. You might have to purchase a license to use it. Hope this helped. Connect with us through our Facebook, Google+ and Twitter profiles for more updates.
 
 ##结论
-通过上面的讨论，可以确定地说，Vitamio是一个强大的多平台库（ios and android）。通过使用Vitamio库 能播放多种类型的视频格式和协议如RTMP, RTSP, HTTP Live, and HTTP渐进式流协议。另外一个很好的功能是，vitamio支持字幕和多音轨的播放。Vitamio的唯一的缺点是，它不是完全的开源。您可能需要购买许可证来使用它。希望这会有所帮助。获取更多的更新通过我们的Facebook, Google+ and Twitter来联系我们。
+通过上面的讨论，可以确定地说，Vitamio是一个强大的多平台库（ios and android）。通过使用Vitamio库 能播放多种类型的视频格式和协议如RTMP, RTSP, HTTP Live, and HTTP渐进式流协议。另外一个很好的功能是，vitamio支持字幕和多音轨的播放。Vitamio的唯一的缺点是，它不是完全的开源。您可能需要购买许可证来使用它。希望这会有所帮助。通过Facebook, Google+ and Twitter来联系我们获取更多更新。
 
