@@ -41,13 +41,9 @@ sharing options
 
 * * * * *
 
-\
-
 * * * * *
 
 ### Automating Android development
-
-\
 
 I have been recently talking at the [DroidCon
 Spain](http://es.droidcon.com/2015/) and [DroidCon
@@ -178,8 +174,6 @@ product stabilization, but bugs happen. When this is happening in
 production, this model requires the bug to be fixed directly in the
 master branch.
 
-\
-
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*sdL8HDfMgoNuhnLKu7Soew.png)
 
 Did you realise that there is a flag in this model? Yes, that is! The
@@ -188,8 +182,6 @@ and after the stabilisation period (the second week), our alpha branch
 is in an old state, with the bugs still being present there. We need to
 merge each branch into the branch inmediately to the right, thus
 ensuring that every fix is now present throughout all the branches.
-
-\
 
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*Rijzdkk4SA4T9T3koBAXCg.png)
 
@@ -218,11 +210,7 @@ and I would like to introduce here.
 *BuildConfig* is a file generated automatically when we compile an
 Android application. This file, by default, looks like follows:
 
-\
-
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*wkoXjbSYaYymUhZrO8-jRw.png)
-
-\
 
 BuildConfig contains a field called **DEBUG**, that indicates whether
 the application has been compiled in debug mode or not. This file is
@@ -241,8 +229,6 @@ this cleanly? Easy! In the field buildTypes of Gradle we can just add
 any new field we want. Those fields will be later available through
 BuildConfig (this means, using BuildType.FIELD we can read them).
 
-\
-
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*Z_YYrTPF7FTShHAt5tqW3g.png)
 
 \
@@ -254,8 +240,6 @@ different versions of our application. This is very handy to be able to
 see our beta, alpha and release versions at the same time.
 
 ### Testing
-
-\
 
 Testing is, by itself, and entire discipline that could have its own
 Medium post. When we talk about testing we talk about mocking
@@ -282,8 +266,6 @@ that tests our Android application each time is built in Jenkins.
 
 ### An example application
 
-\
-
 I have created a small example application and uploaded it to
 [GitHub](https://github.com/kikoso/Android-Testing-Espresso), so you can
 check it out there. There are are also some branches with a naming
@@ -307,8 +289,6 @@ If you check out the code, you can try it by yourself uncommenting the
 function *testFalseLabel*. That will make the tests fail.
 
 ### Putting everything together into Jenkins
-
-\
 
 Now that we have checked a few things, let’s see how they fit into
 Jenkins. If you haven’t installed it yet, you can download the [last
@@ -336,8 +316,6 @@ jobs: **Job Beta**, **Job Alpha** and **Job Tests**.
     branch alpha. If it is successful, it will trigger the **Job
     Alpha**.
 
-\
-
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*OPzV-aZLBGxdPYWPIip8Bg.png)
 
 Jenkins is a platform heavily based on plugins. Companies are
@@ -347,16 +325,12 @@ some of the options we have in Jenkins
 
 #### Dependencies
 
-\
-
 Using dependencies in Jenkins we can interconnect projects. Maybe we
 want to connect tests with jobs and start them based on the tests’
 result. Or maybe we have part of our logic in a library that needs to be
 compiled before the actual application is first built.
 
 #### Notifications
-
-\
 
 Jenkins can notify a person or a set of people of a working or failing
 built. Notifications are typically emails, but there are plugins that
@@ -366,8 +340,6 @@ even [SMS](https://wiki.jenkins-ci.org/display/JENKINS/SMS+Notification)
 (the latest can be very handy when you have critical tests failing).
 
 #### Delivering
-
-\
 
 You probably know at this point of [HockeyApp](http://hockeyapp.net/) or
 another [delivery
@@ -382,8 +354,6 @@ for Jenkins that enables to upload a binary file to Hockey (and even
 notifying members, or using as the release notes the last commits you
 have used).
 
-\
-
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*P6-P4hBkKfAG7Ls0bzXeEQ.png)
 
 I still like to keep the step of publishing into production manually,
@@ -393,8 +363,6 @@ the publishing process. But there is, however, a
 to publish directly into Google Play.
 
 ### Conclusion
-
-\
 
 Achieving automation in *building*, *testing*, *delivering* and
 *publishing* is mainly a matter of choosing a right set of policies to
