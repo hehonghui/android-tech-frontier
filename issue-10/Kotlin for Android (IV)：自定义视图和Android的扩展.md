@@ -36,9 +36,7 @@ class MyClass(param: Int, optParam1: String = "", optParam2: Int = 1)
 With a unique constructor, we now have four ways to create this class:
 
 
-通过这个构造函数:
-=======
-有一个独特的构造函数，我们现在有四种方法来创建这个类：
+通过这个构造函数，有一个独特的构造函数，我们现在有四种方法来创建这个类：
 
 
 
