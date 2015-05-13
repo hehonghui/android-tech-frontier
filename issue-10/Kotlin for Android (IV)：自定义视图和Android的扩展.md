@@ -35,11 +35,11 @@ class MyClass(param: Int, optParam1: String = "", optParam2: Int = 1)
 
 With a unique constructor, we now have four ways to create this class:
 
-<<<<<<< HEAD
+
 通过这个构造函数:
 =======
 有一个独特的构造函数，我们现在有四种方法来创建这个类：
->>>>>>> 7ce64fb929d808f1758ff85da5b3f6cebe399542
+
 
 
 ``` Java
