@@ -6,7 +6,7 @@ MVP在Android平台上的应用
 * 译文出自 : [  其他  http://konmik.github.io/introduction-to-model-view-presenter-on-android.html](http://konmik.github.io/introduction-to-model-view-presenter-on-android.html)
 * 译者 : [MiJack](https://github.com/MiJack)  
 * 校对者: 
-* 状态 :  未校对
+* 状态 : 翻译完成
 
 
 #Introduction to Model-View-Presenter on Android
