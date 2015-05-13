@@ -101,7 +101,7 @@ MainActivity.java
 虽然上面代码很清晰明了，但需要指出的是请修改你播放RTMP流的路径。在android上，有时可能使用带报头路径来播放RTMP流。幸运的是，Vitamio RTMP播放器也支持这种方式。因此，所有类型的RTMP流可以使用Vitamio库。上面的例子会是这个样子：
 ![Rtmpplayer](http://www.truiton.com/wp-content/uploads/2015/03/Android-RTMP-Stream-Live.png)
 
-####Android RTMP流媒体
+####Android RTSP流媒体
 实时流协议(RTSP)通过多媒体服务器传输内容，例如YouTube使用RTSP流发布内容。关于RTSP流比较容易的部分是，它可以通过android标准的VideoView来完成，想了解更多，请参考我的[VideoView例子](http://www.truiton.com/2013/08/android-videoview-example-with-youtube-playback/)。
 
 但是如果你使用Vitamio库，可以更好的播放RTSP流。事实上Vitamio也支持RTSP流的回播。和上面过程是一样的，包括Vitamio的VideoView在布局文件，并使用路径变量指定的RTSP url
