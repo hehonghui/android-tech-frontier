@@ -12,7 +12,7 @@
 
 Like button is one of the most important strategy to increase traffic to your website. No surprise why Facebook introduced a Native Like Button, `LikeView`, allowed developer to add Like button natively to their Android/iOS apps.
 
-Like按钮是为你的网站增加流量最重要策略之一。不要惊讶为什么Facebook会介绍这个Like按钮，`LikeView`,开发者可以随意将Like按钮添加到他们的Android/iOS中。
+Like按钮是为你的网站增加流量最重要策略之一。不要惊讶为什么Facebook会引入这个Like按钮，`LikeView`,开发者可以随意将Like按钮添加到他们的Android/iOS中。
 
 ![](http://inthecheesefactory.com/uploads/source/facebooklike/likes.png)
 
