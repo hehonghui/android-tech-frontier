@@ -1,194 +1,124 @@
-Update story metadata
-
-Change the story’s title and subtitle as needed
-
-Enrique López Mañas
-
-10 min read
-
-ClosePublish changes
-
-[](https://medium.com/)[![Google Developer
-Experts](https://d262ilb51hltx0.cloudfront.net/fit/c/34/34/1*6vxV6m-dOhmtSgPsoMOn_Q.png)](https://medium.com/google-developer-experts?source=avatarTopMetabar-lo_6abba5e6694c-a67bd6fa7d58 "Go to Google Developer Experts")
-
-[![Google Developer
-Experts](https://d262ilb51hltx0.cloudfront.net/fit/c/34/34/1*6vxV6m-dOhmtSgPsoMOn_Q.png)](https://medium.com/google-developer-experts?source=logoAvatar-lo_6abba5e6694c-a67bd6fa7d58 "Go to Google Developer Experts")[](https://medium.com/google-developer-experts?source=logo-lo_6abba5e6694c-a67bd6fa7d58)
-
-### Published inGoogle Developer Experts
-
-[](https://medium.com/search "Search")[Sign in / Sign
-up](https://medium.com/m/signin?redirect=https%3A%2F%2Fmedium.com%3A443%2Fgoogle-developer-experts%2Fautomating-android-development-6daca3a98396)
-
-[![Google Developer
-Experts](https://d262ilb51hltx0.cloudfront.net/fit/c/34/34/1*6vxV6m-dOhmtSgPsoMOn_Q.png)](https://medium.com/google-developer-experts?source=avatarSecondaryBar-lo_6abba5e6694c-a67bd6fa7d58 "Go to Google Developer Experts")[![image](https://d262ilb51hltx0.cloudfront.net/fit/c/34/34/1*AV6Ju95BJPkkIXg1x8Ni1w.jpeg "Enrique López Mañas")](https://medium.com/@enriquelopezmanas "Go to the profile of Enrique López Mañas")[Enrique
-López
-Mañas](https://medium.com/@enriquelopezmanas "Go to the profile of Enrique López Mañas")\
- on May 410 min
-
-Next story
-
-Next story
-
-The author chose to make this story unlisted, which means only people
-with a link can see it. Are you sure you want to share it?Yes, show me
-sharing options
-
-#### Automating Android development
-
--   Share on Twitter
--   Share on Facebook
--   Share by email
-
-* * * * *
-
-* * * * *
-
 ### Automating Android development
+### 自动化 Android 开发
 
-I have been recently talking at the [DroidCon
-Spain](http://es.droidcon.com/2015/) and [DroidCon
-Italy](http://it.droidcon.com/2015/) about how to automate a traditional
-Android workflow. To my surprise, there are still many organisations
-that do lack a Continuous Integration (CI) strategy. This is a big
-mistake! I decided to put down in words my thoughts about how to
-efficiently implement CI.
+I have been recently talking at the [DroidCon Spain](http://es.droidcon.com/2015/) and [DroidCon Italy](http://it.droidcon.com/2015/) about how to automate a traditional Android workflow. To my surprise, there are still many organisations that do lack a Continuous Integration (CI) strategy. This is a big mistake! I decided to put down in words my thoughts about how to efficiently implement CI.
+我最近已经在 [DroidCon Spain](http://es.droidcon.com/2015/) 和 [DroidCon Italy](http://it.droidcon.com/2015/) 讨论过关于如何自动化传统的Android工作流。
+令我惊讶的是，仍然还有很多组织缺少执行持续集成（CI）的策略。这是一个巨大的灾难？
+我决定用文字表达我的思想，就是如何高效的实现持续集成（CI）。
 
-As a software engineer, your aim is to automate as many processes as
-possible. Machines are more efficient than people: they do not need food
-neither sleep, they perform tasks errorless and they make your life
-easier. *Work hard in order to work less*.
+As a software engineer, your aim is to automate as many processes as possible. Machines are more efficient than people: they do not need food neither sleep, they perform tasks errorless and they make your life easier. *Work hard in order to work less*.
+作为一个软件攻城狮，你的目标应该是尽可能多的自动化许多工作流程。
+计算机比人更高效，它们不需要吃饭睡觉，它们的任务表现没有错误，并且它们使你的生活更轻松。
+请记住：*做的越多是为了了做的更少*
 
-Continuous Integration is nonetheless a complex field that involves many
-different dots that are separated, and that you need to put together.
-You need to talk about Jira, you need to mention tests and branching,
-you need to script and construct.
+Continuous Integration is nonetheless a complex field that involves many different dots that are separated, and that you need to put together.
+You need to talk about Jira, you need to mention tests and branching, you need to script and construct.
+持续集成（CI）尽管是一个包含许多不同要点的综合领域，并且你需要把它们整合在一起。
+比如，你需要讨论Jira，你需要关心测试和分歧，你需要脚本和构建。
 
-There are big blocks I want to bring into this post. Each of them
-deserves an individual post to explain how they work, but this is not
-the aim of this post. The aim is to show you the basics of each, and how
-they can be combined.
+There are big blocks I want to bring into this post. Each of them deserves an individual post to explain how they work, but this is not the aim of this post. The aim is to show you the basics of each, and how they can be combined.
+这里有一大块我想在这个帖子中介绍的。他们的每一点都值得展开介绍，但这不是这篇文章的目的。其目的是展示给你每个基础知识，以及如何组合他们。
 
 1.  - Defining a branching strategy.
 2.  - Using an agile methodology
 3.  - Gradle and build scripting
 4.  - Testing
 5.  - Using a CI server.
+1. 定义一个分支策略。
+2. 使用敏捷方法
+3. Gradle和构建脚本
+4. 测试
+5. 使用CI服务器。
 
 ### The branching strategy
+### 分支策略
 
-Branching is important. When you are constructing a new product with a
-set of people, you want to establish a protocol on how to work. How
-should people commit their features? How do we release? How do we ensure
-that we are not breaking things? To answer those questions, you need to
-adopt a branching strategy.
+Branching is important. When you are constructing a new product with a set of people, you want to establish a protocol on how to work. How should people commit their features? How do we release? How do we ensure that we are not breaking things? To answer those questions, you need to adopt a branching strategy.
+分支是重要的。当你正在构建一个新的产品，你想建立一个协议如何工作。
+人们怎么应该提交自己的特性？我们如何发布？我们如何保证不正在破坏什么东西？
+要回答这些问题，你需要采用分支策略。
 
-I am using a fork of a branching strategy proposed by [Vincent
-Driessen](http://nvie.com/posts/a-successful-git-branching-model/),
-slightly modified. Let’s consider three states for our application:
-**alpha**, **beta** and **release**.
+I am using a fork of a branching strategy proposed by [Vincent Driessen](http://nvie.com/posts/a-successful-git-branching-model/), slightly modified.
+Let’s consider three states for our application: **alpha**, **beta** and **release**.
+我正在使用一个经过轻微修改的由 [Vincent Driessen](http://nvie.com/posts/a-successful-git-branching-model/) 提出的分支策略。
+让我们考虑我们应用程序的三种状态：**alpha**, **beta** 和 **release**.
 
 **Alpha** is the status of your system when it is being developed.
-
 **Beta** happens when your features have been approved and merged.
-
 **Release** is the status of a system when it has been delivered.
+**Alpha** 的状态是你的系统正在开发
+**Beta** 当你测试的功能已被批准和合并。
+**Release** 是当系统可交付的状态。
 
 (some people like to call alpha “develop” and beta “stage”. I think
 letters of the greek alphabet are always cooler).
+(一些人喜欢叫 alpha 为 “develop” ，并且 beta 为 “stage”. 我认为希腊字母表的字母总是更cool的).
 
-The following picture represents the very first status of a project. You
-have your initial commit into the master branch.
+The following picture represents the very first status of a project. You have your initial commit into the master branch.
+下面的图片是一个项目的第一个状态。你有一个初始的提交到了master分支。
 
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*CWNjrbmm5jQ0uvp-L53EYg.png)
 
-Our system is just starting. There is a first commit in master, and the
-other branches still empty
-
+Our system is just starting. There is a first commit in master, and the other branches still empty
 Time to work. You need to branch from this initial state into develop.
 This will be your version 1.0.1.
+我们的系统是刚刚开始。只有第一个提交在master分支，其他分支还是空的
+追着工作时间的进行。你需要从初始状态进入到develop过程。这将是你的1.0.1版本。
 
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*JLekFIGh6ciEvj52w3hddA.png)
 
 At this point, alpha is exactly the same as master.
+> 在这个点上，alpha的确与master相同
 
-Now you will start working on features. For each feature, you will
-create a feature branch. Using the right naming here is important, and
-there are several ways to do it. If you are using an issue tracking
-system like [Jira](https://www.atlassian.com/software/jira), you will
-likely have a ticket name associated with a feature (maybe FEATURE-123).
-When I am committing features, I include the branch name in the commit
-message and add a full description.
+Now you will start working on features. For each feature, you will create a feature branch. Using the right naming here is important, and there are several ways to do it. If you are using an issue tracking system like [Jira](https://www.atlassian.com/software/jira), you will likely have a ticket name associated with a feature (maybe FEATURE-123).
+When I am committing features, I include the branch name in the commit message and add a full description.
+现在，你会在功能特性上开始工作。对于每一个特性，你会创建一个分支。
+使用正确的命名是很重要的，有几种方法可以做到这一点。如果您使用的是一个问题跟踪系统像 [Jira](https://www.atlassian.com/software/jira)，你可能会用一个与功能相关联的标签名（比如 FEATURE-123）。
+当我提交特性时，我会包括分支名在提交信息里，并添加一个完整的描述。
 
-*[FEATURE-123] Created a new screen that performs an action.*
+    *[FEATURE-123] Created a new screen that performs an action.*
 
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*wKF9mdhTLC8MFdy02WJ1EQ.png)
 
-Note that each individual item in the branch will have its own version
-number. You can use [git
-tags](http://git-scm.com/book/en/v2/Git-Basics-Tagging) also to keep a
-control of the version.
+Note that each individual item in the branch will have its own version number. You can use [git tags](http://git-scm.com/book/en/v2/Git-Basics-Tagging) also to keep a control of the version.
+注意，在每个分支的项目里都有自己的版本号。您可以使用 [git tags](http://git-scm.com/book/en/v2/Git-Basics-Tagging) 来执行版本号的控制
 
-When a feature has been finished, a pull request is open, so that other
-members of your organisation can approve it. This is a critical part to
-ensure that you are delivering quality software. At
-[Sixt](http://www.sixt.de/mobileapps/) another member is assigned to
-your code review, and this person will go through your entire code. We
-ensure that our code is meeting our [coding
-conventions](https://speakerdeck.com/kikoso/android-coding-guidelines)
-and we are strict about the process - typical comments in a pull request
-highlight that there is an extra space in an XML file. We comment about
-naming (“the name of the function is not clear to me”), check that our
-design is pixel perfect (“your text view has the color \#DCDCDC but the
-design is \#DEDEDE”) and there is a functional test to check that the
-feature is covering the acceptance criteria written in the issue
-tracker. We even go through some philosophical discussions about the
-meaning of null, void or empty variables. This can sound annoying, but
-it is fun. And if it is passionately done, by the time your code reaches
-production you know you are commiting code with quality.
+When a feature has been finished, a pull request is open, so that other members of your organisation can approve it. This is a critical part to ensure that you are delivering quality software. At [Sixt](http://www.sixt.de/mobileapps/) another member is assigned to your code review, and this person will go through your entire code.
+We ensure that our code is meeting our [coding conventions](https://speakerdeck.com/kikoso/android-coding-guidelines) and we are strict about the process - typical comments in a pull request highlight that there is an extra space in an XML file. We comment about naming (“the name of the function is not clear to me”), check that our design is pixel perfect (“your text view has the color \#DCDCDC but the design is \#DEDEDE”) and there is a functional test to check that the feature is covering the acceptance criteria written in the issue tracker.
+We even go through some philosophical discussions about the meaning of null, void or empty variables. This can sound annoying, but it is fun. And if it is passionately done, by the time your code reaches production you know you are commiting code with quality.
+当一个功能已经完成，一个 pull request 就开放了，所以你的组织的其他成员就可以批准它。这是为了确保你提供高质量的软件的一个关键部分。在[Sixt](http://www.sixt.de/mobileapps/)另一成员被分配到你的代码审查，这个人会通读你全部的代码。
+我们保证我们的代码是符合我们的[coding conventions](https://speakerdeck.com/kikoso/android-coding-guidelines)和我们对过程中严格的要求，典型的如在XML文件中有一个额外的空格。我们评论的命名（“函数名我不清楚”），检查我们的设计是完美的（“你的文本视图的颜色 \#DCDCDC 但设计是 \#DEDEDE”）有一个功能测试去检查该特性是覆盖了在问题跟踪里编写的验收标准的。
+我们甚至进行一些哲学讨论，比如关于null和void或empty变量的意义。这听起来令人讨厌，但它是有趣的。如果是充满热情的做了这一切，到时候你就知道你的代码达到了产品需要的提交质量。
 
 ### Sprints and iteration
+### 敏捷和迭代
 
-You will likely be working with
-[SCRUM](http://en.wikipedia.org/wiki/Scrum_%28software_development%29),
-[Kanban](http://en.wikipedia.org/wiki/Kanban_%28development%29) or
-another agile methodology. Typically you will work in sprints of several
-weeks. We think is a good idea to divide the sprint into two weeks: the
-first week is used to develop the features, whereas the second week will
-stabilise the features created in the first sprint. In this second
-sprint we will fix bugs we found, achieve pixel-perfect layouts or
-improve-refactor our code. This work is done in the beta/stage branch.
+You will likely be working with [SCRUM](http://en.wikipedia.org/wiki/Scrum_%28software_development%29), [Kanban](http://en.wikipedia.org/wiki/Kanban_%28development%29) or another agile methodology. Typically you will work in sprints of several weeks. We think is a good idea to divide the sprint into two weeks: the first week is used to develop the features, whereas the second week will stabilise the features created in the first sprint. In this second sprint we will fix bugs we found, achieve pixel-perfect layouts or improve-refactor our code. This work is done in the beta/stage branch.
 The following image shows it graphically
+你可能会在执行[SCRUM](http://en.wikipedia.org/wiki/Scrum_%28software_development%29), [Kanban](http://en.wikipedia.org/wiki/Kanban_%28development%29)或另外的敏捷方法。通常你会进行在几个星期的冲刺工作。我们认为是一个好主意，把冲刺分到两周：第一周是用来开发特性，而第二周将稳定在第一阶段创造的特性。在第二个冲刺中，我们将修复发现的漏洞，实现完美的布局或提高重构我们的代码。这项工作是在 **beta/stage** 分支完成的。
+如下图所示
 
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*7lynNxY8iQpFHCee_Rkjjg.png)
 
 The yellow dots belong to the bug fixing and stabilisation sprint
+> 这些黄点属于bug修复和稳定的冲刺
 
-If you are following our conventions, at the end of the sprint you will
-have a deliverable. This deliverable will be a file ready to be
-published in Google Play Store. At this moment, the last version of our
-application has been merged into master.
-
-Another important topic is how to create a hotfix. Our model tries to
-prevent them using the code reviews and a second week of bug fixing and
-product stabilization, but bugs happen. When this is happening in
-production, this model requires the bug to be fixed directly in the
-master branch.
+If you are following our conventions, at the end of the sprint you will have a deliverable. This deliverable will be a file ready to be published in Google Play Store. At this moment, the last version of our application has been merged into master.
+Another important topic is how to create a hotfix. Our model tries to prevent them using the code reviews and a second week of bug fixing and product stabilization, but bugs happen. When this is happening in production, this model requires the bug to be fixed directly in the master branch.
+如果你遵循我们的约定，敏捷结束时你将会有一个可交付的成果。这将是一个准备发表在谷歌商店的可交付文件。此时此刻，我们的应用程序的最后版本已经合并到了master。
+另一个非常重要的课题是如何创建一个热修复补丁。我们的模型试图通过使用代码检查和修复bug和产品稳定的第二周来阻止他们发生，但错误确实已经发生。这是发生在生产时，这种模式要求错误直接被修正在 **master** 分支。
 
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*sdL8HDfMgoNuhnLKu7Soew.png)
 
-Did you realise that there is a flag in this model? Yes, that is! The
-hotfixes are not present in our alpha and beta branches. After a hotfix
-and after the stabilisation period (the second week), our alpha branch
-is in an old state, with the bugs still being present there. We need to
-merge each branch into the branch inmediately to the right, thus
-ensuring that every fix is now present throughout all the branches.
+Did you realise that there is a flag in this model? Yes, that is! The hotfixes are not present in our alpha and beta branches. After a hotfix and after the stabilisation period (the second week), our alpha branch is in an old state, with the bugs still being present there. We need to merge each branch into the branch inmediately to the right, thus ensuring that every fix is now present throughout all the branches.
+你有没有意识到这个模型的标志？是的，就是那！该热修复补丁是不存在在我们的 **alpha/beta** 的分支。经过修复和稳定期后（第二周），我们的 **alpha** 分支是旧状态，错误仍然是存在的。我们需要立即合并各分支到分支来保证正确，从而确保每一个修复是存在所有的分支的。
 
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*Rijzdkk4SA4T9T3koBAXCg.png)
 
 Hard to understand? Is probably harder to read than to put in practice.
-If you do not have a branching strategy yet, just try to develop a
-feature using this model. You will see that is easy to work with this,
-and how you even will start to customize it!
+If you do not have a branching strategy yet, just try to develop a feature using this model. You will see that is easy to work with this, and how you even will start to customize it!
+很难理解？可能是很读起来比实施来的难。
+如果你没有一个分支策略，只是试图使用这个模型来开发一个特性。你会发现很容易工作，而且你甚至会开始定制！
 
 ### Gradle and scripting
 
