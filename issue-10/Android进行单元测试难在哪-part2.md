@@ -1,7 +1,7 @@
 Android 进行单元测试难在哪-part2
 ---
 
-> * 原文链接 : [Against Android Unit Tests](http://philosophicalhacker.com/2015/04/10/against-android-unit-tests/)
+> * 原文链接 : [Why Android Unit Testing is so hard](http://philosophicalhacker.com/2015/04/24/why-android-unit-testing-is-so-hard-pt-2/)
 * 原文作者 : [Matthew Dupree](http://philosophicalhacker.com/)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [chaossss](https://github.com/chaossss) 
