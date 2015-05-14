@@ -121,55 +121,76 @@ If you do not have a branching strategy yet, just try to develop a feature using
 如果你没有一个分支策略，只是试图使用这个模型来开发一个特性。你会发现很容易工作，而且你甚至会开始定制！
 
 ### Gradle and scripting
+### Gradle 和脚本化
 
 Now that you have read the branching model, we are ready to keep talking about the next steps. Gradle is a tool that will help us to achieve many things automatically. You are probably familiar with Gradle (or with the members of the family, Maven and Ant). Gradle is a project automation tool that we will use to perform functions and define properties while we are building our app. Gradle introduces a Groovy based domain language, and the limit to play with it is basically our imagination.
+现在您已经阅读分支模型，我们准备继续讨论接下来的步骤。Gradle是一个工具,将帮助我们自动完成很多事情。你可能熟悉Gradle(或其它家族成员,Maven和Ant)。Gradle是一个项目的自动化工具，当我们正在建设我们的应用程序时，可以使用执行功能和定义属性。它介绍了一种基于Groovy的领域语言,这能做到的基本上只限制于我们的想象力。
 
 I wrote previously a [post](http://codetalk.de/?p=112) with some tricks to use Gradle. Some of them will be useful to include in your
 application, but there are a few more I have been applying since then, and I would like to introduce here.
+我以前写的一个 [post](http://codetalk.de/?p=112) 和一些技巧来使用工具。他们中的一些将非常有用，包括对于你的应用，但也有一些我已经应用之后，我想在这里介绍。
 
 #### The power of BuildConfig
+#### 构建配置（BuildConfig）的力量
 
 *BuildConfig* is a file generated automatically when we compile an
 Android application. This file, by default, looks like follows:
+当我们编译Android应用程序时，*BuildConfig* 是一个自动生成的文件。这个文件，默认情况下，看起来如下：
 
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*wkoXjbSYaYymUhZrO8-jRw.png)
 
 BuildConfig contains a field called **DEBUG**, that indicates whether the application has been compiled in debug mode or not. This file is highly customizable, which is very handy when we work on different build types.
+BuildConfig 包含一个字段，叫 **DEBUG**，指示应用程序是否已经编译在调试模式。这个文件是高度可定制的，当我们工作在不同的构造类型时，这是非常便利的。
 
 An application typically tracks its behaviour using [Google Analytics](http://www.google.com/analytics/ce/mws/),
 [Crashlytics](https://try.crashlytics.com/) or other platforms. We might not want to influence those metrics when we are working on the
 application (imagine a User Interface test, automatically released every day, tracking your login screen?). We also might have different domains depending on our Build (for instance development.domain.com, staging.domain.com…) that we want to use automatically. How can we do this cleanly? Easy! In the field buildTypes of Gradle we can just add any new field we want. Those fields will be later available through BuildConfig (this means, using BuildType.FIELD we can read them).
+应用程序通常使用服务工具追踪其行为 [Google Analytics](http://www.google.com/analytics/ce/mws/), [Crashlytics](https://try.crashlytics.com/) 或其他平台。当我们正在开发应用时，我们可能不想影响这些指标（想象一个用户界面的测试，自动发布的每一天，跟踪您的登录屏幕？）。我们也会根据我们的构建有不同的域名（例如development.domain.com, staging.domain.com…），我们要使用自动的。但我们怎么可以做的干净利落？容易！在Gradle的buildTypes域，我们可以添加任何我们希望的新域。这些域将通过*BuildConfig* 在以后可用（这意味着，我们可以使用 BuildType.FIELD 来读取它们）。
 
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*Z_YYrTPF7FTShHAt5tqW3g.png)
 
 In [this post](http://codetalk.de/?p=112) I showed how to use different icons and how to change the package name. Using this we can install different versions of our application. This is very handy to be able to see our beta, alpha and release versions at the same time.
+在 [this post](http://codetalk.de/?p=112) 我展示了如何使用不同的图标和如何改变包的名称。利用这个我们可以安装我们应用程序的不同版本。这能够非常方便的同时看到我们的 beta, alpha 和 release 版本。
 
 ### Testing
+### 保持测试
 
 Testing is, by itself, and entire discipline that could have its own Medium post. When we talk about testing we talk about mocking components, about UI and integration tests, about Instrumentation and all the different frameworks available for Android.
+测试本身，和整个过程都有它自己的介质。当我们谈论测试就是我们在谈论模拟的组件，关于UI测试和集成测试，关于仪器，和所有对于Android可用的不同框架。
 
 Testing is very important, because it prevents developers of breaking existing things. Without testing, we could easily break an old feature A when we are developing a new feature B. Is hard to manually test an entire system when a new feature is commited, but doing it automatically it is much easier to control the stability of a system.
+测试是非常重要的，因为它可以防止开发者破坏现有的东西。没有测试，当我们开发一个新的功能B时，我们可以很容易地干扰一个旧的特性A。当一个新的特征被提交，是很难手动测试整个系统的，但自动的做这些就更容易控制一个系统的稳定性。
 
 There are many different of tests that can be performed in a mobile device: just to enumerate a few, we can think of integration tests, functional tests, performance or UI tests. Each has a different function, and they are generally triggered regularly to ensure that new functionality is not breaking or degrading the system.
+这里有了许多不同的测试可以在移动设备上实施：只是列举几个，我们可以认为，集成测试，功能测试，性能测试和用户界面测试。每一种都有不同的功能，它们一般是定期触发以确保新功能没有破坏或干扰系统。
 
 To show a basic example on how tests are integrated in Jenkins (and how they achieve a function of stopping a build when something goes wrong)
 we will show a small example of a UI Test done with [Espresso](https://code.google.com/p/android-test-kit/wiki/Espresso) that tests our Android application each time is built in Jenkins.
+为了展示一个基本的例子，如何将测试在 Jenkins 集成（以及他们如何实现生成出错时停止的功能）
+我们将看到一个做UI测试的小例子 [Espresso](https://code.google.com/p/android-test-kit/wiki/Espresso) 每次都是在 Jenkins 构建测试我们的Android应用程序。
 
 ### An example application
+### 一个应用程序的示例
 
 I have created a small example application and uploaded it to
 [GitHub](https://github.com/kikoso/Android-Testing-Espresso), so you can check it out there. There are are also some branches with a naming convention and pull requests you can see there to review everything explained until now. The application is fairly basic: it has a screen with a TextView. There are also three UI Tests been performed in the file
 [MainActivityInstrumentationTest](https://github.com/kikoso/Android-Testing-Espresso/blob/master/src/androidTest/java/com/dropsport/espressoreadyproject/tests/MainActivityInstrumentationTest.java):
+我创建了一个小示例应用程序并上传到 [GitHub](https://github.com/kikoso/Android-Testing-Espresso)，所以你可以来这里看看。有也与命名约定和pull requests，直到现在你可以看到审查的一切解释。该应用程序是相当基本的：它有一个TextView屏幕。还有三个已在文件执行的UI测试单元
 
 1.  - Check that there is a TextView in the screen.
 2.  - Check that the TextView contains the text “Hello World!”
 3.  - Check that the TextView contains the text “What a label!”
+1. 检查在屏幕上存在一个TextView。
+2. 检查TextView包含文本“Hello World!”
+3. 检查TextView包含文本“What a label!”
 
 The two last tests are mutually exclusive (that means, either one or the other are sucesfull, but not both of them at the same time). We make the application release the tests with the following command:
+最后的两个试验是互斥的（这意味着，无论是一个或另一个是成功的，但不能两者同时成立）。我们通过以下命令对应用进行测试：
 
     ./gradlew clean connectedCheck.
 
 If you check out the code, you can try it by yourself uncommenting the function *testFalseLabel*. That will make the tests fail.
+如果你检出了代码，你可以自己试试注释功能 *testFalseLabel*。这将使测试失败。
 
 ### Putting everything together into Jenkins
 
