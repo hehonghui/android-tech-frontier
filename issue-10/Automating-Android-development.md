@@ -122,18 +122,10 @@ If you do not have a branching strategy yet, just try to develop a feature using
 
 ### Gradle and scripting
 
-Now that you have read the branching model, we are ready to keep talking
-about the next steps. Gradle is a tool that will help us to achieve many
-things automatically. You are probably familiar with Gradle (or with the
-members of the family, Maven and Ant). Gradle is a project automation
-tool that we will use to perform functions and define properties while
-we are building our app. Gradle introduces a Groovy based domain
-language, and the limit to play with it is basically our imagination.
+Now that you have read the branching model, we are ready to keep talking about the next steps. Gradle is a tool that will help us to achieve many things automatically. You are probably familiar with Gradle (or with the members of the family, Maven and Ant). Gradle is a project automation tool that we will use to perform functions and define properties while we are building our app. Gradle introduces a Groovy based domain language, and the limit to play with it is basically our imagination.
 
-I wrote previously a [post](http://codetalk.de/?p=112) with some tricks
-to use Gradle. Some of them will be useful to include in your
-application, but there are a few more I have been applying since then,
-and I would like to introduce here.
+I wrote previously a [post](http://codetalk.de/?p=112) with some tricks to use Gradle. Some of them will be useful to include in your
+application, but there are a few more I have been applying since then, and I would like to introduce here.
 
 #### The power of BuildConfig
 
@@ -142,177 +134,89 @@ Android application. This file, by default, looks like follows:
 
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*wkoXjbSYaYymUhZrO8-jRw.png)
 
-BuildConfig contains a field called **DEBUG**, that indicates whether
-the application has been compiled in debug mode or not. This file is
-highly customizable, which is very handy when we work on different build
-types.
+BuildConfig contains a field called **DEBUG**, that indicates whether the application has been compiled in debug mode or not. This file is highly customizable, which is very handy when we work on different build types.
 
-An application typically tracks its behaviour using [Google
-Analytics](http://www.google.com/analytics/ce/mws/),
-[Crashlytics](https://try.crashlytics.com/) or other platforms. We might
-not want to influence those metrics when we are working on the
-application (imagine a User Interface test, automatically released every
-day, tracking your login screen?). We also might have different domains
-depending on our Build (for instance development.domain.com,
-staging.domain.com…) that we want to use automatically. How can we do
-this cleanly? Easy! In the field buildTypes of Gradle we can just add
-any new field we want. Those fields will be later available through
-BuildConfig (this means, using BuildType.FIELD we can read them).
+An application typically tracks its behaviour using [Google Analytics](http://www.google.com/analytics/ce/mws/),
+[Crashlytics](https://try.crashlytics.com/) or other platforms. We might not want to influence those metrics when we are working on the
+application (imagine a User Interface test, automatically released every day, tracking your login screen?). We also might have different domains depending on our Build (for instance development.domain.com, staging.domain.com…) that we want to use automatically. How can we do this cleanly? Easy! In the field buildTypes of Gradle we can just add any new field we want. Those fields will be later available through BuildConfig (this means, using BuildType.FIELD we can read them).
 
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*Z_YYrTPF7FTShHAt5tqW3g.png)
 
-\
--
-
-In [this post](http://codetalk.de/?p=112) I showed how to use different
-icons and how to change the package name. Using this we can install
-different versions of our application. This is very handy to be able to
-see our beta, alpha and release versions at the same time.
+In [this post](http://codetalk.de/?p=112) I showed how to use different icons and how to change the package name. Using this we can install different versions of our application. This is very handy to be able to see our beta, alpha and release versions at the same time.
 
 ### Testing
 
-Testing is, by itself, and entire discipline that could have its own
-Medium post. When we talk about testing we talk about mocking
-components, about UI and integration tests, about Instrumentation and
-all the different frameworks available for Android.
+Testing is, by itself, and entire discipline that could have its own Medium post. When we talk about testing we talk about mocking components, about UI and integration tests, about Instrumentation and all the different frameworks available for Android.
 
-Testing is very important, because it prevents developers of breaking
-existing things. Without testing, we could easily break an old feature A
-when we are developing a new feature B. Is hard to manually test an
-entire system when a new feature is commited, but doing it automatically
-it is much easier to control the stability of a system.
+Testing is very important, because it prevents developers of breaking existing things. Without testing, we could easily break an old feature A when we are developing a new feature B. Is hard to manually test an entire system when a new feature is commited, but doing it automatically it is much easier to control the stability of a system.
 
-There are many different of tests that can be performed in a mobile
-device: just to enumerate a few, we can think of integration tests,
-functional tests, performance or UI tests. Each has a different
-function, and they are generally triggered regularly to ensure that new
-functionality is not breaking or degrading the system.
+There are many different of tests that can be performed in a mobile device: just to enumerate a few, we can think of integration tests, functional tests, performance or UI tests. Each has a different function, and they are generally triggered regularly to ensure that new functionality is not breaking or degrading the system.
 
-To show a basic example on how tests are integrated in Jenkins (and how
-they achieve a function of stopping a build when something goes wrong)
-we will show a small example of a UI Test done with
-[Espresso](https://code.google.com/p/android-test-kit/wiki/Espresso)
-that tests our Android application each time is built in Jenkins.
+To show a basic example on how tests are integrated in Jenkins (and how they achieve a function of stopping a build when something goes wrong)
+we will show a small example of a UI Test done with [Espresso](https://code.google.com/p/android-test-kit/wiki/Espresso) that tests our Android application each time is built in Jenkins.
 
 ### An example application
 
 I have created a small example application and uploaded it to
-[GitHub](https://github.com/kikoso/Android-Testing-Espresso), so you can
-check it out there. There are are also some branches with a naming
-convention and pull requests you can see there to review everything
-explained until now. The application is fairly basic: it has a screen
-with a TextView. There are also three UI Tests been performed in the
-file
+[GitHub](https://github.com/kikoso/Android-Testing-Espresso), so you can check it out there. There are are also some branches with a naming convention and pull requests you can see there to review everything explained until now. The application is fairly basic: it has a screen with a TextView. There are also three UI Tests been performed in the file
 [MainActivityInstrumentationTest](https://github.com/kikoso/Android-Testing-Espresso/blob/master/src/androidTest/java/com/dropsport/espressoreadyproject/tests/MainActivityInstrumentationTest.java):
 
 1.  - Check that there is a TextView in the screen.
 2.  - Check that the TextView contains the text “Hello World!”
 3.  - Check that the TextView contains the text “What a label!”
 
-The two last tests are mutually exclusive (that means, either one or the
-other are sucesfull, but not both of them at the same time). We make the
-application release the tests with the following command:
+The two last tests are mutually exclusive (that means, either one or the other are sucesfull, but not both of them at the same time). We make the application release the tests with the following command:
 
-./gradlew clean connectedCheck.
+    ./gradlew clean connectedCheck.
 
-If you check out the code, you can try it by yourself uncommenting the
-function *testFalseLabel*. That will make the tests fail.
+If you check out the code, you can try it by yourself uncommenting the function *testFalseLabel*. That will make the tests fail.
 
 ### Putting everything together into Jenkins
 
-Now that we have checked a few things, let’s see how they fit into
-Jenkins. If you haven’t installed it yet, you can download the [last
-version](https://jenkins-ci.org/) from the website.
+Now that we have checked a few things, let’s see how they fit into Jenkins. If you haven’t installed it yet, you can download the [last version](https://jenkins-ci.org/) from the website.
 
 We haven’t mentioned it yet, but as there are branching strategies.
-There are many different approaches, all of them with advantages and
-disadvantages:
+There are many different approaches, all of them with advantages and disadvantages:
 
-1.  - You can make the tests being triggered before the branches are
-    built.
-2.  - You can have night or daily builds that do not block the build,
-    but still sent a notification if it fails.
+1.  - You can make the tests being triggered before the branches are built.
+2.  - You can have night or daily builds that do not block the build, but still sent a notification if it fails.
 
-For this tutorial I have chosen the first approach, in order to show
-also a feature of Jenkins: dependencies between jobs. Let’s create three
-jobs: **Job Beta**, **Job Alpha** and **Job Tests**.
+For this tutorial I have chosen the first approach, in order to show also a feature of Jenkins: dependencies between jobs. Let’s create three jobs: **Job Beta**, **Job Alpha** and **Job Tests**.
 
-1.  - **Job Alpha** will build the branch alpha (with ./gradlew clean
-    assembleAlpha)
-2.  -**Job Beta** will do the same with the beta branch (with ./gradlew
-    clean assembleBeta). This is done every time a branch is merged into
-    beta.
-3.  **Job Tests** will be triggered every time there is a merge into the
-    branch alpha. If it is successful, it will trigger the **Job
-    Alpha**.
+1.  **Job Alpha** will build the branch alpha (with ./gradlew clean assembleAlpha)
+2.  **Job Beta** will do the same with the beta branch (with ./gradlew clean assembleBeta). This is done every time a branch is merged into beta.
+3.  **Job Tests** will be triggered every time there is a merge into the branch alpha. If it is successful, it will trigger the **Job Alpha**.
 
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*OPzV-aZLBGxdPYWPIip8Bg.png)
 
-Jenkins is a platform heavily based on plugins. Companies are
-continuously releasing plugins for their products, they integrate in
-Jenkins and we can easily interconnect with other platforms. Let’s see
-some of the options we have in Jenkins
+Jenkins is a platform heavily based on plugins. Companies are continuously releasing plugins for their products, they integrate in Jenkins and we can easily interconnect with other platforms. Let’s see some of the options we have in Jenkins
 
 #### Dependencies
 
-Using dependencies in Jenkins we can interconnect projects. Maybe we
-want to connect tests with jobs and start them based on the tests’
-result. Or maybe we have part of our logic in a library that needs to be
-compiled before the actual application is first built.
+Using dependencies in Jenkins we can interconnect projects. Maybe we want to connect tests with jobs and start them based on the tests’ result. Or maybe we have part of our logic in a library that needs to be compiled before the actual application is first built.
 
 #### Notifications
 
-Jenkins can notify a person or a set of people of a working or failing
-built. Notifications are typically emails, but there are plugins that
-enable to send messages in IM systems such as
-[Skype](https://wiki.jenkins-ci.org/display/JENKINS/Skype+Plugin) or
-even [SMS](https://wiki.jenkins-ci.org/display/JENKINS/SMS+Notification)
+Jenkins can notify a person or a set of people of a working or failing built. Notifications are typically emails, but there are plugins that enable to send messages in IM systems such as [Skype](https://wiki.jenkins-ci.org/display/JENKINS/Skype+Plugin) or even [SMS](https://wiki.jenkins-ci.org/display/JENKINS/SMS+Notification)
 (the latest can be very handy when you have critical tests failing).
 
 #### Delivering
 
-You probably know at this point of [HockeyApp](http://hockeyapp.net/) or
-another [delivery
-platforms](http://alternativeto.net/software/hockeyapp/). They can
-basically store binary files, create groups and notifying them when an
-application is being uploaded. Imagine the tester receiving
-automatically in his/her device the last files each time they are being
-created, and the product owner being notified when a new beta version is
-ready. There is a [HockeyApp
-plugin](https://wiki.jenkins-ci.org/display/JENKINS/HockeyApp+Plugin)
-for Jenkins that enables to upload a binary file to Hockey (and even
-notifying members, or using as the release notes the last commits you
-have used).
+You probably know at this point of [HockeyApp](http://hockeyapp.net/) or another [delivery platforms](http://alternativeto.net/software/hockeyapp/). They can basically store binary files, create groups and notifying them when an application is being uploaded. Imagine the tester receiving automatically in his/her device the last files each time they are being created, and the product owner being notified when a new beta version is ready. There is a [HockeyApp plugin](https://wiki.jenkins-ci.org/display/JENKINS/HockeyApp+Plugin) for Jenkins that enables to upload a binary file to Hockey (and even notifying members, or using as the release notes the last commits you have used).
 
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*P6-P4hBkKfAG7Ls0bzXeEQ.png)
 
-I still like to keep the step of publishing into production manually,
-which is probably an irrational fear to loose all the human control in
-the publishing process. But there is, however, a
-[plugin](https://wiki.jenkins-ci.org/display/JENKINS/Google+Play+Android+Publisher+Plugin)
-to publish directly into Google Play.
+I still like to keep the step of publishing into production manually, which is probably an irrational fear to loose all the human control in the publishing process. But there is, however, a [plugin](https://wiki.jenkins-ci.org/display/JENKINS/Google+Play+Android+Publisher+Plugin) to publish directly into Google Play.
 
 ### Conclusion
 
-Achieving automation in *building*, *testing*, *delivering* and
-*publishing* is mainly a matter of choosing a right set of policies to
-work with a team. When this policies are well defined, we can proceed to
-the technical implementation.
+Achieving automation in *building*, *testing*, *delivering* and *publishing* is mainly a matter of choosing a right set of policies to work with a team. When this policies are well defined, we can proceed to the technical implementation.
 
-There is one thing sure: errors that were done before by human actions
-are drastically reduced, and combined with a strong test coverage the
-quality of our software will dramatically improve. I am stealing here
-the motto of my colleague [Cyril
-Mottier](https://developers.google.com/experts/people/cyril-mottier):
+There is one thing sure: errors that were done before by human actions are drastically reduced, and combined with a strong test coverage the quality of our software will dramatically improve. I am stealing here the motto of my colleague [Cyril Mottier](https://developers.google.com/experts/people/cyril-mottier):
 
 > **Do less**, but **do** it **insanely great**
 
-There is a moment in your career when you want to strive for the highest
-quality in your job, much rather than producing quantity. As I
-understand this business, one of the first steps to achieve it is to
-automate as much as you can. In fact, I can rephrase the previous motto
-into another sentence that I am trying to apply into my daily
-professional life:
+There is a moment in your career when you want to strive for the highest quality in your job, much rather than producing quantity. As I understand this business, one of the first steps to achieve it is to automate as much as you can. In fact, I can rephrase the previous motto into another sentence that I am trying to apply into my daily professional life:
 
 > Automate more, so you do less.
 
