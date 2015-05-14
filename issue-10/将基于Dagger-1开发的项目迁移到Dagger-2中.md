@@ -5,8 +5,8 @@
 * 原文作者 : [Miroslaw Stanek](https://about.me/froger_mcs)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [chaossss](https://github.com/chaossss) 
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  校对中
+* 校对者: [tiiime](https://github.com/tiiime)
+* 状态 :  完成
 
 Dependency injection frameworks in Android - is there anyone who has never heard about it? At almost every Android dev conference someone talks about this software design pattern. I am a big fan of DI but there are also people who complain about it. The main reasons why they do this are:
 
@@ -113,7 +113,7 @@ Can you see the similarities?
 
 The main worth mentioning difference between Dagger 1 and 2 are Compontents. In short they enumerate all of the types that can be requested by callers. But Component interfaces declare only that something is provided and modules declare how it is provided, so Modules are still responsible for creating objects. Components are just a public API for our graph.
 
-Dagger 1 和 Dagger 2 两者的相似点中最值得一提的就是它们的组件。简单来说，它们把调用者可能请求的所有类型都枚举出来了。但组件接口只声明它为调用者提供了某些东西，以及这些东西由 Module 提供，所以 Module 仍然负责创建对象。组件只是依赖图的公有 API。
+Dagger 1 和 Dagger 2 两者中最值得一提的区别就是 Compontents。简单来说，它们把调用者可能请求的所有类型都枚举出来了。但组件接口只声明它为调用者提供了某些东西，以及这些东西由 Module 提供，所以 Module 仍然负责创建对象。组件只是依赖图的公有 API。
 
 # Migration process
 # 迁移过程
@@ -307,7 +307,7 @@ As I said, it’s something new in Dagger 2. In short it’s kind of public API 
 
 We used @ActivityScope annotation. In short it’s replacement for @Singleton annotation used in local subgraphs. In Dagger 1 for example we had singleton object of LoginPresenter. And it was true, that this object was a singleton. But it was some kind of local singleton - it lives as long as scoped graph (which was set to null in onDestroy() method in example code).
 
-大家可以看到我使用了 @AcivityScope 注解。简单来说，它是本地子图中 @Singleton 注解的代替品。以 Dagger 1 为例吧，LoginPresenter 类中我们有一个单例对象，虽然对象却是是一个单例，但某种程度上它总像一个本地单例 - 因为它只存活于图的作用域中（示例代码中，该单例会在 onDestory() 方法中被设置为 null)。
+大家可以看到我使用了 @AcivityScope 注解。简单来说，它是本地子图中 @Singleton 注解的代替品。在 Dagger 1 里，假如我们有一个 LoginPresenter 类的单例对象，虽然这个对象确实是一个单例，但某种程度上它总像一个本地单例 - 因为它只存活于图的作用域中（示例代码中，该单例会在 onDestory() 方法中被设置为 null)。
 
 @ActivityScope is used just for semantic clarity and it’s defined in our code:
 
