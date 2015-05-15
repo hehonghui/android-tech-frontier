@@ -1,5 +1,16 @@
+自动化 Android 开发
+---
+
+> * 原文链接：[Automating Android development](https://medium.com/google-developer-experts/automating-android-development-6daca3a98396)
+> * 原文作者：[Enrique López Mañas](https://medium.com/google-developer-experts/automating-android-development-6daca3a98396)
+> * 译者：[tmc9031](https://github.com/tmc9031)
+> * 校对者：
+> * 状态：
+
+
 ### Automating Android development
 ### 自动化 Android 开发
+
 
 I have been recently talking at the [DroidCon Spain](http://es.droidcon.com/2015/) and [DroidCon Italy](http://it.droidcon.com/2015/) about how to automate a traditional Android workflow. To my surprise, there are still many organisations that do lack a Continuous Integration (CI) strategy. This is a big mistake! I decided to put down in words my thoughts about how to efficiently implement CI.
 我最近已经在 [DroidCon Spain](http://es.droidcon.com/2015/) 和 [DroidCon Italy](http://it.droidcon.com/2015/) 讨论过关于如何自动化传统的Android工作流。
@@ -30,8 +41,10 @@ There are big blocks I want to bring into this post. Each of them deserves an in
 4. 测试
 5. 使用CI服务器。
 
+
 ### The branching strategy
 ### 分支策略
+
 
 Branching is important. When you are constructing a new product with a set of people, you want to establish a protocol on how to work. How should people commit their features? How do we release? How do we ensure that we are not breaking things? To answer those questions, you need to adopt a branching strategy.
 分支是重要的。当你正在构建一个新的产品，你想建立一个协议如何工作。
@@ -90,8 +103,10 @@ We even go through some philosophical discussions about the meaning of null, voi
 我们保证我们的代码是符合我们的[coding conventions](https://speakerdeck.com/kikoso/android-coding-guidelines)和我们对过程中严格的要求，典型的如在XML文件中有一个额外的空格。我们评论的命名（“函数名我不清楚”），检查我们的设计是完美的（“你的文本视图的颜色 \#DCDCDC 但设计是 \#DEDEDE”）有一个功能测试去检查该特性是覆盖了在问题跟踪里编写的验收标准的。
 我们甚至进行一些哲学讨论，比如关于null和void或empty变量的意义。这听起来令人讨厌，但它是有趣的。如果是充满热情的做了这一切，到时候你就知道你的代码达到了产品需要的提交质量。
 
+
 ### Sprints and iteration
 ### 敏捷和迭代
+
 
 You will likely be working with [SCRUM](http://en.wikipedia.org/wiki/Scrum_%28software_development%29), [Kanban](http://en.wikipedia.org/wiki/Kanban_%28development%29) or another agile methodology. Typically you will work in sprints of several weeks. We think is a good idea to divide the sprint into two weeks: the first week is used to develop the features, whereas the second week will stabilise the features created in the first sprint. In this second sprint we will fix bugs we found, achieve pixel-perfect layouts or improve-refactor our code. This work is done in the beta/stage branch.
 The following image shows it graphically
@@ -120,8 +135,10 @@ If you do not have a branching strategy yet, just try to develop a feature using
 很难理解？可能是很读起来比实施来的难。
 如果你没有一个分支策略，只是试图使用这个模型来开发一个特性。你会发现很容易工作，而且你甚至会开始定制！
 
+
 ### Gradle and scripting
 ### Gradle 和脚本化
+
 
 Now that you have read the branching model, we are ready to keep talking about the next steps. Gradle is a tool that will help us to achieve many things automatically. You are probably familiar with Gradle (or with the members of the family, Maven and Ant). Gradle is a project automation tool that we will use to perform functions and define properties while we are building our app. Gradle introduces a Groovy based domain language, and the limit to play with it is basically our imagination.
 现在您已经阅读分支模型，我们准备继续讨论接下来的步骤。Gradle是一个工具,将帮助我们自动完成很多事情。你可能熟悉Gradle(或其它家族成员,Maven和Ant)。Gradle是一个项目的自动化工具，当我们正在建设我们的应用程序时，可以使用执行功能和定义属性。它介绍了一种基于Groovy的领域语言,这能做到的基本上只限制于我们的想象力。
@@ -152,8 +169,10 @@ application (imagine a User Interface test, automatically released every day, tr
 In [this post](http://codetalk.de/?p=112) I showed how to use different icons and how to change the package name. Using this we can install different versions of our application. This is very handy to be able to see our beta, alpha and release versions at the same time.
 在 [this post](http://codetalk.de/?p=112) 我展示了如何使用不同的图标和如何改变包的名称。利用这个我们可以安装我们应用程序的不同版本。这能够非常方便的同时看到我们的 beta, alpha 和 release 版本。
 
+
 ### Testing
 ### 保持测试
+
 
 Testing is, by itself, and entire discipline that could have its own Medium post. When we talk about testing we talk about mocking components, about UI and integration tests, about Instrumentation and all the different frameworks available for Android.
 测试本身，和整个过程都有它自己的介质。当我们谈论测试就是我们在谈论模拟的组件，关于UI测试和集成测试，关于仪器，和所有对于Android可用的不同框架。
@@ -169,8 +188,10 @@ we will show a small example of a UI Test done with [Espresso](https://code.goog
 为了展示一个基本的例子，如何将测试在 Jenkins 集成（以及他们如何实现生成出错时停止的功能）
 我们将看到一个做UI测试的小例子 [Espresso](https://code.google.com/p/android-test-kit/wiki/Espresso) 每次都是在 Jenkins 构建测试我们的Android应用程序。
 
+
 ### An example application
 ### 一个应用程序的示例
+
 
 I have created a small example application and uploaded it to
 [GitHub](https://github.com/kikoso/Android-Testing-Espresso), so you can check it out there. There are are also some branches with a naming convention and pull requests you can see there to review everything explained until now. The application is fairly basic: it has a screen with a TextView. There are also three UI Tests been performed in the file
@@ -192,82 +213,85 @@ The two last tests are mutually exclusive (that means, either one or the other a
 If you check out the code, you can try it by yourself uncommenting the function *testFalseLabel*. That will make the tests fail.
 如果你检出了代码，你可以自己试试注释功能 *testFalseLabel*。这将使测试失败。
 
+
 ### Putting everything together into Jenkins
+### 把一切都集成在 Jenkins
+
 
 Now that we have checked a few things, let’s see how they fit into Jenkins. If you haven’t installed it yet, you can download the [last version](https://jenkins-ci.org/) from the website.
+现在，我们已经检查了一些事情，让我们看看他们如何适配 Jenkins。如果你没有安装它，你可以从网站下载 [last version](https://jenkins-ci.org/)。
 
 We haven’t mentioned it yet, but as there are branching strategies.
 There are many different approaches, all of them with advantages and disadvantages:
+我们没有提到一些东西，但这里也有分支策略。
+有许多不同的方法，它们都具有各自的优点和缺点：
 
 1.  - You can make the tests being triggered before the branches are built.
 2.  - You can have night or daily builds that do not block the build, but still sent a notification if it fails.
+1. 你可以在分支构建前触发测试。
+2. 你可以晚上或每日构建，不要阻止构建，但如果失败仍然要发出通知。
 
 For this tutorial I have chosen the first approach, in order to show also a feature of Jenkins: dependencies between jobs. Let’s create three jobs: **Job Beta**, **Job Alpha** and **Job Tests**.
+在本教程中我选择了第一种方法，也是为了显示 Jenkins 的一大特征：jobs 之间的依赖关系。让我们创造三个 jobs：**Job Beta**, **Job Alpha** and **Job Tests**。
 
 1.  **Job Alpha** will build the branch alpha (with ./gradlew clean assembleAlpha)
 2.  **Job Beta** will do the same with the beta branch (with ./gradlew clean assembleBeta). This is done every time a branch is merged into beta.
 3.  **Job Tests** will be triggered every time there is a merge into the branch alpha. If it is successful, it will trigger the **Job Alpha**.
+1. **Job Alpha** 将构建 alpha 分支 (通过 ./gradlew clean assembleBeta)
+2. **Job Beta** 将做同样的工作在 beta 分支上（通过 ./gradlew clean assemblebeta）。这是每一次有分支合并到 beta 分支上就会执行的
+3. **Job Tests** 每次有分支合并到 alpha 分支时都将触发。如果它成功了，它会引发 **Job Alpha**。
 
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*OPzV-aZLBGxdPYWPIip8Bg.png)
 
 Jenkins is a platform heavily based on plugins. Companies are continuously releasing plugins for their products, they integrate in Jenkins and we can easily interconnect with other platforms. Let’s see some of the options we have in Jenkins
+Jenkins 是一个基于大量的插件的平台。许多公司正在为他们的产品不断地发布插件，他们将集成在 Jenkins，我们可以很容易地与其他平台连接。
+让我们看看在 Jenkins 的一些选项
 
 #### Dependencies
+#### 依赖
 
 Using dependencies in Jenkins we can interconnect projects. Maybe we want to connect tests with jobs and start them based on the tests’ result. Or maybe we have part of our logic in a library that needs to be compiled before the actual application is first built.
+使用依赖 Jenkins 可以互连项目。也许我们要连接测试 jobs 和基于试验结果控制启动。或许我们在实际构建应用之前，部分逻辑首先存在需要编译的lib库里。
 
 #### Notifications
+#### 通知
 
 Jenkins can notify a person or a set of people of a working or failing built. Notifications are typically emails, but there are plugins that enable to send messages in IM systems such as [Skype](https://wiki.jenkins-ci.org/display/JENKINS/Skype+Plugin) or even [SMS](https://wiki.jenkins-ci.org/display/JENKINS/SMS+Notification)
 (the latest can be very handy when you have critical tests failing).
+Jenkins 可以通知一个人或一个工作组或构建错误。通知通常是电子邮件，但也有插可以通过IM系统发送消息，如 [Skype](https://wiki.jenkins-ci.org/display/JENKINS/Skype+Plugin) 或者 [SMS](https://wiki.jenkins-ci.org/display/JENKINS/SMS+Notification)（最新版当你有重要的测试失败时可以很方便的通知）。
 
 #### Delivering
+#### 交付
 
 You probably know at this point of [HockeyApp](http://hockeyapp.net/) or another [delivery platforms](http://alternativeto.net/software/hockeyapp/). They can basically store binary files, create groups and notifying them when an application is being uploaded. Imagine the tester receiving automatically in his/her device the last files each time they are being created, and the product owner being notified when a new beta version is ready. There is a [HockeyApp plugin](https://wiki.jenkins-ci.org/display/JENKINS/HockeyApp+Plugin) for Jenkins that enables to upload a binary file to Hockey (and even notifying members, or using as the release notes the last commits you have used).
+你可能知道，在这一点上 [HockeyApp](http://hockeyapp.net/) 或另一个 [delivery platforms](http://alternativeto.net/software/hockeyapp/)。他们基本上可以存储二进制文件，创建组，并当应用程序被上传时通知他们。想象看测试者自动在他/她的设备上接收每次他们被创造的文件，和产品所有者被通知有新的beta版的情景。这里有一个Jenkins 插件 [HockeyApp plugin](https://wiki.jenkins-ci.org/display/JENKINS/HockeyApp+Plugin) 能够上传二进制文件到 Hockey（甚至通知成员，或作为你最近提交的 release notes 使用）。
 
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*P6-P4hBkKfAG7Ls0bzXeEQ.png)
 
 I still like to keep the step of publishing into production manually, which is probably an irrational fear to loose all the human control in the publishing process. But there is, however, a [plugin](https://wiki.jenkins-ci.org/display/JENKINS/Google+Play+Android+Publisher+Plugin) to publish directly into Google Play.
+我还是喜欢保持手动发布产品的步骤，这可能是由于在出版过程中不经过人工控制的一种担心。但是，确实有一个 [plugin](https://wiki.jenkins-ci.org/display/JENKINS/Google+Play+Android+Publisher+Plugin) 用来直接发步到 Google Play。
+
 
 ### Conclusion
+### 结论
+
 
 Achieving automation in *building*, *testing*, *delivering* and *publishing* is mainly a matter of choosing a right set of policies to work with a team. When this policies are well defined, we can proceed to the technical implementation.
+在 *building*, *testing*, *delivering* 和 *publishing* 实现自动化，主要是在一个团队工作中选择正确的决策。当这个决定是明确的，我们才可以继续去技术上实现。
 
 There is one thing sure: errors that were done before by human actions are drastically reduced, and combined with a strong test coverage the quality of our software will dramatically improve. I am stealing here the motto of my colleague [Cyril Mottier](https://developers.google.com/experts/people/cyril-mottier):
+有一件事情是肯定的：错误会由于以往人们的对策而大幅度减少，并结合强大的测试覆盖率，我们的软件质量将大大提高。这里我借用同事的座右铭 [Cyril Mottier](https://developers.google.com/experts/people/cyril-mottier)：
 
 > **Do less**, but **do** it **insanely great**
+> 致精而大
 
 There is a moment in your career when you want to strive for the highest quality in your job, much rather than producing quantity. As I understand this business, one of the first steps to achieve it is to automate as much as you can. In fact, I can rephrase the previous motto into another sentence that I am trying to apply into my daily professional life:
+这是你职业生涯中的一个重要时刻！当你想在工作中保证 **质量** 而努力，而不是 **数量** 的多少。我了解这件事，第一步是尽你所能的实现自动化。事实上，我可以用以前的口号改述为另一句话，我将在我的日常生活里：
 
 > Automate more, so you do less.
+> 自动化的更多，所以你被动化的更少
 
 Happy coding!
+祝：快乐编程！
 
-RecommendRecommended
-
-BookmarkBookmarkedShareMore
-
-* * * * *
-
-FollowFollowing
-
-[![Google Developer
-Experts](https://d262ilb51hltx0.cloudfront.net/fit/c/63/63/1*6vxV6m-dOhmtSgPsoMOn_Q.png)](https://medium.com/google-developer-experts?source=footer_card "Go to Google Developer Experts")
-
-### [Google Developer Experts](https://medium.com/google-developer-experts?source=footer_card "Go to Google Developer Experts")
-
-Experts on various Google products talking tech.
-
-BlockedUnblockFollowFollowing
-
-[![image](https://d262ilb51hltx0.cloudfront.net/fit/c/63/63/1*AV6Ju95BJPkkIXg1x8Ni1w.jpeg "Enrique López Mañas")](https://medium.com/@enriquelopezmanas?source=footer_card "Go to the profile of Enrique López Mañas")
-
-### [Enrique López Mañas](https://medium.com/@enriquelopezmanas "Go to the profile of Enrique López Mañas")
-
-I do things with computers
-
-Published on May 4. [All rights
-reserved](//medium.com/policy/9db0094a1e0f) by the author.
-
-Thanks to [Berna
-Melek](https://medium.com/@bernamelek "Go to the profile of Berna Melek").
+![image](https://d262ilb51hltx0.cloudfront.net/fit/c/63/63/1*AV6Ju95BJPkkIXg1x8Ni1w.jpeg "Enrique López Mañas")
