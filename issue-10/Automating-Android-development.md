@@ -14,7 +14,7 @@
 
 I have been recently talking at the [DroidCon Spain](http://es.droidcon.com/2015/) and [DroidCon Italy](http://it.droidcon.com/2015/) about how to automate a traditional Android workflow. To my surprise, there are still many organisations that do lack a Continuous Integration (CI) strategy. This is a big mistake! I decided to put down in words my thoughts about how to efficiently implement CI.
 我最近已经在 [DroidCon Spain](http://es.droidcon.com/2015/) 和 [DroidCon Italy](http://it.droidcon.com/2015/) 讨论过关于如何自动化传统的Android工作流。
-令我惊讶的是，仍然还有很多组织缺少执行持续集成（CI）的策略。这是一个巨大的灾难？
+令我惊讶的是，仍然还有很多组织缺少执行持续集成（CI）的策略。这是一个巨大的灾难！
 我决定用文字表达我的思想，就是如何高效的实现持续集成（CI）。
 
 As a software engineer, your aim is to automate as many processes as possible. Machines are more efficient than people: they do not need food neither sleep, they perform tasks errorless and they make your life easier. *Work hard in order to work less*.
@@ -25,7 +25,7 @@ As a software engineer, your aim is to automate as many processes as possible. M
 Continuous Integration is nonetheless a complex field that involves many different dots that are separated, and that you need to put together.
 You need to talk about Jira, you need to mention tests and branching, you need to script and construct.
 持续集成（CI）尽管是一个包含许多不同要点的综合领域，并且你需要把它们整合在一起。
-比如，你需要讨论Jira，你需要关心测试和分歧，你需要脚本和构建。
+比如，你需要讨论 Jira，你需要关心测试和分支，你需要脚本和构建。
 
 There are big blocks I want to bring into this post. Each of them deserves an individual post to explain how they work, but this is not the aim of this post. The aim is to show you the basics of each, and how they can be combined.
 这里有一大块我想在这个帖子中介绍的。他们的每一点都值得展开介绍，但这不是这篇文章的目的。其目的是展示给你每个基础知识，以及如何组合他们。
@@ -59,9 +59,9 @@ Let’s consider three states for our application: **alpha**, **beta** and **rel
 **Alpha** is the status of your system when it is being developed.
 **Beta** happens when your features have been approved and merged.
 **Release** is the status of a system when it has been delivered.
-**Alpha** 的状态是你的系统正在开发
-**Beta** 当你测试的功能已被批准和合并。
-**Release** 是当系统可交付的状态。
+* **Alpha** 的状态是你的系统正在开发。
+* **Beta** 当你测试的功能已被批准和合并。
+* **Release** 是当系统可交付的状态。
 
 (some people like to call alpha “develop” and beta “stage”. I think
 letters of the greek alphabet are always cooler).
@@ -75,7 +75,7 @@ The following picture represents the very first status of a project. You have yo
 Our system is just starting. There is a first commit in master, and the other branches still empty
 Time to work. You need to branch from this initial state into develop.
 This will be your version 1.0.1.
-我们的系统是刚刚开始。只有第一个提交在master分支，其他分支还是空的
+我们的系统才刚刚开始。只有第一个提交在master分支，其他分支还是空的。
 追着工作时间的进行。你需要从初始状态进入到develop过程。这将是你的1.0.1版本。
 
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*JLekFIGh6ciEvj52w3hddA.png)
@@ -99,7 +99,7 @@ Note that each individual item in the branch will have its own version number. Y
 When a feature has been finished, a pull request is open, so that other members of your organisation can approve it. This is a critical part to ensure that you are delivering quality software. At [Sixt](http://www.sixt.de/mobileapps/) another member is assigned to your code review, and this person will go through your entire code.
 We ensure that our code is meeting our [coding conventions](https://speakerdeck.com/kikoso/android-coding-guidelines) and we are strict about the process - typical comments in a pull request highlight that there is an extra space in an XML file. We comment about naming (“the name of the function is not clear to me”), check that our design is pixel perfect (“your text view has the color \#DCDCDC but the design is \#DEDEDE”) and there is a functional test to check that the feature is covering the acceptance criteria written in the issue tracker.
 We even go through some philosophical discussions about the meaning of null, void or empty variables. This can sound annoying, but it is fun. And if it is passionately done, by the time your code reaches production you know you are commiting code with quality.
-当一个功能已经完成，一个 pull request 就开放了，所以你的组织的其他成员就可以批准它。这是为了确保你提供高质量的软件的一个关键部分。在[Sixt](http://www.sixt.de/mobileapps/)另一成员被分配到你的代码审查，这个人会通读你全部的代码。
+当一个功能已经完成，一个 pull request 就开放了，所以你的组织的其他成员就可以批准它。这是为了确保你提供高质量软件的一个关键部分。在 [Sixt](http://www.sixt.de/mobileapps/)，另一成员被分配到你的代码审查，这个人会通读你全部的代码。
 我们保证我们的代码是符合我们的[coding conventions](https://speakerdeck.com/kikoso/android-coding-guidelines)和我们对过程中严格的要求，典型的如在XML文件中有一个额外的空格。我们评论的命名（“函数名我不清楚”），检查我们的设计是完美的（“你的文本视图的颜色 \#DCDCDC 但设计是 \#DEDEDE”）有一个功能测试去检查该特性是覆盖了在问题跟踪里编写的验收标准的。
 我们甚至进行一些哲学讨论，比如关于null和void或empty变量的意义。这听起来令人讨厌，但它是有趣的。如果是充满热情的做了这一切，到时候你就知道你的代码达到了产品需要的提交质量。
 
@@ -116,7 +116,7 @@ The following image shows it graphically
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*7lynNxY8iQpFHCee_Rkjjg.png)
 
 The yellow dots belong to the bug fixing and stabilisation sprint
-> 这些黄点属于bug修复和稳定的冲刺
+> 这些黄点属于bug修复和稳定性阶段
 
 If you are following our conventions, at the end of the sprint you will have a deliverable. This deliverable will be a file ready to be published in Google Play Store. At this moment, the last version of our application has been merged into master.
 Another important topic is how to create a hotfix. Our model tries to prevent them using the code reviews and a second week of bug fixing and product stabilization, but bugs happen. When this is happening in production, this model requires the bug to be fixed directly in the master branch.
@@ -126,13 +126,13 @@ Another important topic is how to create a hotfix. Our model tries to prevent th
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*sdL8HDfMgoNuhnLKu7Soew.png)
 
 Did you realise that there is a flag in this model? Yes, that is! The hotfixes are not present in our alpha and beta branches. After a hotfix and after the stabilisation period (the second week), our alpha branch is in an old state, with the bugs still being present there. We need to merge each branch into the branch inmediately to the right, thus ensuring that every fix is now present throughout all the branches.
-你有没有意识到这个模型的标志？是的，就是那！该热修复补丁是不存在在我们的 **alpha/beta** 的分支。经过修复和稳定期后（第二周），我们的 **alpha** 分支是旧状态，错误仍然是存在的。我们需要立即合并各分支到分支来保证正确，从而确保每一个修复是存在所有的分支的。
+你有没有意识到这个模型的标志？是的，就是那！该热修复补丁是不存在在我们的 **alpha/beta** 的分支。经过修复和稳定期后（第二周），我们的 **alpha** 分支是旧状态，错误仍然是存在的。我们需要立即合并到各分支来保证正确，从而确保每一个修复是存在所有的分支的。
 
 ![image](https://d262ilb51hltx0.cloudfront.net/max/800/1*Rijzdkk4SA4T9T3koBAXCg.png)
 
 Hard to understand? Is probably harder to read than to put in practice.
 If you do not have a branching strategy yet, just try to develop a feature using this model. You will see that is easy to work with this, and how you even will start to customize it!
-很难理解？可能是很读起来比实施来的难。
+很难理解？可能是读起来比实施来的难。
 如果你没有一个分支策略，只是试图使用这个模型来开发一个特性。你会发现很容易工作，而且你甚至会开始定制！
 
 
@@ -141,11 +141,11 @@ If you do not have a branching strategy yet, just try to develop a feature using
 
 
 Now that you have read the branching model, we are ready to keep talking about the next steps. Gradle is a tool that will help us to achieve many things automatically. You are probably familiar with Gradle (or with the members of the family, Maven and Ant). Gradle is a project automation tool that we will use to perform functions and define properties while we are building our app. Gradle introduces a Groovy based domain language, and the limit to play with it is basically our imagination.
-现在您已经阅读分支模型，我们准备继续讨论接下来的步骤。Gradle是一个工具,将帮助我们自动完成很多事情。你可能熟悉Gradle(或其它家族成员,Maven和Ant)。Gradle是一个项目的自动化工具，当我们正在建设我们的应用程序时，可以使用执行功能和定义属性。它介绍了一种基于Groovy的领域语言,这能做到的基本上只限制于我们的想象力。
+现在您已经阅读分支模型，我们准备继续讨论接下来的步骤。Gradle是一个工具,将帮助我们自动完成很多事情。你可能熟悉Gradle(或其它家族成员,Maven和Ant)。Gradle是一个项目的自动化工具，当我们正在建设我们的应用程序时，可以使用执行功能和定义属性。它介绍了一种基于Groovy的领域语言，它能做到的基本上只受限于我们的想象力。
 
 I wrote previously a [post](http://codetalk.de/?p=112) with some tricks to use Gradle. Some of them will be useful to include in your
 application, but there are a few more I have been applying since then, and I would like to introduce here.
-我以前写的一个 [post](http://codetalk.de/?p=112) 和一些技巧来使用工具。他们中的一些将非常有用，包括对于你的应用，但也有一些我已经应用之后，我想在这里介绍。
+我以前写的一个 [post](http://codetalk.de/?p=112) 和一些技巧来使用工具。他们中的一些将非常有用，包括对于你的应用，但之后也有一些我已经应用的，我想在这里介绍。
 
 #### The power of BuildConfig
 #### 构建配置（BuildConfig）的力量
@@ -175,13 +175,13 @@ In [this post](http://codetalk.de/?p=112) I showed how to use different icons an
 
 
 Testing is, by itself, and entire discipline that could have its own Medium post. When we talk about testing we talk about mocking components, about UI and integration tests, about Instrumentation and all the different frameworks available for Android.
-测试本身，和整个过程都有它自己的介质。当我们谈论测试就是我们在谈论模拟的组件，关于UI测试和集成测试，关于仪器，和所有对于Android可用的不同框架。
+测试本身，和整个过程都有它自己的中间环节。当我们谈论测试就是我们在谈论模拟的组件，关于UI测试和集成测试，关于仪器，和所有对于Android可用的不同框架。
 
 Testing is very important, because it prevents developers of breaking existing things. Without testing, we could easily break an old feature A when we are developing a new feature B. Is hard to manually test an entire system when a new feature is commited, but doing it automatically it is much easier to control the stability of a system.
 测试是非常重要的，因为它可以防止开发者破坏现有的东西。没有测试，当我们开发一个新的功能B时，我们可以很容易地干扰一个旧的特性A。当一个新的特征被提交，是很难手动测试整个系统的，但自动的做这些就更容易控制一个系统的稳定性。
 
 There are many different of tests that can be performed in a mobile device: just to enumerate a few, we can think of integration tests, functional tests, performance or UI tests. Each has a different function, and they are generally triggered regularly to ensure that new functionality is not breaking or degrading the system.
-这里有了许多不同的测试可以在移动设备上实施：只是列举几个，我们可以认为，集成测试，功能测试，性能测试和用户界面测试。每一种都有不同的功能，它们一般是定期触发以确保新功能没有破坏或干扰系统。
+这里有了许多不同的测试可以在移动设备上实施：只是列举几个，我们可以考虑，集成测试，功能测试，性能测试和用户界面测试。每一种都有不同的功能，它们一般是定期触发以确保新功能没有破坏或干扰系统。
 
 To show a basic example on how tests are integrated in Jenkins (and how they achieve a function of stopping a build when something goes wrong)
 we will show a small example of a UI Test done with [Espresso](https://code.google.com/p/android-test-kit/wiki/Espresso) that tests our Android application each time is built in Jenkins.
@@ -196,7 +196,7 @@ we will show a small example of a UI Test done with [Espresso](https://code.goog
 I have created a small example application and uploaded it to
 [GitHub](https://github.com/kikoso/Android-Testing-Espresso), so you can check it out there. There are are also some branches with a naming convention and pull requests you can see there to review everything explained until now. The application is fairly basic: it has a screen with a TextView. There are also three UI Tests been performed in the file
 [MainActivityInstrumentationTest](https://github.com/kikoso/Android-Testing-Espresso/blob/master/src/androidTest/java/com/dropsport/espressoreadyproject/tests/MainActivityInstrumentationTest.java):
-我创建了一个小示例应用程序并上传到 [GitHub](https://github.com/kikoso/Android-Testing-Espresso)，所以你可以来这里看看。有也与命名约定和pull requests，直到现在你可以看到审查的一切解释。该应用程序是相当基本的：它有一个TextView屏幕。还有三个已在文件执行的UI测试单元
+我创建了一个小示例应用程序并上传到 [GitHub](https://github.com/kikoso/Android-Testing-Espresso)，所以你可以来这里看看。也有一些分支使用命名约定和 pull requests，直到现在你可以看到审查的一切解释。该应用程序是相当基本的：它有一个TextView屏幕。还有三个已在文件执行的UI测试单元
 
 1.  - Check that there is a TextView in the screen.
 2.  - Check that the TextView contains the text “Hello World!”
@@ -237,7 +237,7 @@ For this tutorial I have chosen the first approach, in order to show also a feat
 1.  **Job Alpha** will build the branch alpha (with ./gradlew clean assembleAlpha)
 2.  **Job Beta** will do the same with the beta branch (with ./gradlew clean assembleBeta). This is done every time a branch is merged into beta.
 3.  **Job Tests** will be triggered every time there is a merge into the branch alpha. If it is successful, it will trigger the **Job Alpha**.
-1. **Job Alpha** 将构建 alpha 分支 (通过 ./gradlew clean assembleBeta)
+1. **Job Alpha** 将构建 alpha 分支 (通过 ./gradlew clean assembleAlpha)
 2. **Job Beta** 将做同样的工作在 beta 分支上（通过 ./gradlew clean assemblebeta）。这是每一次有分支合并到 beta 分支上就会执行的
 3. **Job Tests** 每次有分支合并到 alpha 分支时都将触发。如果它成功了，它会引发 **Job Alpha**。
 
@@ -251,14 +251,14 @@ Jenkins 是一个基于大量的插件的平台。许多公司正在为他们的
 #### 依赖
 
 Using dependencies in Jenkins we can interconnect projects. Maybe we want to connect tests with jobs and start them based on the tests’ result. Or maybe we have part of our logic in a library that needs to be compiled before the actual application is first built.
-使用依赖 Jenkins 可以互连项目。也许我们要连接测试 jobs 和基于试验结果控制启动。或许我们在实际构建应用之前，部分逻辑首先存在需要编译的lib库里。
+使用依赖 Jenkins 可以互连项目。也许我们要连接测试 jobs 和基于试验结果来控制启动。或许我们在实际构建应用之前，部分逻辑首先存在需要编译的lib库里。
 
 #### Notifications
 #### 通知
 
 Jenkins can notify a person or a set of people of a working or failing built. Notifications are typically emails, but there are plugins that enable to send messages in IM systems such as [Skype](https://wiki.jenkins-ci.org/display/JENKINS/Skype+Plugin) or even [SMS](https://wiki.jenkins-ci.org/display/JENKINS/SMS+Notification)
 (the latest can be very handy when you have critical tests failing).
-Jenkins 可以通知一个人或一个工作组或构建错误。通知通常是电子邮件，但也有插可以通过IM系统发送消息，如 [Skype](https://wiki.jenkins-ci.org/display/JENKINS/Skype+Plugin) 或者 [SMS](https://wiki.jenkins-ci.org/display/JENKINS/SMS+Notification)（最新版当你有重要的测试失败时可以很方便的通知）。
+Jenkins 可以通知一个人或一个工作组或构建错误。通知一般是电子邮件，但也有插件可以通过IM系统发送消息，如 [Skype](https://wiki.jenkins-ci.org/display/JENKINS/Skype+Plugin) 或者 [SMS](https://wiki.jenkins-ci.org/display/JENKINS/SMS+Notification)（最新版当你有重要的测试失败时可以很方便的通知）。
 
 #### Delivering
 #### 交付
@@ -280,7 +280,7 @@ Achieving automation in *building*, *testing*, *delivering* and *publishing* is 
 在 *building*, *testing*, *delivering* 和 *publishing* 实现自动化，主要是在一个团队工作中选择正确的决策。当这个决定是明确的，我们才可以继续去技术上实现。
 
 There is one thing sure: errors that were done before by human actions are drastically reduced, and combined with a strong test coverage the quality of our software will dramatically improve. I am stealing here the motto of my colleague [Cyril Mottier](https://developers.google.com/experts/people/cyril-mottier):
-有一件事情是肯定的：错误会由于以往人们的对策而大幅度减少，并结合强大的测试覆盖率，我们的软件质量将大大提高。这里我借用同事的座右铭 [Cyril Mottier](https://developers.google.com/experts/people/cyril-mottier)：
+有一件事情是肯定的：错误会由于以往人们的行动而大幅度减少，并结合强大的测试覆盖率，我们的软件质量将大大提高。这里我借用同事的座右铭 [Cyril Mottier](https://developers.google.com/experts/people/cyril-mottier)：
 
 > **Do less**, but **do** it **insanely great**
 > 致精而大
