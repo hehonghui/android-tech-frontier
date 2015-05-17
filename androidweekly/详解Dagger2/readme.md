@@ -1,17 +1,17 @@
-Ïê½âDagger2
+è¯¦è§£Dagger2
 ---
 
-> * Ô­ÎÄÁ´½Ó : [Tasting Dagger 2 on Android](http://fernandocejas.com/2015/04/11/tasting-dagger-2-on-android/)
-* Ô­ÎÄ×÷Õß : [Fernando Cejas](http://fernandocejas.com/)
-* [ÒëÎÄ³ö×Ô :  ¿ª·¢¼¼ÊõÇ°Ïß www.devtf.cn](http://www.devtf.cn)
-* ÒëÕß : [xianjiajun](https://github.com/xianjiajun) 
-* Ğ£¶ÔÕß: [ÕâÀïĞ£¶ÔÕßµÄgithubÓÃ»§Ãû](githubÁ´½Ó)  
-* ×´Ì¬ :  Ğ£¶ÔÖĞ
+> * åŸæ–‡é“¾æ¥ : [Tasting Dagger 2 on Android](http://fernandocejas.com/2015/04/11/tasting-dagger-2-on-android/)
+* åŸæ–‡ä½œè€… : [Fernando Cejas](http://fernandocejas.com/)
+* [è¯‘æ–‡å‡ºè‡ª :  å¼€å‘æŠ€æœ¯å‰çº¿ www.devtf.cn](http://www.devtf.cn)
+* è¯‘è€… : [xianjiajun](https://github.com/xianjiajun) 
+* æ ¡å¯¹è€…: [è¿™é‡Œæ ¡å¯¹è€…çš„githubç”¨æˆ·å](githubé“¾æ¥)  
+* çŠ¶æ€ :  æ ¡å¯¹ä¸­
 
 Why dependency injection?
 The first (and indeed most important) thing we should know about it is that has been there for a long time and uses Inversion of Control principle, which basically states that the flow of your application depends on the object graph that is built up during program execution, and such a dynamic flow is made possible by object interactions being defined through abstractions. This run-time binding is achieved by mechanisms such as dependency injection or a service locator.
-##ÎªÊ²Ã´Ê¹ÓÃÒÀÀµ×¢Èë
-Ê×ÏÈÎÒÃÇĞèÒªÖªµÀ£¬ÈËÃÇÔÚºÜ³¤µÄÒ»¶ÎÊ±¼äÀï¶¼ÊÇÀûÓÃ¿ØÖÆ·´×ªÔ­Ôò¹æ¶¨£ºÓ¦ÓÃ³ÌĞòµÄÁ÷³ÌÈ¡¾öÓÚÔÚ³ÌĞòÔËĞĞÊ±¶ÔÏóÍ¼µÄ½¨Á¢¡£Í¨¹ı³éÏó¶¨ÒåµÄ¶ÔÏó½»»¥¿ÉÒÔÊµÏÖÕâÑùµÄ¶¯Ì¬Á÷³Ì¡£¶øÊ¹ÓÃÒÀÀµ×¢Èë¼¼Êõ»òÕß·şÎñ¶¨Î»Æ÷±ã¿ÉÒÔÍê³ÉÔËĞĞÊ±°ó¶¨¡£
+##ä¸ºä»€ä¹ˆä½¿ç”¨ä¾èµ–æ³¨å…¥
+é¦–å…ˆæˆ‘ä»¬éœ€è¦çŸ¥é“ï¼Œäººä»¬åœ¨å¾ˆé•¿çš„ä¸€æ®µæ—¶é—´é‡Œéƒ½æ˜¯åˆ©ç”¨æ§åˆ¶åè½¬åŸåˆ™è§„å®šï¼šåº”ç”¨ç¨‹åºçš„æµç¨‹å–å†³äºåœ¨ç¨‹åºè¿è¡Œæ—¶å¯¹è±¡å›¾çš„å»ºç«‹ã€‚é€šè¿‡æŠ½è±¡å®šä¹‰çš„å¯¹è±¡äº¤äº’å¯ä»¥å®ç°è¿™æ ·çš„åŠ¨æ€æµç¨‹ã€‚è€Œä½¿ç”¨ä¾èµ–æ³¨å…¥æŠ€æœ¯æˆ–è€…æœåŠ¡å®šä½å™¨ä¾¿å¯ä»¥å®Œæˆè¿è¡Œæ—¶ç»‘å®šã€‚
 
 Said that we can get to the conclusion that dependency injection brings us important benefits:
 
@@ -19,22 +19,22 @@ Since dependencies can be injected and configured externally we can reuse those 
 When injecting abstractions as collaborators, we can just change the implementation of any object without having to make a lot of changes in our codebase, since that object instantiation resides in one place isolated and decoupled.
 Dependencies can be injected into a component: it is possible to inject mock implementations of these dependencies which makes testing easier.
 
-Ê¹ÓÃÒÀÀµ×¢Èë¿ÉÒÔ´øÀ´ÒÔÏÂºÃ´¦£º
+ä½¿ç”¨ä¾èµ–æ³¨å…¥å¯ä»¥å¸¦æ¥ä»¥ä¸‹å¥½å¤„ï¼š
 
-* ÒÀÀµµÄ×¢ÈëºÍÅäÖÃ¶ÀÁ¢ÓÚ×é¼şÖ®Íâ¡£
-* ÒòÎª¶ÔÏóÊÇÔÚÒ»¸ö¶ÀÁ¢¡¢²»ñîºÏµÄµØ·½³õÊ¼»¯£¬ËùÒÔµ±×¢Èë³éÏó·½·¨µÄÊ±ºò£¬ÎÒÃÇÖ»ĞèÒªĞŞ¸Ä¶ÔÏóµÄÊµÏÖ·½·¨£¬¶ø²»ÓÃ´ó¸Ä´úÂë¿â¡£
-* ÒÀÀµ¿ÉÒÔ×¢Èëµ½Ò»¸ö×é¼şÖĞ£ºÎÒÃÇ¿ÉÒÔ×¢ÈëÕâĞ©ÒÀÀµµÄÄ£ÄâÊµÏÖ£¬ÕâÑùÊ¹µÃ²âÊÔ¸ü¼Ó¼òµ¥¡£
+* ä¾èµ–çš„æ³¨å…¥å’Œé…ç½®ç‹¬ç«‹äºç»„ä»¶ä¹‹å¤–ã€‚
+* å› ä¸ºå¯¹è±¡æ˜¯åœ¨ä¸€ä¸ªç‹¬ç«‹ã€ä¸è€¦åˆçš„åœ°æ–¹åˆå§‹åŒ–ï¼Œæ‰€ä»¥å½“æ³¨å…¥æŠ½è±¡æ–¹æ³•çš„æ—¶å€™ï¼Œæˆ‘ä»¬åªéœ€è¦ä¿®æ”¹å¯¹è±¡çš„å®ç°æ–¹æ³•ï¼Œè€Œä¸ç”¨å¤§æ”¹ä»£ç åº“ã€‚
+* ä¾èµ–å¯ä»¥æ³¨å…¥åˆ°ä¸€ä¸ªç»„ä»¶ä¸­ï¼šæˆ‘ä»¬å¯ä»¥æ³¨å…¥è¿™äº›ä¾èµ–çš„æ¨¡æ‹Ÿå®ç°ï¼Œè¿™æ ·ä½¿å¾—æµ‹è¯•æ›´åŠ ç®€å•ã€‚
 
 One thing that we will see is that we can manage the scope of our instances created, which is something really cool and from my point of view, any object or collaborator in your app should not know anything about instances creation and lifecycle and this should be managed by our dependency injection framework.
-¿ÉÒÔ¿´µ½£¬ÄÜ¹»¹ÜÀí´´½¨ÊµÀıµÄ·¶Î§ÊÇÒ»¼ş·Ç³£°ôµÄÊÂÇé¡£°´ÎÒµÄ¹Ûµã£¬ÄãappÖĞµÄËùÓĞ¶ÔÏó»òÕßĞ­×÷Õß¶¼²»Ó¦¸ÃÖªµÀÓĞ¹ØÊµÀı´´½¨ºÍÉúÃüÖÜÆÚµÄÈÎºÎÊÂÇé£¬ÕâĞ©¶¼Ó¦¸ÃÓÉÎÒÃÇµÄÒÀÀµ×¢Èë¿ò¼Ü¹ÜÀíµÄ¡£
+å¯ä»¥çœ‹åˆ°ï¼Œèƒ½å¤Ÿç®¡ç†åˆ›å»ºå®ä¾‹çš„èŒƒå›´æ˜¯ä¸€ä»¶éå¸¸æ£’çš„äº‹æƒ…ã€‚æŒ‰æˆ‘çš„è§‚ç‚¹ï¼Œä½ appä¸­çš„æ‰€æœ‰å¯¹è±¡æˆ–è€…åä½œè€…éƒ½ä¸åº”è¯¥çŸ¥é“æœ‰å…³å®ä¾‹åˆ›å»ºå’Œç”Ÿå‘½å‘¨æœŸçš„ä»»ä½•äº‹æƒ…ï¼Œè¿™äº›éƒ½åº”è¯¥ç”±æˆ‘ä»¬çš„ä¾èµ–æ³¨å…¥æ¡†æ¶ç®¡ç†çš„ã€‚
 
 ![p1](http://fernandocejas.com/wp-content/uploads/2015/04/dependency_inversion1.png)
 
 What is JSR-330?
 Basically dependency injection for Java defines a standard set of annotations (and one interface) for use on injectable classes in order to to maximize reusability, testability and maintainability of java code.
 Both Dagger 1 and 2 (also Guice) are based on this standard which brings consistency and an standard way to do dependency injection.
-#Ê²Ã´ÊÇJSR-330£¿
-ÎªÁË×î´ó³Ì¶ÈµÄÌá¸ß´úÂëµÄ¸´ÓÃĞÔ¡¢²âÊÔĞÔºÍÎ¬»¤ĞÔ£¬javaµÄÒÀÀµ×¢ÈëÎª×¢ÈëÀàÖĞµÄÊ¹ÓÃ¶¨ÒåÁËÒ»ÕûÌ××¢½â£¨ºÍ½Ó¿Ú£©±ê×¼¡£Dagger1ºÍDagger2£¨»¹ÓĞGuice£©¶¼ÊÇ»ùÓÚÕâÌ×±ê×¼£¬¸ø³ÌĞò´øÀ´ÁËÎÈ¶¨ĞÔºÍ±ê×¼µÄÒÀÀµ×¢Èë·½·¨¡£
+#ä»€ä¹ˆæ˜¯JSR-330ï¼Ÿ
+ä¸ºäº†æœ€å¤§ç¨‹åº¦çš„æé«˜ä»£ç çš„å¤ç”¨æ€§ã€æµ‹è¯•æ€§å’Œç»´æŠ¤æ€§ï¼Œjavaçš„ä¾èµ–æ³¨å…¥ä¸ºæ³¨å…¥ç±»ä¸­çš„ä½¿ç”¨å®šä¹‰äº†ä¸€æ•´å¥—æ³¨è§£ï¼ˆå’Œæ¥å£ï¼‰æ ‡å‡†ã€‚Dagger1å’ŒDagger2ï¼ˆè¿˜æœ‰Guiceï¼‰éƒ½æ˜¯åŸºäºè¿™å¥—æ ‡å‡†ï¼Œç»™ç¨‹åºå¸¦æ¥äº†ç¨³å®šæ€§å’Œæ ‡å‡†çš„ä¾èµ–æ³¨å…¥æ–¹æ³•ã€‚
 
 Dagger 1
 I will be very quick here because this version is out of the purpose of this article. Anyway, Dagger 1 has a lot to offer and I would say that nowadays is the most popular dependency injector used on Android. It has been created by Square inspired by Guice.
@@ -47,23 +47,23 @@ Multiple modules: a collection of bindings that implement a feature.
 Multiple object graphs: a collection of modules that implement a scope.
 Dagger 1 uses compile time to figure out bindings but also uses reflection, and although it is not used to instantiate objects, it is used for graph composition. All this process happens at runtime, where Dagger tries to figure out how everything fits together, so there is a price to pay: inefficiency sometimes and difficulties when debugging.
 #Dagger1
-Õâ¸ö°æ±¾²»ÊÇÕâÆªÎÄÕÂµÄÖØµã£¬ËùÒÔÎÒÖ»ÊÇ¼òÂÔµØËµÒ»ÏÂ¡£²»¹ÜÔõÑù£¬Dagger1»¹ÊÇ×öÁËºÜ¶àµÄ¹±Ï×£¬¿ÉÒÔËµÊÇÈç½ñAndroidÉÏ×îÁ÷ĞĞµÄÒÀÀµ×¢Èë¿ò¼Ü¡£ËüÊÇÓÉSquare¹«Ë¾ÊÜµ½GuiceÆô·¢´´½¨µÄ¡£
+è¿™ä¸ªç‰ˆæœ¬ä¸æ˜¯è¿™ç¯‡æ–‡ç« çš„é‡ç‚¹ï¼Œæ‰€ä»¥æˆ‘åªæ˜¯ç®€ç•¥åœ°è¯´ä¸€ä¸‹ã€‚ä¸ç®¡æ€æ ·ï¼ŒDagger1è¿˜æ˜¯åšäº†å¾ˆå¤šçš„è´¡çŒ®ï¼Œå¯ä»¥è¯´æ˜¯å¦‚ä»ŠAndroidä¸Šæœ€æµè¡Œçš„ä¾èµ–æ³¨å…¥æ¡†æ¶ã€‚å®ƒæ˜¯ç”±Squareå…¬å¸å—åˆ°Guiceå¯å‘åˆ›å»ºçš„ã€‚
 
-»ù±¾ÌØµã£º
+åŸºæœ¬ç‰¹ç‚¹ï¼š
 
-* ¶à¸ö×¢Èëµã£ºÒÀÀµ£¬Í¨¹ıinjected
-* ¶àÖÖ°ó¶¨·½·¨£ºÒÀÀµ£¬Í¨¹ıprovided
-* ¶à¸ömodules£ºÊµÏÖÄ³ÖÖ¹¦ÄÜµÄ°ó¶¨¼¯ºÏ
-* ¶à¸ö¶ÔÏóÍ¼£º ÊµÏÖÒ»¸ö·¶Î§µÄmodules¼¯ºÏ
+* å¤šä¸ªæ³¨å…¥ç‚¹ï¼šä¾èµ–ï¼Œé€šè¿‡injected
+* å¤šç§ç»‘å®šæ–¹æ³•ï¼šä¾èµ–ï¼Œé€šè¿‡provided
+* å¤šä¸ªmodulesï¼šå®ç°æŸç§åŠŸèƒ½çš„ç»‘å®šé›†åˆ
+* å¤šä¸ªå¯¹è±¡å›¾ï¼š å®ç°ä¸€ä¸ªèŒƒå›´çš„modulesé›†åˆ
 
-Dagger1ÊÇÔÚ±àÒëµÄÊ±ºòÊµĞĞ°ó¶¨£¬²»¹ıÒ²ÓÃµ½ÁË·´Éä»úÖÆ¡£µ«Õâ¸ö·´Éä²»ÊÇÓÃÀ´ÊµÀı»¯¶ÔÏóµÄ£¬¶øÊÇÓÃÓÚÍ¼µÄ¹¹³É¡£Dagger»áÔÚÔËĞĞµÄÊ±ºòÈ¥¼ì²âÊÇ·ñÒ»ÇĞ¶¼Õı³£¹¤×÷£¬ËùÒÔÊ¹ÓÃµÄÊ±ºò»á¸¶³öÒ»Ğ©´ú¼Û£ºÅ¼¶û»áÎŞĞ§ºÍµ÷ÊÔÀ§ÄÑ¡£
+Dagger1æ˜¯åœ¨ç¼–è¯‘çš„æ—¶å€™å®è¡Œç»‘å®šï¼Œä¸è¿‡ä¹Ÿç”¨åˆ°äº†åå°„æœºåˆ¶ã€‚ä½†è¿™ä¸ªåå°„ä¸æ˜¯ç”¨æ¥å®ä¾‹åŒ–å¯¹è±¡çš„ï¼Œè€Œæ˜¯ç”¨äºå›¾çš„æ„æˆã€‚Daggerä¼šåœ¨è¿è¡Œçš„æ—¶å€™å»æ£€æµ‹æ˜¯å¦ä¸€åˆ‡éƒ½æ­£å¸¸å·¥ä½œï¼Œæ‰€ä»¥ä½¿ç”¨çš„æ—¶å€™ä¼šä»˜å‡ºä¸€äº›ä»£ä»·ï¼šå¶å°”ä¼šæ— æ•ˆå’Œè°ƒè¯•å›°éš¾ã€‚
 
 Dagger 2
 Dagger 2 is a fork from Dagger 1 under heavy development by Google, currently version 2.0. It was inspired by AutoValue project (https://github.com/google/auto, useful if you are tired of writing equals and hashcode methods everywhere).
 From the beginning, the basic idea behind Dagger 2, was to make problems solvable by using code generation, hand written code, as if we were writing all the code that creates and provides our dependencies ourselves.
 #Dagger2
-Dagger2ÊÇDagger1µÄ·ÖÖ§£¬ÓÉ¹È¸è¹«Ë¾½ÓÊÖ¿ª·¢£¬Ä¿Ç°µÄ°æ±¾ÊÇ2.0¡£Dagger2ÊÇÊÜµ½[AutoValueÏîÄ¿](https://github.com/google/auto)µÄÆô·¢¡£
-¸Õ¿ªÊ¼£¬Dagger2½â¾öÎÊÌâµÄ»ù±¾Ë¼ÏëÊÇ£ºÀûÓÃÉú³ÉºÍĞ´µÄ´úÂë»ìºÏ´ïµ½¿´ËÆËùÓĞµÄ²úÉúºÍÌá¹©ÒÀÀµµÄ´úÂë¶¼ÊÇÊÖĞ´µÄÑù×Ó¡£
+Dagger2æ˜¯Dagger1çš„åˆ†æ”¯ï¼Œç”±è°·æ­Œå…¬å¸æ¥æ‰‹å¼€å‘ï¼Œç›®å‰çš„ç‰ˆæœ¬æ˜¯2.0ã€‚Dagger2æ˜¯å—åˆ°[AutoValueé¡¹ç›®](https://github.com/google/auto)çš„å¯å‘ã€‚
+åˆšå¼€å§‹ï¼ŒDagger2è§£å†³é—®é¢˜çš„åŸºæœ¬æ€æƒ³æ˜¯ï¼šåˆ©ç”¨ç”Ÿæˆå’Œå†™çš„ä»£ç æ··åˆè¾¾åˆ°çœ‹ä¼¼æ‰€æœ‰çš„äº§ç”Ÿå’Œæä¾›ä¾èµ–çš„ä»£ç éƒ½æ˜¯æ‰‹å†™çš„æ ·å­ã€‚
 
 If we compare this version with its predecessor, both are quite similar in many aspects but there are also important differences that worth mentioning:
 No reflection at all: graph validation, configurations and preconditions at compile time.
@@ -72,40 +72,40 @@ More performance: according to google they gained 13% of processor performance.
 Code obfuscation: it uses method dispatch, like hand written code.
 Of course all this cool features come with a price, which makes it less flexible: for instance, there is no dynamism due to the lack of reflection.
 
-Èç¹ûÎÒÃÇ½«Dagger2ºÍ1±È½Ï£¬ËûÃÇÁ½¸öÔÚºÜ¶à·½Ãæ¶¼·Ç³£ÏàËÆ£¬µ«Ò²ÓĞºÜÖØÒªµÄÇø±ğ£¬ÈçÏÂ£º
+å¦‚æœæˆ‘ä»¬å°†Dagger2å’Œ1æ¯”è¾ƒï¼Œä»–ä»¬ä¸¤ä¸ªåœ¨å¾ˆå¤šæ–¹é¢éƒ½éå¸¸ç›¸ä¼¼ï¼Œä½†ä¹Ÿæœ‰å¾ˆé‡è¦çš„åŒºåˆ«ï¼Œå¦‚ä¸‹ï¼š
 
-* ÔÙÒ²Ã»ÓĞÊ¹ÓÃ·´Éä£ºÍ¼µÄÑéÖ¤¡¢ÅäÖÃºÍÔ¤ÏÈÉèÖÃ¶¼ÔÚ±àÒëµÄÊ±ºòÖ´ĞĞ¡£
-* ÈİÒ×µ÷ÊÔºÍ¿É¸ú×Ù£ºÍêÈ«¾ßÌåµØµ÷ÓÃÌá¹©ºÍ´´½¨µÄ¶ÑÕ»
-* ¸üºÃµÄĞÔÄÜ£º¹È¸èÉù³ÆËûÃÇÌá¸ßÁË13%µÄ´¦ÀíĞÔÄÜ
-* ´úÂë»ìÏı£ºÊ¹ÓÃ·½·¨·Ö·¢£¬¾ÍÈçÍ¬×Ô¼ºĞ´µÄ´úÂëÒ»Ñù
+* å†ä¹Ÿæ²¡æœ‰ä½¿ç”¨åå°„ï¼šå›¾çš„éªŒè¯ã€é…ç½®å’Œé¢„å…ˆè®¾ç½®éƒ½åœ¨ç¼–è¯‘çš„æ—¶å€™æ‰§è¡Œã€‚
+* å®¹æ˜“è°ƒè¯•å’Œå¯è·Ÿè¸ªï¼šå®Œå…¨å…·ä½“åœ°è°ƒç”¨æä¾›å’Œåˆ›å»ºçš„å †æ ˆ
+* æ›´å¥½çš„æ€§èƒ½ï¼šè°·æ­Œå£°ç§°ä»–ä»¬æé«˜äº†13%çš„å¤„ç†æ€§èƒ½
+* ä»£ç æ··æ·†ï¼šä½¿ç”¨æ´¾é£æ–¹æ³•ï¼Œå°±å¦‚åŒè‡ªå·±å†™çš„ä»£ç ä¸€æ ·
 
-µ±È»ËùÓĞÕâĞ©ºÜ°ôµÄÌØµã¶¼ĞèÒª¸¶³öÒ»¸ö´ú¼Û£¬ÄÇ¾ÍÊÇÈ±·¦Áé»îĞÔ¡£±ÈÈçËµ£ºDagger2ÓÉÓÚÃ»ÓÃ·´ÉäËùÒÔÃ»ÓĞ¶¯Ì¬»úÖÆ¡£
+å½“ç„¶æ‰€æœ‰è¿™äº›å¾ˆæ£’çš„ç‰¹ç‚¹éƒ½éœ€è¦ä»˜å‡ºä¸€ä¸ªä»£ä»·ï¼Œé‚£å°±æ˜¯ç¼ºä¹çµæ´»æ€§ï¼Œä¾‹å¦‚ï¼šDagger2æ²¡ç”¨åå°„æ‰€ä»¥æ²¡æœ‰åŠ¨æ€æœºåˆ¶ã€‚
 
 Diving deeper
 To understand Dagger 2 it is important (and probably a bit hard in the beginning) to know about the fundamentals of dependency injection and the concepts of each one of these guys (do not worry if you do not understand them yet, we will see examples):
 @Inject: Basically with this annotation we request dependencies. In other words, you use it to tell Dagger that the annotated class or field wants to participate in dependency injection. Thus, Dagger will construct instances of this annotated classes and satisfy their dependencies.
 @Module: Modules are classes whose methods provide dependencies, so we define a class and annotate it with @Module, thus, Dagger will know where to find the dependencies in order to satisfy them when constructing class instances. One important feature of modules is that they have been designed to be partitioned and composed together (for instance we will see that in our apps we can have multiple composed modules). 
 @Provide: Inside modules we define methods containing this annotation which tells Dagger how we want to construct and provide those mentioned dependencies.
-#ÉîÈëÑĞ¾¿
-ÏëÒªÁË½âDagger2£¬¾Í±ØĞëÒªÖªµÀÒÀÀµ×¢ÈëµÄ»ù´¡ºÍÕâÆäÖĞµÄÃ¿Ò»¸ö¸ÅÄî£º
+#æ·±å…¥ç ”ç©¶
+æƒ³è¦äº†è§£Dagger2ï¼Œå°±å¿…é¡»è¦çŸ¥é“ä¾èµ–æ³¨å…¥çš„åŸºç¡€å’Œè¿™å…¶ä¸­çš„æ¯ä¸€ä¸ªæ¦‚å¿µï¼š
 
-* @Inject: Í¨³£ÔÚÍâÃæĞèÒªÒÀÀµµÄµØ·½×¢½â¡£»»¾ä»°Ëµ£¬ÄãÓÃËü¸æËßDaggerÕâ¸öÀà»òÕß±äÁ¿Òª¼Óµ½ÒÀÀµ×¢ÈëÖĞ¡£ÕâÑù£¬Dagger¾Í»á¹¹ÔìÒ»¸öÕâ¸öÀàµÄÊµÀı²¢Âú×ãËûÃÇµÄÒÀÀµ¡£
-* @Module: ModulesÊÇÌá¹©ÒÀÀµ·½·¨µÄÀà¡£ÎÒÃÇ¶¨ÒåÒ»¸öÀà£¬ÓÃ@Module×¢½â£¬ÕâÑùDaggerÔÚ¹¹ÔìÀàµÄÊµÀıµÄÊ±ºò£¬¾ÍÖªµÀ´ÓÄÄÀïÈ¥ÕÒµ½ĞèÒªµÄÒÀÀµ¡£modulesµÄÒ»¸öÖØÒªÌØÕ÷ÊÇËûÃÇ±»Éè¼ÆÎª·Ö¿ªµÄ²¢×é³ÉÔÚÒ»Æğ£¨±ÈÈçËµ£¬ÔÚÎÒÃÇµÄappÖĞ¿ÉÒÔÓĞ¶à¸ö×é³ÉÔÚÒ»ÆğµÄmodules£©¡£
-* @Provide: ÔÚmodulesÖĞ£¬ÎÒÃÇ¶¨ÒåµÄ·½·¨ÊÇÓÃÕâ¸ö×¢½â£¬ÒÔ´ËÀ´¸æËßDaggerÎÒÃÇÏëÒª¹¹Ôì¶ÔÏó²¢Ìá¹©ÕâĞ©ÒÀÀµ¡£
+* @Inject: é€šå¸¸åœ¨éœ€è¦ä¾èµ–çš„åœ°æ–¹ä½¿ç”¨è¿™ä¸ªæ³¨è§£ã€‚æ¢å¥è¯è¯´ï¼Œä½ ç”¨å®ƒå‘Šè¯‰Daggerè¿™ä¸ªç±»æˆ–è€…å­—æ®µéœ€è¦ä¾èµ–æ³¨å…¥ã€‚è¿™æ ·ï¼ŒDaggerå°±ä¼šæ„é€ ä¸€ä¸ªè¿™ä¸ªç±»çš„å®ä¾‹å¹¶æ»¡è¶³ä»–ä»¬çš„ä¾èµ–ã€‚
+* @Module: Modulesç±»é‡Œé¢çš„æ–¹æ³•ä¸“é—¨æä¾›ä¾èµ–ï¼Œæ‰€ä»¥æˆ‘ä»¬å®šä¹‰ä¸€ä¸ªç±»ï¼Œç”¨@Moduleæ³¨è§£ï¼Œè¿™æ ·Daggeråœ¨æ„é€ ç±»çš„å®ä¾‹çš„æ—¶å€™ï¼Œå°±çŸ¥é“ä»å“ªé‡Œå»æ‰¾åˆ°éœ€è¦çš„ä¾èµ–ã€‚modulesçš„ä¸€ä¸ªé‡è¦ç‰¹å¾æ˜¯å®ƒä»¬è®¾è®¡ä¸ºåˆ†åŒºå¹¶ç»„åˆåœ¨ä¸€èµ·ï¼ˆæ¯”å¦‚è¯´ï¼Œåœ¨æˆ‘ä»¬çš„appä¸­å¯ä»¥æœ‰å¤šä¸ªç»„æˆåœ¨ä¸€èµ·çš„modulesï¼‰ã€‚
+* @Provide: åœ¨modulesä¸­ï¼Œæˆ‘ä»¬å®šä¹‰çš„æ–¹æ³•æ˜¯ç”¨è¿™ä¸ªæ³¨è§£ï¼Œä»¥æ­¤æ¥å‘Šè¯‰Daggeræˆ‘ä»¬æƒ³è¦æ„é€ å¯¹è±¡å¹¶æä¾›è¿™äº›ä¾èµ–ã€‚
 
-@Component: Components basically are injectors, let¡¯s say a bridge between @Inject and @Module, which its main responsibility is to put both together. They just give you instances of all the types you defined, for example, we must annotate an interface with @Component and list all the @Modules that will compose that component, and if any of them is missing, we get errors at compile time. All the components are aware of the scope of dependencies it provides through its modules. 
+@Component: Components basically are injectors, letâ€™s say a bridge between @Inject and @Module, which its main responsibility is to put both together. They just give you instances of all the types you defined, for example, we must annotate an interface with @Component and list all the @Modules that will compose that component, and if any of them is missing, we get errors at compile time. All the components are aware of the scope of dependencies it provides through its modules. 
 @Scope: Scopes are very useful and Dagger 2 has has a more concrete way to do scoping through custom annotations. We will see an example later, but this is a very powerful feature, because as pointed out earlier, there is no need that every object knows about how to manage its own instances. An scope example would be a class with a custom @PerActivity annotation, so this object will live as long as our Activity is alive. In other words, we can define the granularity of your scopes (@PerFragment, @PerUser, etc). 
-@Qualifier: We use this annotation when the type of class is insufficient to identify a dependency. For example in the case of Android, many times we need different types of context, so we might define a qualifier annotation ¡°@ForApplication¡± and ¡°@ForActivity¡±, thus when injecting a context we can use those qualifiers to tell Dagger which type of context we want to be provided.
+@Qualifier: We use this annotation when the type of class is insufficient to identify a dependency. For example in the case of Android, many times we need different types of context, so we might define a qualifier annotation â€œ@ForApplicationâ€ and â€œ@ForActivityâ€, thus when injecting a context we can use those qualifiers to tell Dagger which type of context we want to be provided.
 
-* @Component: Components´Ó¸ù±¾ÉÏÀ´Ëµ¾ÍÊÇÒ»¸ö×¢ÈëÆ÷£¬Ò²¿ÉÒÔËµÊÇ@InjectºÍ@ModuleµÄÇÅÁº£¬ËüµÄÖ÷Òª×÷ÓÃ¾ÍÊÇÁ¬½ÓÕâÁ½¸ö²¿·Ö¡£Components¿ÉÒÔÌá¹©ËùÓĞ¶¨ÒåÁËµÄÀàĞÍµÄÊµÀı£¬±ÈÈç£ºÎÒÃÇ±ØĞëÓÃ@Component×¢½âÒ»¸ö½Ó¿ÚÈ»ºóÁĞ³öËùÓĞµÄ@Modules×é³É¸Ã×é¼ş£¬Èç¹ûÈ±Ê§ÁËÈÎºÎÒ»¿é¶¼»áÔÚ±àÒëµÄÊ±ºò±¨´í¡£ËùÓĞµÄ×é¼ş¶¼¿ÉÒÔÍ¨¹ıËüµÄmodulesÖªµÀÒÀÀµµÄ·¶Î§¡£
-* @Scope: Scopes¿ÉÊÇ·Ç³£µÄÓĞÓÃ£¬Dagger2¿ÉÒÔÍ¨¹ı×Ô¶¨Òå×¢½âÏŞ¶¨×¢½â×÷ÓÃÓò¡£ºóÃæ»áÑİÊ¾Ò»¸öÀı×Ó£¬ÕâÊÇÒ»¸ö·Ç³£Ç¿´óµÄÌØµã£¬ÒòÎª¾ÍÈçÇ°ÃæËµµÄÒ»Ñù£¬Ã»±ØÒªÈÃÃ¿¸ö¶ÔÏó¶¼È¥ÁË½âÈçºÎ¹ÜÀíËûÃÇµÄÊµÀı¡£ÔÚscopeµÄÀı×ÓÖĞ£¬ÎÒÃÇÓÃ×Ô¶¨ÒåµÄ@PerActivity×¢½âÒ»¸öÀà£¬ËùÒÔÕâ¸ö¶ÔÏó´æ»îÊ±¼ä¾ÍºÍactivityµÄÒ»Ñù¡£¼òµ¥À´Ëµ¾ÍÊÇÎÒÃÇ¿ÉÒÔ¶¨ÒåËùÓĞ·¶Î§µÄÁ£¶È(@PerFragment, @PerUser, µÈµÈ)¡£
-* Qualifier: µ±ÀàµÄÀàĞÍ²»×ãÒÔ¼ø±ğÒ»¸öÒÀÀµµÄÊ±ºò£¬ÎÒÃÇ¾Í¿ÉÒÔÊ¹ÓÃÕâ¸ö×¢½â±êÊ¾¡£ÀıÈç£ºÔÚAndroidÖĞ£¬ÎÒÃÇ»áĞèÒª²»Í¬ÀàĞÍµÄcontext£¬ËùÒÔÎÒÃÇ¾Í¿ÉÒÔ¶¨Òåqualifier×¢½â¡°@ForApplication¡±ºÍ¡°@ForActivity¡±£¬ÕâÑùµ±×¢ÈëÒ»¸öcontextµÄÊ±ºò£¬ÎÒÃÇ¾Í¿ÉÒÔ¸æËßDaggerÎÒÃÇÏëÒªÄÄÖÖÀàĞÍµÄcontext¡£
+* @Component: Componentsä»æ ¹æœ¬ä¸Šæ¥è¯´å°±æ˜¯ä¸€ä¸ªæ³¨å…¥å™¨ï¼Œä¹Ÿå¯ä»¥è¯´æ˜¯@Injectå’Œ@Moduleçš„æ¡¥æ¢ï¼Œå®ƒçš„ä¸»è¦ä½œç”¨å°±æ˜¯è¿æ¥è¿™ä¸¤ä¸ªéƒ¨åˆ†ã€‚Componentså¯ä»¥æä¾›æ‰€æœ‰å®šä¹‰äº†çš„ç±»å‹çš„å®ä¾‹ï¼Œæ¯”å¦‚ï¼šæˆ‘ä»¬å¿…é¡»ç”¨@Componentæ³¨è§£ä¸€ä¸ªæ¥å£ç„¶ååˆ—å‡ºæ‰€æœ‰çš„@Modulesç»„æˆè¯¥ç»„ä»¶ï¼Œå¦‚æœç¼ºå¤±äº†ä»»ä½•ä¸€å—éƒ½ä¼šåœ¨ç¼–è¯‘çš„æ—¶å€™æŠ¥é”™ã€‚æ‰€æœ‰çš„ç»„ä»¶éƒ½å¯ä»¥é€šè¿‡å®ƒçš„modulesçŸ¥é“ä¾èµ–çš„èŒƒå›´ã€‚
+* @Scope: Scopeså¯æ˜¯éå¸¸çš„æœ‰ç”¨ï¼ŒDagger2å¯ä»¥é€šè¿‡è‡ªå®šä¹‰æ³¨è§£é™å®šæ³¨è§£ä½œç”¨åŸŸã€‚åé¢ä¼šæ¼”ç¤ºä¸€ä¸ªä¾‹å­ï¼Œè¿™æ˜¯ä¸€ä¸ªéå¸¸å¼ºå¤§çš„ç‰¹ç‚¹ï¼Œå› ä¸ºå°±å¦‚å‰é¢è¯´çš„ä¸€æ ·ï¼Œæ²¡å¿…è¦è®©æ¯ä¸ªå¯¹è±¡éƒ½å»äº†è§£å¦‚ä½•ç®¡ç†ä»–ä»¬çš„å®ä¾‹ã€‚åœ¨scopeçš„ä¾‹å­ä¸­ï¼Œæˆ‘ä»¬ç”¨è‡ªå®šä¹‰çš„@PerActivityæ³¨è§£ä¸€ä¸ªç±»ï¼Œæ‰€ä»¥è¿™ä¸ªå¯¹è±¡å­˜æ´»æ—¶é—´å°±å’Œactivityçš„ä¸€æ ·ã€‚ç®€å•æ¥è¯´å°±æ˜¯æˆ‘ä»¬å¯ä»¥å®šä¹‰æ‰€æœ‰èŒƒå›´çš„ç²’åº¦(@PerFragment, @PerUser, ç­‰ç­‰)ã€‚
+* Qualifier: å½“ç±»çš„ç±»å‹ä¸è¶³ä»¥é‰´åˆ«ä¸€ä¸ªä¾èµ–çš„æ—¶å€™ï¼Œæˆ‘ä»¬å°±å¯ä»¥ä½¿ç”¨è¿™ä¸ªæ³¨è§£æ ‡ç¤ºã€‚ä¾‹å¦‚ï¼šåœ¨Androidä¸­ï¼Œæˆ‘ä»¬ä¼šéœ€è¦ä¸åŒç±»å‹çš„contextï¼Œæ‰€ä»¥æˆ‘ä»¬å°±å¯ä»¥å®šä¹‰qualifieræ³¨è§£â€œ@ForApplicationâ€å’Œâ€œ@ForActivityâ€ï¼Œè¿™æ ·å½“æ³¨å…¥ä¸€ä¸ªcontextçš„æ—¶å€™ï¼Œæˆ‘ä»¬å°±å¯ä»¥å‘Šè¯‰Daggeræˆ‘ä»¬æƒ³è¦å“ªç§ç±»å‹çš„contextã€‚
 
 Shut up and show me the code!
-I guess it is too much theory for now, so let¡¯s see Dagger 2 in action, although it is a good idea 
+I guess it is too much theory for now, so letâ€™s see Dagger 2 in action, although it is a good idea 
 to first set it up by adding the dependencies in our build.gradle file:
-#²»·Ï»°ÉÏ´úÂë
-Ç°ÃæÒÑ¾­½²ÁËºÜ¶àÀíÂÛÁË£¬ËùÒÔ½ÓÏÂÀ´ÈÃÎÒÃÇ¿´¿´ÈçºÎÊ¹ÓÃDagger2¡£Ê×ÏÈ»¹ÊÇÒªÔÚÎÒÃÇµÄbuild.gradleÎÄ¼şÖĞÈçÏÂÅäÖÃ£º
+#ä¸åºŸè¯ä¸Šä»£ç 
+å‰é¢å·²ç»è®²äº†å¾ˆå¤šç†è®ºäº†ï¼Œæ‰€ä»¥æ¥ä¸‹æ¥è®©æˆ‘ä»¬çœ‹çœ‹å¦‚ä½•ä½¿ç”¨Dagger2ã€‚é¦–å…ˆè¿˜æ˜¯è¦åœ¨æˆ‘ä»¬çš„build.gradleæ–‡ä»¶ä¸­å¦‚ä¸‹é…ç½®ï¼š
 ```java
 apply plugin: 'com.neenbedankt.android-apt'
  
@@ -132,12 +132,12 @@ dependencies {
 
 As you can see we are adding the compiler, the runtime library and the apt plugin, which is necessary, otherwise the dagger annotation processor might not work properly, especially I encountered problems on Android Studio.
 
-ÈçÉÏËùÊ¾£¬ÎÒÃÇÌí¼ÓÁË±àÒëºÍÔËĞĞ¿â£¬»¹ÓĞ±Ø²»¿ÉÉÙµÄapt²å¼ş£¬Ã»ÓĞÕâ²å¼ş£¬dagger¿ÉÄÜ²»»áÕı³£¹¤×÷£¬ÌØ±ğÊÇÔÚAndroid studioÖĞ¡£
+å¦‚ä¸Šæ‰€ç¤ºï¼Œæˆ‘ä»¬æ·»åŠ äº†ç¼–è¯‘å’Œè¿è¡Œåº“ï¼Œè¿˜æœ‰å¿…ä¸å¯å°‘çš„aptæ’ä»¶ï¼Œæ²¡æœ‰è¿™æ’ä»¶ï¼Œdaggerå¯èƒ½ä¸ä¼šæ­£å¸¸å·¥ä½œï¼Œç‰¹åˆ«æ˜¯åœ¨Android studioä¸­ã€‚
 
 Our example
-A few months ago I wrote an article about how to implement uncle bob¡¯s clean architecture on Android, which I strongly recommend to read so you get a better understanding of what we are gonna do here. Back then, I faced a problem when constructing and providing dependencies of most of the objects involved in my solution, which looked something like this (check out the comments):
-#Àı×Ó
-¼¸¸öÔÂÇ°£¬ÎÒĞ´ÁËÒ»Æª¹ØÓÚÈçºÎÔÚAndroidÉÏÊµÏÖbobÊåÊåµÄÇåÎú¼Ü¹¹µÄÎÄÕÂ£¬Ç¿ÁÒ½¨Òé´ó¼ÒÈ¥¿´Ò»ÏÂ£¬¿´ÍêÖ®ºó£¬Äã½«»á¶ÔÎÒÃÇÏÖÔÚ×öµÄÊÂÇéÓĞ¸üºÃµÄÀí½â¡£ÑÔ¹éÕı´«£¬ÔÚÎÒÒÔÇ°µÄ·½°¸ÖĞ£¬¹¹ÔìºÍÌá¹©´ó¶àÊı¶ÔÏóµÄÒÀÀµµÄÊ±ºò£¬»áÓöµ½ÎÊÌâ£¬¾ßÌåÈçÏÂ£¨¼ûÆÀ×¢£©£º
+A few months ago I wrote an article about how to implement uncle bobâ€™s clean architecture on Android, which I strongly recommend to read so you get a better understanding of what we are gonna do here. Back then, I faced a problem when constructing and providing dependencies of most of the objects involved in my solution, which looked something like this (check out the comments):
+#ä¾‹å­
+å‡ ä¸ªæœˆå‰ï¼Œæˆ‘å†™äº†ä¸€ç¯‡å…³äºå¦‚ä½•åœ¨Androidä¸Šå®ç°bobå”å”çš„æ¸…æ™°æ¶æ„çš„æ–‡ç« ï¼Œå¼ºçƒˆå»ºè®®å¤§å®¶å»çœ‹ä¸€ä¸‹ï¼Œçœ‹å®Œä¹‹åï¼Œä½ å°†ä¼šå¯¹æˆ‘ä»¬ç°åœ¨åšçš„äº‹æƒ…æœ‰æ›´å¥½çš„ç†è§£ã€‚è¨€å½’æ­£ä¼ ï¼Œåœ¨æˆ‘ä»¥å‰çš„æ–¹æ¡ˆä¸­ï¼Œæ„é€ å’Œæä¾›å¤§å¤šæ•°å¯¹è±¡çš„ä¾èµ–çš„æ—¶å€™ï¼Œä¼šé‡åˆ°é—®é¢˜ï¼Œå…·ä½“å¦‚ä¸‹ï¼ˆè§è¯„æ³¨ï¼‰ï¼š
 ```java
   @Override void initializePresenter() {
     // All this dependency initialization could have been avoided by using a
@@ -166,18 +166,18 @@ A few months ago I wrote an article about how to implement uncle bob¡¯s clean ar
 
 As you can see, the way to address this problem is to use a dependency injection framework. We basically get rid of that boilerplate code (which is unreadable and understandable): this class must not know anything about object creation and dependency provision.
 
-So how do we do it? Of course we use Dagger 2 features¡­ Let me picture the structure of my dependency injection graph:
+So how do we do it? Of course we use Dagger 2 featuresâ€¦ Let me picture the structure of my dependency injection graph:
 
-¿ÉÒÔ¿´³ö£¬½â¾öÕâ¸öÎÊÌâµÄ°ì·¨ÊÇÊ¹ÓÃÒÀÀµ×¢Èë¿ò¼Ü¡£ÎÒÃÇÒª±ÜÃâÏñÉÏÃæÕâÑùÒıÓÃ´úÂë£ºÕâ¸öÀà²»ÄÜÉæ¼°¶ÔÏóµÄ´´½¨ºÍÒÀÀµµÄÌá¹©¡£
-ÄÇÎÒÃÇ¸ÃÔõÃ´×öÄØ£¬µ±È»ÊÇÊ¹ÓÃDagger2£¬ÎÒÃÇÏÈ¿´¿´½á¹¹Í¼£º
+å¯ä»¥çœ‹å‡ºï¼Œè§£å†³è¿™ä¸ªé—®é¢˜çš„åŠæ³•æ˜¯ä½¿ç”¨ä¾èµ–æ³¨å…¥æ¡†æ¶ã€‚æˆ‘ä»¬è¦é¿å…åƒä¸Šé¢è¿™æ ·å¼•ç”¨ä»£ç ï¼šè¿™ä¸ªç±»ä¸èƒ½æ¶‰åŠå¯¹è±¡çš„åˆ›å»ºå’Œä¾èµ–çš„æä¾›ã€‚
+é‚£æˆ‘ä»¬è¯¥æ€ä¹ˆåšå‘¢ï¼Œå½“ç„¶æ˜¯ä½¿ç”¨Dagger2ï¼Œæˆ‘ä»¬å…ˆçœ‹çœ‹ç»“æ„å›¾ï¼š
 ![pic2](http://fernandocejas.com/wp-content/uploads/2015/04/composed_dagger_graph1.png)
 
-Let¡¯s break down this graphic and explain its parts plus some code.
+Letâ€™s break down this graphic and explain its parts plus some code.
 
 Application Component: A component whose lifetime is the life of the application. It injects both AndroidApplication and BaseActivity classes.
 
-½ÓÏÂÀ´ÎÒÃÇ»á·Ö½âÕâÕÅÍ¼£¬²¢½âÊÍ¸÷¸ö²¿·Ö»¹ÓĞ´úÂë¡£
-Application Component: ÉúÃüÖÜÆÚ¸úApplicationÒ»ÑùµÄ×é¼ş¡£¿É×¢Èëµ½AndroidApplicationºÍBaseActivityÖĞÀàÖĞ¡£
+æ¥ä¸‹æ¥æˆ‘ä»¬ä¼šåˆ†è§£è¿™å¼ å›¾ï¼Œå¹¶è§£é‡Šå„ä¸ªéƒ¨åˆ†è¿˜æœ‰ä»£ç ã€‚
+Application Component: ç”Ÿå‘½å‘¨æœŸè·ŸApplicationä¸€æ ·çš„ç»„ä»¶ã€‚å¯æ³¨å…¥åˆ°AndroidApplicationå’ŒBaseActivityä¸­ç±»ä¸­ã€‚
 
 ```java
 @Singleton // Constraints this component to one-per-application or unscoped bindings.
@@ -192,13 +192,13 @@ public interface ApplicationComponent {
   UserRepository userRepository();
 }
 ```
-As you can see, I use the @Singleton annotation for this component which constraints it to one-per-application. You might be wondering why I¡¯m exposing the Context and the rest of the classes. This is actually an important property of how components work in Dagger: they do not expose types from their modules unless you explicitly make them available. In this case in particular I just exposed those elements to subgraphs and if you try to remove any of them, a compilation error will be triggered.
+As you can see, I use the @Singleton annotation for this component which constraints it to one-per-application. You might be wondering why Iâ€™m exposing the Context and the rest of the classes. This is actually an important property of how components work in Dagger: they do not expose types from their modules unless you explicitly make them available. In this case in particular I just exposed those elements to subgraphs and if you try to remove any of them, a compilation error will be triggered.
 
-ÎÒÎªÕâ¸ö×é¼şÊ¹ÓÃÁË@Singleton×¢½â£¬Ê¹Æä±£Ö¤Î¨Ò»ĞÔ¡£Ò²ĞíÄã»áÎÊÎªÊ²Ã´ÎÒÒª½«contextºÍÆäËû³ÉÔ±±©Â¶³öÈ¥¡£ÕâÕıÊÇDaggerÖĞcomponents¹¤×÷µÄÖØÒªĞÔÖÊ£ºÈç¹ûÄã²»Ïë°ÑmodulesµÄÀàĞÍ±©Â¶³öÀ´£¬ÄÇÃ´Äã¾ÍÖ»ÄÜÏÔÊ¾µØÊ¹ÓÃËüÃÇ¡£ÔÚÕâ¸öÀı×ÓÖĞ£¬ÎÒ°ÑÕâĞ©ÔªËØ±©Â¶¸ø×ÓÍ¼£¬Èç¹ûÄã°ÑËûÃÇÉ¾µô£¬±àÒëµÄÊ±ºò¾Í»á±¨´í¡£
+æˆ‘ä¸ºè¿™ä¸ªç»„ä»¶ä½¿ç”¨äº†@Singletonæ³¨è§£ï¼Œä½¿å…¶ä¿è¯å”¯ä¸€æ€§ã€‚ä¹Ÿè®¸ä½ ä¼šé—®ä¸ºä»€ä¹ˆæˆ‘è¦å°†contextå’Œå…¶ä»–æˆå‘˜æš´éœ²å‡ºå»ã€‚è¿™æ­£æ˜¯Daggerä¸­componentså·¥ä½œçš„é‡è¦æ€§è´¨ï¼šå¦‚æœä½ ä¸æƒ³æŠŠmodulesçš„ç±»å‹æš´éœ²å‡ºæ¥ï¼Œé‚£ä¹ˆä½ å°±åªèƒ½æ˜¾ç¤ºåœ°ä½¿ç”¨å®ƒä»¬ã€‚åœ¨è¿™ä¸ªä¾‹å­ä¸­ï¼Œæˆ‘æŠŠè¿™äº›å…ƒç´ æš´éœ²ç»™å­å›¾ï¼Œå¦‚æœä½ æŠŠä»–ä»¬åˆ æ‰ï¼Œç¼–è¯‘çš„æ—¶å€™å°±ä¼šæŠ¥é”™ã€‚
 
 Application Module: This module provides objects which will live during the application lifecycle, that is the reason why all of @Provide methods use a @Singleton scope.
 
-Application Module: moduleµÄ×÷ÓÃÊÇÌá¹©ÔÚÓ¦ÓÃµÄÉúÃüÖÜÆÚÖĞ´æ»îµÄ¶ÔÏó¡£ÕâÒ²ÊÇÎªÊ²Ã´@Provide×¢½âµÄ·½·¨ÒªÓÃ@SingletonÏŞ¶¨¡£
+Application Module: moduleçš„ä½œç”¨æ˜¯æä¾›åœ¨åº”ç”¨çš„ç”Ÿå‘½å‘¨æœŸä¸­å­˜æ´»çš„å¯¹è±¡ã€‚è¿™ä¹Ÿæ˜¯ä¸ºä»€ä¹ˆ@Provideæ³¨è§£çš„æ–¹æ³•è¦ç”¨@Singletoné™å®šã€‚
 
 ```java
 @Module
@@ -237,7 +237,7 @@ public class ApplicationModule {
 
 Activity Component: A component which will live during the lifetime of an activity.
 
-Activity Component: ÉúÃüÖÜÆÚ¸úActivityÒ»ÑùµÄ×é¼ş¡£
+Activity Component: ç”Ÿå‘½å‘¨æœŸè·ŸActivityä¸€æ ·çš„ç»„ä»¶ã€‚
 
 ```java
 @PerActivity
@@ -254,13 +254,13 @@ The ability to inject objects where and activity is required to be constructed.
 The use of singletons on a per-activity basis.
 The global object graph is kept clear of things that can be used only in activities.
 
-@PerActivityÊÇÒ»¸ö×Ô¶¨ÒåµÄ·¶Î§×¢½â£¬×÷ÓÃÊÇÔÊĞí¶ÔÏó±»¼ÇÂ¼ÔÚÕıÈ·µÄ×é¼şÖĞ£¬µ±È»ÕâĞ©¶ÔÏóµÄÉúÃüÖÜÆÚÓ¦¸Ã×ñÑ­activityµÄÉúÃüÖÜÆÚ¡£ÕâÊÇÒ»¸öºÜºÃµÄÁ·Ï°£¬ÎÒ½¨ÒéÄãÃÇ¶¼×öÒ»ÏÂ£¬ÓĞÒÔÏÂºÃ´¦£º
+@PerActivityæ˜¯ä¸€ä¸ªè‡ªå®šä¹‰çš„èŒƒå›´æ³¨è§£ï¼Œä½œç”¨æ˜¯å…è®¸å¯¹è±¡è¢«è®°å½•åœ¨æ­£ç¡®çš„ç»„ä»¶ä¸­ï¼Œå½“ç„¶è¿™äº›å¯¹è±¡çš„ç”Ÿå‘½å‘¨æœŸåº”è¯¥éµå¾ªactivityçš„ç”Ÿå‘½å‘¨æœŸã€‚è¿™æ˜¯ä¸€ä¸ªå¾ˆå¥½çš„ç»ƒä¹ ï¼Œæˆ‘å»ºè®®ä½ ä»¬éƒ½åšä¸€ä¸‹ï¼Œæœ‰ä»¥ä¸‹å¥½å¤„ï¼š
 
-* ×¢Èë¶ÔÏóµ½¹¹Ôì·½·¨ĞèÒªµÄactivity¡£
-* ÔÚÒ»¸öper-activity»ù´¡ÉÏµÄµ¥ÀıÊ¹ÓÃ¡£
-* Ö»ÄÜÔÚactivityÖĞÊ¹ÓÃÊ¹µÃÈ«¾ÖµÄ¶ÔÏóÍ¼±£³ÖÇåÎú¡£
+* æ³¨å…¥å¯¹è±¡åˆ°æ„é€ æ–¹æ³•éœ€è¦çš„activityã€‚
+* åœ¨ä¸€ä¸ªper-activityåŸºç¡€ä¸Šçš„å•ä¾‹ä½¿ç”¨ã€‚
+* åªèƒ½åœ¨activityä¸­ä½¿ç”¨ä½¿å¾—å…¨å±€çš„å¯¹è±¡å›¾ä¿æŒæ¸…æ™°ã€‚
 
-¿´ÏÂ´úÂë£º
+çœ‹ä¸‹ä»£ç ï¼š
 ```java
 @Scope
 @Retention(RUNTIME)
@@ -269,7 +269,7 @@ public @interface PerActivity {}
 
 Activity Module: This module exposes the activity to dependents in the graph. The reason behind this is basically to use the activity context in a fragment for example.
 
-Activity Module: ÔÚ¶ÔÏóÍ¼ÖĞ£¬Õâ¸ömodule°Ñactivity±©Â¶¸øÏà¹ØÁªµÄÀà¡£±ÈÈçÔÚfragmentÖĞÊ¹ÓÃactivityµÄcontext¡£
+Activity Module: åœ¨å¯¹è±¡å›¾ä¸­ï¼Œè¿™ä¸ªmoduleæŠŠactivityæš´éœ²ç»™ç›¸å…³è”çš„ç±»ã€‚æ¯”å¦‚åœ¨fragmentä¸­ä½¿ç”¨activityçš„contextã€‚
 
 ```java
 @Module
@@ -287,7 +287,7 @@ public class ActivityModule {
 ```
 User Component: A scoped @PerActivity component that extends ActiviyComponent. Basically I use it in order to injects user specific fragments. Since ActivityModule exposes the activity to the graph (as mentioned earlier), whenever an activity context is needed to satisfy a dependency, Dagger will get it from there and inject it: there is no need to re define it in sub modules.
 
-User Component: ¼Ì³ĞÓÚActivityComponentµÄ×é¼ş£¬²¢ÓÃ@PerActivity×¢½â¡£ÎÒÍ¨³£»áÔÚ×¢ÈëÓÃ»§Ïà¹ØµÄfragmentÖĞÊ¹ÓÃ¡£ÒòÎªActivityModule°Ñactivity±©Â¶¸øÍ¼ÁË£¬ËùÒÔÔÚÈÎºÎĞèÒªÒ»¸öactivityµÄcontextµÄÊ±ºò£¬Dagger¶¼¿ÉÒÔÌá¹©×¢Èë£¬Ã»±ØÒªÔÙÔÚ×ÓmodulesÖĞ¶¨ÒåÁË¡£
+User Component: ç»§æ‰¿äºActivityComponentçš„ç»„ä»¶ï¼Œå¹¶ç”¨@PerActivityæ³¨è§£ã€‚æˆ‘é€šå¸¸ä¼šåœ¨æ³¨å…¥ç”¨æˆ·ç›¸å…³çš„fragmentä¸­ä½¿ç”¨ã€‚å› ä¸ºActivityModuleæŠŠactivityæš´éœ²ç»™å›¾äº†ï¼Œæ‰€ä»¥åœ¨ä»»ä½•éœ€è¦ä¸€ä¸ªactivityçš„contextçš„æ—¶å€™ï¼ŒDaggeréƒ½å¯ä»¥æä¾›æ³¨å…¥ï¼Œæ²¡å¿…è¦å†åœ¨å­modulesä¸­å®šä¹‰äº†ã€‚
 
 ```java
 @PerActivity
@@ -300,7 +300,7 @@ public interface UserComponent extends ActivityComponent {
 
 User Module: A module that provides user related collaborators. Based on the example, it will provide user use cases basically.
 
-User Module: Ìá¹©¸úÓÃ»§Ïà¹ØµÄÊµÀı¡£»ùÓÚÎÒÃÇµÄÀı×Ó£¬Ëü¿ÉÒÔÌá¹©ÓÃ»§ÓÃÀı¡£
+User Module: æä¾›è·Ÿç”¨æˆ·ç›¸å…³çš„å®ä¾‹ã€‚åŸºäºæˆ‘ä»¬çš„ä¾‹å­ï¼Œå®ƒå¯ä»¥æä¾›ç”¨æˆ·ç”¨ä¾‹ã€‚
 
 ```java
 @Module
@@ -321,20 +321,20 @@ Now we have our dependency injection graph implementation, how do we inject depe
 Constructor injection: by annotating the constructor of our class with @Inject.
 Field injection: by annotating a (non private) field of our class with @Inject.
 Method injection: by annotating a method with @Inject.
-#ÕûºÏµ½Ò»Æğ
-ÏÖÔÚÎÒÃÇÒÑ¾­ÊµÏÖÁËÒÀÀµ×¢ÈëÍ¼£¬µ«ÊÇÎÒ¸ÃÈçºÎ×¢Èë£¿ÎÒÃÇĞèÒªÖªµÀ£¬Dagger¸øÁËÎÒÃÇÒ»¶ÑÑ¡ÔñÓÃÀ´×¢ÈëÒÀÀµ£º
+#æ•´åˆåˆ°ä¸€èµ·
+ç°åœ¨æˆ‘ä»¬å·²ç»å®ç°äº†ä¾èµ–æ³¨å…¥å›¾ï¼Œä½†æ˜¯æˆ‘è¯¥å¦‚ä½•æ³¨å…¥ï¼Ÿæˆ‘ä»¬éœ€è¦çŸ¥é“ï¼ŒDaggerç»™äº†æˆ‘ä»¬ä¸€å †é€‰æ‹©ç”¨æ¥æ³¨å…¥ä¾èµ–ï¼š
 
- 1. ¹¹Ôì·½·¨×¢Èë£ºÔÚÀàµÄ¹¹Ôì·½·¨Ç°Ãæ×¢ÊÍ@Inject
- 2. ³ÉÔ±±äÁ¿×¢Èë£ºÔÚÀàµÄ³ÉÔ±±äÁ¿£¨·ÇË½ÓĞ£©Ç°Ãæ×¢ÊÍ@Inject
- 3. º¯Êı·½·¨×¢Èë£ºÔÚº¯ÊıÇ°Ãæ×¢ÊÍ@Inject
+ 1. æ„é€ æ–¹æ³•æ³¨å…¥ï¼šåœ¨ç±»çš„æ„é€ æ–¹æ³•å‰é¢æ³¨é‡Š@Inject
+ 2. æˆå‘˜å˜é‡æ³¨å…¥ï¼šåœ¨ç±»çš„æˆå‘˜å˜é‡ï¼ˆéç§æœ‰ï¼‰å‰é¢æ³¨é‡Š@Inject
+ 3. å‡½æ•°æ–¹æ³•æ³¨å…¥ï¼šåœ¨å‡½æ•°å‰é¢æ³¨é‡Š@Inject
 
 This is also the order used by Dagger when binding dependencies and it is important because it might happen that you have some strange behavior or even NullPointerExceptions, which means that your dependencies might not have been initialized at the moment of the object creation. This is common on Android when using field injection in Activities or Fragments, since we do not have access to their constructors.
 
-Õâ¸öË³ĞòÊÇDagger½¨ÒéÊ¹ÓÃµÄ£¬ÒòÎªÔÚÔËĞĞµÄ¹ı³ÌÖĞ£¬×Ü»áÓĞÒ»Ğ©Ææ¹ÖµÄÎÊÌâÉõÖÁÊÇ¿ÕÖ¸Õë£¬ÕâÒ²ÒâÎ¶×ÅÄãµÄÒÀÀµÔÚ¶ÔÏó´´½¨µÄÊ±ºò¿ÉÄÜ»¹Ã»ÓĞ³õÊ¼»¯Íê³É¡£ÕâÔÚAndroidµÄactivity»òÕßfragmentÖĞÊ¹ÓÃ³ÉÔ±±äÁ¿×¢Èë»á¾­³£Óöµ½£¬ÒòÎªÎÒÃÇÃ»ÓĞÔÚËüÃÇµÄ¹¹Ôì·½·¨ÖĞÊ¹ÓÃ¡£
+è¿™ä¸ªé¡ºåºæ˜¯Daggerå»ºè®®ä½¿ç”¨çš„ï¼Œå› ä¸ºåœ¨è¿è¡Œçš„è¿‡ç¨‹ä¸­ï¼Œæ€»ä¼šæœ‰ä¸€äº›å¥‡æ€ªçš„é—®é¢˜ç”šè‡³æ˜¯ç©ºæŒ‡é’ˆï¼Œè¿™ä¹Ÿæ„å‘³ç€ä½ çš„ä¾èµ–åœ¨å¯¹è±¡åˆ›å»ºçš„æ—¶å€™å¯èƒ½è¿˜æ²¡æœ‰åˆå§‹åŒ–å®Œæˆã€‚è¿™åœ¨Androidçš„activityæˆ–è€…fragmentä¸­ä½¿ç”¨æˆå‘˜å˜é‡æ³¨å…¥ä¼šç»å¸¸é‡åˆ°ï¼Œå› ä¸ºæˆ‘ä»¬æ²¡æœ‰åœ¨å®ƒä»¬çš„æ„é€ æ–¹æ³•ä¸­ä½¿ç”¨ã€‚
 
-Getting back to our example, let¡¯s see how we can inject a member to our BaseActivity. In this case we do it with a class called Navigator which is responsible for managing the navigation flow in our app:
+Getting back to our example, letâ€™s see how we can inject a member to our BaseActivity. In this case we do it with a class called Navigator which is responsible for managing the navigation flow in our app:
 
-»Øµ½ÎÒÃÇµÄÀı×ÓÖĞ£¬¿´Ò»ÏÂÎÒÃÇÊÇÈçºÎÔÚBaseActivityÖĞ×¢ÈëÒ»¸ö³ÉÔ±±äÁ¿¡£ÔÚÕâ¸öÀı×ÓÖĞ£¬ÎÒÃÇ×¢ÈëÁËÒ»¸ö½ĞNavigatorµÄÀà£¬ËüÊÇÎÒÃÇÓ¦ÓÃÖĞ¸ºÔğ¹ÜÀíµ¼º½µÄÀà¡£
+å›åˆ°æˆ‘ä»¬çš„ä¾‹å­ä¸­ï¼Œçœ‹ä¸€ä¸‹æˆ‘ä»¬æ˜¯å¦‚ä½•åœ¨BaseActivityä¸­æ³¨å…¥ä¸€ä¸ªæˆå‘˜å˜é‡ã€‚åœ¨è¿™ä¸ªä¾‹å­ä¸­ï¼Œæˆ‘ä»¬æ³¨å…¥äº†ä¸€ä¸ªå«Navigatorçš„ç±»ï¼Œå®ƒæ˜¯æˆ‘ä»¬åº”ç”¨ä¸­è´Ÿè´£ç®¡ç†å¯¼èˆªçš„ç±»ã€‚
 
 ```java
 public abstract class BaseActivity extends Activity {
@@ -359,17 +359,17 @@ public abstract class BaseActivity extends Activity {
 
 Since Navigator is bound by field injection it is mandatory to be provided explicitly in our ApplicationModule using @Provide annotation. Finally we initialize our component and call the inject() method in order to inject our members. We do this in the onCreate() method of our Activity by calling getApplicationComponent(). This method has been added here for reusability and its main purpose is to retrieve the ApplicationComponent which was initialized in the Application object.
 
-NavigatorÀàÊÇ³ÉÔ±±äÁ¿×¢ÈëµÄ£¬ÓÉApplicationModuleÀïÃæ@Provide×¢½âÏÔÊ¾Ìá¹©µÄ¡£×îÖÕÎÒÃÇ³õÊ¼»¯componentÈ»ºóµ÷ÓÃinject()·½·¨×¢Èë³ÉÔ±±äÁ¿¡£ÎÒÃÇÍ¨¹ıÔÚActivityµÄonCreate()·½·¨ÖĞµ÷ÓÃgetApplicationComponent()£¬Íê³ÉÕâĞ©²Ù×÷¡£getApplicationComponent()·½·¨·ÅÔÚÕâ¶ùÊÇÎªÁË¸´ÓÃĞÔ£¬ËüµÄÖ÷Òª×÷ÓÃÊÇÎªÁË»ñÈ¡ÊµÀı»¯µÄApplicationComponent¶ÔÏó¡£
+Navigatorç±»æ˜¯æˆå‘˜å˜é‡æ³¨å…¥çš„ï¼Œç”±ApplicationModuleé‡Œé¢@Provideæ³¨è§£æ˜¾ç¤ºæä¾›çš„ã€‚æœ€ç»ˆæˆ‘ä»¬åˆå§‹åŒ–componentç„¶åè°ƒç”¨inject()æ–¹æ³•æ³¨å…¥æˆå‘˜å˜é‡ã€‚æˆ‘ä»¬é€šè¿‡åœ¨Activityçš„onCreate()æ–¹æ³•ä¸­è°ƒç”¨getApplicationComponent()ï¼Œå®Œæˆè¿™äº›æ“ä½œã€‚getApplicationComponent()æ–¹æ³•æ”¾åœ¨è¿™å„¿æ˜¯ä¸ºäº†å¤ç”¨æ€§ï¼Œå®ƒçš„ä¸»è¦ä½œç”¨æ˜¯ä¸ºäº†è·å–å®ä¾‹åŒ–çš„ApplicationComponentå¯¹è±¡ã€‚
 
-Let¡¯s do the same with a presenter in a Fragment. In this case the approach is a bit different since we are using a per-activity scoped component. So our UserComponent which will inject UserDetailsFragment will reside in our UserDetailsActivity:
+Letâ€™s do the same with a presenter in a Fragment. In this case the approach is a bit different since we are using a per-activity scoped component. So our UserComponent which will inject UserDetailsFragment will reside in our UserDetailsActivity:
 
-ÔÚFragmentµÄpresenterÖĞÎÒÃÇÒ²×öÁËÍ¬ÑùµÄÊÂÇé£¬Õâ¶ùµÄ»ñÈ¡·½·¨ÓĞÒ»µã²»Ò»Ñù£¬ÒòÎªÎÊÎÒÃÇÊ¹ÓÃµÄÊÇper-activity·¶Î§ÏŞ¶¨µÄcomponent¡£ËùÒÔÎÒÃÇ×¢Èëµ½UserDetailsFragmentÖĞµÄUserComponentÆäÊµÊÇ×¤ÁôÔÚUserDetailsActivityÖĞµÄ¡£
+åœ¨Fragmentçš„presenterä¸­æˆ‘ä»¬ä¹Ÿåšäº†åŒæ ·çš„äº‹æƒ…ï¼Œè¿™å„¿çš„è·å–æ–¹æ³•æœ‰ä¸€ç‚¹ä¸ä¸€æ ·ï¼Œå› ä¸ºé—®æˆ‘ä»¬ä½¿ç”¨çš„æ˜¯per-activityèŒƒå›´é™å®šçš„componentã€‚æ‰€ä»¥æˆ‘ä»¬æ³¨å…¥åˆ°UserDetailsFragmentä¸­çš„UserComponentå…¶å®æ˜¯é©»ç•™åœ¨UserDetailsActivityä¸­çš„ã€‚
 
 ```java
 private UserComponent userComponent;
 ```
 We have to initialize it this way in the onCreate() method of the activity:
-ÎÒÃÇ±ØĞëÔÚactivityµÄonCreate()·½·¨ÖĞÓÃÏÂÃæµÄ·½Ê½³õÊ¼»¯¡£
+æˆ‘ä»¬å¿…é¡»åœ¨activityçš„onCreate()æ–¹æ³•ä¸­ç”¨ä¸‹é¢çš„æ–¹å¼åˆå§‹åŒ–ã€‚
 ```java
 private void initializeInjector() {
   this.userComponent = DaggerUserComponent.builder()
@@ -378,9 +378,9 @@ private void initializeInjector() {
       .build();
 }
 ```
-As you can see when Dagger processes our annotations, creates implementations of our components and rename them adding a ¡°Dagger¡± prefix. Since this is a composed component, when constructing it, we must pass in all its dependencies (both components and modules). Now that our component is ready, we just make it accesible in order to satisfy the fragment dependencies:
+As you can see when Dagger processes our annotations, creates implementations of our components and rename them adding a â€œDaggerâ€ prefix. Since this is a composed component, when constructing it, we must pass in all its dependencies (both components and modules). Now that our component is ready, we just make it accesible in order to satisfy the fragment dependencies:
 
-Dagger»á´¦ÀíÎÒÃÇµÄ×¢½â£¬ÎªcomponentsÉú³ÉÊµÏÖ²¢ÖØÃüÃû¼ÓÉÏ¡°Dagger¡±Ç°×º¡£ÒòÎªÕâ¸öÊÇÒ»¸ö×éºÏµÄcomponent£¬ËùÒÔÔÚ¹¹½¨µÄÊ±ºò£¬ÎÒÃÇ±ØĞë°ÑËùÓĞµÄÒÀÀµµÄ´«½øÈ¥£¨componentsºÍmodules£©¡£ÏÖÔÚÎÒÃÇµÄcomponentÒÑ¾­×¼±¸ºÃÁË£¬½Ó×ÅÎªÁË¿ÉÒÔÂú×ãfragmentµÄÒÀÀµĞèÇó£¬ÎÒÃÇĞ´Ò»¸ö»ñÈ¡·½·¨£º
+Daggerä¼šå¤„ç†æˆ‘ä»¬çš„æ³¨è§£ï¼Œä¸ºcomponentsç”Ÿæˆå®ç°å¹¶é‡å‘½ååŠ ä¸Šâ€œDaggerâ€å‰ç¼€ã€‚å› ä¸ºè¿™ä¸ªæ˜¯ä¸€ä¸ªç»„åˆçš„componentï¼Œæ‰€ä»¥åœ¨æ„å»ºçš„æ—¶å€™ï¼Œæˆ‘ä»¬å¿…é¡»æŠŠæ‰€æœ‰çš„ä¾èµ–çš„ä¼ è¿›å»ï¼ˆcomponentså’Œmodulesï¼‰ã€‚ç°åœ¨æˆ‘ä»¬çš„componentå·²ç»å‡†å¤‡å¥½äº†ï¼Œæ¥ç€ä¸ºäº†å¯ä»¥æ»¡è¶³fragmentçš„ä¾èµ–éœ€æ±‚ï¼Œæˆ‘ä»¬å†™ä¸€ä¸ªè·å–æ–¹æ³•ï¼š
 
 ```java
 @Override public UserComponent getComponent() {
@@ -389,7 +389,7 @@ Dagger»á´¦ÀíÎÒÃÇµÄ×¢½â£¬ÎªcomponentsÉú³ÉÊµÏÖ²¢ÖØÃüÃû¼ÓÉÏ¡°Dagger¡±Ç°×º¡£ÒòÎªÕâ¸ö
 ```
 We bind UserDetailsFragment dependencies by getting the created component and calling the inject() method passing the Fragment as a parameter:
 
-ÎÒÃÇÏÖÔÚ¿ÉÒÔÀûÓÃget·½·¨»ñÈ¡´´½¨µÄcomponent£¬È»ºóµ÷ÓÃinject()·½·¨½«Fragment×÷Îª²ÎÊı´«½øÈ¥£¬ÕâÑù¾ÍÍê³ÉÁË°ó¶¨UserDetailsFragmentÒÀÀµ¡£
+æˆ‘ä»¬ç°åœ¨å¯ä»¥åˆ©ç”¨getæ–¹æ³•è·å–åˆ›å»ºçš„componentï¼Œç„¶åè°ƒç”¨inject()æ–¹æ³•å°†Fragmentä½œä¸ºå‚æ•°ä¼ è¿›å»ï¼Œè¿™æ ·å°±å®Œæˆäº†ç»‘å®šUserDetailsFragmentä¾èµ–ã€‚
 
 ```java
 @Override public void onActivityCreated(Bundle savedInstanceState) {
@@ -400,7 +400,7 @@ We bind UserDetailsFragment dependencies by getting the created component and ca
 
 For the complete example, check the repository on github. There is also some refactor happening and I can tell you that one of the main ideas (taken from the official examples) is to have an interface as a contract which will be implemented by every class that has a component. Something like this:
 
-[ÏëÒª²é¿´ÍêÕûµÄÀı×Ó£¬¿ÉÒÔÈ¥ÎÒµÄgithub](https://github.com/android10/Android-CleanArchitecture).ÕâÀïÃæÓĞÒ»Ğ©µØ·½ÖØ¹¹ÁËµÄ£¬ÎÒ¿ÉÒÔ¸æËßÄãÒ»¸öÖØÒªµÄË¼Ïë£¨À´×Ô¹Ù·½µÄÀı×Ó£©ÊÇ£º
+[æƒ³è¦æŸ¥çœ‹å®Œæ•´çš„ä¾‹å­ï¼Œå¯ä»¥å»æˆ‘çš„github](https://github.com/android10/Android-CleanArchitecture).è¿™é‡Œé¢æœ‰ä¸€äº›åœ°æ–¹é‡æ„äº†çš„ï¼Œæˆ‘å¯ä»¥å‘Šè¯‰ä½ ä¸€ä¸ªé‡è¦çš„æ€æƒ³ï¼ˆæ¥è‡ªå®˜æ–¹çš„ä¾‹å­ï¼‰æ˜¯ï¼š
 
 ```java
 public interface HasComponent<C> {
@@ -409,7 +409,7 @@ public interface HasComponent<C> {
 ```
 
 Thus, the client (for example a Fragment) can get the component (from the Activity) and use it:
-Òò´Ë£¬¿Í»§¶Ë£¨ÀıÈçfragment£©¿ÉÒÔ»ñÈ¡²¢ÇÒÊ¹ÓÃcomponent£¨À´×Ôactivity£©£º
+å› æ­¤ï¼Œå®¢æˆ·ç«¯ï¼ˆä¾‹å¦‚fragmentï¼‰å¯ä»¥è·å–å¹¶ä¸”ä½¿ç”¨componentï¼ˆæ¥è‡ªactivityï¼‰ï¼š
 ```java
 @SuppressWarnings("unchecked")
 protected <C> C getComponent(Class<C> componentType) {
@@ -417,13 +417,13 @@ protected <C> C getComponent(Class<C> componentType) {
 }
 ```
 The use of generics here makes mandatory to do the casting but at least is gonna fail fast whether the client cannot get a component to use. Just ping me if you have any thoughts/ideas on how to solve this in a better way.
-Õâ¶ùÊ¹ÓÃÁËÇ¿ÖÆ×ª»»£¬²»ÂÛÕâ¸ö¿Í»§¶Ë²»ÄÜ»ñÈ¡µ½ÄÜÓÃµÄcomponent£¬µ«ÊÇÖÁÉÙºÜ¿ì¾Í»áÊ§°Ü¡£Èç¹ûÄãÓĞÈÎºÎÏë·¨ÄÜ¹»¸üºÃµØ½â¾öÕâ¸öÎÊÌâ£¬Çë¸æËßÎÒ¡£
+è¿™å„¿ä½¿ç”¨äº†å¼ºåˆ¶è½¬æ¢ï¼Œä¸è®ºè¿™ä¸ªå®¢æˆ·ç«¯ä¸èƒ½è·å–åˆ°èƒ½ç”¨çš„componentï¼Œä½†æ˜¯è‡³å°‘å¾ˆå¿«å°±ä¼šå¤±è´¥ã€‚å¦‚æœä½ æœ‰ä»»ä½•æƒ³æ³•èƒ½å¤Ÿæ›´å¥½åœ°è§£å†³è¿™ä¸ªé—®é¢˜ï¼Œè¯·å‘Šè¯‰æˆ‘ã€‚
 
 Dagger 2 code generation
-After having a taste of Dagger¡¯s main features, let¡¯s see how does its job under the hood. To illustrate this, we are gonna take again the Navigator class and see how it is created and injected.
-First let¡¯s have a look at our DaggerApplicationComponent which is an implementation of our ApplicationComponent:
-#Dagger2Éú³ÉµÄ´úÂë
-ÔÚÁË½âDaggerµÄÖ÷ÒªÌØÕ÷Ö®ºó£¬ÎÒÃÇÔÙÀ´¿´¿´ÄÚ²¿¹¹Ôì¡£ÎªÁË¾ÙÀıËµÃ÷£¬ÎÒÃÇ»¹ÊÇÓÃNavigatorÀà£¬¿´¿´ËüÊÇÈçºÎ´´½¨ºÍ×¢ÈëµÄ¡£Ê×ÏÈÎÒÃÇ¿´Ò»ÏÂÎÒÃÇµÄDaggerApplicationComponent¡£
+After having a taste of Daggerâ€™s main features, letâ€™s see how does its job under the hood. To illustrate this, we are gonna take again the Navigator class and see how it is created and injected.
+First letâ€™s have a look at our DaggerApplicationComponent which is an implementation of our ApplicationComponent:
+#Dagger2ç”Ÿæˆçš„ä»£ç 
+åœ¨äº†è§£Daggerçš„ä¸»è¦ç‰¹å¾ä¹‹åï¼Œæˆ‘ä»¬å†æ¥çœ‹çœ‹å†…éƒ¨æ„é€ ã€‚ä¸ºäº†ä¸¾ä¾‹è¯´æ˜ï¼Œæˆ‘ä»¬è¿˜æ˜¯ç”¨Navigatorç±»ï¼Œçœ‹çœ‹å®ƒæ˜¯å¦‚ä½•åˆ›å»ºå’Œæ³¨å…¥çš„ã€‚é¦–å…ˆæˆ‘ä»¬çœ‹ä¸€ä¸‹æˆ‘ä»¬çš„DaggerApplicationComponentã€‚
 ```java
 @Generated("dagger.internal.codegen.ComponentProcessor")
 public final class DaggerApplicationComponent implements ApplicationComponent {
@@ -473,7 +473,7 @@ public final class DaggerApplicationComponent implements ApplicationComponent {
 }
 ```
 Two important things: the first one is that since we are gonna inject our activity, we have a members injector (which Dagger translates to BaseActivity_MembersInjector):
-ÓĞÁ½¸öÖØµãĞèÒª×¢Òâ¡£µÚÒ»¸ö£ºÓÉÓÚÎÒÃÇÒª½«ÒÀÀµ×¢Èëµ½activityÖĞ£¬ËùÒÔ»áµÃµ½Ò»¸ö×¢ÈëÕâ¸ö±È³ÉÔ±µÄ×¢ÈëÆ÷£¨ÓÉDaggerÉú³ÉµÄBaseActivity_MembersInjector£©£º
+æœ‰ä¸¤ä¸ªé‡ç‚¹éœ€è¦æ³¨æ„ã€‚ç¬¬ä¸€ä¸ªï¼šç”±äºæˆ‘ä»¬è¦å°†ä¾èµ–æ³¨å…¥åˆ°activityä¸­ï¼Œæ‰€ä»¥ä¼šå¾—åˆ°ä¸€ä¸ªæ³¨å…¥è¿™ä¸ªæ¯”æˆå‘˜çš„æ³¨å…¥å™¨ï¼ˆç”±Daggerç”Ÿæˆçš„BaseActivity_MembersInjectorï¼‰ï¼š
 ```java
 @Generated("dagger.internal.codegen.ComponentProcessor")
 public final class BaseActivity_MembersInjector implements MembersInjector<BaseActivity> {
@@ -502,14 +502,14 @@ public final class BaseActivity_MembersInjector implements MembersInjector<BaseA
 }
 ```
 Basically, this guy contains providers for all the injectable members of our Activity so when we call inject() will take the accessible fields and bind the dependencies.
-Õâ¸ö×¢ÈëÆ÷Ò»°ã¶¼»áÎªËùÓĞactivityµÄ×¢Èë³ÉÔ±Ìá¹©ÒÀÀµ£¬Ö»ÒªÎÒÃÇÒ»µ÷ÓÃinject()·½·¨£¬¾Í¿ÉÒÔ»ñÈ¡ĞèÒªµÄ×Ö¶ÎºÍÒÀÀµ¡£
+è¿™ä¸ªæ³¨å…¥å™¨ä¸€èˆ¬éƒ½ä¼šä¸ºæ‰€æœ‰activityçš„æ³¨å…¥æˆå‘˜æä¾›ä¾èµ–ï¼Œåªè¦æˆ‘ä»¬ä¸€è°ƒç”¨inject()æ–¹æ³•ï¼Œå°±å¯ä»¥è·å–éœ€è¦çš„å­—æ®µå’Œä¾èµ–ã€‚
 
 The second thing, regarding our DaggerApplicationComponent, is that we have a Provider<Navigator> which is no more than interface which provides instances of our class and it is constructed by a ScopedProvider (in the initialize() method) which will memorize the scope of the created class.
 
-µÚ¶ş¸öÖØµã£º¹ØÓÚÎÒÃÇµÄDaggerApplicationComponentÀà£¬ÎÒÃÇÓĞÒ»¸öProvider£¬Ëü²»½ö½öÊÇÒ»¸öÌá¹©ÊµÀıµÄ½Ó¿Ú£¬Ëü»¹ÊÇ±»ScopedProvider¹¹Ôì³öÀ´µÄ£¬¿ÉÒÔ¼ÇÂ¼´´½¨ÊµÀıµÄ·¶Î§¡£
+ç¬¬äºŒä¸ªé‡ç‚¹ï¼šå…³äºæˆ‘ä»¬çš„DaggerApplicationComponentç±»ï¼Œæˆ‘ä»¬æœ‰ä¸€ä¸ªProviderï¼Œå®ƒä¸ä»…ä»…æ˜¯ä¸€ä¸ªæä¾›å®ä¾‹çš„æ¥å£ï¼Œå®ƒè¿˜æ˜¯è¢«ScopedProvideræ„é€ å‡ºæ¥çš„ï¼Œå¯ä»¥è®°å½•åˆ›å»ºå®ä¾‹çš„èŒƒå›´ã€‚
 
 Dagger also generated a Factory called ApplicationModule_ProvideNavigatorFactory for our Navigator which is passed as a parameter to the mentioned ScopedProvider in order to get scoped instances of our class.
-Dagger»¹»áÎªÎÒÃÇµÄNavigatorÀàÉú³ÉÒ»¸öÃû½ĞApplicationModule_ProvideNavigatorFactoryµÄ¹¤³§£¬Õâ¸ö¹¤³§¿ÉÒÔ´«µİÉÏÃæÌáµ½µÄ·¶Î§²ÎÊıÈ»ºóµÃµ½Õâ¸ö·¶Î§ÄÚµÄÀàµÄÊµÀı¡£
+Daggerè¿˜ä¼šä¸ºæˆ‘ä»¬çš„Navigatorç±»ç”Ÿæˆä¸€ä¸ªåå«ApplicationModule_ProvideNavigatorFactoryçš„å·¥å‚ï¼Œè¿™ä¸ªå·¥å‚å¯ä»¥ä¼ é€’ä¸Šé¢æåˆ°çš„èŒƒå›´å‚æ•°ç„¶åå¾—åˆ°è¿™ä¸ªèŒƒå›´å†…çš„ç±»çš„å®ä¾‹ã€‚
 
 ```java
 @Generated("dagger.internal.codegen.ComponentProcessor")
@@ -539,14 +539,14 @@ This class is actually very simple, it delegates to our ApplicationModule (which
 
 In conclusion, this really looks like hand-written code and it is very easy to understand which makes it easy to debug. There is still much to explore here and a good idea is start debugging and see how Dagger deal with dependency binding.
 
-Õâ¸öÀà·Ç³£¼òµ¥£¬Ëü´ú±íÎÒÃÇµÄApplicationModule£¨°üº¬@Provide·½·¨£©´´½¨ÁËNavigatorÀà¡£
-×ÜÖ®£¬ÉÏÃæµÄ´úÂë¿´ÆğÀ´¾ÍÏñÊÇÊÖÇÃ³öÀ´µÄ£¬¶øÇÒ·Ç³£ºÃÀí½â£¬±ãÓÚµ÷ÊÔ¡£ÆäÓà»¹ÓĞºÜ¶à¿ÉÒÔÈ¥Ì½Ë÷£¬ÄãÃÇ¿ÉÒÔÍ¨¹ıµ÷ÊÔÈ¥¿´¿´DaggerÈçºÎÍê³ÉÒÀÀµ°ó¶¨µÄ¡£
+è¿™ä¸ªç±»éå¸¸ç®€å•ï¼Œå®ƒä»£è¡¨æˆ‘ä»¬çš„ApplicationModuleï¼ˆåŒ…å«@Provideæ–¹æ³•ï¼‰åˆ›å»ºäº†Navigatorç±»ã€‚
+æ€»ä¹‹ï¼Œä¸Šé¢çš„ä»£ç çœ‹èµ·æ¥å°±åƒæ˜¯æ‰‹æ•²å‡ºæ¥çš„ï¼Œè€Œä¸”éå¸¸å¥½ç†è§£ï¼Œä¾¿äºè°ƒè¯•ã€‚å…¶ä½™è¿˜æœ‰å¾ˆå¤šå¯ä»¥å»æ¢ç´¢ï¼Œä½ ä»¬å¯ä»¥é€šè¿‡è°ƒè¯•å»çœ‹çœ‹Daggerå¦‚ä½•å®Œæˆä¾èµ–ç»‘å®šçš„ã€‚
 ![pic3](http://fernandocejas.com/wp-content/uploads/2015/04/debugging_dagger.png)
 
-#Ô´Âë:
-Àı×Ó: https://github.com/android10/Android-CleanArchitecture
-#Ïà¹ØÎÄÕÂ:
-[Architecting Android¡­The clean way?](http://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/)
+#æºç :
+ä¾‹å­: https://github.com/android10/Android-CleanArchitecture
+#ç›¸å…³æ–‡ç« :
+[Architecting Androidâ€¦The clean way?](http://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/)
 [Dagger 2, A New Type of Dependency Injection.](https://www.youtube.com/watch?v=oK_XtfXPkqw)
 [Dependency Injection with Dagger 2.](https://speakerdeck.com/jakewharton/dependency-injection-with-dagger-2-devoxx-2014)
 [Dagger 2 has Components.](https://publicobject.com/2014/11/15/dagger-2-has-components/)
