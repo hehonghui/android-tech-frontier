@@ -20,13 +20,13 @@ Android提供了几个ViewGroups如LinearLayout, RelativeLayout, FrameLayout来�
 
 The above layout is pretty common in the Facebook app. A profile photo, a bunch of Views stacked vertically to its right, and an optional view on the far right. Using vanilla ViewGroups, this layout can be achieved using a LinearLayout of *LinearLayouts or a RelativeLayout*. Let’s take a look at the measure calls happening for these two layouts.
 
-上面的这种布局在Facebook app中是非常常见的。有头像、其它的view垂直摆在它的右侧、还有一个可选操作的view在最右边。使用默认的ViewGroups也可以实现这种布局-LinearLayout或者RelativeLayout。我们看一下当分别使用这两种布局的情况下在measure时会发生什么。
+上面的这种布局在Facebook app中是非常常见的。有头像、其它的view垂直摆在它的右侧、还有一个可选操作的view在最右边。这个布局可以通过使用LinearLayout嵌套或者一个RelativeLayout这样的普通ViewGroup实现。我们看一下当分别使用这两种布局的情况下在measure时会发生什么。
 
 Here’s an example LinearLayout of LinearLayout file.
 
 使用LinearLayout完成布局的示例
 
-```
+```java
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -84,7 +84,7 @@ Does a RelativeLayout work better here?
 
 使用RelativeLayout效果会不会好一些?
 
-```
+```java
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -143,7 +143,7 @@ How can we cut down the measure pass happening on the child Views? Do creating a
 怎么样才能免去对子view的测量传值呢？自定义一个ViewGroup是不是会有帮助？让我们分析一下这个布局。Title 和 Subtitle 总是在ProfilePhoto的左侧在Menu按钮的右侧。如果我们手工解决这个问题，需要计算出ProfilePhoto和Menu按钮的尺寸，并且使用剩下的尺寸再来计算Title 和 Subtitle。这时对每个view只进行一次测量。我们叫这种布局为ProfilePhotoLayout。
 
 
-```
+```java
 public class ProfilePhotoLayout extends ViewGroup {
  
     private ProfilePhoto mProfilePhoto;
