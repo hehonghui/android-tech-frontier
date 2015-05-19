@@ -68,7 +68,7 @@ Android提供了几个ViewGroups如LinearLayout, RelativeLayout, FrameLayout来�
 ```
 
 
-ProfilePhoto和Menu只被测量了一次，因为它们有明确的宽高值。垂直的LinearLayout被测量了两次。第一次的时候，父LinearLayout要求以UNSPECIFIED spec的方式来测量。导致了垂直的LinearLayout也以这种方式测量它的子view.此时它在它们返回值的基础上以EXACTLY spec的方式测量它的子view，但是它还没有结束。一旦在测量ProfilePhoto和Menu之后，父布局知道可用于垂直的LinearLayout的尺寸大小。这就导致了第二次以AT_MOST height对Title and Subtitle的测量。显然，每一个TextView (Title and Subtitle)被测量3次。第二次传值创建或者废弃Layouts，这些操作是昂贵的。如果我们想要更好的使用ViewGroup，首要的工作就是免去对TextViews的测量传值工作。
+ProfilePhoto和Menu只被测量了一次，因为它们有明确的宽高值。垂直的LinearLayout被测量了两次。第一次的时候，父LinearLayout要求以UNSPECIFIED spec的方式来测量。导致了垂直的LinearLayout也以这种方式测量它的子view.此时它在它们返回值的基础上以EXACTLY spec的方式测量它的子view，但是它还没有结束。一旦在测量ProfilePhoto和Menu之后，父布局知道可用于垂直的LinearLayout的尺寸大小。以AT_MOST height对Title 和 Subtitle测量之后导致了第二次传值。显然，每一个TextView (Title and Subtitle)被测量3次。第二次传值创建或者废弃Layouts，这些操作是昂贵的。如果想ViewGroup发挥更好的性能，首要的工作就是免去对TextViews的测量传值工作。
 
 
 使用RelativeLayout效果会不会好一些?
@@ -121,10 +121,10 @@ ProfilePhoto和Menu只被测量了一次，因为它们有明确的宽高值。�
 ```
 
 
-正如先前提到的，RelativeLayout的测量是solving constraints(分解约束。译者认为就是一层一层的测量)，上面的布局中ProfilePhoto和Menu没有依赖其它的参照物(siblings)，因此它们先被测量(with an AT_MOST height).这时Title(2个约束)和Subtitle(3个约束)才会被测量。此时所有view明确了自己想要的尺寸大小。RelativeLayout使用这些信息第二次传值给Title, Subtitle, Menu和ProfilePhoto。再重复一遍，每个view被测量了两次，因此这种方案稍佳。如果你和上面的LinearLayout例子相比较一下，最后用于测量所有leaf Views所使用的MeasureSpec是相同的-因此最后的输出结果是一样的。
+正如先前提到的，RelativeLayout是通过solving constraints(分解约束。译者认为就是一层一层的测量)进行测量，上面的布局中ProfilePhoto和Menu没有依赖其它的参照物(siblings)，因此它们先被测量(with an AT_MOST height).这时Title(2个约束)和Subtitle(3个约束)才会被测量。此时所有view明确了自己想要的尺寸大小。RelativeLayout使用这些信息第二次传值给Title, Subtitle, Menu和ProfilePhoto。再重复一遍，每个view被测量了两次，因此这种方案稍佳。如果你和上面的LinearLayout例子相比较一下，最后用于测量所有leaf Views所使用的MeasureSpec是相同的-因此最后的输出结果是一样的。
 
 
-怎么样才能免去对子view的测量传值呢？自定义一个ViewGroup是不是会有帮助？让我们分析一下这个布局。Title 和 Subtitle 总是在ProfilePhoto的左侧在Menu按钮的右侧。如果我们手工解决这个问题，需要计算出ProfilePhoto和Menu按钮的尺寸，并且使用剩下的尺寸再来计算Title 和 Subtitle。这时对每个view只进行一次测量。我们叫这种布局为ProfilePhotoLayout。
+怎么样才能免去对子view的测量传值呢？自定义一个ViewGroup是不是会有帮助？让我们分析一下这个布局。Title 和 Subtitle 总是在ProfilePhoto的左侧在Menu按钮的右侧。如果我们手工解决这个问题，需要计算出ProfilePhoto和Menu按钮的尺寸，并且使用剩下的尺寸再来计算Title 和 Subtitle。这时对每个view只进行一次测量传值。我们叫这种布局为ProfilePhotoLayout。
 
 
 ```java
@@ -228,7 +228,7 @@ public class ProfilePhotoLayout extends ViewGroup {
 }
 ```
 
-我们来分析一下代码。我们开始就知道有什么约束-每一边都要有边距(padding on all sides).也可以从另一角度来看约束条件那就是现在使用的dimension提供的width/height的值。Android提供了一个帮助方法-measureChildWithMargins()用于测量ViewGroup内的子view.因此我们复写这个方法自己来管理这些约束条件。从测量ProfilePhoto开始，测量完成后更新一下constraints。同样的处理再搞一下menu按钮。
+我们来分析一下代码。我们以了解有什么约束-每一边都要有边距(padding on all sides)为开始进行思考.也可以从另一角度来看约束条件那就是现在使用的dimension提供的width/height的值。Android提供了一个帮助方法-measureChildWithMargins()用于测量ViewGroup内的子view.然而它总是添加padding作为约束条件的一部分。因此我们复写这个方法自己来管理这些约束条件。从测量ProfilePhoto开始，测量完成后更新一下constraints。同样的处理再搞一下menu按钮。
 剩下的宽度可用于Title 和 Subtitle。Android还提供了另外一个帮助方法-makeMeasureSpec()，用于构造MeasureSpec,传入相应的size和mode返回一个MeasureSpec。接下来我们传入Title 和 Subtitle可用的width 和 height及相应的MeasureSpecs来测量Title 和 Subtitle。最后更新一下ViewGroup的尺寸。在这一步可以明确每个view都只被测量一次。
 
 
