@@ -6,8 +6,8 @@
 * 原文作者 : [Sriram Ramani](https://sriramramani.wordpress.com/)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [objectlife](https://github.com/objectlife) 
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  未完成 / 校对中 / 完成 
+* 校对者: [xianjiajun](https://github.com/xianjiajun)  
+* 状态 : 完成 
 
 Android提供了几个ViewGroups如LinearLayout, RelativeLayout, FrameLayout来固定child Views的位置。在这些普通的ViewGroups中有多种使用选择。
 例如：LinearLayout几乎支持HTML Flexbox的所有特性(除了包装)。在view之间你可以选择是否显示分割线(dividers),并且基于最大的child测量所有的children。RelativeLayout是一种限制性的解决方案。这些layouts都已经足够好了，但是当你的UI非常复杂的时候它们还能很好的解决么？
@@ -228,8 +228,8 @@ public class ProfilePhotoLayout extends ViewGroup {
 }
 ```
 
-我们来分析一下代码。我们以了解有什么约束-每一边都要有边距(padding on all sides)为开始进行思考.也可以从另一角度来看约束条件那就是现在使用的dimension提供的width/height的值。Android提供了一个帮助方法-measureChildWithMargins()用于测量ViewGroup内的子view.然而它总是添加padding作为约束条件的一部分。因此我们复写这个方法自己来管理这些约束条件。从测量ProfilePhoto开始，测量完成后更新一下constraints。同样的处理再搞一下menu按钮。
-剩下的宽度可用于Title 和 Subtitle。Android还提供了另外一个帮助方法-makeMeasureSpec()，用于构造MeasureSpec,传入相应的size和mode返回一个MeasureSpec。接下来我们传入Title 和 Subtitle可用的width 和 height及相应的MeasureSpecs来测量Title 和 Subtitle。最后更新一下ViewGroup的尺寸。在这一步可以明确每个view都只被测量一次。
+我们来分析一下代码。我们从已知的约束条件开始 — 所有边的内边距，另外还需要考虑的约束是使用固定值的控件的高和宽。Android提供了一个帮助方法-measureChildWithMargins()用于测量ViewGroup内的子view.然而它总是添加padding作为约束条件的一部分。因此我们复写这个方法自己来管理这些约束条件。从测量ProfilePhoto开始，测量完成后更新一下constraints。对menu按钮的测量亦是如此。
+现在还剩下Title和Subtitle的宽度没有测量。Android还提供了另外一个帮助方法-makeMeasureSpec()，用于构造MeasureSpec,传入相应的size和mode返回一个MeasureSpec。接下来我们传入Title 和 Subtitle可用的width 和 height及相应的MeasureSpecs来测量Title 和 Subtitle。最后更新一下ViewGroup的尺寸。在这一步可以明确每个view都只被测量一次。
 
 
 ```
