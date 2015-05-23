@@ -1,5 +1,11 @@
 Code Review最佳实践
 ====
+> * 原文链接 : [Code Review Best Practices](http://kevinlondon.com/2015/05/05/code-review-best-practices.html)
+* 原文作者 : [Kevin London](http://kevinlondon.com/about/)
+* [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
+* 译者 : [ayyb1988](https://github.com/ayyb1988) 
+* 校对者: []()  
+* 状态 :  校验中
 
 At Wiredrive, we do a fair amount of code reviews. I had never done one before I started here so it was a new experience for me. I think it’s a good idea to crystalize some of the things I look for when I’m doing code reviews and talk about the best way I’ve found to approach them.
 
