@@ -7,10 +7,8 @@ MVP在Android平台上的应用
 * 译者 : [MiJack](https://github.com/MiJack)  
 * 校对者: 
 * 状态 : 翻译完成
-<<<<<<< HEAD
 
 =======
->>>>>>> 9eaa51819223f91b70224d27ee09684b3bcb47d3
 
 
 
