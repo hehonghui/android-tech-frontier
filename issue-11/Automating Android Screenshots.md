@@ -5,8 +5,8 @@ Android 自动截屏工具
 * 原文作者 : [Swan Htet Aung](https://medium.com/@swanhtet1992)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [sundroid](https://github.com/sundroid) 
-* 校对者: [待定](https://github.com/待定)  
-* 状态 :  待校对
+* 校对者: [yinna317](https://github.com/yinna317 )  
+* 状态 :  已校对
 
 Taking screenshots for Android apps has become super easy with the release of AndroidTool for Mac. By the way, kudos to the developer! It is such an awesome tool.
 
@@ -18,7 +18,7 @@ For simple apps, AndroidTool is more than enough. However, I needed to automate 
 
 While reading Automating Android development by Enrique López Mañas yesterday, I realised that I have already been doing 4 out of 5 topics discussed in the post. The only thing I was not doing is “Testing”. I was allergic to Tests. However, that post inspired me to try writing tests again. 😈 So, I gave it a try this morning. After a few hours of writing tests, I was accidentally implementing this working solution to automate taking screenshots.
 
-然而当我昨天阅读了[Enrique López Mañas yesterday](https://medium.com/@enriquelopezmanas)的[Automating Android development](https://medium.com/google-developer-experts/automating-android-development-6daca3a98396)文章，我意识到我已经写了4/5的专题讨论。唯一我还没有做的就是测试。我不喜欢测试，然而，那篇文章需要我去尝试测试。😈 所以，我今天早上尝试了一下。经过几个小时的写做关于测试的部分，我意外的找到了自动化截图的解决方案。
+然而当我昨天阅读了[Enrique López Mañas yesterday](https://medium.com/@enriquelopezmanas)的[Automating Android development](https://medium.com/google-developer-experts/automating-android-development-6daca3a98396)文章，我意识到，他在博客中讨论的话题我已经完成了4/5。唯一我还没有做的就是测试。我不喜欢测试，然而，那篇文章激励着我去尝试写测试代码。。😈 所以，我今天早上尝试了一下。经过几个小时编写测试代码，我意外的找到了自动化截图的解决方案。
 
 In this article, I will talk about how to automatically take screenshots (by writing ui tests) and publish them to play store.
 
@@ -30,7 +30,7 @@ In this article, I will talk about how to automatically take screenshots (by wri
 
 ‘uiautomatorviewer’ is a very powerful tool to inspect views. I used to inspect how other people did awesome layouts tricks by using this tool. It is under `android-sdk/tools` directory. You will get something like this if you run it.
 
-‘uiautomatorviewer’ 是一个非常好的检测view的工具。当发现别人有好的布局时，我都会通过‘uiautomatorviewer’来检测这个布局里面的实现。这个工具在android-sdk/tools`文件夹下面。如果你运行这个工具将会获得这样的东西。
+‘uiautomatorviewer’是一个非常强大的工具来查看views，当发现极好的布局时，我通常会使用‘uiautomatorviewer’来查看，如果你运行这个工具将会获得下图所示。
 
 
 
@@ -40,7 +40,7 @@ In this article, I will talk about how to automatically take screenshots (by wri
 
 You can access UI objects through this tool. Here I can inspect id of the TextView inside the card. This technique will become useful later.
 
-通过这个工具你可以看到UI对象，在这里，我可以检测TextView的id，这个技术将会在下面变得有用。
+通过这个工具你可以看到UI对象，在这里，我可以检测TextView的id，这个技巧在稍后会变得非常有用。。
 
 ![](https://d262ilb51hltx0.cloudfront.net/max/2000/1*9yNBO3PwetoOv7EWEChsag.png)
 
@@ -87,7 +87,7 @@ Make desired UI interaction using UiSelector, UiScrollable, and UiObject.
 
 Give some time for async tasks, that may be running behind the scene, by using `SystemClock.sleep`. So that we can avoid taking blank screenshots and receiving `UiObject not found` exception for scrollview items.
 
-给异步任务的执行一些时间，通过`SystemClock.sleep`截屏的过程会在后台执行。所以我们可以避免发生截屏获取的为空，也避免发生`UiObject not found`异常。
+使用SystemClock.sleep方法，为异步任务的执行腾出一些时间（异步任务的执行可能在截屏之后），以此来避免发生截屏获取的为空异常和UiObject not found异常。
 
 
 Finally we take screenshot and store it at a specific place.
