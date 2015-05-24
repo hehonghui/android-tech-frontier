@@ -93,4 +93,4 @@
 
 ![](http://www.hidroh.com/assets/img/parallel-upstream-1.png)
 
-
+所以从今天开始，让我们一起回收这些被淘汰的设备，让它为我们贡献最后一丝价值吧！
