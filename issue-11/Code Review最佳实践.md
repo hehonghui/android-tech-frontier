@@ -4,38 +4,13 @@ Code Review最佳实践
 * 原文作者 : [Kevin London](http://kevinlondon.com/about/)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [ayyb1988](https://github.com/ayyb1988) 
-* 校对者: []()  
-* 状态 :  校验中
+* 校对者: [chaossss](https://github.com/chaossss)  
+* 状态 :  完成
 
-At Wiredrive, we do a fair amount of code reviews. I had never done one before I started here so it was a new experience for me. I think it’s a good idea to crystalize some of the things I look for when I’m doing code reviews and talk about the best way I’ve found to approach them.
-
-Briefly, a code review is a discussion between two or more developers about changes to the code to address an issue. Many articles talk about the benefits of code reviews, including knowledge sharing, code quality, and developer growth. I’ve found fewer that talk about what to look for in a review and how to discuss code under review.
 
 在Wiredrive上，我们做了很多的Code Review。在此之前我从来没有做过，这对于我来说是一个全新的体验，下面来总结一下在Code Review中做的事情以及说说谈论Code Review的最好方式。
 
 简单的说，Code Review是开发者之间讨论修改代码来解决问题的过程。很多文章谈论了Code Review的诸多好处，包括知识共享，代码的质量，开发者的成长，却很少讨论审查什么、如何审查。
-
-###What I look for during a review
-
-####Architecture / Design
-
-* [Single Responsibility Principle:](http://en.wikipedia.org/wiki/Single_responsibility_principle) The idea that a class should have one-and-only-one responsibility. Harder than one might expect. I usually apply this to methods too. If we have to use “and” to finish describing what a method is capable of doing, it might be at the wrong level of abstraction.
-
-* [Open/Closed Principle:](http://en.wikipedia.org/wiki/Open/closed_principle) If the language is object-oriented, are the objects open for extension but closed for modification? What happens if we need to add another one of x?
-
-
-
-* Code duplication: I go by the [“three strikes”](http://c2.com/cgi/wiki?ThreeStrikesAndYouRefactor) rule. If code is copied once, it’s usually okay although I don’t like it. If it’s copied again, it should be refactored so that the common functionality is split out.
-
-* [Squint-test offenses:](http://robertheaton.com/2014/06/20/code-review-without-your-eyes/) If I squint my eyes, does the shape of this code look identical to other shapes? Are there patterns that might indicate other problems in the code’s structure?
-
-* Code left in a better state than found: If I’m changing an area of the code that’s messy, it’s tempting to add in a few lines and leave. I recommend going one step further and leaving the code nicer than it was found.
-* Potential bugs: Are there off-by-one errors? Will the loops terminate in the way we expect? Will they terminate at all?
-
-* Error handling: Are errors handled gracefully and explicitly where necessary? Have custom errors been added? If so, are they useful?
-
-* Efficiency: If there’s an algorithm in the code, is it using an efficient implementation? For example, iterating over a list of keys in a dictionary is an inefficient way to locate a desired value.
-
 
 ###审查的内容
 
@@ -58,29 +33,6 @@ Briefly, a code review is a discussion between two or more developers about chan
 * 效率： 如果代码中包含算法，这种算法是否是高效？ 例如，在字典中使用迭代，遍历一个期望的值，这是一种低效的方式。
 
 
-####Style
-
-* Method names: Naming things is one of the hard problems in computer science. If a method is named ==get_message_queue_name== and it is actually doing something completely different like sanitizing HTML from the input, then that’s an inaccurate method name. And probably a misleading function.
-
-* Variable names: ==foo== or ==bar== are probably not useful names for data structures. ==e== is similarly not useful when compared to ==exception==. Be as verbose as you need (depending on the language). Expressive variable names make it easier to understand code when we have to revisit it later.
-
-* Function length: My rule of thumb is that a function should be less than 20 or so lines. If I see a method above 50, I feel it’s best that it be cut into smaller pieces.
-
-* Class length: I think classes should be under about 300 lines total and ideally less than 100. It’s likely that large classes can be split into separate objects, which makes it easier to understand what the class is supposed to do.
-
-* File length: For Python files, I think around 1000 lines of code is about the most we should have in one file. Anything above that is a good sign that it should be split into smaller, more focused files. As the size of a file goes up, discoverability goes down.
-
-* Docstrings: For complex methods or those with longer lists of arguments, is there a docstring explaining what each of the arguments does, if it’s not obvious?
-
-
-
-* Commented code: Good idea to remove any commented out lines.
-
-* Number of method arguments: For the methods and functions, do they have 3 or fewer arguments? Greater than 3 is probably a sign that it could be grouped in a different way.
-
-* Readability: Is the code easy to understand? Do I have to pause frequently during the review to decipher it?
-
-
 ####代码风格
 * 方法名： 在计算机科学中，命名是一个难题。一个函数被命名为==get_message_queue_name==，但做的却是完全不同的事情，比如从输入内容中清除html，那么这是一个不准确的命名，并且可能会误导。
 
@@ -98,24 +50,9 @@ Briefly, a code review is a discussion between two or more developers about chan
 * 函数参数个数：不要太多， 一般不要超过3个。。
 * 可读性： 代码是否容易理解？在查看代码时要不断的停下来分析它？
 
-####Testing
-
-* Test coverage: I like to see tests for new features. Are the tests thoughtful? Do they cover the failure conditions? Are they easy to read? How fragile are they? How big are the tests? Are they slow?
-
-* Testing at the right level: When I review tests I’m also making sure that we’re testing them at the right level. In other words, are we as low a level as we need to be to check the expected functionality? Gary Bernhardt recommends a ratio of 95% unit tests, 5% integration tests. I find that particularly with Django projects, it’s easy to test at a high level by accident and create a slow test suite so it’s important to be vigilant.
-
-
 ####测试
 * 测试的范围：我喜欢测试新功能。测试是否全面？是否涵盖了故障的情况【比如：网络，信号等，译者注】？是否容易使用？是否稳定？大多的测试？性能的快慢？
 * 合乎规范的测试：当复查测试时，确保我们用适当的方式。换句话说，当我们在一个较低水平测试却要求期望的功能？Gary Bernhardt建议95％的单元测试，5％的集成测试。特别是在Django项目中，在较高的测试水平上，很容易发现意外bug，创建一个详细的测试用例，认真仔细也是很重要的。
-
-####Review your own code first
-Before submitting my code, I will often do a git add for the affected files / directories and then run a git diff --staged to examine the changes I have not yet committed. Usually I’m looking for things like:
-
-* Did I leave a comment or TODO in?
-* Does that variable name make sense?
-* …and anything else that I’ve brought up above.
-I want to make sure that I would pass my own code review first before I subject other people to it. It also stings less to get notes from yourself than from others :p
 
 ####审查代码
 在提交代码之前，我经常用git添加改变的文件/文件夹,然后通过git diff 来查看做了哪些修改。通常，我会关注如下几点：
@@ -124,17 +61,6 @@ I want to make sure that I would pass my own code review first before I subject 
 * ...等上面提到的
 
 和著名的橡皮鸭调试法（Rubber Duck Debugging）一样，每次提交前整体把自己的代码过一遍非常有帮助，尤其是看看有没有犯低级错误。
-
-####How to handle code reviews
-I find that the human parts of the code review offer as many challenges as reviewing the code. I’m still learning how to handle this part too. Here are some approaches that have worked for me when discussing code:
-
-* Ask questions: How does this method work? If this requirement changes, what else would have to change? How could we make this more maintainable?
-
-* Compliment / reinforce good practices: One of the most important parts of the code review is to reward developers for growth and effort. Few things feel better than getting praise from a peer. I try to offer as many positive comments as possible.
-
-* Discuss in person for more detailed points: On occasion, a recommended architectural change might be large enough that it’s easier to discuss it in person rather than in the comments. Similarly, if I’m discussing a point and it goes back and forth, I’ll often pick it up in person and finish out the discussion.
-
-* Explain reasoning: I find it’s best both to ask if there’s a better alternative and justify why I think it’s worth fixing. Sometimes it can feel like the changes suggested can seem nit-picky without context or explanation.
 
 
 ####如何进行Code Review
@@ -145,34 +71,10 @@ I find that the human parts of the code review offer as many challenges as revie
 * 当面讨论代替评论。 大部分情况下小组内的同事是坐在一起的，当面的 code review是非常有效的。
 * 说明理由 ：是否还有跟好的方式，证明为什么这样做是好的。
 
-####On mindset
-* As developers, we are responsible for making both working and maintainable code. It can be easy to defer the second part because of pressure to deliver working code. Refactoring does not change functionality by design, so don’t let suggested changes discourage you. Improving the maintainability of the code can be just as important as fixing the line of code that caused the bug.
-
-* In addition, please keep an open mind during code reviews. This is something I think everyone struggles with. I can get defensive in code reviews too, because it can feel personal when someone says code you wrote could be better.
-
-* If the reviewer makes a suggestion, and I don’t have a clear answer as to why the suggestion should not be implemented, I’ll usually make the change. If the reviewer is asking a question about a line of code, it may mean that it would confuse others in the future. In addition, making the changes can help reveal larger architectural issues or bugs.
-
-(Thanks to Zach Schipono for recommending this section be added)
-
 ####心态上
 * 作为一个Developer , 不仅要Deliver working code, 还要Deliver maintable code.
 * 必要时进行重构，随着项目的迭代，在计划新增功能的同时，开发要主动计划重构的工作项。
 * 开放的心态，虚心接受大家的Review Comments。
-
-####Addressing suggested changes
-We typically leave comments on a per-line basis with some thinking behind them. Usually I will look at the review notes in Stash and, at the same time, have the code pulled up to make the suggested changes. I find that I forget what items I am supposed to address if I do not handle them right away.
-
-
-####Additional References
-There’s a number of books on the art of creating clean code. I’ve read through fewer of these than I might like (and I’m working to change that). Here’s a few books on my list:
-
-* [Clean Code](http://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
-* [Refactoring](http://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672)
-Some useful, related talks I’m a big fan of talks so here’s a few that I thought of while writing this:
-
-* [All the Small Things by Sandi Metz](https://www.youtube.com/watch?v=8bZh5LMaSmE&index=1&list=LLlt4ZSW8NUcXLWiB3NMnK_w): Covers the topic well, particularly from a perspective of writing clean, reusable code.
-* [How to Design a Good API and Why it Matters](https://www.youtube.com/watch?v=aAb7hSCtvGw&list=LLlt4ZSW8NUcXLWiB3NMnK_w&index=48): API, in this sense, meaning the way in which the application is constructed and how we interact with it. Many of the points in the video talk about similar themes to those discussed here.
-* [Discussion on Hacker News](https://news.ycombinator.com/item?id=9517892)
 
 ####参考
 一些关于clean code的书籍，如下：
@@ -181,9 +83,6 @@ Some useful, related talks I’m a big fan of talks so here’s a few that I tho
 * [All the Small Things by Sandi Metz](https://www.youtube.com/watch?v=8bZh5LMaSmE&index=1&list=LLlt4ZSW8NUcXLWiB3NMnK_w)
 * [How to Design a Good API and Why it Matters](https://www.youtube.com/watch?v=aAb7hSCtvGw&list=LLlt4ZSW8NUcXLWiB3NMnK_w&index=48)
 * [Discussion on Hacker News](https://news.ycombinator.com/item?id=9517892)
-
-
-
 
 ##译者注
 #####一. 参考了 http://jimhuang.cn/?p=59
