@@ -82,6 +82,17 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" />
 ## 已完成列表
+# 2015.5.24 ( 第十一期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [Android-Espresso测试框架介绍](issue-11/Android-Espresso测试框架介绍.md)  | [zhengxiaopeng](https://github.com/zhengxiaopeng)      |
+| [Android 进行单元测试难在哪-part3](issue-11/Android进行单元测试难在哪-part3.md)  | [chaossss](https://github.com/chaossss)|
+| [Code Review最佳实践](issue-11/Code Review最佳实践.md)  | [ayyb1988](https://github.com/ayyb1988)      |
+| [听FaceBook工程师讲Custom-ViewGroups](issue-11/听FaceBook工程师讲Custom-ViewGroups.md)  | [objectlife](https://github.com/objectlife)|
+| [详解Dagger2](issue-11/详解Dagger2.md)  | [xianjiajun](https://github.com/xianjiajun)     |
+
+
+
 # 2015.5.17 ( 第十期 )
 | 文章名称 |   译者  | 
 |---------|--------|
@@ -90,7 +101,6 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | [Kotlin-for-Android-(IV)：自定义视图和Android的扩展](issue-10/Kotlin-for-Android-(IV)：自定义视图和Android的扩展.md)  | [sundroid](https://github.com/sundroid)      |
 | [使用Facebook-SDK为安卓应用添加Like按钮](issue-10/使用Facebook-SDK为安卓应用添加Like按钮.md)  | [objectlife](https://github.com/objectlife)|
 | [将基于Dagger-1开发的项目迁移到Dagger-2中](issue-10/将基于Dagger-1开发的项目迁移到Dagger-2中.md)  | [chaossss](https://github.com/chaossss)     |
-| [Android-Espresso测试框架介绍.md](issue-10/Android-Espresso测试框架介绍.md)  | [zhengxiaopeng](https://github.com/zhengxiaopeng)     |
 
 
 
@@ -98,7 +108,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | 文章名称 |   译者  | 
 |---------|--------|
 | [Android 10ms问题：关于Android音频路径延迟的解释](issue-9/Android 10ms问题：关于Android音频路径延迟的解释.md)  | [objectlife](https://github.com/objectlife)      |
-| [Android 进行单元测试难在哪-part1](issue-9/Android 进行单元测试难在哪-part1.md)  | [chaossss](https://github.com/chaossss)|
+| [Android进行单元测试难在哪-part1](issue-9/Android 进行单元测试难在哪-part1.md)  | [chaossss](https://github.com/chaossss)|
 | [NotRxJava懒人专用指南](issue-9/NotRxJava懒人专用指南.md)  | [Rocko](https://github.com/Rocko)      |
 | [使用Android Studio进行单元测试](issue-9/使用Android-Studio进行单元测试.md)  | [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang)|
 | [通过Jenkins并行完成UI的自动化测试](issue-9/通过Jenkins并行完成UI的自动化测试.md)  | [chaossss](https://github.com/chaossss)     |

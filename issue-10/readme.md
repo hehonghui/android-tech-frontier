@@ -7,4 +7,3 @@
 | [Kotlin-for-Android-(IV)：自定义视图和Android的扩展](Kotlin-for-Android-(IV)：自定义视图和Android的扩展.md)  | [sundroid](https://github.com/sundroid)      |
 | [使用Facebook-SDK为安卓应用添加Like按钮](使用Facebook-SDK为安卓应用添加Like按钮.md)  | [objectlife](https://github.com/objectlife)|
 | [将基于Dagger-1开发的项目迁移到Dagger-2中](将基于Dagger-1开发的项目迁移到Dagger-2中.md)  | [chaossss](https://github.com/chaossss)     |
-| [Android-Espresso测试框架介绍.md](Android-Espresso测试框架介绍.md)  | [zhengxiaopeng](https://github.com/zhengxiaopeng)     |
