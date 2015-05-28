@@ -5,19 +5,12 @@
 > * 原文作者 : [Dave Smith][author]
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [tiiime](https://github.com/tiiime) 
-* 校对者: 
-* 状态 :   未完成 
+* 校对者:[chaossss](https://github.com/chaossss) 
+* 状态 :   完成 
 
 
 # Building a RecyclerView LayoutManager – Part 3
 
->This article is Part 3 in our series. Here are links to Part 1 and Part 2 as well.
-
-In the previous post, we discussed adding proper support for data set changes and targeted scrolling. In this installment of the series, we will focus on properly supporting animations in your fancy new LayoutManager.
-
->In case you’ve forgotten, the code samples are on GitHub.
-
----
 
 >本文是这个系列中的 Part 3，这里是 [Part 1][part1] 和 [Part 2][part2] 的链接。
 
@@ -26,17 +19,6 @@ In the previous post, we discussed adding proper support for data set changes an
 合适的动画效果。
 
 >友情提醒：示例中的代码在这里 [Github][sample-github]
-
----
-
-#The Problem With Free
-We talked about notifyDataSetChanged() the last time, but you may have noticed that changing the data in this way doesn’t animate the change**. RecyclerView includes a new API for making animated changes, which requires you to notify the adapter which positions in the adapter have changed, and what the action was:
-
-
-- notifyItemInserted() and notifyItemRangeInserted(): Insertion of new item(s) at the given position(s).
-- notifyItemChanged() and notifyItemRangeChanged(): Invalidate he item(s) at the given position(s), nothing structural has changed in the data set.
-- notifyItemRemoved() and notifyItemRangeRemoved(): Removal of the item(s) at the given position(s).
-- notifyItemMoved(): An item has relocated to a new position in the data set.
 
 ---
 
@@ -56,9 +38,6 @@ RecyclerView 提供了新的 API 让我们可以通知 adapter
 - `notifyItemMoved()`：
 	将数据集中的一个 item 重定位到一个新的位置。
 
----
-
-By default, your LayoutManager will get “simple item animations” for free when these methods are used. These animations are simply based on whether each current view position is still present in the layout after a change. New views are faded in, removed views are faded out, and other views are moved to their new location. Here’s what our grid layout looks like with the free animations:
 
 使用这些方法你的 LayoutManager 会得到一个很简单的默认 item 动画。
 这些动画是根据当前每一个 view 在改变后是否还存在于 layout 之中生成的。
@@ -67,12 +46,6 @@ By default, your LayoutManager will get “simple item animations” for free wh
 
 ![img][animate-01]
  
- ---
- 
- The problem here is that several items fade out that weren’t removed. This is because they are no longer visible inside the parent RecyclerView bounds. We would like the views to slide out of view towards where the user would expect them to go, but at this stage the framework only knows that our code didn’t lay them out again after the data set change took place. In addition, new views are fading in as if they were added. It would be better if these views slid into place from their expected locations as well.
-
-The framework needs our help–we have to add a bit more to the LayoutManager…
-
 不过这里有个问题，一些没有被移除的 item 也淡出了。
 这是因为它们在父控件 RecyclerView 的边界中不再可见。
 我们想要这些 view 朝着用户期望的方向滑去，但是框架只知道
@@ -84,29 +57,11 @@ The framework needs our help–we have to add a bit more to the LayoutManager…
 ---
 
 #Predictive Item Animations
-The following animation represents what conceptually ought to happen when an item is removed:
-
-#Predictive Item Animations
 
 下面的图片展示了我们期望的移除 item 动画效果：
 ![img][animate-02]
-
----
-
-Notice particularly how the items on the left have to slide up and to the right to fill the gap on the previous row. You can imagine the reverse happening for an item added in this location.
-
 左侧一列 items 滑到右侧填补空白部分的动画很引人注意。
 和这个差不多，你可以脑补出在这个位置添加一个 item 时的动画效果。
-
----
-
-As we discussed in the first post of the series, onLayoutChildren() is typically only called once by the parent RecyclerView during the initial layout or when the data set size (i.e. item count) changes. The predictive item animations feature allows us to provide a more meaningful description of how the views should transition based on changes in the data. We need to start by indicating to the framework that our LayoutManager is able to provide this additional data:
-
-```java
-//
-```
-With this one change, onLayoutChildren() will now be called twice for each batch of data set changes–first as a “pre-layout” phase, and again for the real layout.
-
 
 在第一篇文章里曾提到的，`onLayoutChildren()` 通常只会
 在父控件 `RecyclerView` 初始化布局 或者 数据集的大小(比如 item 的数量)改变时调用一次。
@@ -121,15 +76,11 @@ public boolean supportsPredictiveItemAnimations() {
     return true;
 }
 ```
+
 有了这个改动，`onLayoutChildren() `会在每次数据集改变后被调用两次，
 一次是"预布局"(pre-layout)阶段，一次是真实布局(real layout)。
 
 ---
-
-# What Should I Do During Pre-Layout?
-
-During the pre-layout phase of onLayoutChildren(), you should run your layout logic to set up the initial conditions for the change animation. This means that you need to lay out all the views that were currently visible before the change AND any additional views that you know will be visible after the animation runs (these are termed APPEARING views). These extra appearing views should be laid out in the off-screen positions where the user would expect them to be coming from. The framework will capture these positions and use them to animate the new views into place instead of doing a simple fade-in.
->We can check which layout phase we are in via RecyclerView.State.isPreLayout()
 
 #在  pre-layout 阶段该做些什么
 
@@ -140,12 +91,7 @@ During the pre-layout phase of onLayoutChildren(), you should run your layout lo
 屏幕之外，用户期望它进入的位置。框架会捕获他们的位置，
 籍此创建更合适的动画效果。
 
-
-
 >我们可以使用 `RecyclerView.State.isPreLayout()` 来检测当前处于哪一阶段
-
----
-In the FixedGridLayoutManager example, we use pre-layout to determine how many visible views are being removed as a result of the data set change. Removed views are still returned from the Recycler in pre-layout, so you can lay them out in their original location and not have to worry about accounting for an empty space. To indicate future removal to you, LayoutParams.isViewRemoved() will return true for the given view. Our example counts the number of removed views so we have a rough idea of how much space will get filled by appearing views.
 
 在 `FixedGridLayoutManager` 示例中，我们根据数据集的改变
 使用  pre-layout 决定哪些 view 被移除。被移除的 view 
@@ -190,19 +136,11 @@ public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State 
 }
 ```
 
----
-
->TIP: During pre-layout, RecyclerView attempts to map the adapter positions of your views to their “old” locations (meaning before the data set change). When you ask for a view by position, expect that position to be the initial position of that item view. Beware of trying to transform them yourself between pre-layout and “real” layout.
-
 >Tip：在 pre-layout 期间，RecyclerView 会尝试用 view
->的 adapter 位置匹配它们的"原位置"(数据改变前的位置)。
+>在 adapter 中的位置匹配它们的"原位置"(数据改变前的位置)。
 >如果你想通过 position 请求一个 view，并且希望这个位置
 >是这个视图初始化时的位置。就不要在 pre-layout 和
 >real-layout 期间改变它们。
-
----
-
-The final change in the example comes as a modification to fillGrid() in which we will attempt to lay out “N” additional views (per row) as appearing views, where N is the number of visible views being removed. These views will always be filled in from the right on a removal, so they are computed as the positions following the last visible column:
 
 示例代码中最后的变动是对`fillGrid()`进行修改，在这里给 N 
 个 appearing views  布局，N 是被移除的可见视图个数。
@@ -266,11 +204,6 @@ private void layoutAppearingViews(RecyclerView.Recycler recycler, View reference
 }
 ```
 
----
-
-Inside the layoutAppearingViews() helper, each additional appearing view is laid out at it’s “global” position (i.e. the row/column position it would occupy in the grid). This location is off-screen, but gives the framework the data it needs to produce a starting point for the animation to slide these views in.
-
-
 在 `layoutAppearingViews()`这个方法里，每一个 appearing view
 被布局到它的"全局"位置(就是它在这个网格中占据的行/列)。
 虽然位置在屏幕之外，但是为框架创建滑入 view 动画的起始点提供了
@@ -280,9 +213,6 @@ Inside the layoutAppearingViews() helper, each additional appearing view is laid
 ---
 
 #Changes for the “Real” Layout
-We’ve already discussed the basics of what to do during your layout in Part 1, but we’ll have to tweak the formula a bit with our animation support added. The one additional step will be to determine if we have any disappearing views. In our example, this is done by running a normal layout pass, and then determining if there are any views left in the Recycler’s scrap heap.
-
-#Changes for the “Real” Layout
 
 [part1][part1]中我们已经讨论过布局期间的基本工作，
 然而要想为我们的动画提供支持还要做一些修改。
@@ -290,16 +220,10 @@ We’ve already discussed the basics of what to do during your layout in Part 1,
 是通过运行一个普通的布局过程，然后检查 Recycler
 的 scrap heap 之中有没有剩下的 view。
 
----
 
->NOTE: We can use the scrap heap in this way because 
->our layout logic always calls detachAndScrapAttachedViews() 
->before starting each layout pass. As discussed previously, 
->this is the best practice to adhere to in your layouts.
-
->注意：我们能以这种方式使用 scrap heap 是因为
->在每一次布局过程开始前，布局逻辑
->总是调用了`detachAndScrapAttachedViews()`这个方法。
+>注意：我们之所以能以这种方式使用 scrap heap 是因为
+>在每一次布局过程开始前，布局逻辑总是调用了
+>`detachAndScrapAttachedViews()`这个方法。
 >前面说过，这是布局中你需要遵循的最佳实践。
 
 ---
@@ -308,7 +232,7 @@ disappearing views. We need to lay these views out in
 their off-screen positions so the animation system 
 can slide them out of view (instead of just fading them out).
 
-仍在 scrap 中没有被移除的视图就是 disappearing views。
+仍在 scrap 中没有被移除的视图就是 disappearing views。
 我们需要把它们放置到屏幕之外的位置，以便动画系统
 将它们滑出视图(用来取代淡出动画)。
 
@@ -358,27 +282,12 @@ private void layoutDisappearingView(View disappearingChild) {
 
 ---
 
->CAUTION: Laying out views (and, thus, adding them to the container) 
->removes them from the scrap list. Be careful to note the views you 
->need from scrap before you start making changes, or you will end up 
->with concurrent modification issues on the collection.
-
 >小心：布局视图(然后将它们加入container)把它们从 scrap 列表中移除。
 >在开始变化前，小心处理你需要从 scrap 中获取的视图，否则你可能会
 >在这个集合上出现并发修改的问题结束运行。
 
----
-Similar to our code for the appearing views, layoutDisappearingView() places each remaining view at it’s “global” position as the final layout location. This gives the framework the information that it needs to slide these views out in the proper direction during the animation.
 
-The following image should help to visualize the FixedGridLayoutManager example:
-- The black box represents the RecyclerView visible bounds.
-- Red View: Item removed from the data set.
-- Green Views (Appearing views): Not initially present, but laid out off-screen during pre-layout.
-- Purple Views (Disappearing views): Initially placed in their original locations during pre-layout, then laid out off-screen during the “real” layout phase.
-
----
-
-和之前显示 appearing views  的代码差不多，`layoutDisappearingView()`
+和之前处理 appearing views  的代码差不多，`layoutDisappearingView()`
 将所有剩余 view 放在与之对应的"全局"位置作为最终布局位置。
 给框架提供必要信息创建出适当方向的滑出动画。
 
@@ -386,35 +295,24 @@ The following image should help to visualize the FixedGridLayoutManager example:
 
 - 黑框是 `RecyclerView` 的可视边界。
 - Red View：数据集中被移除的 item。
-- Green View (Appearing View)：最开始没有，在 pre-layout 过程中被布局到屏幕外的item。
-- Purple Views (Disappearing views)：最初 ，pre-layout 时期放置在他们的原始位置 。之后
+- Green View (Appearing View)：开始时没有，在 pre-layout 过程中被布局到屏幕外的item。
+- Purple Views (Disappearing views)：pre-layout 时期放置在他们的原始位置 ，
 	real-layout 时期被布局到屏幕之外的位置。
 
 ![img][animate-03]
 
 ---
 
-#Reacting to Off-Screen Changes
-You may have noticed that our ability to determine a removal change in the last section hinged on the visible views. What if the change occurs outside the visible bounds? Depending on your layout structure, a change like this may still require you to adjust the layout for a better animation experience.
 
 #响应屏幕外的变动
 你或许注意到在上一节中我们可以判断可视 views 的移除操作。
 如果变化出现在可视边界之外会怎样？这取决于你的布局结构，
 像这样的变化可能需要你调整布局来达到更好的动画效果。
 
----
-
-Luckily, the adapter posts these changes to your LayoutManager as well. You can override onItemsRemoved(), onItemsMoved(), onItemsAdded(), or onItemsChanged() to react to these events even if they occur in a view range that isn’t reflected in the current layout. These methods will give you the position and range of the change.
-
 Adapter 会将这个变化 post 给你的 LayoutManager。你可以覆写
 `onItemsRemoved()`, `onItemsMoved()`, `onItemsAdded()` 或者
 `onItemsChanged()` 响应 item 的这些事件，无论 item 
 在当前布局中是否可见。
-
----
-When the removed range occurs outside the visible area, onItemRemoved() is called before pre-layout. This allows us to collect data about the change that we may need in order to best support any appearing view changes that might be caused by this event.
-
-In our example, we collect these removals in the same way as before, but mark them with a different type.
 
 如果被移除的范围在可视边界之外， 调用 pre-layout 之前会调用
 `onItemRemoved()`。我们可以利用它收集和这个变化有关的数据，为
@@ -462,17 +360,9 @@ public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State 
 
 ---
 
->TIP: This method is sill called when the removed items are visible. In that case, however, it is called after pre-layout. This is why our example still gathers data from the visible removed views when they are present.
-
 >TIP：如果被移除的 item 是可见的，这个方法在 pre-layout 
 >之后还会被调用。这也就是为什么
 >当被移除的可见 views 出现时我们仍要从它们获取数据。
-
-
----
-
-With all this in place, we can run the sample application again. We can see the disappearing items on the left sliding off to rejoin the end of their previous rows. The new appearing items on the right slide properly into place alongside the existing grid. Now, the only view fading out in our new animation is the view that was actually removed!
-
 
 所有步骤就位，现在我们可以启动这个应用啦。可以看到左边消失的items
 移到对应行的后面。右边新出现的 items 滑动进入现有的界面。
@@ -481,11 +371,6 @@ With all this in place, we can run the sample application again. We can see the 
 ![img][animate-04]
 
 ---
-
-#More To Come…
-This was supposed to be the end of this series, I swear! However, there were some interesting issues that came up in building the animations that are specific to the FixedGridLayoutManager use case, and not necessarily all custom implementations. So in the next (and final…I promise this time) post, I’ll address what those challenges were.
-
-A special thanks to Yiğit Boyar for providing much of the technical input that made this post possible!
 
 #未完待续...
 
@@ -496,10 +381,6 @@ A special thanks to Yiğit Boyar for providing much of the technical input that 
 特别感谢 [Yiğit Boyar][thanks]提供技术支持，帮助完成这篇文章。
 
 ---
-
-
-**The framework will attempt to animate views if your adapter uses stable IDs, which provides enough data to guess which views are removed/added/etc.
-
 
 1. 如果你的 adapter 使用了固定的 IDs ，可以提供足够的数据推测哪些 view 被 移除/添加/等等
 	框架就会尝试 给它添加动画	<a id="b1" href="#1">↩</a>
