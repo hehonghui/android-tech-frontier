@@ -6,7 +6,7 @@ Android 自动截屏工具
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [sundroid](https://github.com/sundroid) 
 * 校对者: [yinna317](https://github.com/yinna317 )  
-* 状态 :  已校对
+* 状态 :  完成
 
 随着mac版本AndroidTool的发布，获取android应用截屏变得非常简单。与此同时，感谢开发商！这对于我们开发者来说真是太好了！
 

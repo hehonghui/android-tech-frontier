@@ -4,11 +4,9 @@
 > * 原文链接：[Automating Android development](https://medium.com/google-developer-experts/automating-android-development-6daca3a98396)
 > * 原文作者：[Enrique López Mañas](https://medium.com/google-developer-experts/automating-android-development-6daca3a98396)
 > * 译者：[tmc9031](https://github.com/tmc9031)
-> * 校对者：
-> * 状态：
+> * 校对者：[Mr.Simple](https://github.com/bboyfeiyu)
+> * 状态：完成
 
-
-### 自动化 Android 开发
 
 
 我最近已经在 [DroidCon Spain](http://es.droidcon.com/2015/) 和 [DroidCon Italy](http://it.droidcon.com/2015/) 讨论过关于如何自动化传统的Android工作流。
