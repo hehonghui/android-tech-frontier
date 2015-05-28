@@ -20,8 +20,9 @@
 4. 完成翻译后将状态修改为"校对中",提交pull request到本项目;
 5. 管理员校对完成之后便会发布。
 
-[git流程简介](git简单使用教程.md)        
-[markdown语法简单教程](markdown简单教程.md)
+* [git流程简介](git简单使用教程.md)        
+* [markdown语法简单教程](markdown简单教程.md)
+* [git操作流程](git操作流程.md)
 
 ## 注意事项
 1. 在翻译文章时，保留专有名词；
@@ -34,7 +35,7 @@
 
 **翻译群: 399424408, Android框架设计交流群 : 413864859.**
 
-<b id="category" />
+<b id="category" ></b>
 ## 文章分类
 |   来源    |   介绍     |
 |----------|-------------|
@@ -42,7 +43,7 @@
 | [Android Blog](android-blog) | Android官方技术博客[Android Dev Blog](http://android-developers.blogspot.com/) |
 | [Others](others) | 其他来源的优秀文章 |
 
-<b id="recommend" />
+<b id="recommend" ></b>
 ## 推荐文章
 如果您有好的文章推荐我们翻译，请在 在[bboyfeiyu/android-tech-frontier](https://github.com/bboyfeiyu/android-tech-frontier/issues) 下提一个issue，Issue 模板: 
 https://github.com/bboyfeiyu/android-tech-frontier/issues/1
@@ -80,7 +81,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 ## 免费优秀的电子书
 1. [软件架构模式 ](https://raw.githubusercontent.com/bboyfeiyu/android-tech-frontier/master/software-architecture-patterns/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F.pdf)
 
-<b id="articles" />
+<b id="articles" ></b>
 ## 已完成列表
 # 2015.5.24 ( 第十一期 )
 | 文章名称 |   译者  | 
