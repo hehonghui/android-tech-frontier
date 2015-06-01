@@ -206,11 +206,18 @@ One thing that is important to note is that CoordinatorLayout doesn’t have any
 Views can declare a default Behavior by using the CoordinatorLayout.DefaultBehavior(YourView.Behavior.class) annotation,or set it in your layout files by with the app:layout_behavior="com.example.app.YourView$Behavior" attribute. This framework makes it possible for any view to integrate with CoordinatorLayout.
 
 ###Available now!
+###马上使用吧！
 The Design library is available now, so make sure to update the Android Support Repository in the SDK Manager. You can then start using the Design library with a single new dependency:
+
+Design library现在就可以使用，请确保已经用SDk Manager更新了Android Support Repository. 然后添加一条dependency，你就可以使用Design library了:
 
 ```
  compile 'com.android.support:design:22.2.0'
 ```
 Note that as the Design library depends on the Support v4 and AppCompat Support Libraries, those will be included automatically when you add the Design library dependency. We also took care that these new widgets are usable in the Android Studio Layout Editor’s Design view (find them under CustomView), giving you an easier way to preview some of these new components.
 
+需要注意的是，Design library 依赖于Support v4和AppCompat Support Libraries,在你添加  Design library时，这些库也会自动的添加到依赖中。同时，这些控件在Android Studio的Layout Editor (可以在CustomView中找到)中是可用的，你可以便捷的预览一些新的控件。
+
 The Design library, AppCompat, and all of the Android Support Library are important tools in providing the building blocks needed to build a modern, great looking Android app without building everything from scratch.
+
+Design library, AppCompat和所有的Android Support Library 都是开发Android的强有力工具，当你打造一个符合当代风格、好看的应用时，可以使用提供现成的模块，无需从0开始。
