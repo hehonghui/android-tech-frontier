@@ -6,66 +6,41 @@ Square：从今天开始抛弃Fragment吧！
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [chaossss](https://github.com/chaossss) 
 * 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  校对中
-
-Recently I gave [a tech talk](http://fr.droidcon.com/2014/agenda/detail?title=D%C3%A9fragmentez+vos+apps+avec+Mortar+%21) (fr) at Droidcon Paris, where I explained the problems Square had with Android fragments and how others could avoid using any fragments.
+* 状态 :  完成
 
 最近我在 Droidcon Paris 上进行了[一个技术相关的演讲](http://fr.droidcon.com/2014/agenda/detail?title=D%C3%A9fragmentez+vos+apps+avec+Mortar+%21)，我在这次演讲中给大家展示了 Square 使用 Fragment 进行开发时遇到的种种问题，以及其他 Android 开发者是怎么避免在项目中使用 Fragment 的。
 
-In 2011, we decided to use fragments for the following reasons:
-
 在 2011 年那会，由于下面的原因我们决定使用 Fragment：
 
-- At this time, we did not yet support tablets — but knew we wanted to eventually. Fragments help build responsive UIs.
 - 在那会，虽然我们很想让应用能在平板设备上被使用，但我们确实没能为平板提供平台支持。而 Fragment 能帮助我们完成这项愿望，建立响应式 UI 界面。
 
-- Fragments are view controllers; they hold decoupled chunks of business logic that can be tested.
 - Fragment 是视图控制器，它们能够将一大块耦合严重的业务逻辑模块解耦，并使得解耦后的业务逻辑能够被测试。
 
-- The fragment API provides backstack management, (i.e. it mirrors the behavior of the activity stack within a single activity).
 - Fragment 的 API 能够进行回退栈管理（例如，它能反射某个 Activity 内 Activity 栈的具体操作）
 
-- Because fragments are built on top of views and views can easily be animated, fragments would give us better control over screen transitions.
 - 因为 Fragment 处于视图层的顶层，而为 View 设置动画并不麻烦，使得 Fragment 为设置页面切换的过渡效果提供了更好的支持。
 
-- Google recommended fragments, and we wanted to make our code standard.
 - Google 建议我们使用 Fragment，而我们作为开发者都想让自己的代码符合标准。
-
-Since 2011, we've discovered better options for Square.
 
 在 2011年之后，我们在为 Square 进行开发的过程中发现了比使用 Fragment 更好的方法。
 
-#What your parents never told you about fragments
 #关于 Fragment 你不知道的事
 
 ##The lolcycle
 
-On Android, Context is a [god object](http://en.wikipedia.org/wiki/God_object), and Activity is a context with extra lifecycle. A god with lifecycle? Kind of ironic. Fragments aren't gods, but they make up for it by having extremely complex lifecycle.
-
-在 Android 中，Context 就像[上帝对象](http://en.wikipedia.org/wiki/God_object)，而 Activity 就是会像凡人一样经历生老病死的上帝对象。虽说无所不能的上帝要经历人世的生老病死有些讽刺，但我们要注意的是，虽然 Fragment 不是上帝对象，但它们为了让自己看起来像上帝花的功夫可不小，直接使他们的生命周期变得异常复杂。
-
-Steve Pomeroy made a [diagram](https://github.com/xxv/android-lifecycle) of the complete lifecycle, and it's not pretty:
+在 Android 中，Context 就像一个[上帝对象](http://en.wikipedia.org/wiki/God_object)，因为在 Context 类中涵盖了太多 Android 系统的信息和相关的操作，使得 Context 在 Android 系统中相当于一个全知全能的上帝，而 Activity 就是为 Context 添加了生命周期的子类。不过让上帝具有生命周期还是有些讽刺的。虽然 Fragment 不是上帝对象，但 Fragment 为了能够完成 Activity 中能完成的各种操作，使 Fragment 自身的生命周期变得异常复杂。
 
 Steve Pomeroy 做了一张[ Fragment 的完整生命周期图](https://github.com/xxv/android-lifecycle)，我相信任谁看到这张图都不会好受：
 
 ![](https://corner.squareup.com/images/no-fragments/lifecycle.png)
 
-Created by Steve Pomeroy, modified to remove the activity lifecycle, shared under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license.
-
 这张图由 Steve Pomeroy 完成，图中移除了 Activity 的生命周期，分享这张图需要获得 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 许可。
-
-The lifecycle makes it difficult to figure out what you should do with each callback. Are they called synchronously or in a post? In what order?
 
 整个 Fragment 的生命周期让你很头疼要怎样使用这些回调方法，它们是同步调用的呢，还是只是一次性全部调用呢，还是其它情况……？
 
-##Hard to debug
 ##难于调试
 
-When a bug occurs in your app, you take your debugger and execute the code step by step to understand what is happening exactly. It usually works great... until you hit FragmentManagerImpl: Landmine!
-
 当你的应用出现 Bug，你得用调试工具一步一步地执行代码才能知道到底发生了什么，虽说一般情况下这样做 Bug 都能解决，但如果你在调试的时候发现 Bug 和 FragmentManagerImpl 类存在某种联系，那么我可要好好恭喜你即将中大奖了！
-
-This code is hard to follow and debug, which makes it hard to correctly fix bugs in your app.
 
 因为要跟踪 FragmentManagerImpl 类内代码的执行顺序，并进行调试是很困难的，这也使得修复应用中相关的 Bug 也变得异常困难：
 
@@ -94,30 +69,19 @@ switch (f.mState) {
 }
 ```
 
-If you ever found yourself with a stale unattached fragment recreated on rotation, you know what I'm talking about. (And don't get me started on nested fragments.)
-
 如果你曾经需要解决应用旋转后产生一个与旋转前 UI 相同（方向发生变化）的独立的 Fragment 的需求，我想你应该懂我在说什么。（别给我提嵌套使用的 Fragment！）
-
-As Coding Horror puts it, I am now required by law to link to [this cartoon](http://www.osnews.com/story/19266/WTFs_m).
 
 我想下面这张图很好地诠释了这类代码给程序员带来的伤害（由于版权问题我得放出这张图的出处哈：[this cartoon](http://www.osnews.com/story/19266/WTFs_m)）：
 
 ![](https://corner.squareup.com/images/no-fragments/code-quality.png)
 
-After years of in-depth analysis, I came to the conclusion that WTFs/min = 2^fragment count.
-
 在多年的深度分析中我得出结论：操蛋程度/调试耗费的时间 = 2^m，m 为 Fragment 的个数。
 
-##View controllers? Not so fast.
 ##Fragment 是视图控制器？想太多
-
-Because fragments create, bind, and configure views, they contain a lot of view-related code. This effectively means that business logic isn't decoupled from view code — making it hard to write unit tests against fragments.
 
 因为 Fragment 需要创建、绑定和配置 View，它们包含了许多与 View 关联的结点，这就意味着 View 类代码中的业务逻辑并没有真正地被解耦，正是这个原因使得我们要为 Fragment 实现测试单元将会变得很困难。
 
 ##Fragment transactions
-
-Fragment transactions allow you to perform a set of fragment operations. Unfortunately, committing a transaction is async and posted at the end of the main thread handler queue. This can leave your app in an unknown state when receiving multiple click events or during configuration changes.
 
 Fragment 的 transaction 允许你执行一系列的 Fragment 操作，但不幸的是，提交 transaction 是异步操作，并且在 UI 线程的 Handler 队列的队尾被提交。这会在接收多个点击事件或配置发生改变时让你的 App 处在未知的状态。
 
@@ -140,8 +104,6 @@ class BackStackRecord extends FragmentTransaction {
 
 ##Fragment creation magic
 
-Fragment instances can be created by you or by the fragment manager. This code seems fairly reasonable:
-
 Fragment 的实例能够通过 Fragment Manager 创建，例如下面的代码看起来没有什么问题：
 
 ```java
@@ -150,8 +112,6 @@ DialogFragment dialogFragment = new DialogFragment() {
 };
 dialogFragment.show(fragmentManager, tag);
 ```
-
-However, when restoring the activity instance state, the fragment manager may try to recreate an instance of that fragment class using reflection. Since it's an anonymous class, it has a hidden constructor argument to reference the outer class.
 
 然而，当我们需要存储 Activity 实例的状态时，Fragment Manager 可能会通过反射机制重新创建该 Fragment 的实例，又因为这是一个匿名内部类，该类有一个隐藏的构造器的参数正是外部类的引用，如果大家有看过[这篇博文](http://blog.csdn.net/u012403246/article/details/45666369)的话就会知道，拥有外部引用可能会带来内存泄漏的问题。
 
@@ -164,30 +124,19 @@ android.support.v4.app.Fragment$InstantiationException:
 
 ##Fragments: lessons learned
 
-Despite their drawbacks, fragments taught us invaluable lessons which we can now reapply when writing apps:
-
 尽管 Fragment 有着上面提到的缺点，但也是 Fragment 教给我们许多代码架构的思想：
 
-- Single Activity Interface: there is no need to use one activity for each screen. We can split our app into decoupled widgets and assemble them as we please. This makes animating and lifecycle easy. We can split our widgets into view code and controller code.
 - 独立的 Activity 接口：实际上我们并不需要为每一个页面创建一个 Activity，我们大可以将应用切分成许多解耦的视图组件，按照我们的实际需求把它们组装成我们想要的界面。这样做也能简化生命周期和动画设置，因为我们还能将视图组件切分为 view 组件和控制器组件。
 
-- The backstack isn't an activity specific notion; you can implement a backstack within an activity.
 - 回退栈不是 Activity 的特有概念，也就意味着你能在 Activity 内部实现回退栈。
 
-- There is no need for new APIs; everything we needed was there from the very beginning: activities, views, and layout inflaters.
 - 不需要添加新的 API，我们需要的只是 Activity，View 和 LayoutInflater。
 
-#Responsive UI: fragments vs custom views
 #响应式 UI：Fragment VS Custom View
 
-##Fragments
 ##Fragment
 
-Let's look at the fragment [basic example](http://developer.android.com/shareables/training/FragmentBasics.zip), a list / detail UI.
-
 我们不妨先来看看一个 Fragment 的[范例](http://developer.android.com/shareables/training/FragmentBasics.zip)，界面中显示了一个 list。
-
-The HeadlinesFragment is a pretty straightforward list:
 
 HeadlinesFragment 就是显示 List 的简单 Fragment：
 
@@ -221,8 +170,6 @@ public class HeadlinesFragment extends ListFragment {
   }
 }
 ```
-
-Now this is interesting: ListFragmentActivity has to handle whether the detail is on the same screen or not.
 
 现在有趣的事情来了：ListFragmentActivity 必须控制 list 是否处于同一个页面中。
 
@@ -266,13 +213,9 @@ public class ListFragmentActivity extends Activity
 }
 ```
 
-##Custom views
 ##自定义 View
 
-Let's reimplement a similar version of that code using only views.
 我们不妨重新实现一个简化版的只使用了 View 的代码
-
-First, we'll have the notion of a Container, which can show an item and also handle back presses.
 
 首先，我们会引入一个叫作“容器”的概念，“容器”的作用是帮助我们展示一项内容并处理后退操作
 
@@ -283,8 +226,6 @@ public interface Container {
   boolean onBackPressed();
 }
 ```
-
-The activity assumes there's always a container and merely delegates the work to it.
 
 Acitivity 将假设始终存在容器，并且几乎不会将业务交给容器处理。
 
@@ -311,8 +252,6 @@ public class MainActivity extends Activity {
 }
 ```
 
-The list is also quite trivial.
-
 要显示的 List 也只是个平凡的 List。
 
 ```java
@@ -337,8 +276,6 @@ public class ItemListView extends ListView {
   }
 }
 ```
-
-Now, the meat of the work: loading different XML layouts based on resource qualifiers.
 
 这样做的好处是：能够基于资源文件夹在不同的 XML 布局文件
 
@@ -380,8 +317,6 @@ res/layout-land/main_activity.xml
       />
 </com.squareup.view.DualPaneContainer>
 ```
-
-Here is a very simple implementation for those containers:
 
 下面是这些容器类的简单实现：
 
@@ -445,14 +380,9 @@ public class SinglePaneContainer extends FrameLayout implements Container {
 }
 ```
 
-It's not hard to imagine abstracting these containers and building an app this way — not only do we not need fragments, but we also have code that is easier to understand.
-
 不难想象：将容器类抽象，并用这种的方式开发 App，不但不需要 Fragment，还能架构出容易理解的代码。
 
-##Views & presenters
 ##View 和 Presenter
-
-Using custom views works great, but we'd like to isolate business logic into dedicated controllers. We call those presenters. This makes the code much more readable and facilitates testing. MyDetailView from the previous example could look something like that:
 
 自定义 View 在应用中非常有用，但我们希望将业务逻辑从 View 中剥离，转交给特定的控制器处理，也就是接下来我们所说的 Presenter，引入 Presenter 能提高代码的可读性和可测试性。如果你不信的话，不妨看看重构后的 MyDetailView：
 
@@ -483,13 +413,9 @@ public class MyDetailView extends LinearLayout {
 }
 ```
 
-Let's look at code from Square Register, the screen for editing discounts.
-
 我们来看看 Square 注册界面中编辑账户的页面吧！
 
 ![](https://corner.squareup.com/images/no-fragments/edit-discounts.png)
-
-The presenter manipulates the view at a high level:
 
 Presenter 将在更高层级中操控 View：
 
@@ -514,8 +440,6 @@ class EditDiscountPresenter {
 }
 ```
 
-Writing tests for this presenter is a breeze:
-
 大家可以看到，为这个 Presenter 实现测试单元犹如一缕春风拂面来，甚是舒心爽快呐～
 
 ```java
@@ -528,17 +452,11 @@ Writing tests for this presenter is a breeze:
 }
 ```
 
-##Backstack management
 ##回退栈管理
-
-Managing a backstack does not require async transactions. We released a tiny library that does just that: Flow. Ray Ryan already wrote a great blog post about Flow.
 
 通过异步处理来管理回退栈实在是牛刀杀鸡，大材小用了……我们只需要用一个超轻量级库——Flow，就可以达到目的。有关 Flow 的介绍 Ray Ryan 已经写过博客了，我就不在此赘述啦。
 
-##I'm deep in fragment spaghetti, how do I escape?
 ##我把 UI 相关的代码全都写在 Fragment 里了咋办呀，在线等，急！！！
-
-Make your fragments shells of themselves. Pull view code up into custom view classes, and push business logic down into a presenter that knows how to interact with the custom views. Then, your fragment is nearly empty, just inflating custom views that connect themselves with presenters:
 
 别理你的 Fragment，你就一点一点地把 View 相关的代码移到自定义 View 里，然后把涉及到的业务逻辑交给能够与 View 进行交互的 Presenter，然后你就会发现 Fragment 沦为空壳，只有一些初始化自定义 View 和连接 View 和 Presenter 的操作：
 
@@ -551,46 +469,26 @@ public class DetailFragment extends Fragment {
 }
 ```
 
-At that point you can eliminate the fragment.
-
 事实上到了这一步你已经可以抛弃 Fragment 了。
-
-Migrating away from fragments wasn't easy, but we went through it — thanks to the awesome work of [Dimitris Koutsogiorgas](https://twitter.com/dnkoutso) and [Ray Ryan](https://twitter.com/rjrjr).
 
 抛弃 Fragment 确实得花很大的功夫，但我们已经做到了，感谢[ Dimitris Koutsogiorgas ](https://twitter.com/dnkoutso)和[ Ray Ryan ](https://twitter.com/rjrjr)的伟大贡献！
 
-##What about Dagger & Mortar?
 ##Dagger 和 Mortar 是什么？
-
-Dagger & Mortar are orthogonal to fragments; they can be used with or without fragments.
 
 Dagger & Mortar 与 Fragment 成正交关系，换句话说，两者间各自的变化不会影响对方，使用 Dagger & Mortar 既可以用 Fragment，也可以不用 Fragment。
 
-[Dagger](http://square.github.io/dagger/) helps you modularize your app into a graph of decoupled components. It takes care of all the wiring and therefore makes it easy to extract dependencies and write single concern objects.
-
-[Dagger](http://square.github.io/dagger/) 能帮你将应用模块化为一张由解耦组件构成的图，它考虑了所有类间的连接关系并简化了抽取依赖的操作，而且实现一个相关对象。
-
-[Mortar](https://github.com/square/mortar) works on top of Dagger and has two main advantages:
+[Dagger](http://square.github.io/dagger/) 能帮你将应用模块化为一张由解耦组件构成的图，它考虑了所有类间的连接关系并简化了抽取依赖的操作，并实现一个与此相关的单例对象。
 
 [Mortar](https://github.com/square/mortar) 在 Dagger 的顶层进行操作，主要优势有如下两点：
 
-- It provides simple lifecycle callbacks to injected components. This allows you to write singleton presenters that won't be destroyed on rotation, but can still save their state into a bundle to survive process death.
-
 - Mortar 为被注入组件提供简单的生命周期回调，使你能实现不会因旋转被销毁的单例 Presenter，不过需要注意的是，Mortar 将当前界面元素的状态储存在 Bundle 中，使数据不会随进程的结束而被清除。
-
-- It manages Dagger subgraphs for you and helps you tie them to the activity lifecycle. This effectively lets you implement the notion of scopes: a view comes in, its presenter and dependencies are created as a subgraph. When the view goes out, you can easily destroy that scope and let the garbage collector do its work.
 
 - Mortar 为你管理 Dagger 的子图，并帮你将它们与 Activity 的生命周期关联在一起，这种功能让你能有效地实现“域”：当一个 View 被添加进来，它的 Presenter 和依赖都会作为子图被创建；当 View 被移除，你能轻易地销毁“域”，并让垃圾回收机制去完成它的工作。
 
-##Conclusion
 ##结论
-
-We used fragments intensively and eventually changed our minds:
 
 我们曾为 Fragment 的诞生满心欢喜，幻想着 Fragment 能为我们带来种种便利，然而这一切不过是场虚空大梦，我们最后发现骑着白马的 Fragment 既不是王子也不是唐僧，只不过是人品爆发捡了只白马的乞丐罢了：
 
-- Most of our difficult crashes were related to the fragment lifecycle.
 - 我们遇到的大多数难以解决的 Bug 都与 Fragment 的生命周期有关。
 
-- We only need views to build a responsive UI, a backstack, and screen transitions.
 - 我们只需要 View 创建响应式 UI，实现回退栈以及屏幕事件的处理，不用 Fragment 也能满足实际开发的需求。
