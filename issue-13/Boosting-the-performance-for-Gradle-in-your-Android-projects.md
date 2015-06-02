@@ -45,9 +45,49 @@ Note that this works only when using the Gradle wrapper for your project (which 
 If this is not the case, refer to the Gradle documentation at http://gradle.org.
 有一点需要注意的是,这种设置方法仅适用于在你的项目中使用gradle wrapper进行编译打包的操作(就是android studio默认需要的东东).如果你想使用gradle做其他的事情,请出门左转,去gradle官网(http://gradle.org)
 
-## 开启gradle作为守护进程
+## 守护进程,并行编译
 The next step is to enable the Gradle daemon and parallel build for your project. Using the daemon will make your builds startup faster as it won't have to start up the entire Gradle application every time. Parallel builds will cause your projects with multiple modules (multi-project builds in Gradle) to be built in parallel, which should make large or modular projects build faster.
 
+通过以上步骤,我们设置好了android studio使用最新的gradle版本,下一步就是正式开启优化之路了. 我们需要将gradle作为守护进程一直在后台运行,这样当我们需要编译的时候,gradle就会立即跑过来然后
+吭哧吭哧的开始干活.除了设置gradle一直开启之外,当你的工作空间存在多个project的时候,还需要设置gradle对这些projects并行编译,而不是单线的依次进行编译操作.
 
+These settings are enable by adding a file named gradle.properties under .gradle in your home directory (i.e., ~/.gradle/gradle.properties).
+说了那么多, 那么怎么设置守护进程和并行编译呢?其实非常简单,gradle本身已经有了相关的配置选项,在你电脑的GRADLE_HOME这个环境变量所指的那个文件夹内,有一个.gradle/gradle.properties文件.
+在这个文件里,放入下面两句话就OK了:
+org.gradle.daemon=true
+org.gradle.parallel=true
 
+Note that the daemon is already be enabled from within Android Studio, but this setting will make sure that it is also enabled when building from the terminal.
+有一个地方需要注意的是,android studio 本身在编译的时候,已经是使用守护进程中的gradle了,那么这里加上了org.gradle.daemon=true就是保证了你在使用命令行编译apk的时候也是使用的
+守护进程.
+
+You can also add this file to the root of your project, in which case it will be enabled automatically for everybody that builds the app, 
+including you Continuous Integration environment (like Jenkins CI). For information on when you shouldn’t run Gradle with the daemon, see http://gradle.org/docs/current/userguide/gradle_daemon.html#when_should_i_not_use_the_gradle_daemon.
+你也可以将上述的配置文件放到你project中的根目录下,以绝对确保在任何情况下,这个project都会使用守护进程进行编译.不过有些特殊的情况下也许你应该注意守护进程的使用,具体的细节参考http://gradle.org/docs/current/userguide/gradle_daemon.html#when_should_i_not_use_the_gradle_daemon
+
+Important note about parallel builds: The parallel builds setting could prove unsafe for some projects. 
+The requirement is that all your modules must be decoupled (see http://gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects) or your build could fail. Test all your build variants carefully so that you know that everything works as it should.
+在使用并行编译的时候必须要注意的就是,你的各个project之间不要有依赖关系,否则的话,很可能因为你的Project A 依赖Project B, 而Project B还没有编译出来的时候,gradle就开始编译Project A 了.最终
+导致编译失败.具体可以参考http://gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects
+
+You can add additional Gradle parameters here, like increasing the max heap size in case you have a large project or specifying which JVM to use:
+For other configuration options you can do in gradle.properties, see http://gradle.org/docs/current/userguide/userguide_single.html#sec:gradle_configuration_properties. 
+还有一些额外的gradle设置也许会引起你的兴趣,例如你想增加堆内存的空间,或者指定使用哪个jvm虚拟机等等(代码如下)
+org.gradle.jvmargs=-Xmx768m
+org.gradle.java.home=/path/to/jvm
+
+如果你想详细的了解gradle的配置,请猛戳http://gradle.org/docs/current/userguide/userguide_single.html#sec:gradle_configuration_properties
+
+## 一个实验性的功能
+The final change is incremental dexing, which is an experimental feature that is currently disabled by default.
+Enabling this could cause your builds to fail (especially on consecutive runs), but I do recommend you to try it out and see if it works for you.
+
+最后一个要介绍的是incremental dexing, 这个功能目前还在试验阶段,android studio默认是关闭的, 作者个人是非常推荐的,程序员就是爱折腾啊.
+Add the following to the android section of your main app modules build.gradle to enable this:
+开启incremental dexing也是非常简单的,就是在app级别的buid.gradle文件中加入下面的代码:
+dexOptions {
+        incremental true
+}
+Hope this help. Leave a comment if you have any question or some other tips for improving the build performance.
+感性您的阅读,希望这边文章可以对您有所帮助. 如果您有好的建议或者意见请联系我
 
