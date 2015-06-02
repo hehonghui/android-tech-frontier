@@ -41,6 +41,8 @@ For doing the change from within Android Studio, open the Project Structure Dial
 
 这种方法需要你去手动去gradle官网下载一个zip包,解压缩后,打开android studio 设置界面的Project Structure. 然后手动添加你解压缩后的gradle的磁盘路径即可,可以参考如下的图片
 
+![image](refer.png)
+
 Note that this works only when using the Gradle wrapper for your project (which is the default when generating projects with Android Studio). 
 If this is not the case, refer to the Gradle documentation at http://gradle.org.
 有一点需要注意的是,这种设置方法仅适用于在你的项目中使用gradle wrapper进行编译打包的操作(就是android studio默认需要的东东).如果你想使用gradle做其他的事情,请出门左转,去gradle官网(http://gradle.org)
