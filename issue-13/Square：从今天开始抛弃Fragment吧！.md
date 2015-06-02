@@ -102,7 +102,7 @@ class BackStackRecord extends FragmentTransaction {
 }
 ```
 
-##Fragment creation magic
+##创建 Fragment 可能带来的问题
 
 Fragment 的实例能够通过 Fragment Manager 创建，例如下面的代码看起来没有什么问题：
 
@@ -122,7 +122,7 @@ android.support.v4.app.Fragment$InstantiationException:
     constructor that is public
 ```
 
-##Fragments: lessons learned
+##Fragment 教给我们的思想
 
 尽管 Fragment 有着上面提到的缺点，但也是 Fragment 教给我们许多代码架构的思想：
 
@@ -279,7 +279,7 @@ public class ItemListView extends ListView {
 
 这样做的好处是：能够基于资源文件夹在不同的 XML 布局文件
 
-res/layout/main_activity.xml
+`res/layout/main_activity.xml`
 
 ```xml
 <com.squareup.view.SinglePaneContainer
@@ -295,7 +295,7 @@ res/layout/main_activity.xml
 </com.squareup.view.SinglePaneContainer>
 ```
 
-res/layout-land/main_activity.xml
+`res/layout-land/main_activity.xml`
 
 ```xml
 <com.squareup.view.DualPaneContainer
