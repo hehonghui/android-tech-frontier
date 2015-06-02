@@ -201,9 +201,16 @@ In addition to pinning a view, you can use app:layout_collapseMode="parallax" (a
 
 
 ###CoordinatorLayout and custom views
+###CoordinatorLayout与自定义控件
+
+
 One thing that is important to note is that CoordinatorLayout doesn’t have any innate understanding of a FloatingActionButton or AppBarLayout work - it just provides an additional API in the form of a [Coordinator.Behavior](http://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.Behavior.html?utm_campaign=io15&utm_source=dac&utm_medium=blog), which allows child views to better control touch events and gestures as well as declare dependencies between each other and receive callbacks via [onDependentViewChanged()](http://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.Behavior.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#onDependentViewChanged(android.support.design.widget.CoordinatorLayout,%20V,%20android.view.View)).
 
+还有一件需要注意的事情，CoordinatorLayout跟FloatingActionButton或AppBarLayout需要一定的配置-它在[Coordinator.Behavior](http://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.Behavior.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)提供了一些API,子视图既可以更好地控制触摸事件也可以通过[onDependentViewChanged()](http://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.Behavior.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#onDependentViewChanged(android.support.design.widget.CoordinatorLayout,%20V,%20android.view.View))给别人提供一个回调方法。
+
 Views can declare a default Behavior by using the CoordinatorLayout.DefaultBehavior(YourView.Behavior.class) annotation,or set it in your layout files by with the app:layout_behavior="com.example.app.YourView$Behavior" attribute. This framework makes it possible for any view to integrate with CoordinatorLayout.
+
+Views可以用CoordinatorLayout.DefaultBehavior(YourView.Behavior.class)注解（annotation）声明默认的Behavior,或者在你的布局文件中声明app:layout_behavior="com.example.app.YourView$Behavior" 属性. 这样做，就可以将任何一个View和CoordinatorLayout整合在一起.
 
 ###Available now!
 ###马上使用吧！
