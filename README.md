@@ -83,6 +83,18 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" ></b>
 ## 已完成列表
+# 2015.5.31 ( 第十二期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [自动化Android开发](issue-12/自动化Android开发.md)  | [tmc9031](https://github.com/tmc9031)      |
+| [Android进行单元测试难在哪-part4](issue-12/Android进行单元测试难在哪-part4.md)  | [chaossss](https://github.com/chaossss)|
+| [当复仇者联盟遇上Dragger2、RxJava和Retrofit的巧妙结合](issue-12/当复仇者联盟遇上Dragger2、RxJava和Retrofit的巧妙结合.md)  | [Rocko](https://github.com/Rocko)      |
+| [Ted Mosby - 软件架构](issue-12/MVP框架Mosby架构详解.md)  | [Mr.Simple](https://github.com/bboyfeiyu)|
+| [Android自动截屏工具](issue-12/Android自动截屏工具.md)  | [sundroid](https://github.com/sundroid)     |
+| [Android上MVP的介绍](issue-12/Android上MVP的介绍.md)  | [MiJack](https://github.com/MiJack)     |
+
+
+
 # 2015.5.24 ( 第十一期 )
 | 文章名称 |   译者  | 
 |---------|--------|
@@ -109,7 +121,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | 文章名称 |   译者  | 
 |---------|--------|
 | [Android 10ms问题：关于Android音频路径延迟的解释](issue-9/Android 10ms问题：关于Android音频路径延迟的解释.md)  | [objectlife](https://github.com/objectlife)      |
-| [Android进行单元测试难在哪-part1](issue-9/Android 进行单元测试难在哪-part1.md)  | [chaossss](https://github.com/chaossss)|
+| [Android进行单元测试难在哪-part1](issue-9/Android进行单元测试难在哪-part1.md)  | [chaossss](https://github.com/chaossss)|
 | [NotRxJava懒人专用指南](issue-9/NotRxJava懒人专用指南.md)  | [Rocko](https://github.com/Rocko)      |
 | [使用Android Studio进行单元测试](issue-9/使用Android-Studio进行单元测试.md)  | [ZhaoKaiQiang](https://github.com/ZhaoKaiQiang)|
 | [通过Jenkins并行完成UI的自动化测试](issue-9/通过Jenkins并行完成UI的自动化测试.md)  | [chaossss](https://github.com/chaossss)     |

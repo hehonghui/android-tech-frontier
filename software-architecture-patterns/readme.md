@@ -1,7 +1,7 @@
 软件架构模式
 -----
 
-原书名[《Software Architecture Patterns》](http://www.oreilly.com/programming/free/software-architecture-patterns.csp) ,[软件架构模式pdf下载](http://pan.baidu.com/s/1sjAz23r)。
+原书名[《Software Architecture Patterns》](http://www.oreilly.com/programming/free/software-architecture-patterns.csp) ,[软件架构模式pdf下载](http://pan.baidu.com/s/1sjAz23r)，中文版[下载地址](https://www.gitbook.com/book/bboyfeiyu/software-architecture-patterns/details)。   
 
 
 ## 翻译规范
@@ -21,7 +21,7 @@ The idea is simple: clean architecture stands for a group of practices that prod
 
 |  			翻译章节			 |   		译员信息 	 |
 |--------------------------|-------------------|
-|  [第一章 分层架构](chapter01-BillionWang.md) | [BillionWang](https://github.com/BillionWang)  |
+|  [第一章 分层架构](chapter01-BillonWang.md) | [BillionWang](https://github.com/BillionWang)  |
 |  [第二章 事件驱动架构](chapter02-chaossss.md) | [chaossss](https://github.com/chaossss)  |
 |  [第三章 微内核架构](chapter03-Mr.Simple.md) | [Mr.Simple](https://github.com/bboyfeiyu)  |
 |  [第四章 微服务架构](chapter04-dupengwei.md) | [dupengwei](https://github.com/dupengwei)  |
