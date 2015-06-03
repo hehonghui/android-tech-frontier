@@ -173,7 +173,10 @@ Now, as the user scrolls the RecyclerView, the AppBarLayout can respond to those
 One note: all views using the scroll flag must be declared before views that do not use the flag. This ensures that all views exit from the top, leaving the fixed elements behind.
 
 ###Collapsing Toolbars
+###折叠 Toolbars
 Adding a Toolbar directly to an AppBarLayout gives you access to the enterAlwaysCollapsed and exitUntilCollapsed scroll flags, but not the detailed control on how different elements react to collapsing. For that, you can use [CollapsingToolbarLayout](http://developer.android.com/reference/android/support/design/widget/CollapsingToolbarLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog):
+
+直接向AppBarLayout添加ToolBar，你需要添加enteralwayscollapsed和exituntilcollapsed两个滚动Flag，但是不能在细节上不同的元素对此的反应。为此，您可以使用 [CollapsingToolbarLayout](http://developer.android.com/reference/android/support/design/widget/CollapsingToolbarLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog):
 
 ```
 <android.support.design.widget.AppBarLayout
@@ -192,10 +195,17 @@ Adding a Toolbar directly to an AppBarLayout gives you access to the enterAlways
 ```
 This setup uses CollapsingToolbarLayout’s app:layout_collapseMode="pin" to ensure that the Toolbar itself remains pinned to the top of the screen while the view collapses. Even better, when you use CollapsingToolbarLayout and Toolbar together, the title will automatically appear larger when the layout is fully visible, then transition to its default size as it is collapsed. Note that in those cases, you should call setTitle() on the CollapsingToolbarLayout, rather than on the Toolbar itself.
 
+这个设置使用collapsingtoolbarlayout的layout_collapsemode ="pin" 确保在View折叠时，Toolbar本身仍然在屏幕顶部。更好的是，当你同时使用collapsingtoolbarlayout和Toolbar，当布局完全可见时，标题看上去明显变大了；当布局折叠完成后，它恢复到其默认大小。请注意，在这些情况下，你应该调用CollapsingToolbarLayout#settitle() ，而不是调用Toolbar。
+
 
 [example video](http://material-design.storage.googleapis.com/publish/material_v_3/material_ext_publish/0B0NGgBg38lWWcFhaV1hiSlB4aFU/patterns-scrollingtech-scrolling-070801_Flexible_Space_xhdpi_003.webm)
 
 In addition to pinning a view, you can use app:layout_collapseMode="parallax" (and optionally app:layout_collapseParallaxMultiplier="0.7" to set the parallax multiplier) to implement parallax scrolling (say of a sibling ImageView within the CollapsingToolbarLayout). This use case pairs nicely with the app:contentScrim="?attr/colorPrimary" attribute for CollapsingToolbarLayout, adding a full bleed scrim when the view is collapsed.
+
+
+
+如果你希望添加压住特定的视图效果，您可以使用app：layout_collapsemode ="parallax"（和app：layout_collapseparallaxmultiplier =“0.7”（可选,用于设置视差乘数）实现视差滚动（也就是说ImageView，作为Toolbar的兄弟节点，在collapsingtoolbarlayout中）。在这种情况下，建议在CollapsingToolbarLayout中设置
+app:contentScrim="?attr/colorPrimary"这一属性，这样，当视图折叠的时候，就会有蒙上纱布的渐变效果。
 
 [example video](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B6Okdz75tqQscXNQY3dNdVlYeTQ/patterns-scrolling-techniques_flex_space_image_xhdpi_003.webm)
 
@@ -220,7 +230,7 @@ Design library现在就可以使用，请确保已经用SDk Manager更新了Andr
 
 ```
  compile 'com.android.support:design:22.2.0'
-```
+```z
 Note that as the Design library depends on the Support v4 and AppCompat Support Libraries, those will be included automatically when you add the Design library dependency. We also took care that these new widgets are usable in the Android Studio Layout Editor’s Design view (find them under CustomView), giving you an easier way to preview some of these new components.
 
 需要注意的是，Design library 依赖于Support v4和AppCompat Support Libraries,在你添加  Design library时，这些库也会自动的添加到依赖中。同时，这些控件在Android Studio的Layout Editor (可以在CustomView中找到)中是可用的，你可以便捷的预览一些新的控件。
