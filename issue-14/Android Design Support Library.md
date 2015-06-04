@@ -135,8 +135,10 @@ A great example of this is when you add a FloatingActionButton as a child of you
 CoordinatorLayout also provides an layout_anchor attribute which, along with layout_anchorGravity, can be used to place floating views, such as the FloatingActionButton, relative to other views.
 
 ###CoordinatorLayout and the app bar
+###CoordinatorLayout 和app bar
 The other main use case for the CoordinatorLayout concerns the app bar (formerly action bar) and [scrolling techniques](http://www.google.com/design/spec/patterns/scrolling-techniques.html?utm_campaign=io15&utm_source=dac&utm_medium=blog). You may already be using a [Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) in your layout, allowing you to more easily customize the look and integration of that iconic part of an app with the rest of your layout. The Design library takes this to the next level: using an [AppBarLayout](http://developer.android.com/reference/android/support/design/widget/AppBarLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) allows your Toolbar and other views (such as tabs provided by TabLayout) to react to scroll events in a sibling view marked with a ScrollingViewBehavior. Therefore you can create a layout such as:
 
+另一个比较重要的场合是CoordinatorLayout结合app bar (或者action bar)和 [滚动处理](http://www.google.com/design/spec/patterns/scrolling-techniques.html?utm_campaign=io15&utm_source=dac&utm_medium=blog). 你可能在你的布局里已经使用了[Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar.html?utm_campaign=io15&utm_source=dac&utm_medium=blog), 能让你自定义外观，将应用中最显眼的部分和其他部分整合到一起. Design library采用了进一步的解决方案:使用[AppBarLayout](http://developer.android.com/reference/android/support/design/widget/AppBarLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)可以让Toolbar和其他View（例如展示Tab的TabLayout）对滚动事件作出反应，前提是他们在一个标有ScrollingViewBehavior的View中.因此，你可以创建如下的布局：
 ```
  <android.support.design.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -159,19 +161,29 @@ The other main use case for the CoordinatorLayout concerns the app bar (formerly
 
         <android.support.design.widget.TabLayout
                   ...
-                  app:layout_scrollFlags="scroll|enterAlways">
+                  app:layout_scrollFlags="scroll|enterAlways"/>
      </android.support.design.widget.AppBarLayout>
 </android.support.design.widget.CoordinatorLayout>
 ```
 
 Now, as the user scrolls the RecyclerView, the AppBarLayout can respond to those events by using the children’s scroll flags to control how they enter (scroll on screen) and exit (scroll off screen). Flags include:
 
+现在，随着用户滚动RecyclerView，AppBarLayout通过子视图上的scroll flag，处理事件作出反应，控制他们如何进入，如何退出。Flag包括：
+
 > - scroll: this flag should be set for all views that want to scroll off the screen - for views that do not use this flag, they’ll remain pinned to the top of the screen
 - enterAlways: this flag ensures that any downward scroll will cause this view to become visible, enabling the ‘quick return’ pattern
 - enterAlwaysCollapsed: When your view has declared a minHeight and you use this flag, your View will only enter at its minimum height (i.e., ‘collapsed’), only re-expanding to its full height when the scrolling view has reached it’s top.
 - exitUntilCollapsed: this flag causes the view to scroll off until it is ‘collapsed’ (its minHeight) before exiting
 
+
+> - scroll: 所有想滚动出屏幕的view都需要设置这个flag- 没有设置这个flag的view将被固定在屏幕顶部。
+- enterAlways: 这个flag让任意向下的滚动都会导致该view变为可见，启用"快速返回"模式。
+- enterAlwaysCollapsed: 当你的视图已经设置minHeight属性又使用此标志时，你的视图只会在最小高度处进入，只有当滚动视图到达顶部时才扩大到完整高度。
+- exitUntilCollapsed: 在滚动过程中，只有当视图折叠到最小高度的时候，它才退出屏幕。
+
 One note: all views using the scroll flag must be declared before views that do not use the flag. This ensures that all views exit from the top, leaving the fixed elements behind.
+
+注意：那些使用Scroll flag的视图必须在其他视图之前声明。这样才能确保所有的视图从顶部撤离，剩下的元素固定在前面（译者注：剩下的元素压在其他元素的上面）。
 
 ###Collapsing Toolbars
 ###折叠 Toolbars
