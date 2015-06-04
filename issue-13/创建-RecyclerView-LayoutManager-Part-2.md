@@ -1,22 +1,15 @@
-创建一个 RecyclerView LayoutManager – Part 2
+创建 RecyclerView LayoutManager – Part 2
 ---
 
 > * 原文链接 : [Building a RecyclerView LayoutManager – Part 2][part2]
 > * 原文作者 : [Dave Smith][author]
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [tiiime](https://github.com/tiiime) 
-* 校对者:
-* 状态 :   未完成 
+* 校对者:[chaossss](https://github.com/chaossss) 
+* 状态 :   完成 
 
 
-# Building a RecyclerView LayoutManager – Part 2
-
->This article is Part 2 in our series. Here are links to Part 1 and Part 3 as well.
-
-In the last post,  we walked through the core functionality necessary for building a RecyclerView LayoutManager. In this post, we are going to add support for a few additional features that the average adapter-based view is expected to have.
-
->A reminder that the entire sample application can be found here on GitHub.
-
+# 创建 a RecyclerView LayoutManager – Part 2
 
 >本文是这个系列中的 Part 2，这里是 [Part 1][part1] 和 [Part 3][part3] 的链接。
 
@@ -27,10 +20,6 @@ In the last post,  we walked through the core functionality necessary for buildi
 
 ---
 
-#Supporting Item Decorations
-
-RecyclerView has a really neat feature in which an RecyclerView.ItemDecoration instance can be supplied to do custom drawing alongside the child view content, as well as provide insets (margins) that will apply to the child views without the need for modifying layout parameters. The latter places a constraint on how the children should be laid out that the LayoutManager implementation must support.
-
 #Item Decorations 支持
 
 RecyclerView 有一个很好的特性 `RecyclerView.ItemDecoration`，它可以给
@@ -38,19 +27,6 @@ RecyclerView 有一个很好的特性 `RecyclerView.ItemDecoration`，它可以�
 布局属性(margins)。后者就是 LayoutManager 必须提供的约束子视图布局方式。
 
 ---
-
->The RecyclerPlayground repository uses a few different decorators in the examples to illustrate how they are implemented.
-
-LayoutManager gives us helper methods to account for decorations so we don’t have to think about them:
-- To get the left edge of a child view, use getDecoratedLeft() instead of child.getLeft()
-- To get the top edge of a child view, use getDecoratedTop() instead of child.getTop()
-- To get the right edge of a child view, use getDecoratedRight() instead of child.getRight()
-- To get the bottom edge of a child view, use getDecoratedBottom() instead of child.getBottom()
-- Use measureChild() or measureChildWithMargins() instead of child.measure() to measure new views coming from the Recycler.
-- Use layoutDecorated() instead of child.layout() to lay out new views coming from the Recycler.
-- Use getDecoratedMeasuredWidth() or getDecoratedMeasuredHeight() instead of child.getMeasuredWidth() or child.getMeasuredHeight() to get the measurements of a child view.
-
-As long as you take into account using the proper methods for getting view properties and measurments, RecyclerView will handle dealing with decorations so you don’t have to.
 
 
 >[RecyclerPlayground ][sample-github] 里有几个 decorator 用来介绍它们的实现方式。
@@ -71,10 +47,6 @@ LayoutManager 中提供了一些辅助方法操作 decorations ，不需要我�
 只要你使用了正确的方法去获取视图的属性和测量数据，RecyclerView 会自己搞定细节部分的处理。
 
 ---
-
-#Data Set Changes
-
-When the attached RecyclerView.Adapter triggers an update via notifyDataSetChanged(), the LayoutManager will be responsible for updating the layout in the view. In this case, onLayoutChildren() will be called again. To support this we need to make some adjustments to our sample to make the distinction between a fresh layout and a layout change due to an adapter update. Below is the fully fleshed out method from the FixedGridLayoutManager:
 
 #数据集改变
 
@@ -179,18 +151,11 @@ public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State 
 
 ---
 
-Our implementation determines if this is a new layout or an update based on whether we have child views attached already. In the case of an update, the first visible position (i.e. the top-left view, which we track continuously) and the current scrolled x/y offset give us enough information to do a new fillGrid() while preserving that the same item position remain in the top-left.
-
 我们根据有没有已经被 attach 的子视图来判断当前是一个新的布局还是一个更新操作。
 如果是更新，我们根据第一个可见视图的 position（通过监测视图左上角是哪个子视图）
 和当前 x/y 滑动的位移这些信息去执行新的 `fillGrid()`，同时保证左上角的 item 位置不变。
 
 ---
-
-There are a few special cases we handle as well.
-
-- When the new data set is too small to scroll, the layout is reset with position 0 in the top-left.
-- If the new data set is smaller, and preserving the current position would cause the layout to be scrolled beyond the allowed boundary (on the right and/or bottom). Here we adjust the first position so the layout aligns with the bottom-right of the grid.
 
 下面是一些需要特殊处理得情况：
 
@@ -199,16 +164,6 @@ There are a few special cases we handle as well.
 	我们就应该调整第一个 item 的位置，以便和右下角对齐。
 	
 ---
-
-###onAdapterChanged()
-
-This method provides you an additional opportunity to reset the layout in the event that the entire adapter is swapped out (i.e. setAdapter() is invoked again on the view). In this event, it’s safer to assume that the views returned will be completely different than from the previous adapter. Therefore, our example simply removes all current views (without recycling them):
-
-```java
-//code
-```
-
-The view removal will trigger a new layout pass, and when onLayoutChildren() is called again, our code can perform a fresh layout since there are no longer any child views attached.
 
 ###onAdapterChanged()
 
@@ -229,15 +184,6 @@ public void onAdapterChanged(RecyclerView.Adapter oldAdapter, RecyclerView.Adapt
 我们的代码会执行创建新视图的布局过程，因为现在没有 attched 的子视图。
 
 ---
-
-#Scroll to Position
-Another important feature you will likely want from your LayoutManager is the ability to tell the view to scroll to a specific position. This can be done with or without animation, and there is a callback for each.
-###scrollToPosition()
-This method is invoked from the RecyclerView when the layout should immediately update with the given position as the first visible item. In a vertical list, the element would be placed at the top; in a horizontal list, it would generally be on the left. In our grid, the “selected” position will be placed at the top-left of the view.
-```java
-//code
-```
-With a proper implementation of onLayoutChildren(), this can be as simple as updating the target position and triggering a new fill.
 
 #Scroll to Position
 另一个重要的特性就是给 LayoutManager 添加滚动到特定位置的功能。
@@ -273,12 +219,6 @@ public void scrollToPosition(int position) {
 
 ###smoothScrollToPosition()
 
-In the case where the selection should be animated, we need to take a slightly different approach. The contract of this method is for the LayoutManager to construct an instance of a RecyclerView.SmoothScroller, and begin the animation by invoking startSmoothScroll() before the method returns.
-
-RecyclerView.SmoothScroller is an abstract class with an API that consists of four required methods:
-
-###smoothScrollToPosition()
-
 在带有动画的情况下，我们需要使用一些稍微不同的方法。
 在这方法里我们需要创建一个 `RecyclerView.SmoothScroller`实例，
 然后在方法返回前请求`startSmoothScroll()`启动动画。
@@ -286,14 +226,6 @@ RecyclerView.SmoothScroller is an abstract class with an API that consists of fo
 `RecyclerView.SmoothScroller` 是提供 API 的抽象类，含有四个方法：
 
 ---
-
-- onStart(): Triggered when the scroller animation begins.
-- onStop(): Triggered when the scroller animation ends.
-- onSeekTargetStep(): Invoked incrementally as the scroller searches for the target view. The implementation is responsible for reading the provided dx/dy and updating how far the view should actually scroll in both directions.
-	- A RecyclerView.SmoothScroller.Action instance is passed to this method. Notify the view how it should animate the next increment by passing a new dx, dy, duration, and Interpolator to the action’s update() method.
-	- NOTE: The framework will warn you if you are taking too long to animate (i.e. your increments are too small); try to tune your animation steps to match a standard animation duration from the framework.
-- onTargetFound(): Called only once, after a view for the target position has been attached. This is one final chance to animate the target view to its exact position.
-Internally, this uses findViewByPosition() from the LayoutManager to determine when the view is attached. If your LayoutManager is efficient about mapping views to positions, override this method to improve performance. The default implementation iterates over all child views…all the time.
 
 - `onStart()`：当滑动动画开始时被触发。
 - `onStop()`：当滑动动画停止时被触发。
@@ -310,7 +242,6 @@ Internally, this uses findViewByPosition() from the LayoutManager to determine w
 		可以覆写这个方法来优化性能。默认提供的实现是通过每次遍历所有子视图查找。
 
 ---
-You can provide your own scroller implementation if you really want to fine-tune your scrolling animations. We have chosen to use the framework’s LinearSmoothScroller instead, which implements the callback work for us. We only need to implement a single method, computeScrollVectorForPosition(), to tell the scroller the initial direction and approximate distance it needs to travel to get from its current location to the target location.
 
 你可以自己实现一个 scroller 达到你想要的效果。不过这里我们只使用系统提供的
 `LinearSmoothScroller` 就好了。只需实现一个方法`computeScrollVectorForPosition()`，
@@ -354,18 +285,12 @@ public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State
 
 ---
 
-This implementation, similar to the existing behavior of ListView, will stop scrolling as soon as the view becomes fully visible; whether that be on the left, top, right, or bottom of the RecyclerView.
-
 在这个实现中，和现有 ListView 的行为相似，无论是 RecyclerView 的哪个方向滚动，
 当视图完全可见时滚动就会停止。
 
 
 
 ---
-
-#Now What?
-
-You mean that wasn’t enough? Things are starting to look pretty good! In fact, for many the implementation could be considered complete. But we’re going to go just one step further. In the next, and final post of this series, we will look at supporting animations for data set changes in your LayoutManager.
 
 #接下来？
 
@@ -375,8 +300,8 @@ You mean that wasn’t enough? Things are starting to look pretty good! In fact,
 
 ---
 
-[part1]:http://wiresareobsolete.com/2014/09/building-a-recyclerview-layoutmanager-part-1/
+[part1]:https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-9/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-1.md
 [author]:http://wiresareobsolete.com/
-[part2]:http://wiresareobsolete.com/2014/09/recyclerview-layoutmanager-2/
-[part3]:http://wiresareobsolete.com/2015/02/recyclerview-layoutmanager-3/
+[part2]:https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-13/创建-RecyclerView-LayoutManager-Part-2
+[part3]:https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-13/创建-RecyclerView-LayoutManager-Part-3
 [sample-github]:https://github.com/devunwired/recyclerview-playground
