@@ -112,6 +112,7 @@ You’ll note the use of a View as the first parameter to make() - Snackbar will
 
 ###Tabs
 Switching between different [views](http://www.google.com/design/spec/components/tabs.html) in your app via tabs is not a new concept to material design and they are equally at home as a [top level navigation pattern](http://www.google.com/design/spec/patterns/app-structure.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#app-structure-top-level-navigation-strategies) or for organizing different groupings of content within your app (say, different genres of music).
+
 ![](http://1.bp.blogspot.com/-liraQhLEn60/VWihbiaXaJI/AAAAAAAABvQ/nKi1_xcx6yk/s320/tabs.png)
 
 The Design library’s [TabLayout](http://developer.android.com/reference/android/support/design/widget/TabLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) implements both fixed tabs, where the view’s width is divided equally between all of the tabs, as well as scrollable tabs, where the tabs are not a uniform size and can scroll horizontally. Tabs can be added programmatically:
