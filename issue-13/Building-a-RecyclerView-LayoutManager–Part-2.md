@@ -1,7 +1,7 @@
 创建一个 RecyclerView LayoutManager – Part 2
 ---
 
-> * 原文链接 : [Building a RecyclerView LayoutManager – Part 3][part3]
+> * 原文链接 : [Building a RecyclerView LayoutManager – Part 2][part2]
 > * 原文作者 : [Dave Smith][author]
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [tiiime](https://github.com/tiiime) 
@@ -21,7 +21,7 @@ In the last post,  we walked through the core functionality necessary for buildi
 >本文是这个系列中的 Part 2，这里是 [Part 1][part1] 和 [Part 3][part3] 的链接。
 
 上次我们讲了创建一个 RecyclerView LayoutManager 的核心步骤。接下来，
-我们会介绍如何给普通基于适配器的 View 加入一些可选特性。
+我们会介绍如何给普通基于适配器的 View 加入一些附加特性。
 
 >友情提醒：示例中的代码在这里 [Github][sample-github]
 
@@ -34,8 +34,8 @@ RecyclerView has a really neat feature in which an RecyclerView.ItemDecoration i
 #Item Decorations 支持
 
 RecyclerView 有一个很好的特性 `RecyclerView.ItemDecoration`，它可以给
-子视图添加自定义样式，还可以在不修改子视图布局参数的情况下控制
-它的布局属性(margins)。后者就是 LayoutManager 必须提供的约束子视图布局方式。
+子视图添加自定义样式，还可以在不修改子视图布局参数的情况下插入
+布局属性(margins)。后者就是 LayoutManager 必须提供的约束子视图布局方式。
 
 ---
 
@@ -53,7 +53,7 @@ LayoutManager gives us helper methods to account for decorations so we don’t h
 As long as you take into account using the proper methods for getting view properties and measurments, RecyclerView will handle dealing with decorations so you don’t have to.
 
 
->[RecyclerPlayground ][sample-github] 里有几个不同的 decorator 用来介绍它们的实现方式。
+>[RecyclerPlayground ][sample-github] 里有几个 decorator 用来介绍它们的实现方式。
 
 LayoutManager 中提供了一些辅助方法操作 decorations ，不需要我们自己实现：
 
@@ -80,7 +80,7 @@ When the attached RecyclerView.Adapter triggers an update via notifyDataSetChang
 
 当使用 `notifyDataSetChanged()`触发 `RecyclerView.Adapter` 的更新操作时，
 LayoutManager 负责更新布局中的视图。这时，`onLayoutChildren()`会被再次调用。
-实现这个功能需要我们调整代码，判断出当前状态是生成一个新视图 还是 adapter 
+实现这个功能需要我们调整代码，判断出当前状态是生成一个新的视图 还是 adapter 
 更新期间的视图改变。下面是`FixedGridLayoutManager`中的填充方法的完整实现：
 
 ```java
@@ -182,7 +182,7 @@ public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State 
 Our implementation determines if this is a new layout or an update based on whether we have child views attached already. In the case of an update, the first visible position (i.e. the top-left view, which we track continuously) and the current scrolled x/y offset give us enough information to do a new fillGrid() while preserving that the same item position remain in the top-left.
 
 我们根据有没有已经被 attach 的子视图来判断当前是一个新的布局还是一个更新操作。
-如果是更新，我们根据第一个可见视图的 position（比如持续监测视图的左上角是哪个视图）
+如果是更新，我们根据第一个可见视图的 position（通过监测视图左上角是哪个子视图）
 和当前 x/y 滑动的位移这些信息去执行新的 `fillGrid()`，同时保证左上角的 item 位置不变。
 
 ---
@@ -194,8 +194,8 @@ There are a few special cases we handle as well.
 
 下面是一些需要特殊处理得情况：
 
-- 当新的数据集很小不足以滑动时，布局会将左上角的 item 重置成 0。
-- 如果新的数据集很小，保持当前位置会引起滚动超出允许边界。
+- 当新的数据集很小，不足以滑动时，布局会将左上角重置为 position 是 0 的item。
+- 如果新的数据集很小，保持当前位置会使滚动超出边界。
 	我们就应该调整第一个 item 的位置，以便和右下角对齐。
 	
 ---
@@ -212,8 +212,9 @@ The view removal will trigger a new layout pass, and when onLayoutChildren() is 
 
 ###onAdapterChanged()
 
-这个方法提供了另一个重置布局的场所，设置新的 adapter 会触发这个事件。
-在这里你可以安全的返回一个与之前 adapter 完全不同的视图。所以，
+这个方法提供了另一个重置布局的场所，设置新的 adapter 会触发这个事件
+(在这，`setAdapter`会被再次调用)。
+这个阶段你可以安全的返回一个与之前 adapter 完全不同的视图。所以，
 示例中我们移除了所有当前视图(并没有回收它们)。
 
 ```java
@@ -224,8 +225,8 @@ public void onAdapterChanged(RecyclerView.Adapter oldAdapter, RecyclerView.Adapt
 }
 ```
 
-移除视图会出发一个新的布局过程，当  `onLayoutChildren()` 被再次调用时，
-我们的代码会执行一个新视图的布局，因为现在没有 attched 的子视图。
+移除视图会触发一个新的布局过程，当  `onLayoutChildren()` 被再次调用时，
+我们的代码会执行创建新视图的布局过程，因为现在没有 attched 的子视图。
 
 ---
 
@@ -294,8 +295,8 @@ RecyclerView.SmoothScroller is an abstract class with an API that consists of fo
 - onTargetFound(): Called only once, after a view for the target position has been attached. This is one final chance to animate the target view to its exact position.
 Internally, this uses findViewByPosition() from the LayoutManager to determine when the view is attached. If your LayoutManager is efficient about mapping views to positions, override this method to improve performance. The default implementation iterates over all child views…all the time.
 
-- `onStart()`：滑动动画开始时被触发。
-- `onStop()`：滑动动画停止时被触发。
+- `onStart()`：当滑动动画开始时被触发。
+- `onStop()`：当滑动动画停止时被触发。
 - `onSeekTargetStep()`：当 scroller 搜索目标 view 时被重复调用，这个方法负责读取提供的 
 	dx/dy ，然后更新应该在这两个方向移动的距离。
 	- 这个方法有一个`RecyclerView.SmoothScroller.Action`实例做参数。
@@ -311,7 +312,7 @@ Internally, this uses findViewByPosition() from the LayoutManager to determine w
 ---
 You can provide your own scroller implementation if you really want to fine-tune your scrolling animations. We have chosen to use the framework’s LinearSmoothScroller instead, which implements the callback work for us. We only need to implement a single method, computeScrollVectorForPosition(), to tell the scroller the initial direction and approximate distance it needs to travel to get from its current location to the target location.
 
-你可以自己实现一个 scroller 达到你想要的效果。不过这里我们只使用了系统提供的
+你可以自己实现一个 scroller 达到你想要的效果。不过这里我们只使用系统提供的
 `LinearSmoothScroller` 就好了。只需实现一个方法`computeScrollVectorForPosition()`，
 然后告诉 scroller 初始方向还有从当前位置滚动到目标位置的大概距离。
 
@@ -355,8 +356,8 @@ public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State
 
 This implementation, similar to the existing behavior of ListView, will stop scrolling as soon as the view becomes fully visible; whether that be on the left, top, right, or bottom of the RecyclerView.
 
-在这个实现中，和现有 ListView 的行为相似，当视图完全可见就会停止滚动；
-无论是 RecyclerView 的哪个方向。
+在这个实现中，和现有 ListView 的行为相似，无论是 RecyclerView 的哪个方向滚动，
+当视图完全可见时滚动就会停止。
 
 
 
