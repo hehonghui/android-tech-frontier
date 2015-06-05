@@ -5,7 +5,7 @@ Square：从今天开始抛弃Fragment吧！
 * 原文作者 : [Pierre-Yves Ricau](http://twitter.com/Piwai)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [chaossss](https://github.com/chaossss) 
-* 校对者: [这里校对者的github用户名](github链接)  
+* 校对者: [Belial](www.belial.me)
 * 状态 :  完成
 
 最近我在 Droidcon Paris 上进行了[一个技术相关的演讲](http://fr.droidcon.com/2014/agenda/detail?title=D%C3%A9fragmentez+vos+apps+avec+Mortar+%21)，我在这次演讲中给大家展示了 Square 使用 Fragment 进行开发时遇到的种种问题，以及其他 Android 开发者是怎么避免在项目中使用 Fragment 的。
