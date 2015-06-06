@@ -127,12 +127,21 @@ However, if you are using a [ViewPager](http://developer.android.com/reference/a
 ###CoordinatorLayout, motion, and scrolling
 Distinctive visuals are only one part of material design: motion is also an important part of making a great material designed app. While there are a lot of parts of motion in material design including [touch ripples](http://www.google.com/design/spec/animation/responsive-interaction.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#responsive-interaction-surface-reaction) and [meaningful transitions](http://www.google.com/design/spec/animation/meaningful-transitions.html?utm_campaign=io15&utm_source=dac&utm_medium=blog), the Design library introduces [CoordinatorLayout](http://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog), a layout which provides an additional level of control over touch events between child views, something which many of the components in the Design library take advantage of.
 
+
 ###CoordinatorLayout and floating action buttons
+###CoordinatorLayout和floating action buttons
+
 A great example of this is when you add a FloatingActionButton as a child of your CoordinatorLayout and then pass that CoordinatorLayout to your Snackbar.make() call - instead of the snackbar displaying over the floating action button, the FloatingActionButton takes advantage of additional callbacks provided by CoordinatorLayout to automatically move upward as the snackbar animates in and returns to its position when the snackbar animates out on Android 3.0 and higher devices - no extra code required.
+
+一个很好的例子就是当你将FloatingActionButton作为一个子View添加进CoordinatorLayout并且将CoordinatorLayout传递给 Snackbar.make()，在3.0及其以上的设备上，Snackbar不会显示在悬浮按钮的上面，而是FloatingActionButton利用CoordinatorLayout提供的回调方法，在Snackbar以动画效果进入的时候自动向上移动让出位置，并且在Snackbar动画地消失的时候回到原来的位置，不需要额外的代码。
+
 
 [example video](http://material-design.storage.googleapis.com/publish/material_v_3/material_ext_publish/0B6Okdz75tqQsLWFucDNlYWEyeW8/components_snackbar_usage_fabdo_002.webm)
 
 CoordinatorLayout also provides an layout_anchor attribute which, along with layout_anchorGravity, can be used to place floating views, such as the FloatingActionButton, relative to other views.
+
+CoordinatorLayout还提供了layout_anchor和layout_anchorGravity属性一起配合使用，可以用于放置floating view，比如FloatingActionButton与其他View的相对位置
+
 
 ###CoordinatorLayout and the app bar
 ###CoordinatorLayout 和app bar
