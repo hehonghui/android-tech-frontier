@@ -5,21 +5,29 @@ Android Design Support Library
 * 原文作者 : [Android Developers Blog](http://developer.android.com/index.html)
 * 译文出自 :  [Android Design Support Library | Android Developers Blog](http://android-developers.blogspot.jp/2015/05/android-design-support-library.html)
 * 译者 : [MiJack](https://github.com/MiJack) 
-* 状态 :  未完成
+* 状态 :  已完成
 
-
+[参考翻译](http://www.jcodecraeer.com/a/anzhuokaifa/developer/2015/0531/2958.html)
 Posted by Ian Lake, Developer Advocate
 
 Android 5.0 Lollipop was one of the most significant Android releases ever, in no small part due to the introduction of material design, a new design language that refreshed the entire Android experience. Our detailed spec is a great place to start to adopt material design, but we understand that it can be a challenge for developers, particularly ones concerned with backward compatibility. With a little help from the new Android Design Support Library, we’re bringing a number of important material design components to all developers and to all Android 2.1 or higher devices. You’ll find a navigation drawer view, floating labels for editing text, a floating action button, snackbar, tabs, and a motion and scroll framework to tie them together.
 
+安卓5.0是是有有史以来最重要的安卓版本之一，这其中有很大部分要归功于material design的引入，这种新的设计语言让整个安卓的用户体验焕然一新。我们的详细专题是帮助你开始采用material design。但是我们也知道，这种设计对于开发者，尤其是那些在意向后兼容的开发者来说是一种挑战。在Android Design Support Library的帮助下，我们为所有的开发者，所有2.1以上的设备，带来了一些重要的material design控件。你可以在这里面找到navigation drawer view，输入控件的悬浮标签，floating action button，snackbar，tab以及将这些控件结合在一起的手势滚动框架。
+
 [toutube的介绍](https://youtu.be/32i7ot0y78U)
 
 ###Navigation View
+
 The [navigation drawer](http://www.google.com/design/spec/patterns/navigation-drawer.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) can be an important focal point for identity and navigation within your app and consistency in the design here can make a considerable difference in how easy your app is to navigate, particularly for first time users. NavigationView makes this easier by providing the framework you need for the navigation drawer as well as the ability to inflate your navigation items through a menu resource.
+
+
+[Navigation drawer](http://www.google.com/design/spec/patterns/navigation-drawer.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)是app识别度与内部导航的关键，保持这里设计上的一致性对app的可用性至关重要，尤其是对于第一次使用的用户。 NavigationView 通过提供抽屉导航所需的框架让实现更简单，同时它还能够直接通过菜单资源文件直接生成导航元素。
 
 ![](http://3.bp.blogspot.com/-WmBBQQEJIKM/VWikAyy08sI/AAAAAAAABvc/1R36Txk83UI/s400/drawer.png)
 
 You use NavigationView as DrawerLayout’s drawer content view with a layout such as:
+
+把NavigationView作为DrawerLayout的内容视图来使用，布局如下：
 
 ```
 <android.support.v4.widget.DrawerLayout
@@ -41,7 +49,10 @@ You use NavigationView as DrawerLayout’s drawer content view with a layout suc
 ```
 You’ll note two attributes for NavigationView: app:headerLayout controls the (optional) layout used for the header. app:menu is the menu resource inflated for the navigation items (which can also be updated at runtime). NavigationView takes care of the scrim protection of the status bar for you, ensuring that your NavigationView interacts with the status bar appropriately on API21+ devices.
 
+你会注意到 NavigationView 的两个属性：app:headerLayout  - 控制头部的布局， app:menu - 导航菜单的资源文件（也可以在运行时配置）。NavigationView处理好了和状态栏的关系，可以确保NavigationView在API21+设备上正确的和状态栏交互。
+
 The simplest drawer menus will be a collection of checkable menu items:
+最简单的抽屉菜单往往是几个可点击的菜单的集合：
 
 ```
 <group android:checkableBehavior="single">
@@ -57,8 +68,10 @@ The simplest drawer menus will be a collection of checkable menu items:
 </group>
 ```
 The checked item will appear highlighted in the navigation drawer, ensuring the user knows which navigation item is currently selected.
-
 You can also use subheaders in your menu to separate groups of items:
+
+被点击过的item会高亮显示在抽屉菜单中，让用户知道当前是哪个菜单被选中。
+你也可以在menu中使用subheader来为菜单分组：
 
 ```
 <item
@@ -78,29 +91,44 @@ You can also use subheaders in your menu to separate groups of items:
 ```
 You’ll get callbacks on selected items by setting a OnNavigationItemSelectedListener using setNavigationItemSelectedListener(). This provides you with the [MenuItem](http://developer.android.com/reference/android/view/MenuItem.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) that was clicked, allowing you to handle selection events, changed the checked status, load new content, programmatically close the drawer, or any other actions you may want.
 
+你可以通过设置一个OnNavigationItemSelectedListener，使用其setNavigationItemSelectedListener()来获得元素被选中的回调事件。它为你提供可以点击的[MenuItem](http://developer.android.com/reference/android/view/MenuItem.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)，让你可以处理选择事件，改变复选框状态，加载新内容，关闭导航菜单，以及其他任何你想做的操作。
 
 
 ###Floating labels for editing text
 Even the humble [EditText](http://developer.android.com/reference/android/widget/EditText.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) has room to improve in material design. While an EditText alone will hide the hint text after the first character is typed, you can now wrap it in a [TextInputLayout](http://developer.android.com/reference/android/support/design/widget/TextInputLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog), causing the hint text to become a [floating label](http://www.google.com/design/spec/components/text-fields.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#text-fields-floating-labels) above the EditText, ensuring that users never lose context in what they are entering.
 
+即便是十分简单的EditText，在Material Design 中也有提升的空间。在EditText中，当你填入第一个字符后，hint就消失了。现在将它换成[TextInputLayout](http://developer.android.com/reference/android/support/design/widget/TextInputLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)，提示信息会变成一个显示在EditText之上的floating label，这样用户就始终知道他们现在输入的是什么。
 
 ![](http://4.bp.blogspot.com/-BUKc5AwzS4A/VWihVlHr9cI/AAAAAAAABvI/rslBAoaHwzA/s1600/textinputlayout.png)
 
 
 In addition to showing hints, you can also display an error message below the EditText by calling setError().
 
+还可以通过setError()设置当用户输入不合法时的Error提示；
 ###Floating Action Button
+
 A [floating action button](http://www.google.com/design/spec/components/buttons-floating-action-button.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) is a round button denoting a primary action on your interface. The Design library’s [FloatingActionButton](http://developer.android.com/reference/android/support/design/widget/FloatingActionButton.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) gives you a single consistent implementation, by default colored using the colorAccent from your theme.
+
+[Floating action button](http://www.google.com/design/spec/components/buttons-floating-action-button.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)是一个负责显示界面基本操作的圆形按钮。Design library中的[FloatingActionButton](http://developer.android.com/reference/android/support/design/widget/FloatingActionButton.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) 实现了一个默认颜色为主题中colorAccent的悬浮操作按钮。
+
 ![](http://2.bp.blogspot.com/-tdrgNYnQZyw/VWiOcfSRoYI/AAAAAAAABuU/6LsOxJFE4hE/s1600/image03.png)
 
-In addition to the normal size floating action button, it also supports the mini size (fabSize="mini") when visual continuity with other elements is critical. As FloatingActionButton extends ImageView, you’ll use android:src or any of the methods such as [setImageDrawable()](http://developer.android.com/reference/android/widget/ImageView.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#setImageDrawable(android.graphics.drawable.Drawable)) to control the icon shown within the FloatingActionButton.
+In addition to the normal size floating action button, it also supports the mini size (fabSize="mini") when visual continuity with other elements is critical. As FloatingActionButton extends ImageView, you’ll use android:src or any of the methods such as [setImageDrawable()](http://developer.android.com/reference/android/widget/ImageView.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#setImageDrawable(android.graphics.drawable.Drawable)to control the icon shown within the FloatingActionButton.
+
+除了一般大小的悬浮操作按钮，它还支持mini size（fabSize=”mini”）。FloatingActionButton继承自ImageView，你可以使用android:src或者ImageView的任意方法，比如[setImageDrawable()](http://developer.android.com/reference/android/widget/ImageView.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#setImageDrawable(android.graphics.drawable.Drawable)来设置FloatingActionButton里面的图标。
 
 ###Snackbar
+
 Providing lightweight, quick feedback about an operation is a perfect opportunity to use a [snackbar](http://www.google.com/design/spec/components/snackbars-toasts.html?utm_campaign=io15&utm_source=dac&utm_medium=blog). Snackbars are shown on the bottom of the screen and contain text with an optional single action. They automatically time out after the given time length by animating off the screen. In addition, users can swipe them away before the timeout.
+
+提供需要一个轻量级、可以快速作出反馈的控件，你可以试试[SnackBar](http://www.google.com/design/spec/components/snackbars-toasts.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)。[Snackbar](http://www.google.com/design/spec/components/snackbars-toasts.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)显示在屏幕的底部,包含了文字信息与一个可选的操作按钮。在指定时间结束之后自动消失。另外，用户还可以滑动删除它们。
+
 
 [example video](http://material-design.storage.googleapis.com/publish/material_v_3/material_ext_publish/0B6Okdz75tqQsLVVnZlF4UEtKRU0/components_snackbar_specs_fabtablet_002.webm)
 
 By including the ability to interact with the [Snackbar](http://developer.android.com/reference/android/support/design/widget/Snackbar.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) through swiping it away or actions, these are considerably more powerful than toasts, another lightweight feedback mechanism. However, you’ll find the API very familiar:
+
+Snackbar，可以通过滑动或者点击进行交互，可以看作是比Toast更强大的快速反馈机制，你会发现他们的API非常相似。
 
 ```
 Snackbar
@@ -110,19 +138,29 @@ Snackbar
 ```
 You’ll note the use of a View as the first parameter to make() - Snackbar will attempt to find an appropriate parent of the Snackbar’s view to ensure that it is anchored to the bottom.
 
+你应该注意到了make()方法中把一个View作为第一个参数，Snackbar试图找到一个合适的父亲以确保自己是被放置于底部。
+
 ###Tabs
 Switching between different [views](http://www.google.com/design/spec/components/tabs.html) in your app via tabs is not a new concept to material design and they are equally at home as a [top level navigation pattern](http://www.google.com/design/spec/patterns/app-structure.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#app-structure-top-level-navigation-strategies) or for organizing different groupings of content within your app (say, different genres of music).
+
+通过选项卡的方式切换[View](http://www.google.com/design/spec/components/tabs.html)并不是material design中才有的新概念，它们和[顶层导航模式](http://www.google.com/design/spec/patterns/app-structure.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#app-structure-top-level-navigation-strategies)或者组织app中不同分组内容（比如，不同风格的音乐）是同一个概念。
 
 ![](http://1.bp.blogspot.com/-liraQhLEn60/VWihbiaXaJI/AAAAAAAABvQ/nKi1_xcx6yk/s320/tabs.png)
 
 The Design library’s [TabLayout](http://developer.android.com/reference/android/support/design/widget/TabLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) implements both fixed tabs, where the view’s width is divided equally between all of the tabs, as well as scrollable tabs, where the tabs are not a uniform size and can scroll horizontally. Tabs can be added programmatically:
 
+Design library的[TabLayout](http://developer.android.com/reference/android/support/design/widget/TabLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) 既实现了固定的选项卡（View的宽度平均分配），也实现了可滚动的选项卡（View宽度不固定同时可以横向滚动）,也可以通过编写代码添加Tab。
 ```
 
 TabLayout tabLayout = ...;
 tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
 ```
 However, if you are using a [ViewPager](http://developer.android.com/reference/android/support/v4/view/ViewPager.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) for horizontal paging between tabs, you can create tabs directly from your [PagerAdapter](http://developer.android.com/reference/android/support/v4/view/PagerAdapter.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)’s [getPageTitle()](http://developer.android.com/reference/android/support/v4/view/PagerAdapter.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#getPageTitle(int)) and then connect the two together using setupWithViewPager(). This ensures that tab selection events update the ViewPager and page changes update the selected tab.
+
+如果，你使用[ViewPager](http://developer.android.com/reference/android/support/v4/view/ViewPager.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)在tab之间横向切换，你可以直接从[PagerAdapter](http://developer.android.com/reference/android/support/v4/view/PagerAdapter.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)的[getPageTitle()](http://developer.android.com/reference/android/support/v4/view/PagerAdapter.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#getPageTitle(int))中创建选项卡，然后使用setupWithViewPager()将两者联系在一起。它可以使tab的选中事件能更新ViewPager,同时ViewPager 
+的页面改变能更新tab的选中状态。
+
+
 
 ###CoordinatorLayout, motion, and scrolling
 ###CoordinatorLayout, 动作和滚动
