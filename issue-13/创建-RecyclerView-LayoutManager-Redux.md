@@ -1,4 +1,4 @@
-这里写中文标题
+创建-RecyclerView-LayoutManager-Redux
 ---
 
 > * 原文链接 : [Building A RecyclerView LayoutManager – Redux](http://wiresareobsolete.com/2014/09/recyclerview-layoutmanager-2/)
@@ -12,9 +12,9 @@
 
 这篇文章是RecyclerView系列文章的结尾篇。前三部分的链接在这里 :       
 
-* [第一部分-]()
-* [第二部分-]()
-* [第三部分-]()
+* [第一部分](https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-9/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-1.md)
+* [第二部分](https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-13/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-2.md)
+* [第三部分](https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-13/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-3.md)
 
 当我在写这个系列的最后一篇文章，也就是关于predictIve animation的讨论时，我突然想到几个很有意思的点，并且很有讨论价值。这个系列文章以调查RecyclerView是否能够以简单的方式满足竖向、横向滚动的布局需求以及开发者要定制一个LayoutManager的难度有多大开始。这篇文章中我选择了一个基本的网格布局作为自定义layoutManager的示例。
 
