@@ -83,6 +83,18 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" ></b>
 ## 已完成列表
+# 2015.6.5 ( 第十三期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [Square：从今天开始抛弃Fragment吧！](issue-13/Square：从今天开始抛弃Fragment吧！.md)  | [chaossss](https://github.com/chaossss)      |
+| [Android进行单元测试难在哪-终](issue-13/Android进行单元测试难在哪-终.md)  | [chaossss](https://github.com/chaossss)|
+| [优化android-studio编译效率的方法](issue-13/优化android-studio编译效率的方法.md)  | [FTExplore](https://github.com/FTExplore)      |
+| [创建 RecyclerView LayoutManager – Part 2](issue-13/创建-RecyclerView-LayoutManager-Part-2.md)  | [tiiime](https://github.com/tiiime)|
+| [创建-RecyclerView-LayoutManager-Part-3](issue-13/创建-RecyclerView-LayoutManager-Part-3.md)  | [tiiime](https://github.com/tiiime)     |
+| [创建-RecyclerView-LayoutManager-Redux](issue-13/创建-RecyclerView-LayoutManager-Redux.md)  | [Mr.Simple](https://github.com/bboyfeiyu)     |
+
+
+
 # 2015.5.31 ( 第十二期 )
 | 文章名称 |   译者  | 
 |---------|--------|

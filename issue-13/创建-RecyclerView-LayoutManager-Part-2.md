@@ -302,6 +302,6 @@ public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State
 
 [part1]:https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-9/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-1.md
 [author]:http://wiresareobsolete.com/
-[part2]:https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-13/创建-RecyclerView-LayoutManager-Part-2
-[part3]:https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-13/创建-RecyclerView-LayoutManager-Part-3
+[part2]:https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-13/https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-13/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-2.md
+[part3]:https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-13/https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-13/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-3.md
 [sample-github]:https://github.com/devunwired/recyclerview-playground
