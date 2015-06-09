@@ -1,31 +1,24 @@
-Android Design Support Library
+﻿Android Design Support Library
 ---
 
 > * 原文链接 : [Android Design Support Library](http://android-developers.blogspot.jp/2015/05/android-design-support-library.html)
 * 原文作者 : [Android Developers Blog](http://developer.android.com/index.html)
 * 译文出自 :  [Android Design Support Library | Android Developers Blog](http://android-developers.blogspot.jp/2015/05/android-design-support-library.html)
 * 译者 : [MiJack](https://github.com/MiJack) 
-* 状态 :  已完成
+* 状态 :  校对完成
 
-[参考翻译](http://www.jcodecraeer.com/a/anzhuokaifa/developer/2015/0531/2958.html)
 Posted by Ian Lake, Developer Advocate
 
-Android 5.0 Lollipop was one of the most significant Android releases ever, in no small part due to the introduction of material design, a new design language that refreshed the entire Android experience. Our detailed spec is a great place to start to adopt material design, but we understand that it can be a challenge for developers, particularly ones concerned with backward compatibility. With a little help from the new Android Design Support Library, we’re bringing a number of important material design components to all developers and to all Android 2.1 or higher devices. You’ll find a navigation drawer view, floating labels for editing text, a floating action button, snackbar, tabs, and a motion and scroll framework to tie them together.
 
-安卓5.0是是有有史以来最重要的安卓版本之一，这其中有很大部分要归功于material design的引入，这种新的设计语言让整个安卓的用户体验焕然一新。我们的详细专题是帮助你开始采用material design。但是我们也知道，这种设计对于开发者，尤其是那些在意向后兼容的开发者来说是一种挑战。在Android Design Support Library的帮助下，我们为所有的开发者，所有2.1以上的设备，带来了一些重要的material design控件。你可以在这里面找到navigation drawer view，输入控件的悬浮标签，floating action button，snackbar，tab以及将这些控件结合在一起的手势滚动框架。
+Android 5.0是有史以来最重要的Android 版本之一，这其中有很大部分要归功于Material design的引入，这种新的设计语言让整个Android的用户体验焕然一新。我们的详细专题是帮助你开始采用Material Design。但是我们也知道，这种设计对于开发者，尤其是那些在意向后兼容的开发者来说是一种挑战。在Android Design Support Library的帮助下，我们为所有的开发者，所有2.1以上的设备，带来了一些重要的Material design控件。你可以在这里面找到Navigation Drawer View，输入控件的悬浮标签，Floating Action Button，Snackbar，Tab以及将这些控件结合在一起的手势滚动框架。
 
-[toutube的介绍](https://youtu.be/32i7ot0y78U)
+[YouTube的介绍](https://youtu.be/32i7ot0y78U)
 
 ###Navigation View
-
-The [navigation drawer](http://www.google.com/design/spec/patterns/navigation-drawer.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) can be an important focal point for identity and navigation within your app and consistency in the design here can make a considerable difference in how easy your app is to navigate, particularly for first time users. NavigationView makes this easier by providing the framework you need for the navigation drawer as well as the ability to inflate your navigation items through a menu resource.
-
 
 [Navigation drawer](http://www.google.com/design/spec/patterns/navigation-drawer.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)是app识别度与内部导航的关键，保持这里设计上的一致性对app的可用性至关重要，尤其是对于第一次使用的用户。 NavigationView 通过提供抽屉导航所需的框架让实现更简单，同时它还能够直接通过菜单资源文件直接生成导航元素。
 
 ![](http://3.bp.blogspot.com/-WmBBQQEJIKM/VWikAyy08sI/AAAAAAAABvc/1R36Txk83UI/s400/drawer.png)
-
-You use NavigationView as DrawerLayout’s drawer content view with a layout such as:
 
 把NavigationView作为DrawerLayout的内容视图来使用，布局如下：
 
@@ -47,11 +40,9 @@ You use NavigationView as DrawerLayout’s drawer content view with a layout suc
             app:menu="@menu/drawer"/>
 </android.support.v4.widget.DrawerLayout>
 ```
-You’ll note two attributes for NavigationView: app:headerLayout controls the (optional) layout used for the header. app:menu is the menu resource inflated for the navigation items (which can also be updated at runtime). NavigationView takes care of the scrim protection of the status bar for you, ensuring that your NavigationView interacts with the status bar appropriately on API21+ devices.
 
 你会注意到 NavigationView 的两个属性：app:headerLayout  - 控制头部的布局， app:menu - 导航菜单的资源文件（也可以在运行时配置）。NavigationView处理好了和状态栏的关系，可以确保NavigationView在API21+设备上正确的和状态栏交互。
 
-The simplest drawer menus will be a collection of checkable menu items:
 最简单的抽屉菜单往往是几个可点击的菜单的集合：
 
 ```
@@ -67,8 +58,6 @@ The simplest drawer menus will be a collection of checkable menu items:
         android:title="@string/navigation_item_2"/>
 </group>
 ```
-The checked item will appear highlighted in the navigation drawer, ensuring the user knows which navigation item is currently selected.
-You can also use subheaders in your menu to separate groups of items:
 
 被点击过的item会高亮显示在抽屉菜单中，让用户知道当前是哪个菜单被选中。
 你也可以在menu中使用subheader来为菜单分组：
@@ -89,44 +78,36 @@ You can also use subheaders in your menu to separate groups of items:
     </menu>
 </item>
 ```
-You’ll get callbacks on selected items by setting a OnNavigationItemSelectedListener using setNavigationItemSelectedListener(). This provides you with the [MenuItem](http://developer.android.com/reference/android/view/MenuItem.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) that was clicked, allowing you to handle selection events, changed the checked status, load new content, programmatically close the drawer, or any other actions you may want.
 
 你可以通过设置一个OnNavigationItemSelectedListener，使用其setNavigationItemSelectedListener()来获得元素被选中的回调事件。它为你提供可以点击的[MenuItem](http://developer.android.com/reference/android/view/MenuItem.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)，让你可以处理选择事件，改变复选框状态，加载新内容，关闭导航菜单，以及其他任何你想做的操作。
 
 
 ###Floating labels for editing text
-Even the humble [EditText](http://developer.android.com/reference/android/widget/EditText.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) has room to improve in material design. While an EditText alone will hide the hint text after the first character is typed, you can now wrap it in a [TextInputLayout](http://developer.android.com/reference/android/support/design/widget/TextInputLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog), causing the hint text to become a [floating label](http://www.google.com/design/spec/components/text-fields.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#text-fields-floating-labels) above the EditText, ensuring that users never lose context in what they are entering.
 
 即便是十分简单的EditText，在Material Design 中也有提升的空间。在EditText中，当你填入第一个字符后，hint就消失了。现在将它换成[TextInputLayout](http://developer.android.com/reference/android/support/design/widget/TextInputLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)，提示信息会变成一个显示在EditText之上的floating label，这样用户就始终知道他们现在输入的是什么。
 
 ![](http://4.bp.blogspot.com/-BUKc5AwzS4A/VWihVlHr9cI/AAAAAAAABvI/rslBAoaHwzA/s1600/textinputlayout.png)
 
+除此以外，还可以通过setError()设置当用户输入不合法时的Error提示；
 
-In addition to showing hints, you can also display an error message below the EditText by calling setError().
-
-还可以通过setError()设置当用户输入不合法时的Error提示；
 ###Floating Action Button
 
-A [floating action button](http://www.google.com/design/spec/components/buttons-floating-action-button.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) is a round button denoting a primary action on your interface. The Design library’s [FloatingActionButton](http://developer.android.com/reference/android/support/design/widget/FloatingActionButton.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) gives you a single consistent implementation, by default colored using the colorAccent from your theme.
 
 [Floating action button](http://www.google.com/design/spec/components/buttons-floating-action-button.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)是一个负责显示界面基本操作的圆形按钮。Design library中的[FloatingActionButton](http://developer.android.com/reference/android/support/design/widget/FloatingActionButton.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) 实现了一个默认颜色为主题中colorAccent的悬浮操作按钮。
 
 ![](http://2.bp.blogspot.com/-tdrgNYnQZyw/VWiOcfSRoYI/AAAAAAAABuU/6LsOxJFE4hE/s1600/image03.png)
 
-In addition to the normal size floating action button, it also supports the mini size (fabSize="mini") when visual continuity with other elements is critical. As FloatingActionButton extends ImageView, you’ll use android:src or any of the methods such as [setImageDrawable()](http://developer.android.com/reference/android/widget/ImageView.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#setImageDrawable(android.graphics.drawable.Drawable)to control the icon shown within the FloatingActionButton.
 
 除了一般大小的悬浮操作按钮，它还支持mini size（fabSize=”mini”）。FloatingActionButton继承自ImageView，你可以使用android:src或者ImageView的任意方法，比如[setImageDrawable()](http://developer.android.com/reference/android/widget/ImageView.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#setImageDrawable(android.graphics.drawable.Drawable)来设置FloatingActionButton里面的图标。
 
 ###Snackbar
 
-Providing lightweight, quick feedback about an operation is a perfect opportunity to use a [snackbar](http://www.google.com/design/spec/components/snackbars-toasts.html?utm_campaign=io15&utm_source=dac&utm_medium=blog). Snackbars are shown on the bottom of the screen and contain text with an optional single action. They automatically time out after the given time length by animating off the screen. In addition, users can swipe them away before the timeout.
 
-提供需要一个轻量级、可以快速作出反馈的控件，你可以试试[SnackBar](http://www.google.com/design/spec/components/snackbars-toasts.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)。[Snackbar](http://www.google.com/design/spec/components/snackbars-toasts.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)显示在屏幕的底部,包含了文字信息与一个可选的操作按钮。在指定时间结束之后自动消失。另外，用户还可以滑动删除它们。
+如果你需要一个轻量级、可以快速作出反馈的控件，可以试试[SnackBar](http://www.google.com/design/spec/components/snackbars-toasts.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)。[Snackbar](http://www.google.com/design/spec/components/snackbars-toasts.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)显示在屏幕的底部,包含了文字信息与一个可选的操作按钮。在指定时间结束之后自动消失。另外，用户还可以滑动删除它们。
 
 
 [example video](http://material-design.storage.googleapis.com/publish/material_v_3/material_ext_publish/0B6Okdz75tqQsLVVnZlF4UEtKRU0/components_snackbar_specs_fabtablet_002.webm)
 
-By including the ability to interact with the [Snackbar](http://developer.android.com/reference/android/support/design/widget/Snackbar.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) through swiping it away or actions, these are considerably more powerful than toasts, another lightweight feedback mechanism. However, you’ll find the API very familiar:
 
 Snackbar，可以通过滑动或者点击进行交互，可以看作是比Toast更强大的快速反馈机制，你会发现他们的API非常相似。
 
@@ -136,18 +117,14 @@ Snackbar
   .setAction(R.string.snackbar_action, myOnClickListener)
   .show(); // Don’t forget to show!
 ```
-You’ll note the use of a View as the first parameter to make() - Snackbar will attempt to find an appropriate parent of the Snackbar’s view to ensure that it is anchored to the bottom.
 
 你应该注意到了make()方法中把一个View作为第一个参数，Snackbar试图找到一个合适的父亲以确保自己是被放置于底部。
 
 ###Tabs
-Switching between different [views](http://www.google.com/design/spec/components/tabs.html) in your app via tabs is not a new concept to material design and they are equally at home as a [top level navigation pattern](http://www.google.com/design/spec/patterns/app-structure.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#app-structure-top-level-navigation-strategies) or for organizing different groupings of content within your app (say, different genres of music).
 
-通过选项卡的方式切换[View](http://www.google.com/design/spec/components/tabs.html)并不是material design中才有的新概念，它们和[顶层导航模式](http://www.google.com/design/spec/patterns/app-structure.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#app-structure-top-level-navigation-strategies)或者组织app中不同分组内容（比如，不同风格的音乐）是同一个概念。
+通过选项卡的方式切换[View](http://www.google.com/design/spec/components/tabs.html)并不是Material design中才有的新概念，它们和[顶层导航模式](http://www.google.com/design/spec/patterns/app-structure.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#app-structure-top-level-navigation-strategies)或者组织app中不同分组内容（比如，不同风格的音乐）是同一个概念。
 
 ![](http://1.bp.blogspot.com/-liraQhLEn60/VWihbiaXaJI/AAAAAAAABvQ/nKi1_xcx6yk/s320/tabs.png)
-
-The Design library’s [TabLayout](http://developer.android.com/reference/android/support/design/widget/TabLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) implements both fixed tabs, where the view’s width is divided equally between all of the tabs, as well as scrollable tabs, where the tabs are not a uniform size and can scroll horizontally. Tabs can be added programmatically:
 
 Design library的[TabLayout](http://developer.android.com/reference/android/support/design/widget/TabLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) 既实现了固定的选项卡（View的宽度平均分配），也实现了可滚动的选项卡（View宽度不固定同时可以横向滚动）,也可以通过编写代码添加Tab。
 ```
@@ -155,39 +132,31 @@ Design library的[TabLayout](http://developer.android.com/reference/android/supp
 TabLayout tabLayout = ...;
 tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
 ```
-However, if you are using a [ViewPager](http://developer.android.com/reference/android/support/v4/view/ViewPager.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) for horizontal paging between tabs, you can create tabs directly from your [PagerAdapter](http://developer.android.com/reference/android/support/v4/view/PagerAdapter.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)’s [getPageTitle()](http://developer.android.com/reference/android/support/v4/view/PagerAdapter.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#getPageTitle(int)) and then connect the two together using setupWithViewPager(). This ensures that tab selection events update the ViewPager and page changes update the selected tab.
 
-如果，你使用[ViewPager](http://developer.android.com/reference/android/support/v4/view/ViewPager.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)在tab之间横向切换，你可以直接从[PagerAdapter](http://developer.android.com/reference/android/support/v4/view/PagerAdapter.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)的[getPageTitle()](http://developer.android.com/reference/android/support/v4/view/PagerAdapter.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#getPageTitle(int))中创建选项卡，然后使用setupWithViewPager()将两者联系在一起。它可以使tab的选中事件能更新ViewPager,同时ViewPager 
-的页面改变能更新tab的选中状态。
+如果，你使用[ViewPager](http://developer.android.com/reference/android/support/v4/view/ViewPager.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)在tab之间横向切换，你可以直接从[PagerAdapter](http://developer.android.com/reference/android/support/v4/view/PagerAdapter.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)的[getPageTitle()](http://developer.android.com/reference/android/support/v4/view/PagerAdapter.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#getPageTitle(int))中创建选项卡，然后使用setupWithViewPager()将两者联系在一起。它可以使tab的选中事件能更新ViewPager,同时ViewPager的页面改变能更新tab的选中状态。
 
 
 
-###CoordinatorLayout, motion, and scrolling
 ###CoordinatorLayout, 动作和滚动
 
-Distinctive visuals are only one part of material design: motion is also an important part of making a great material designed app. While there are a lot of parts of motion in material design including [touch ripples](http://www.google.com/design/spec/animation/responsive-interaction.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#responsive-interaction-surface-reaction) and [meaningful transitions](http://www.google.com/design/spec/animation/meaningful-transitions.html?utm_campaign=io15&utm_source=dac&utm_medium=blog), the Design library introduces [CoordinatorLayout](http://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog), a layout which provides an additional level of control over touch events between child views, something which many of the components in the Design library take advantage of.
 
-独特的视觉效果只是material design小小的一部分：运动也是设计好一款material designed应用的重要组成部分。而在material design中，包括[触摸Ripple](http://www.google.com/design/spec/animation/responsive-interaction.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#responsive-interaction-surface-reaction)和[有意义的转场](http://www.google.com/design/spec/animation/meaningful-transitions.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)，Design library引入CoordinatorLayout[http://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog]，一个从另一层面去控制子view之间触摸事件的布局，Design library中的很多控件都利用了它。
+独特的视觉效果只是Material design小小的一部分：运动也是设计好一款Material designed应用的重要组成部分。而在Material design中，包括[触摸Ripple](http://www.google.com/design/spec/animation/responsive-interaction.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#responsive-interaction-surface-reaction)和[有意义的转场](http://www.google.com/design/spec/animation/meaningful-transitions.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)，Design library引入[CoordinatorLayout](http://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog0)，一个从另一层面去控制子view之间触摸事件的布局，Design library中的很多控件都利用了它。
 
 
-###CoordinatorLayout and floating action buttons
-###CoordinatorLayout和floating action buttons
+###CoordinatorLayout和Floating Action Buttons
 
-A great example of this is when you add a FloatingActionButton as a child of your CoordinatorLayout and then pass that CoordinatorLayout to your Snackbar.make() call - instead of the snackbar displaying over the floating action button, the FloatingActionButton takes advantage of additional callbacks provided by CoordinatorLayout to automatically move upward as the snackbar animates in and returns to its position when the snackbar animates out on Android 3.0 and higher devices - no extra code required.
 
 一个很好的例子就是当你将FloatingActionButton作为一个子View添加进CoordinatorLayout并且将CoordinatorLayout传递给 Snackbar.make()，在3.0及其以上的设备上，Snackbar不会显示在悬浮按钮的上面，而是FloatingActionButton利用CoordinatorLayout提供的回调方法，在Snackbar以动画效果进入的时候自动向上移动让出位置，并且在Snackbar动画地消失的时候回到原来的位置，不需要额外的代码。
 
 
 [example video](http://material-design.storage.googleapis.com/publish/material_v_3/material_ext_publish/0B6Okdz75tqQsLWFucDNlYWEyeW8/components_snackbar_usage_fabdo_002.webm)
 
-CoordinatorLayout also provides an layout_anchor attribute which, along with layout_anchorGravity, can be used to place floating views, such as the FloatingActionButton, relative to other views.
 
 CoordinatorLayout还提供了layout_anchor和layout_anchorGravity属性一起配合使用，可以用于放置floating view，比如FloatingActionButton与其他View的相对位置
 
 
-###CoordinatorLayout and the app bar
 ###CoordinatorLayout 和app bar
-The other main use case for the CoordinatorLayout concerns the app bar (formerly action bar) and [scrolling techniques](http://www.google.com/design/spec/patterns/scrolling-techniques.html?utm_campaign=io15&utm_source=dac&utm_medium=blog). You may already be using a [Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) in your layout, allowing you to more easily customize the look and integration of that iconic part of an app with the rest of your layout. The Design library takes this to the next level: using an [AppBarLayout](http://developer.android.com/reference/android/support/design/widget/AppBarLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog) allows your Toolbar and other views (such as tabs provided by TabLayout) to react to scroll events in a sibling view marked with a ScrollingViewBehavior. Therefore you can create a layout such as:
+
 
 另一个比较重要的场合是CoordinatorLayout结合app bar (或者action bar)和 [滚动处理](http://www.google.com/design/spec/patterns/scrolling-techniques.html?utm_campaign=io15&utm_source=dac&utm_medium=blog). 你可能在你的布局里已经使用了[Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar.html?utm_campaign=io15&utm_source=dac&utm_medium=blog), 能让你自定义外观，将应用中最显眼的部分和其他部分整合到一起. Design library采用了进一步的解决方案:使用[AppBarLayout](http://developer.android.com/reference/android/support/design/widget/AppBarLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)可以让Toolbar和其他View（例如展示Tab的TabLayout）对滚动事件作出反应，前提是他们在一个标有ScrollingViewBehavior的View中.因此，你可以创建如下的布局：
 ```
@@ -217,14 +186,9 @@ The other main use case for the CoordinatorLayout concerns the app bar (formerly
 </android.support.design.widget.CoordinatorLayout>
 ```
 
-Now, as the user scrolls the RecyclerView, the AppBarLayout can respond to those events by using the children’s scroll flags to control how they enter (scroll on screen) and exit (scroll off screen). Flags include:
 
 现在，随着用户滚动RecyclerView，AppBarLayout通过子视图上的scroll flag，处理事件作出反应，控制他们如何进入，如何退出。Flag包括：
 
-> - scroll: this flag should be set for all views that want to scroll off the screen - for views that do not use this flag, they’ll remain pinned to the top of the screen
-- enterAlways: this flag ensures that any downward scroll will cause this view to become visible, enabling the ‘quick return’ pattern
-- enterAlwaysCollapsed: When your view has declared a minHeight and you use this flag, your View will only enter at its minimum height (i.e., ‘collapsed’), only re-expanding to its full height when the scrolling view has reached it’s top.
-- exitUntilCollapsed: this flag causes the view to scroll off until it is ‘collapsed’ (its minHeight) before exiting
 
 
 > - scroll: 所有想滚动出屏幕的view都需要设置这个flag- 没有设置这个flag的view将被固定在屏幕顶部。
@@ -232,13 +196,10 @@ Now, as the user scrolls the RecyclerView, the AppBarLayout can respond to those
 - enterAlwaysCollapsed: 当你的视图已经设置minHeight属性又使用此标志时，你的视图只会在最小高度处进入，只有当滚动视图到达顶部时才扩大到完整高度。
 - exitUntilCollapsed: 在滚动过程中，只有当视图折叠到最小高度的时候，它才退出屏幕。
 
-One note: all views using the scroll flag must be declared before views that do not use the flag. This ensures that all views exit from the top, leaving the fixed elements behind.
 
 注意：那些使用Scroll flag的视图必须在其他视图之前声明。这样才能确保所有的视图从顶部撤离，剩下的元素固定在前面（译者注：剩下的元素压在其他元素的上面）。
 
-###Collapsing Toolbars
 ###折叠 Toolbars
-Adding a Toolbar directly to an AppBarLayout gives you access to the enterAlwaysCollapsed and exitUntilCollapsed scroll flags, but not the detailed control on how different elements react to collapsing. For that, you can use [CollapsingToolbarLayout](http://developer.android.com/reference/android/support/design/widget/CollapsingToolbarLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog):
 
 直接向AppBarLayout添加ToolBar，你需要添加enteralwayscollapsed和exituntilcollapsed两个滚动Flag，但是不能在细节上不同的元素对此的反应。为此，您可以使用 [CollapsingToolbarLayout](http://developer.android.com/reference/android/support/design/widget/CollapsingToolbarLayout.html?utm_campaign=io15&utm_source=dac&utm_medium=blog):
 
@@ -257,14 +218,12 @@ Adding a Toolbar directly to an AppBarLayout gives you access to the enterAlways
         </android.support.design.widget.CollapsingToolbarLayout>
 </android.support.design.widget.AppBarLayout>
 ```
-This setup uses CollapsingToolbarLayout’s app:layout_collapseMode="pin" to ensure that the Toolbar itself remains pinned to the top of the screen while the view collapses. Even better, when you use CollapsingToolbarLayout and Toolbar together, the title will automatically appear larger when the layout is fully visible, then transition to its default size as it is collapsed. Note that in those cases, you should call setTitle() on the CollapsingToolbarLayout, rather than on the Toolbar itself.
+
 
 这个设置使用collapsingtoolbarlayout的layout_collapsemode ="pin" 确保在View折叠时，Toolbar本身仍然在屏幕顶部。更好的是，当你同时使用collapsingtoolbarlayout和Toolbar，当布局完全可见时，标题看上去明显变大了；当布局折叠完成后，它恢复到其默认大小。请注意，在这些情况下，你应该调用CollapsingToolbarLayout#settitle() ，而不是调用Toolbar。
 
 
 [example video](http://material-design.storage.googleapis.com/publish/material_v_3/material_ext_publish/0B0NGgBg38lWWcFhaV1hiSlB4aFU/patterns-scrollingtech-scrolling-070801_Flexible_Space_xhdpi_003.webm)
-
-In addition to pinning a view, you can use app:layout_collapseMode="parallax" (and optionally app:layout_collapseParallaxMultiplier="0.7" to set the parallax multiplier) to implement parallax scrolling (say of a sibling ImageView within the CollapsingToolbarLayout). This use case pairs nicely with the app:contentScrim="?attr/colorPrimary" attribute for CollapsingToolbarLayout, adding a full bleed scrim when the view is collapsed.
 
 
 
@@ -274,31 +233,23 @@ app:contentScrim="?attr/colorPrimary"这一属性，这样，当视图折叠的�
 [example video](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B6Okdz75tqQscXNQY3dNdVlYeTQ/patterns-scrolling-techniques_flex_space_image_xhdpi_003.webm)
 
 
-###CoordinatorLayout and custom views
 ###CoordinatorLayout与自定义控件
 
 
-One thing that is important to note is that CoordinatorLayout doesn’t have any innate understanding of a FloatingActionButton or AppBarLayout work - it just provides an additional API in the form of a [Coordinator.Behavior](http://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.Behavior.html?utm_campaign=io15&utm_source=dac&utm_medium=blog), which allows child views to better control touch events and gestures as well as declare dependencies between each other and receive callbacks via [onDependentViewChanged()](http://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.Behavior.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#onDependentViewChanged(android.support.design.widget.CoordinatorLayout,%20V,%20android.view.View)).
 
 还有一件需要注意的事情，CoordinatorLayout跟FloatingActionButton或AppBarLayout需要一定的配置-它在[Coordinator.Behavior](http://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.Behavior.html?utm_campaign=io15&utm_source=dac&utm_medium=blog)提供了一些API,子视图既可以更好地控制触摸事件也可以通过[onDependentViewChanged()](http://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.Behavior.html?utm_campaign=io15&utm_source=dac&utm_medium=blog#onDependentViewChanged(android.support.design.widget.CoordinatorLayout,%20V,%20android.view.View))给别人提供一个回调方法。
 
-Views can declare a default Behavior by using the CoordinatorLayout.DefaultBehavior(YourView.Behavior.class) annotation,or set it in your layout files by with the app:layout_behavior="com.example.app.YourView$Behavior" attribute. This framework makes it possible for any view to integrate with CoordinatorLayout.
 
 Views可以用CoordinatorLayout.DefaultBehavior(YourView.Behavior.class)注解（annotation）声明默认的Behavior,或者在你的布局文件中声明app:layout_behavior="com.example.app.YourView$Behavior" 属性. 这样做，就可以将任何一个View和CoordinatorLayout整合在一起.
 
-###Available now!
 ###马上使用吧！
-The Design library is available now, so make sure to update the Android Support Repository in the SDK Manager. You can then start using the Design library with a single new dependency:
 
 Design library现在就可以使用，请确保已经用SDk Manager更新了Android Support Repository. 然后添加一条dependency，你就可以使用Design library了:
 
 ```
  compile 'com.android.support:design:22.2.0'
-```z
-Note that as the Design library depends on the Support v4 and AppCompat Support Libraries, those will be included automatically when you add the Design library dependency. We also took care that these new widgets are usable in the Android Studio Layout Editor’s Design view (find them under CustomView), giving you an easier way to preview some of these new components.
+```
 
 需要注意的是，Design library 依赖于Support v4和AppCompat Support Libraries,在你添加  Design library时，这些库也会自动的添加到依赖中。同时，这些控件在Android Studio的Layout Editor (可以在CustomView中找到)中是可用的，你可以便捷的预览一些新的控件。
-
-The Design library, AppCompat, and all of the Android Support Library are important tools in providing the building blocks needed to build a modern, great looking Android app without building everything from scratch.
 
 Design library, AppCompat和所有的Android Support Library 都是开发Android的强有力工具，当你打造一个符合当代风格、好看的应用时，可以使用提供现成的模块，无需从0开始。
