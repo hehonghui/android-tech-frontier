@@ -7,28 +7,17 @@ Design Support Library (I): Navigation View
 * 原文作者 : [Antonio](http://robovm.com/author/mario/)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [tiiime](https://github.com/tiiime) 
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  未完成 / 校对中 / 完成 
+* 校对者:  [Mr.Simple](https://github.com/bboyfeiyu) 
+* 状态 :  完成 
 
 
 ---
-
-Google I/O 2015 has brought a whole new set of tools for Android Developers which are meant to make our lives easier. I´d like to devote a set of articles to talk about the incredibly useful Design Support Library.
-Though there is a good example from Chris Banes at Github, I´d like to talk a little deeper about each new features while migrating the example app Materialize Your App, which you can find at Github
 
 [Google I/O 2015][io2015] 给 Android 开发者提供了一整套新工具，让 Android 开发更容易。
 我会完成一个系列文章来介绍超级实用的 [Design Support Library][design-support-library].
 
 [Github][example] 上已经有一个很好的使用示例，不过我会通过完成一个[App][MaterializeYourApp]，
 深入讲解每一个新特性。
-
----
-
-##Navigation View
-
-In this article, I´ll start talking about the Navigation View. Since Material Design was released, we were given a standard definition on how a Navigation Drawer must look and feel.
-
-Truth is that implementing those guidelines was rather time consuming. But now, with the navigation view, the implementation is much easier.
 
 ##Navigation View
 
@@ -40,23 +29,10 @@ Truth is that implementing those guidelines was rather time consuming. But now, 
 想要完成自己实现一个又不是很容易。不过现在我们有了 navigation view，
 这个工作就很轻松了。
 
----
-
-##How Navigation View works?
-You´d basically add it in the same position previously used for your custom view, inside a Drawer Layout. The Navigation View will receive a couple of parameters, and optional layout for a header, and a menu that will be used to build the navigation options. After that, you will only need to add a listener to capture selection events.3
-
 ##Navigation View如何工作
 你应该用它替换你之前 Drawer Layout 中自定义 View 的位置。
 Navigation View 可以接受一些参数，一个可选的 header layout，
 还有一个用来构建导航选项的 menu。然后你只需添加事件监听器就可以了。
-
----
-##Implementation
-First of all, we´re creating the menu. It´s quite straightforward, you just need to create a group and say only one item can be checked at the same time:
-
-```xml
-<!-- xml -->
-```
 
 ##Implementation
 
@@ -89,14 +65,6 @@ First of all, we´re creating the menu. It´s quite straightforward, you just ne
 </menu>
 ```
 
----
-
-Theoretically, you can also add sections with headers by adding a submenu to an item, something like this:
-
-```xml
-<!-- xml -->
-```
-
 理论上，你也可以像下面这样，在每个 item 中添加子 menu 实现带有分类的选项块：
 
 ```xml
@@ -115,14 +83,6 @@ Theoretically, you can also add sections with headers by adding a submenu to an 
             android:title="@string/downloaded"/>
     </menu>
 </item>
-```
----
-
-This will create a divider and a header, and will add the items right below. However, I couldn´t find a way to mark any of those items as checked. I´ll update this lines if I come up with a solution. Anyway, I encourage you to try it and see how it works.
-Now, we can add a navigation view to our activity layout and set the menu and the header layout. I won´t talk here about the header, because it can be any layout you want, but you can check an example at the Github repo.
-
-```xml
-<!-- xml -->
 ```
 
 这样会创建一个 divider 和 header，然后把 items 加到它的正下方。然而这样我们就没办法
@@ -164,24 +124,7 @@ Header 可以是任意 view ，所以这里不做过多介绍，你可以到 [Gi
 </android.support.v4.widget.DrawerLayout>
 ```
 
----
-
-Our last step will be the Java code. First you need to enable home as up:
-
-```java
-//code
-```
-Next, initialize the navigation drawer.When an item is selected, it shows a snackbar (I´ll talk about it in next articles), selects the clicked item and closes the drawer:
-
-```java
-//code
-```
-And finally, open the drawer when the menu action is pressed:
-```java
-//code
-```
-
-最后来看看java代码部分。首先你要启用  `home as up`：
+接下来看看 Java 代码部分。首先你要启用  `home as up`：
 
 ```java
 final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -225,14 +168,10 @@ public boolean onOptionsItemSelected(MenuItem item) {
 }
 ```
 
----
-##Conclusion
-Now it´s really easy to create a navigation drawer that meets Material guidelines thanks to the use of the design support library and the Navigation View. Next articles will cover some other new elements that will help us create user interfaces in a faster and easier way. Remember you can see all this code in a small working app example at Github.
-
 ##Conclusion
 
 创建一个满足 Material 设计准则的 navigation drawer 是如此简单！感谢 design support library 。
-下篇文章会继续介绍好其他好用的新控件。你可以到这([Github][MaterializeYourApp])查看我们所有的代码
+下篇文章会继续介绍其他好用的新控件。你可以到这([Github][MaterializeYourApp])查看我们所有的代码
 。
 
 
