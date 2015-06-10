@@ -83,6 +83,12 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" ></b>
 ## 已完成列表
+
+# 2015.6.12 ( 第十四期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [Android-Design-Support-Library](issue-14/Android-Design-Support-Library.md)  | [MiJack](https://github.com/MiJack)      |
+
 # 2015.6.5 ( 第十三期 )
 | 文章名称 |   译者  | 
 |---------|--------|

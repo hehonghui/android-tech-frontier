@@ -1,14 +1,11 @@
-﻿Android Design Support Library
+Android Design Support Library
 ---
 
 > * 原文链接 : [Android Design Support Library](http://android-developers.blogspot.jp/2015/05/android-design-support-library.html)
 * 原文作者 : [Android Developers Blog](http://developer.android.com/index.html)
-* 译文出自 :  [Android Design Support Library | Android Developers Blog](http://android-developers.blogspot.jp/2015/05/android-design-support-library.html)
+* [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [MiJack](https://github.com/MiJack) 
 * 状态 :  校对完成
-
-Posted by Ian Lake, Developer Advocate
-
 
 Android 5.0是有史以来最重要的Android 版本之一，这其中有很大部分要归功于Material design的引入，这种新的设计语言让整个Android的用户体验焕然一新。我们的详细专题是帮助你开始采用Material Design。但是我们也知道，这种设计对于开发者，尤其是那些在意向后兼容的开发者来说是一种挑战。在Android Design Support Library的帮助下，我们为所有的开发者，所有2.1以上的设备，带来了一些重要的Material design控件。你可以在这里面找到Navigation Drawer View，输入控件的悬浮标签，Floating Action Button，Snackbar，Tab以及将这些控件结合在一起的手势滚动框架。
 
