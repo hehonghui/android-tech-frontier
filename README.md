@@ -88,6 +88,11 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 | 文章名称 |   译者  | 
 |---------|--------|
 | [Android-Design-Support-Library](issue-14/Android-Design-Support-Library.md)  | [MiJack](https://github.com/MiJack)      |
+| [新的测试注解](issue-14/新的测试注解.md)  | [Mr.Simple](https://github.com/bboyfeiyu) 
+| [Android之WebRTC介绍](issue-14/Android之WebRTC介绍.md)  | [DorisMinmin](https://github.com/DorisMinmin)      |
+| [Design-Support-Library(I)-Navigation-View](issue-14/Design-Support-Library(I)-Navigation-View.md)  | [tiiime](https://github.com/tiiime)      |
+| [MVVM 模式简介](issue-14/MVVM 模式简介.md)  | [chaossss](https://github.com/chaossss)      |
+    |
 
 # 2015.6.5 ( 第十三期 )
 | 文章名称 |   译者  | 
