@@ -1,51 +1,58 @@
-    Ô­ÎÄ [Android M &quot;App Links&quot; implementation in depth](https://chris.orr.me.uk/android-app-linking-how-it-works/)&nbsp;
+At Google I/O 2015, a [new feature](http://www.androidpolice.com/2015/05/28/io-2015-android-m-will-support-app-deep-linking-without-that-annoying-selector-prompt/) was announced that allows "app developers to associate an app with a web domain they own."  This is intended to minimise the number of times a user sees the "Open with" dialog to choose which app, among those that can handle a certain URL, should be used to open a link.
 
-	At Google I/O 2015, a [new feature](http://www.androidpolice.com/2015/05/28/io-2015-android-m-will-support-app-deep-linking-without-that-annoying-selector-prompt/) was announced that allows "app developers to associate an app with a web domain they own."  This is intended to minimise the number of times a user sees the "Open with" dialog to choose which app, among those that can handle a certain URL, should be used to open a link.
-    ¹È¸è2015ÄêµÄI/O´ó»áÉÏĞû²¼ÁËÒ»¸ö[ĞÂÌØĞÔ](http://www.androidpolice.com/2015/05/28/io-2015-android-m-will-support-app-deep-linking-without-that-annoying-selector-prompt/)&nbsp;£ºÔÊĞí¿ª·¢Õß½«appºÍËûÃÇµÄwebÓòÃû¹ØÁª¡£ÕâÒ»¾Ù´ëÊÇÎªÁË×îĞ¡»¯ÓÃ»§Óöµ½¡°´ò¿ª·½Ê½¡±¶Ô»°¿òµÄ¸ÅÂÊ¡£
-    For example, with two Twitter apps installed ¡ª the official client, and [Falcon Pro](https://play.google.com/store/apps/details?id=com.jv.materialfalcon) ¡ª when you click on a Twitter URL from somewhere, you will currently see a dialog like this:
-    ±ÈÈç£¬ÎÒÃÇ°²×°ÁËÁ½¸öTwitterÓ¦ÓÃ - ¹Ù·½µÄºÍ[Falcon Pro](https://play.google.com/store/apps/details?id=com.jv.materialfalcon)¡£µ±ÄãÔÚÄ³¸öµØ·½µã»÷ÁËTwitter URLµÄÊ±ºò£¬Äã»á¿´µ½ÈçÏÂµÄ¶Ô»°¿ò£º
+è°·æ­Œ2015å¹´çš„I/Oå¤§ä¼šä¸Šå®£å¸ƒäº†ä¸€ä¸ª[æ–°ç‰¹æ€§](http://www.androidpolice.com/2015/05/28/io-2015-android-m-will-support-app-deep-linking-without-that-annoying-selector-prompt/)ï¼šå…è®¸å¼€å‘è€…å°†appå’Œä»–ä»¬çš„webåŸŸåå…³è”ã€‚è¿™ä¸€ä¸¾æªæ˜¯ä¸ºäº†æœ€å°åŒ–ç”¨æˆ·é‡åˆ°â€œæ‰“å¼€æ–¹å¼â€å¯¹è¯æ¡†çš„æ¦‚ç‡ã€‚
 
-    ![Clicking a Twitter link in the Android messaging app](/uploads/20150608/1433755603371966.png) ![app-links-intent-chooser-dialog.png](/uploads/20150608/1433755732968129.png "1433755732968129.png")
-	With Android M ¡ª and with an app that has explicitly opted-in to App Linking ¡ª this dialog will no longer be shown.  Clicking on a link will open the _official app_ immediately, without prompting the user; there will be no chance to use a third-party app, or even a browser.
-    µ«ÊÇÔÚ°²×¿MÖĞ£¬Èç¹ûÒ»¸öappÃ÷È·µÄÖ¸¶¨ÁËAppÁ´½Ó-Õâ¸ö¶Ô»°¿ò½«²»¸´´æÔÚ¡£µã»÷Ò»¸öÁ´½Ó½«Á¢¼´´ò¿ª¹Ù·½µÄapp£¬Ã»ÓĞµÚÈı·½appµÄ»ú»á£¬¸ü²»»á´ò¿ªÒ»¸öä¯ÀÀÆ÷¡£
+For example, with two Twitter apps installed â€” the official client, and [Falcon Pro](https://play.google.com/store/apps/details?id=com.jv.materialfalcon) â€” when you click on a Twitter URL from somewhere, you will currently see a dialog like this:
 
-	In this example, when you click on that link, the Android system checks whether any of the apps that can handle twitter.com URLs have auto-linking enabled.  The system then verifies with twitter.com which app(s) may handle links for that domain, so that we can avoid prompting the user.
-	ÔÚÉÏÍ¼µÄÀı×ÓÖĞ£¬µ±Äãµã»÷ÁËÄÇ¸öÁ´½Ó£¬°²×¿ÏµÍ³»á¼ì²éÊÇ·ñÓĞÒ»¸öapp¿ÉÒÔ´¦Àítwitter.com URL£¬È»ºó¸útwitter.comºË¶ÔÄÄ¸öapp£¨s£©¿ÉÒÔ´¦Àí¸ÃÓòÃûµÄÁ´½Ó£¬ÕâÑùÎÒÃÇ¾ÍÄÜ±ÜÃâÓ°ÏìÓÃ»§¡£
-	Note that Android does not actively verify these links on demand, so there is no blocking on the network before Android decides which app to use.  More about that later.
-    ×¢Òâ°²×¿²¢²»»áÔÚµã»÷Á´½ÓµÄÊ±ºò²ÅºË¶ÔÕâĞ©Á´½Ó£¬Òò´ËÔÚ°²×¿¾ö¶¨Ê¹ÓÃÄÄ¸öappÖ®Ç°²¢²»»áÓĞÍøÂç×èÈû¡£¹ØÓÚÕâµãºóÃæÓĞ¸ü¶àÌÖÂÛ¡£
-	While this will make Android more convenient ¡ª in the majority of cases, you do want clicking a link to open the most appropriate app ¡ª it seems bad for people who prefer to use third-party apps.  But note that this behaviour can be turned off from the system settings in Android M, on a per-app basis.
-    ËäÈ»Õâ»áÊ¹°²×¿¸ü·½±ã- ¶àÊıÇé¿öÏÂ£¬ÄãÈ·ÊµÏ£Íûµã»÷Ò»¸öÁ´½Ó´ò¿ªµÄÊÇ×îºÏÊÊµÄÄÇ¸öapp- µ«ÊÇ¶ÔÓÚÄÇĞ©Ï²»¶Ê¹ÓÃµÚÈı·½appµÄÈËÀ´Ëµ£¬ËÆºõÊÇÒ»¼ş»µÊÂ¡£²»¹ıÕâÖÖĞĞÎª¿ÉÒÔÔÚAndroid MµÄÏµÍ³ÉèÖÃÖĞ¹Øµô¡£
+æ¯”å¦‚ï¼Œæˆ‘ä»¬å®‰è£…äº†ä¸¤ä¸ªTwitteråº”ç”¨ - å®˜æ–¹çš„å’Œ[Falcon Pro](https://play.google.com/store/apps/details?id=com.jv.materialfalcon)ã€‚å½“ä½ åœ¨æŸä¸ªåœ°æ–¹ç‚¹å‡»äº†Twitter URLçš„æ—¶å€™ï¼Œä½ ä¼šçœ‹åˆ°å¦‚ä¸‹çš„å¯¹è¯æ¡†ï¼š
 
-## 
-    app¿ª·¢ÕßÈçºÎÊµÏÖApp Links
+![Clicking a Twitter link in the Android messaging app](https://chris.orr.me.uk/img/posts/app-links-sms.png) ![app-links-intent-chooser-dialog.png](https://chris.orr.me.uk/img/posts/app-links-intent-chooser-dialog.png "1433755732968129.png")
 
-	The basic implementation details can be found on the [Android Developers' Preview Site](https://developer.android.com/preview/features/app-linking.html).
+With Android M â€” and with an app that has explicitly opted-in to App Linking â€” this dialog will no longer be shown.  Clicking on a link will open the _official app_ immediately, without prompting the user; there will be no chance to use a third-party app, or even a browser.
 
-    ÊµÏÖµÄÏ¸½Ú¿ÉÒÔÔÚ[Android Developers&#39; Preview ÍøÕ¾](https://developer.android.com/preview/features/app-linking.html)ÉÏÕÒµ½¡£
-	If you have an app that handles links for, say, `example.com`, you must:
-    Èç¹ûÄãÓĞÒ»¸öĞèÒª´¦ÀíÁ´½Ó£¨±ÈÈçexample.com£©µÄapp£¬ÄãÓ¦¸Ã£º
+ä½†æ˜¯åœ¨å®‰å“Mä¸­ï¼Œå¦‚æœä¸€ä¸ªappæ˜ç¡®çš„æŒ‡å®šäº†Appé“¾æ¥-è¿™ä¸ªå¯¹è¯æ¡†å°†ä¸å¤å­˜åœ¨ã€‚ç‚¹å‡»ä¸€ä¸ªé“¾æ¥å°†ç«‹å³æ‰“å¼€å®˜æ–¹çš„appï¼Œæ²¡æœ‰ç¬¬ä¸‰æ–¹appçš„æœºä¼šï¼Œæ›´ä¸ä¼šæ‰“å¼€ä¸€ä¸ªæµè§ˆå™¨ã€‚
+
+In this example, when you click on that link, the Android system checks whether any of the apps that can handle twitter.com URLs have auto-linking enabled.  The system then verifies with twitter.com which app(s) may handle links for that domain, so that we can avoid prompting the user.
+
+åœ¨ä¸Šå›¾çš„ä¾‹å­ä¸­ï¼Œå½“ä½ ç‚¹å‡»äº†é‚£ä¸ªé“¾æ¥ï¼Œå®‰å“ç³»ç»Ÿä¼šæ£€æŸ¥æ˜¯å¦æœ‰ä¸€ä¸ªappå¯ä»¥å¤„ç†twitter.com URLï¼Œç„¶åè·Ÿtwitter.comæ ¸å¯¹å“ªä¸ªappï¼ˆsï¼‰å¯ä»¥å¤„ç†è¯¥åŸŸåçš„é“¾æ¥ï¼Œè¿™æ ·æˆ‘ä»¬å°±èƒ½é¿å…å½±å“ç”¨æˆ·ã€‚
+
+Note that Android does not actively verify these links on demand, so there is no blocking on the network before Android decides which app to use.  More about that later.
+
+æ³¨æ„å®‰å“å¹¶ä¸ä¼šåœ¨ç‚¹å‡»é“¾æ¥çš„æ—¶å€™æ‰æ ¸å¯¹è¿™äº›é“¾æ¥ï¼Œå› æ­¤åœ¨å®‰å“å†³å®šä½¿ç”¨å“ªä¸ªappä¹‹å‰å¹¶ä¸ä¼šæœ‰ç½‘ç»œé˜»å¡ã€‚å…³äºè¿™ç‚¹åé¢æœ‰æ›´å¤šè®¨è®ºã€‚
+
+While this will make Android more convenient â€” in the majority of cases, you do want clicking a link to open the most appropriate app â€” it seems bad for people who prefer to use third-party apps.  But note that this behaviour can be turned off from the system settings in Android M, on a per-app basis.
+
+è™½ç„¶è¿™ä¼šä½¿å®‰å“æ›´æ–¹ä¾¿- å¤šæ•°æƒ…å†µä¸‹ï¼Œä½ ç¡®å®å¸Œæœ›ç‚¹å‡»ä¸€ä¸ªé“¾æ¥æ‰“å¼€çš„æ˜¯æœ€åˆé€‚çš„é‚£ä¸ªapp- ä½†æ˜¯å¯¹äºé‚£äº›å–œæ¬¢ä½¿ç”¨ç¬¬ä¸‰æ–¹appçš„äººæ¥è¯´ï¼Œä¼¼ä¹æ˜¯ä¸€ä»¶åäº‹ã€‚ä¸è¿‡è¿™ç§è¡Œä¸ºå¯ä»¥åœ¨Android Mçš„ç³»ç»Ÿè®¾ç½®ä¸­å…³æ‰ã€‚
+
+##  appå¼€å‘è€…å¦‚ä½•å®ç°App Links
+
+The basic implementation details can be found on the [Android Developers' Preview Site](https://developer.android.com/preview/features/app-linking.html).
+
+å®ç°çš„ç»†èŠ‚å¯ä»¥åœ¨[Android Developers&#39; Preview ç½‘ç«™](https://developer.android.com/preview/features/app-linking.html)ä¸Šæ‰¾åˆ°ã€‚
+
+If you have an app that handles links for, say, `example.com`, you must:
+
+å¦‚æœä½ æœ‰ä¸€ä¸ªéœ€è¦å¤„ç†é“¾æ¥ï¼ˆæ¯”å¦‚example.comï¼‰çš„appï¼Œä½ åº”è¯¥ï¼š
+
 *   Have the ability to upload files to the root of `example.com`
 
-        *   Without this, you can't have your app automatically be the default for opening these links
+*   Without this, you can't have your app automatically be the default for opening these links
 
 *   Update your `build.gradle` with `compileSdkVersion 'android-MNC'`
 *   Add the attribute `android:autoVerify="true"` to each `&lt;intent-filter&gt;` tag that contains `&lt;data&gt;` tags for HTTP or HTTPS URLs
 
-
-    .ÓĞÉÏ´«ÎÄ¼şµ½example.com¸ùÂ·¾¶µÄÈ¨ÏŞ£¬Èç¹ûÃ»ÓĞ£¬ÄãÎŞ·¨ÈÃÄãµÄapp³ÉÎªÕâĞ©Á´½ÓµÄÄ¬ÈÏ´ò¿ª·½Ê½¡£
-
-    .ÔÚbuild.gradleÎÄ¼şÖĞÉèÖÃcompileSdkVersion &#39;android-MNC&#39;¡£
-
-    .ÎªÃ¿¸öÕâÑùµÄ&lt;intent-filter&gt;±êÇ©
+.æœ‰ä¸Šä¼ æ–‡ä»¶åˆ°example.comæ ¹è·¯å¾„çš„æƒé™ï¼Œå¦‚æœæ²¡æœ‰ï¼Œä½ æ— æ³•è®©ä½ çš„appæˆä¸ºè¿™äº›é“¾æ¥çš„é»˜è®¤æ‰“å¼€æ–¹å¼ã€‚
+.åœ¨build.gradleæ–‡ä»¶ä¸­è®¾ç½®compileSdkVersion &#39;android-MNC&#39;ã€‚
+.ä¸ºæ¯ä¸ªè¿™æ ·çš„&lt;intent-filter&gt;æ ‡ç­¾
 
 <pre class="brush:js;toolbar:false">&lt;intent-filter&gt;
     &lt;data android:scheme=&quot;http&quot; /&gt;
     ...
 &lt;/intent-filter&gt;</pre>
 
-    Ìí¼ÓÊôĞÔandroid:autoVerify=&quot;true&quot;¡£httpÒ²¿ÉÒÔÊÇhttps¡£
+æ·»åŠ å±æ€§android:autoVerify=&quot;true&quot;ã€‚httpä¹Ÿå¯ä»¥æ˜¯httpsã€‚
 
-    ×¢£ºÕâÀï¶ÔfilterµÄĞ´·¨ÂÔÈ¥ÁËºÜ¶à£¬ÆäÊµ¹ÙÍø£¨ÉÏÃæµÄÄÇ¸öÁ´½Ó£©ÓĞÍêÕûµÄÊ¾Àı£º
+æ³¨ï¼šè¿™é‡Œå¯¹filterçš„å†™æ³•ç•¥å»äº†å¾ˆå¤šï¼Œå…¶å®å®˜ç½‘ï¼ˆä¸Šé¢çš„é‚£ä¸ªé“¾æ¥ï¼‰æœ‰å®Œæ•´çš„ç¤ºä¾‹ï¼š
 
 <pre class="brush:js;toolbar:false">&lt;activity ...&gt;
     &lt;intent-filter android:autoVerify=&quot;true&quot;&gt;
@@ -56,15 +63,19 @@
         &lt;data android:scheme=&quot;https&quot; android:host=&quot;www.android.com&quot; /&gt;
     &lt;/intent-filter&gt;
 &lt;/activity&gt;</pre>
-	Verification is done per hostname and not per intent filter, so you don't _technically_ need to add this attribute to each tag if you have multiple, but it doesn't hurt.
-    ÈÏÖ¤ÊÇÒÔÖ÷»úÃûÎªµ¥Î»µÄ¶ø²»ÊÇÒÔintent filterÎªµ¥Î»µÄ£¬Òò´Ë´Ó¼¼ÊõÉÏ½²£¬²¢²»ĞèÒªÎªÃ¿¸ö±êÇ©¶¼Ìí¼Ó¸ÃÊôĞÔ£¬µ«ÊÇÌí¼ÓÁËÒ²²»»á³öÊ²Ã´ÎÊÌâ¡£
 
-### 
-    ´´½¨JSONÎÄ¼ş
-	To allow Android to verify that your app should be allowed to use the app linking behaviour, you need to supply a JSON file with the application ID and the public certificate fingerprint of the APK(s) in question.
-    ÎªÁËÄÜÈÃ°²×¿¿ÉÒÔÈÏÖ¤£¬ÄãµÄappĞèÒª±»ÔÊĞíÊ¹ÓÃappÁ´½ÓĞĞÎª£¬Îª´Ë£¬ĞèÒªÌá¹©Ò»¸öJSONÎÄ¼ş£¬JSONÎÄ¼şÖĞĞèÒª°üº¬appµÄIDÒÔ¼°APKµÄ¹«Ô¿Ö¤Êé¡£
-	The file must contain a JSON array with one or more objects, one per app ID you wish to verify:
-    Õâ¸öÎÄ¼ş±ØĞë°üº¬Ò»¸öJSONÊı×é£¬Êı×éÖĞ¿ÉÒÔÓĞÒ»¸ö»òÕß¶à¸ö¶ÔÏó£¬Ã¿¸ö¶ÔÏó¶ÔÓ¦Ò»¸öÄãÏëÈÏÖ¤µÄapp ID:
+Verification is done per hostname and not per intent filter, so you don't _technically_ need to add this attribute to each tag if you have multiple, but it doesn't hurt.
+
+è®¤è¯æ˜¯ä»¥ä¸»æœºåä¸ºå•ä½çš„è€Œä¸æ˜¯ä»¥intent filterä¸ºå•ä½çš„ï¼Œå› æ­¤ä»æŠ€æœ¯ä¸Šè®²ï¼Œå¹¶ä¸éœ€è¦ä¸ºæ¯ä¸ªæ ‡ç­¾éƒ½æ·»åŠ è¯¥å±æ€§ï¼Œä½†æ˜¯æ·»åŠ äº†ä¹Ÿä¸ä¼šå‡ºä»€ä¹ˆé—®é¢˜ã€‚
+
+### åˆ›å»ºJSONæ–‡ä»¶
+To allow Android to verify that your app should be allowed to use the app linking behaviour, you need to supply a JSON file with the application ID and the public certificate fingerprint of the APK(s) in question.
+
+ä¸ºäº†èƒ½è®©å®‰å“å¯ä»¥è®¤è¯ï¼Œä½ çš„appéœ€è¦è¢«å…è®¸ä½¿ç”¨appé“¾æ¥è¡Œä¸ºï¼Œä¸ºæ­¤ï¼Œéœ€è¦æä¾›ä¸€ä¸ªJSONæ–‡ä»¶ï¼ŒJSONæ–‡ä»¶ä¸­éœ€è¦åŒ…å«appçš„IDä»¥åŠAPKçš„å…¬é’¥è¯ä¹¦ã€‚
+
+The file must contain a JSON array with one or more objects, one per app ID you wish to verify:
+
+è¿™ä¸ªæ–‡ä»¶å¿…é¡»åŒ…å«ä¸€ä¸ªJSONæ•°ç»„ï¼Œæ•°ç»„ä¸­å¯ä»¥æœ‰ä¸€ä¸ªæˆ–è€…å¤šä¸ªå¯¹è±¡ï¼Œæ¯ä¸ªå¯¹è±¡å¯¹åº”ä¸€ä¸ªä½ æƒ³è®¤è¯çš„app ID:
 
 <pre class="brush:js;toolbar:false">[
   {
@@ -77,54 +88,80 @@
   }
 ]</pre>
 
-    For example, if you have a `com.example.myapp` release version, and a `com.example.myapp.beta` beta version, you can allow both to be verified by specifying two objects in the array, each with the respective application ID and certificate values.
-	±ÈÈç£¬ÄãÏÖÔÚÓĞÒ»¸öcom.example.myappµÄ·¢ĞĞ°æapp£¬Í¬Ê±»¹ÓĞÒ»¸ö½Ğcom.example.myapp.betaµÄbeta°æapp£¬Äã¿ÉÒÔÍ¨¹ıÔÚÊı×éÖĞÉèÖÃÁ½¸ö¶ÔÏóÀ´ÔÊĞíÁ½Õß¶¼¿ÉÒÔ½ÓÊÜÈÏÖ¤£¬Ã¿¸ö¶ÔÏó´øÓĞ¸÷×ÔµÄapp IDºÍ¹«Ô¿Öµ¡£
+For example, if you have a `com.example.myapp` release version, and a `com.example.myapp.beta` beta version, you can allow both to be verified by specifying two objects in the array, each with the respective application ID and certificate values.
 
-    Note that the validation of this file is **very strict**: every object in the array must look exactly like the one here.  Adding any other objects to the array, or additional properties to an object will cause validation to fail entirely ¡ª even if the object for the app in question is valid.    ×¢Òâ£¬Õâ¸öÎÄ¼şµÄÑéÖ¤ÊÇ·Ç³£ÑÏ¸ñµÄ£ºÊı×éÖĞµÄÃ¿¸ö¶ÔÏó¶¼±ØĞëºÍÉÏÃæµÄÄÇ¸öÒ»Ä£Ò»Ñù¡£ÔÚÊı×éÖĞÌí¼ÓÁËÈÎÒâÆäËûµÄ¶ÔÏó£¬»òÕß¶ÔÏóÖĞÓĞ¶îÍâµÄÊôĞÔ¶¼»áµ¼ÖÂÕû¸öÑéÖ¤Ê§°Ü¡£- ¼´±ãÕâ¸öapp¶ÔÏóÊÇÓĞĞ§µÄ¡£
+æ¯”å¦‚ï¼Œä½ ç°åœ¨æœ‰ä¸€ä¸ªcom.example.myappçš„å‘è¡Œç‰ˆappï¼ŒåŒæ—¶è¿˜æœ‰ä¸€ä¸ªå«com.example.myapp.betaçš„betaç‰ˆappï¼Œä½ å¯ä»¥é€šè¿‡åœ¨æ•°ç»„ä¸­è®¾ç½®ä¸¤ä¸ªå¯¹è±¡æ¥å…è®¸ä¸¤è€…éƒ½å¯ä»¥æ¥å—è®¤è¯ï¼Œæ¯ä¸ªå¯¹è±¡å¸¦æœ‰å„è‡ªçš„app IDå’Œå…¬é’¥å€¼ã€‚
 
-    It seems that you can specify multiple SHA256 certificate fingerprints per app, in case you sign the same build with different keys for some reason.  In any case, this fingerprint can be obtained via:	
-    ÎªÁË·ÀÖ¹ÎªÍ¬Ò»¸ö¹¹½¨×¢²áÁË²»Í¬µÄkey£¬Ã²ËÆÒ»¸öapp¿ÉÒÔÖ¸¶¨¶à¸öSHA256Ö¸ÎÆÖ¤Êé£¬²»¹ÜÔõÑù£¬Ö¸ÎÆÖ¤Êé¿ÉÒÔÍ¨¹ıÈçÏÂ·½Ê½»ñµÃ£º
+Note that the validation of this file is **very strict**: every object in the array must look exactly like the one here.  Adding any other objects to the array, or additional properties to an object will cause validation to fail entirely â€” even if the object for the app in question is valid.
+
+æ³¨æ„ï¼Œè¿™ä¸ªæ–‡ä»¶çš„éªŒè¯æ˜¯éå¸¸ä¸¥æ ¼çš„ï¼šæ•°ç»„ä¸­çš„æ¯ä¸ªå¯¹è±¡éƒ½å¿…é¡»å’Œä¸Šé¢çš„é‚£ä¸ªä¸€æ¨¡ä¸€æ ·ã€‚åœ¨æ•°ç»„ä¸­æ·»åŠ äº†ä»»æ„å…¶ä»–çš„å¯¹è±¡ï¼Œæˆ–è€…å¯¹è±¡ä¸­æœ‰é¢å¤–çš„å±æ€§éƒ½ä¼šå¯¼è‡´æ•´ä¸ªéªŒè¯å¤±è´¥ã€‚- å³ä¾¿è¿™ä¸ªappå¯¹è±¡æ˜¯æœ‰æ•ˆçš„ã€‚
+
+It seems that you can specify multiple SHA256 certificate fingerprints per app, in case you sign the same build with different keys for some reason.  In any case, this fingerprint can be obtained via:	
+
+ä¸ºäº†é˜²æ­¢ä¸ºåŒä¸€ä¸ªæ„å»ºæ³¨å†Œäº†ä¸åŒçš„keyï¼Œè²Œä¼¼ä¸€ä¸ªappå¯ä»¥æŒ‡å®šå¤šä¸ªSHA256æŒ‡çº¹è¯ä¹¦ï¼Œä¸ç®¡æ€æ ·ï¼ŒæŒ‡çº¹è¯ä¹¦å¯ä»¥é€šè¿‡å¦‚ä¸‹æ–¹å¼è·å¾—ï¼š
 
 <pre class="brush:js;toolbar:false">echo | keytool -list -v -keystore app.keystore 2&gt; /dev/null | grep SHA256:</pre>
 
-### 
-    ÉÏ´«JSONÎÄ¼ş
-	Having created this file, you must upload it and ensure it's available at the verification URL: `http://example.com/.well-known/statements.json`.
-    ´´½¨ÍêÎÄ¼şÖ®ºó£¬ÄãĞèÒªÉÏ´«ËüÍ¬Ê±±£Ö¤Ëü¿ÉÒÔÊ¹ÓÃÕâ¸öURL·ÃÎÊ[http://example.com/.well-known/statements.json¡£](http://example.com/.well-known/statements.json.)
-	Currently this URL **must** be accessible via HTTP; the final M release will **only** attempt to access the URL via HTTPS.
-    Redirects to HTTPS, or any other redirect (whether via HTTP status codes 301, 302 or 307) seem to be ignored and treated as a failure in the first M preview release.
-    Ä¿Ç°Õâ¸öURLÊÇhttpµÄ£¬×îÖÕµÄM°æ±¾½«Ö»ÔÊĞíÍ¨¹ıHTTPS·ÃÎÊ¸ÃURL¡£ÔÚµÚÒ»¸öMÔ¤ÀÀ°æÖĞ£¬ÖØ¶¨Ïòµ½HTTPS£¬»òÕßÈÎºÎÆäËûÖØ¶¨Ïò£¨301£¬302»òÕß307£©Ã²ËÆ¶¼»á±»ºöÂÔ²¢±»ÊÓÎªÊ§°Ü¡£
-    The scheme of the verification URL is also independent from the `android:scheme` values in your `&lt;intent-filter&gt;` tags. Even if you have a filter that only accepts HTTPS URLs, the verification URL still needs to be available via HTTP.	
-    URLµÄschemeºÍ&lt;intent-filter&gt;±êÇ©ÖĞµÄandroid:schemeÖµÊÇ»¥²»Ïà¸ÉµÄ£¬¼´Ê¹ÄãÓĞÒ»¸öÖ»½ÓÊÜHTTPS URLsµÄfilter£¬ÈÏÖ¤URLÈÔÈ»ĞèÒªÍ¨¹ıHTTP·ÃÎÊ¡£
-	After we've taken a look at how Android uses this information, we'll see how this process can be debugged.
-    ÔÚÁË½âÁË°²×¿ÈçºÎÊ¹ÓÃÕâĞ©ĞÅÏ¢Ö®ºó£¬ÎÒÃÇÀ´¿´¿´Èç¹ûdebugÕâ¸ö¹ı³Ì¡£
+### ä¸Šä¼ JSONæ–‡ä»¶
 
-## 
-    Android MÊÇÈçºÎÊµÏÖApp LinksµÄ
-	App link verification involves two components in the Android system: the Package Manager and an Intent Filter Verifier.
-    AppÁ´½ÓÈÏÖ¤Éæ¼°µ½°²×¿ÏµÍ³µÄÁ½¸ö×é½¨£ºPackage ManagerºÍIntent Filter Verifier¡£
-	**PackageManager** is the standard component that has always been around ¡ª it takes care of verifying that APKs for installation are valid, granting permissions to apps, and otherwise being the source of truth about what's installed on the system.
-    **PackageManager**ÊÇÒ»¸öÎŞ´¦²»ÔÚµÄ±ê×¼×é½¨ - Ëü¸ºÔğÑéÖ¤Ëù°²×°µÄapkÊÇ·ñÓĞĞ§£¬ÊÚÓèappÈ¨ÏŞ£¬ÁíÍâ»¹¿ÉÒÔÍ¨¹ıËüÖªµÀÏµÍ³ÉÏ°²×°ÁËĞ©Ê²Ã´app¡£
-	New in Android M is the **Intent Filter Verifier**.  This is a component responsible for fetching the app link verification JSON, parsing it, validating it, and reporting back to PackageManger.
-    ¶ø**Intent Filter Verifier**ÔòÊÇAndroid MÉÏ²ÅÓĞµÄĞÂÍæÒâ¶ù¡£Õâ¸ö×é½¨¸ºÔğ»ñÈ¡Á´½ÓÖ¸ÏòµÄJSONÈÏÖ¤£¬½âÎöËü£¬ÑéÖ¤Ëü£¬È»ºó½«±¨¸æ·µ»Ø¸øPackageManger¡£
-	 It appears that there can only be one Intent Filter Verifier active on the system, though this component isn't something that users can easily replace ¡ª in order to register as a verifier, the `android.permission.INTENT_FILTER_VERIFICATION_AGENT` permission is required, which is only available to apps signed with the system key.
-	ËäÈ»Õâ¸ö×é½¨²»ÊÇÓÃ»§ÇáÒ×¾ÍÄÜÌæ»»µÄ£¬µ«ËÆºõÏµÍ³ÖĞÖ»ÄÜÓĞÒ»¸ö»î¶¯×´Ì¬µÄIntent Filter Verifier - ÏëÒª×¢²á³ÉÎªÒ»¸överifier£¬±ØĞëÒªÓĞandroid.permission.INTENT_FILTER_VERIFICATION_AGENTÈ¨ÏŞ£¬¶øÕâ¸öÈ¨ÏŞÖ»ÓĞÇ©ÃûÁËÏµÍ³ÃÜÔ¿µÄapp²ÅÄÜµÃµ½¡£
-	You can see the current active intent filter verifier via the command:
-    Äã¿ÉÒÔÍ¨¹ıÈçÏÂµÄÃüÁî²é¿´µ±Ç°¼¤»îµÄintent filter verifier£º
+Having created this file, you must upload it and ensure it's available at the verification URL: `http://example.com/.well-known/statements.json`.
+
+åˆ›å»ºå®Œæ–‡ä»¶ä¹‹åï¼Œä½ éœ€è¦ä¸Šä¼ å®ƒåŒæ—¶ä¿è¯å®ƒå¯ä»¥ä½¿ç”¨è¿™ä¸ªURLè®¿é—®http://example.com/.well-known/statements.jsonã€‚
+
+Currently this URL **must** be accessible via HTTP; the final M release will **only** attempt to access the URL via HTTPS.
+Redirects to HTTPS, or any other redirect (whether via HTTP status codes 301, 302 or 307) seem to be ignored and treated as a failure in the first M preview release.
+
+ç›®å‰è¿™ä¸ªURLæ˜¯httpçš„ï¼Œæœ€ç»ˆçš„Mç‰ˆæœ¬å°†åªå…è®¸é€šè¿‡HTTPSè®¿é—®è¯¥URLã€‚
+åœ¨ç¬¬ä¸€ä¸ªMé¢„è§ˆç‰ˆä¸­ï¼Œé‡å®šå‘åˆ°HTTPSï¼Œæˆ–è€…ä»»ä½•å…¶ä»–é‡å®šå‘ï¼ˆ301ï¼Œ302æˆ–è€…307ï¼‰è²Œä¼¼éƒ½ä¼šè¢«å¿½ç•¥å¹¶è¢«è§†ä¸ºå¤±è´¥ã€‚
+
+The scheme of the verification URL is also independent from the `android:scheme` values in your `&lt;intent-filter&gt;` tags. Even if you have a filter that only accepts HTTPS URLs, the verification URL still needs to be available via HTTP.	
+
+URLçš„schemeå’Œ&lt;intent-filter&gt;æ ‡ç­¾ä¸­çš„android:schemeå€¼æ˜¯äº’ä¸ç›¸å¹²çš„ï¼Œå³ä½¿ä½ æœ‰ä¸€ä¸ªåªæ¥å—HTTPS URLsçš„filterï¼Œè®¤è¯URLä»ç„¶éœ€è¦é€šè¿‡HTTPè®¿é—®ã€‚
+
+After we've taken a look at how Android uses this information, we'll see how this process can be debugged.
+
+åœ¨äº†è§£äº†å®‰å“å¦‚ä½•ä½¿ç”¨è¿™äº›ä¿¡æ¯ä¹‹åï¼Œæˆ‘ä»¬æ¥çœ‹çœ‹å¦‚æœdebugè¿™ä¸ªè¿‡ç¨‹ã€‚
+
+## Android Mæ˜¯å¦‚ä½•å®ç°App Linksçš„
+
+App link verification involves two components in the Android system: the Package Manager and an Intent Filter Verifier.
+
+Appé“¾æ¥è®¤è¯æ¶‰åŠåˆ°å®‰å“ç³»ç»Ÿçš„ä¸¤ä¸ªç»„å»ºï¼šPackage Managerå’ŒIntent Filter Verifierã€‚
+
+**PackageManager** is the standard component that has always been around â€” it takes care of verifying that APKs for installation are valid, granting permissions to apps, and otherwise being the source of truth about what's installed on the system.
+
+**PackageManager**æ˜¯ä¸€ä¸ªæ— å¤„ä¸åœ¨çš„æ ‡å‡†ç»„å»º - å®ƒè´Ÿè´£éªŒè¯æ‰€å®‰è£…çš„apkæ˜¯å¦æœ‰æ•ˆï¼Œæˆäºˆappæƒé™ï¼Œå¦å¤–è¿˜å¯ä»¥é€šè¿‡å®ƒçŸ¥é“ç³»ç»Ÿä¸Šå®‰è£…äº†äº›ä»€ä¹ˆappã€‚
+
+New in Android M is the **Intent Filter Verifier**.  This is a component responsible for fetching the app link verification JSON, parsing it, validating it, and reporting back to PackageManger.
+
+è€Œ**Intent Filter Verifier**åˆ™æ˜¯Android Mä¸Šæ‰æœ‰çš„æ–°ç©æ„å„¿ã€‚è¿™ä¸ªç»„å»ºè´Ÿè´£è·å–é“¾æ¥æŒ‡å‘çš„JSONè®¤è¯ï¼Œè§£æå®ƒï¼ŒéªŒè¯å®ƒï¼Œç„¶åå°†æŠ¥å‘Šè¿”å›ç»™PackageMangerã€‚
+	
+It appears that there can only be one Intent Filter Verifier active on the system, though this component isn't something that users can easily replace â€” in order to register as a verifier, the `android.permission.INTENT_FILTER_VERIFICATION_AGENT` permission is required, which is only available to apps signed with the system key.
+
+è™½ç„¶è¿™ä¸ªç»„å»ºä¸æ˜¯ç”¨æˆ·è½»æ˜“å°±èƒ½æ›¿æ¢çš„ï¼Œä½†ä¼¼ä¹ç³»ç»Ÿä¸­åªèƒ½æœ‰ä¸€ä¸ªæ´»åŠ¨çŠ¶æ€çš„Intent Filter Verifier - æƒ³è¦æ³¨å†Œæˆä¸ºä¸€ä¸ªverifierï¼Œå¿…é¡»è¦æœ‰android.permission.INTENT_FILTER_VERIFICATION_AGENTæƒé™ï¼Œè€Œè¿™ä¸ªæƒé™åªæœ‰ç­¾åäº†ç³»ç»Ÿå¯†é’¥çš„appæ‰èƒ½å¾—åˆ°ã€‚
+
+You can see the current active intent filter verifier via the command:
+
+ä½ å¯ä»¥é€šè¿‡å¦‚ä¸‹çš„å‘½ä»¤æŸ¥çœ‹å½“å‰æ¿€æ´»çš„intent filter verifierï¼š
 
 <pre class="brush:js;toolbar:false">adb shell dumpsys package ifv</pre>
-    In the first M preview release, `com.android.statementservice` fulfils this role.
-    ÔÚµÚÒ»¸öMÔ¤ÀÀ°æÖĞ£¬com.android.statementserviceÍêÈ«°çÑİÁËÕâ¸ö½ÇÉ«¡£
 
-### 
-    How App Links are verified
+In the first M preview release, `com.android.statementservice` fulfils this role.
+
+åœ¨ç¬¬ä¸€ä¸ªMé¢„è§ˆç‰ˆä¸­ï¼Œcom.android.statementserviceå®Œå…¨æ‰®æ¼”äº†è¿™ä¸ªè§’è‰²ã€‚
+
+###  How App Links are verified
 	
-    App link verification is done once ¡ª at install time.  This is done so that, as mentioned above, the system does not need to block on the network every time you click on a link.
-    AppÁ´½ÓÈÏÖ¤ÔÚ°²×°µÄÊ±ºò¾ÍÒ»´ÎĞÔÍê³É¡£Õâ¾ÍÊÇÎªÊ²Ã´¸Õ¸ÕÎÒÃÇËµ²»±ØÔÚÃ¿´Îµã»÷Á´½ÓµÄÊ±ºò¶¼×èÈûÍøÂç¡£
 
-    ![](/uploads/20150608/1433755846674264.png)
- When a package is installed, or an existing package is updated:
-    µ±Ò»¸öpackage°²×°µÄÊ±ºò£¬»òÕßÏÖÓĞµÄpackageÉı¼¶µÄÊ±ºò£º
+App link verification is done once â€” at install time.  This is done so that, as mentioned above, the system does not need to block on the network every time you click on a link.
+
+Appé“¾æ¥è®¤è¯åœ¨å®‰è£…çš„æ—¶å€™å°±ä¸€æ¬¡æ€§å®Œæˆã€‚è¿™å°±æ˜¯ä¸ºä»€ä¹ˆåˆšåˆšæˆ‘ä»¬è¯´ä¸å¿…åœ¨æ¯æ¬¡ç‚¹å‡»é“¾æ¥çš„æ—¶å€™éƒ½é˜»å¡ç½‘ç»œã€‚
+
+![](https://chris.orr.me.uk/img/posts/app-links-system-diagram.png)
+ 
+When a package is installed, or an existing package is updated:
+
+å½“ä¸€ä¸ªpackageå®‰è£…çš„æ—¶å€™ï¼Œæˆ–è€…ç°æœ‰çš„packageå‡çº§çš„æ—¶å€™ï¼š
 1.  PackageManager does its usual validation of the incoming APK
 2.  If successful, the package will be installed, and a broadcast intent with the action `android.intent.action.INTENT_FILTER_NEEDS_VERIFICATION` is sent, along with the installed package info
 3.  The Intent Filter Verifier has a broadcast receiver which picks this up
@@ -134,129 +171,156 @@
 7.  If (and only if) **all** files match, then _success_ is signalled to PackageManager; otherwise _failure_
 8.  PackageManager stores the result
 
-    1.PackageManager¶Ô¼´½«°²×°µÄapk×ö³£¹æµÄÑéÖ¤¡£
+1.PackageManagerå¯¹å³å°†å®‰è£…çš„apkåšå¸¸è§„çš„éªŒè¯ã€‚
+2.å¦‚æœæˆåŠŸï¼Œè¿™ä¸ªpackageå°†è¢«å®‰è£…ï¼ŒåŒæ—¶å‘å‡ºä¸€ä¸ªå¸¦æœ‰android.intent.action.INTENT_FILTER_NEEDS_VERIFICATIONçš„å¹¿æ’­intentï¼Œintentä¸­è¿˜æºå¸¦æœ‰è¯¥packageçš„ä¿¡æ¯ã€‚
+3.Intent Filter Verifierçš„å¹¿æ’­æ¥æ”¶å™¨å°†è·å–è¿™ä¸ªå¹¿æ’­ã€‚
+4.ä»packageçš„&lt;intent-filter&gt;æ ‡ç­¾ä¸­ç¼–è¯‘å‡ºä¸€ä¸ªç‰¹æœ‰ä¸»æœºåçš„åˆ—è¡¨ã€‚
+5.verifierå°è¯•ä»æ¯ä¸ªç‰¹æœ‰çš„ä¸»æœºåä¸­è·å–statements.jsonã€‚
+6.æ¯ä¸€ä¸ªè¢«è·å–çš„JSONæ–‡ä»¶éƒ½ä¼šæ£€æŸ¥å®ƒçš„application IDå’Œå®‰è£…åŒ…çš„è¯ä¹¦ã€‚
+7.åªæœ‰å½“æ‰€æœ‰æ–‡ä»¶åŒæ—¶æ»¡è¶³æ—¶ï¼Œæ‰ä¼šå‘é€æˆåŠŸä¿¡æ¯åˆ°PackageManagerï¼Œå¦åˆ™å¤±è´¥ã€‚
+8.PackageManagerå­˜å‚¨ç»“æœã€‚
 
-    2.Èç¹û³É¹¦£¬Õâ¸öpackage½«±»°²×°£¬Í¬Ê±·¢³öÒ»¸ö´øÓĞandroid.intent.action.INTENT_FILTER_NEEDS_VERIFICATIONµÄ¹ã²¥intent£¬intentÖĞ»¹Ğ¯´øÓĞ¸ÃpackageµÄĞÅÏ¢¡£
+If verification fails, app link behaviour will not be available to your app until verification succeeds â€” your app will appear in the "Open with" dialog as usual (unless another app has passed verification for the same hostname).	
 
-    3.Intent Filter VerifierµÄ¹ã²¥½ÓÊÕÆ÷½«»ñÈ¡Õâ¸ö¹ã²¥¡£
+å¦‚æœè®¤è¯å¤±è´¥ï¼Œappé“¾æ¥å°†æ— æ³•æŒ‡å‘ä½ çš„app - ä½ çš„appä¼šåƒå¾€å¸¸ä¸€æ ·å‡ºç°åœ¨â€œæ‰“å¼€æ–¹å¼â€å¯¹è¯æ¡†ä¸­ï¼ˆé™¤éå¦ä¸€ä¸ªappé€šè¿‡äº†åŒä¸€åŸŸåçš„éªŒè¯ï¼‰ã€‚
 
-    4.´ÓpackageµÄ&lt;intent-filter&gt;±êÇ©ÖĞ±àÒë³öÒ»¸öÌØÓĞÖ÷»úÃûµÄÁĞ±í¡£
+As far as I can tell, verification is only attempted once per install or upgrade, so the next chance to pass verification for most users will be when they next upgrade your app.
 
-    5.verifier³¢ÊÔ´ÓÃ¿¸öÌØÓĞµÄÖ÷»úÃûÖĞ»ñÈ¡statements.json¡£
+å°±æˆ‘æ‰€äº†è§£çš„è€Œè¨€ï¼Œè®¤è¯åªä¼šåœ¨å®‰è£…å’Œå‡çº§çš„æ—¶å€™ä¼šå‘ç”Ÿï¼Œå› æ­¤å¯¹å¤§å¤šæ•°ç”¨æˆ·æ¥è¯´ï¼Œå†æ¬¡é€šè¿‡éªŒè¯çš„æœºä¼šæ˜¯åœ¨appä¸‹ä¸€æ¬¡å‡çº§çš„æ—¶å€™ã€‚
 
-    6.Ã¿Ò»¸ö±»»ñÈ¡µÄJSONÎÄ¼ş¶¼»á¼ì²éËüµÄapplication IDºÍ°²×°°üµÄÖ¤Êé¡£
+###  Intent Filter Verifierçš„è¡Œä¸º
 
-    7.Ö»ÓĞµ±ËùÓĞÎÄ¼şÍ¬Ê±Âú×ãÊ±£¬²Å»á·¢ËÍ³É¹¦ĞÅÏ¢µ½PackageManager£¬·ñÔòÊ§°Ü¡£
+**ä¸»æœºå**
 
-    8.PackageManager´æ´¢½á¹û¡£
+Note that `example.com` and `www.example.com` are treated as separate hostnames.  This means your `statements.json` must be reachable directly at both hostnames.	
 
-    If verification fails, app link behaviour will not be available to your app until verification succeeds ¡ª your app will appear in the "Open with" dialog as usual (unless another app has passed verification for the same hostname).	
-    Èç¹ûÈÏÖ¤Ê§°Ü£¬appÁ´½Ó½«ÎŞ·¨Ö¸ÏòÄãµÄapp - ÄãµÄapp»áÏñÍù³£Ò»Ñù³öÏÖÔÚ¡°´ò¿ª·½Ê½¡±¶Ô»°¿òÖĞ£¨³ı·ÇÁíÒ»¸öappÍ¨¹ıÁËÍ¬Ò»ÓòÃûµÄÑéÖ¤£©¡£
-    As far as I can tell, verification is only attempted once per install or upgrade, so the next chance to pass verification for most users will be when they next upgrade your app.
-    ¾ÍÎÒËùÁË½âµÄ¶øÑÔ£¬ÈÏÖ¤Ö»»áÔÚ°²×°ºÍÉı¼¶µÄÊ±ºò»á·¢Éú£¬Òò´Ë¶Ô´ó¶àÊıÓÃ»§À´Ëµ£¬ÔÙ´ÎÍ¨¹ıÑéÖ¤µÄ»ú»áÊÇÔÚappÏÂÒ»´ÎÉı¼¶µÄÊ±ºò¡£
+example.comå’Œwww.example.comä¼šè¢«è®¤ä¸ºæ˜¯ä¸¤ä¸ªç‹¬ç«‹çš„ä¸»æœºåã€‚å› æ­¤è¦æ±‚statements.jsonåœ¨ä¸¤ä¸ªä¸»æœºåä¸‹éƒ½æ˜¯å¯ç›´è¾¾çš„ã€‚
 
-### 
-    Intent Filter VerifierµÄĞĞÎª
-	**Hostnames**
-    **Ö÷»úÃû**
+For example, if you automatically redirect all requests to `http://www.example.com/*` to `https://example.com/*`, then this will cause verification to fail for this one hostname, and therefore app link verification as a whole will fail.
 
-    Note that `example.com` and `www.example.com` are treated as separate hostnames.  This means your `statements.json` must be reachable directly at both hostnames.	
-    example.comºÍwww.example.com»á±»ÈÏÎªÊÇÁ½¸ö¶ÀÁ¢µÄÖ÷»úÃû¡£Òò´ËÒªÇóstatements.jsonÔÚÁ½¸öÖ÷»úÃûÏÂ¶¼ÊÇ¿ÉÖ±´ïµÄ¡£
-    For example, if you automatically redirect all requests to `http://www.example.com/*` to `https://example.com/*`, then this will cause verification to fail for this one hostname, and therefore app link verification as a whole will fail.
-    ±ÈÈç£¬Èç¹ûÄã½«ËùÓĞµÄÇëÇó¶¼ÖØ¶¨Ïòµ½http://www.example.com/* to https://example.com/*£¬Ôò»áÈÃÕâ¸öÖ÷»úÃûµÄÈÏÖ¤Ê§°Ü£¬´Ó¶øµ¼ÖÂÕû¸öappÁ´½ÓÈÏÖ¤Ê§°Ü¡£
-    In this case, you would have to add special cases to your web server configuration to ensure that every request for `statements.json` directly returns an HTTP 200.  Possibly this rule will be relaxed in future releases.
-    ÕâÖÖÇé¿öÏÂ£¬Äã¿ÉÄÜĞèÒªÎªÄãµÄweb·şÎñÆ÷×öÌØÊâµÄÅäÖÃ£¬È·±£Ã¿¸ö¶ÔÓÚstatements.jsonµÄÇëÇó¶¼ÓĞÄÜÖ±½Ó·µ»ØHTTP 200¡£Õâ¸öÔ¼ÊøÔÚºóÃæµÄ°æ±¾ÖĞ¿ÉÄÜ»áÓĞËù·ÅËÉ¡£
+æ¯”å¦‚ï¼Œå¦‚æœä½ å°†æ‰€æœ‰çš„è¯·æ±‚éƒ½é‡å®šå‘åˆ°http://www.example.com/* to https://example.com/*ï¼Œåˆ™ä¼šè®©è¿™ä¸ªä¸»æœºåçš„è®¤è¯å¤±è´¥ï¼Œä»è€Œå¯¼è‡´æ•´ä¸ªappé“¾æ¥è®¤è¯å¤±è´¥ã€‚
 
-    **ÏìÓ¦Ê±¼ä**
-    If the verifier cannot create a connection to your web server and receive an HTTP response within five seconds, verification will fail.
-    Èç¹ûverifier²»ÄÜÔÚ5ÃëÖ®ÄÚºÍÄãµÄweb·şÎñÆ÷½¨Á¢Á´½Ó²¢½ÓÊÕµ½HTTPÏìÓ¦£¬ÈÏÖ¤»áÊ§°Ü¡£
+In this case, you would have to add special cases to your web server configuration to ensure that every request for `statements.json` directly returns an HTTP 200.  Possibly this rule will be relaxed in future releases.
 
-    **Lack of connectivityÈ±ÉÙÁ´½Ó»·¾³**
-    Likewise, if the device is offline when verification starts, or has a bad connection, verification will fail.
-    Í¬ÑùµÄ£¬Èç¹ûÔÚÈÏÖ¤¿ªÊ¼µÄÊ±ºòÉè±¸ÊÇÀëÏßµÄ£¬»òÕßÍøÂç»·¾³ºÜ²î£¬ÈÏÖ¤Ò²»áÊ§°Ü¡£
+è¿™ç§æƒ…å†µä¸‹ï¼Œä½ å¯èƒ½éœ€è¦ä¸ºä½ çš„webæœåŠ¡å™¨åšç‰¹æ®Šçš„é…ç½®ï¼Œç¡®ä¿æ¯ä¸ªå¯¹äºstatements.jsonçš„è¯·æ±‚éƒ½æœ‰èƒ½ç›´æ¥è¿”å›HTTP 200ã€‚è¿™ä¸ªçº¦æŸåœ¨åé¢çš„ç‰ˆæœ¬ä¸­å¯èƒ½ä¼šæœ‰æ‰€æ”¾æ¾ã€‚
 
-    **HTTP »º´æ**
-    The current implementation of the Intent Filter Verifier respects regular HTTP caching rules for the most part.
-    Ä¿Ç°Intent Filter VerifierµÄÊµÏÖ»ù±¾×ñÑ­HTTP»º´æ¹æÔò¡£
-    If your `statements.json` response contains a `Cache-Control: max-age=[seconds]` header, the response will be cached on disk by the verifier.  Though `max-age` values under 60 seconds are ignored; in fact 60 seconds seem to be _added_ to all `max-age` values (for some reason).  Similarly, an `Expires` header is also respected when caching responses.
-    If your statements.json response contains a Cache-Control: max-age=[seconds] header, the response will be cached on disk by the verifier. &nbsp;Though max-age values under 60 seconds are ignored; in fact 60 seconds seem to be _added_ to all max-age values (for some reason). &nbsp;Similarly, an Expires header is also respected when caching responses.
+**å“åº”æ—¶é—´**
 
-    Èç¹ûÄãµÄstatements.jsonÏìÓ¦°üº¬ÁËCache-Control: max-age=[seconds]Í·²¿£¬ÄÇÃ´Õâ¸öÏìÓ¦½«±»verifier»º´æµ½´ÅÅÌ¡£
+If the verifier cannot create a connection to your web server and receive an HTTP response within five seconds, verification will fail.
 
-    If you have ETag or Last-Modified headers, 
+å¦‚æœverifierä¸èƒ½åœ¨5ç§’ä¹‹å†…å’Œä½ çš„webæœåŠ¡å™¨å»ºç«‹é“¾æ¥å¹¶æ¥æ”¶åˆ°HTTPå“åº”ï¼Œè®¤è¯ä¼šå¤±è´¥ã€‚
+
+**Lack of connectivityç¼ºå°‘é“¾æ¥ç¯å¢ƒ**
+
+Likewise, if the device is offline when verification starts, or has a bad connection, verification will fail.
+
+åŒæ ·çš„ï¼Œå¦‚æœåœ¨è®¤è¯å¼€å§‹çš„æ—¶å€™è®¾å¤‡æ˜¯ç¦»çº¿çš„ï¼Œæˆ–è€…ç½‘ç»œç¯å¢ƒå¾ˆå·®ï¼Œè®¤è¯ä¹Ÿä¼šå¤±è´¥ã€‚
+
+**HTTP ç¼“å­˜**
+
+The current implementation of the Intent Filter Verifier respects regular HTTP caching rules for the most part.
+
+ç›®å‰Intent Filter Verifierçš„å®ç°åŸºæœ¬éµå¾ªHTTPç¼“å­˜è§„åˆ™ã€‚
+
+If your `statements.json` response contains a `Cache-Control: max-age=[seconds]` header, the response will be cached on disk by the verifier.  Though `max-age` values under 60 seconds are ignored; in fact 60 seconds seem to be _added_ to all `max-age` values (for some reason).  Similarly, an `Expires` header is also respected when caching responses.
+
+If your statements.json response contains a Cache-Control: max-age=[seconds] header, the response will be cached on disk by the verifier. &nbsp;Though max-age values under 60 seconds are ignored; in fact 60 seconds seem to be _added_ to all max-age values (for some reason). &nbsp;Similarly, an Expires header is also respected when caching responses.
+
+
+å¦‚æœä½ çš„statements.jsonå“åº”åŒ…å«äº†Cache-Control: max-age=[seconds]å¤´éƒ¨ï¼Œé‚£ä¹ˆè¿™ä¸ªå“åº”å°†è¢«verifierç¼“å­˜åˆ°ç£ç›˜ã€‚
+
+
+If you have ETag or Last-Modified headers, 
 then the verifier will attempt to make a conditional request using these
  values the next time it attempts to verify the corresponding hostname.
 Though from what I&#39;ve seen, if these headers exist but without explicit 
 cache control headers, the response will be cached for a possibly 
 indefinite length of time.
 
-    Cache headers are only respected for HTTP 200 responses. &nbsp;If you have
+
+Cache headers are only respected for HTTP 200 responses. &nbsp;If you have
  a 404 response with any sort of cache expiry headers, these will be 
 ignored the next time the verifier needs to contact your hostname.
 
-### 
-    Debugging App Links
-    When the Android system attempts to verify your app link setup, there is little feedback aside from a true/false value reported by `PackageManager` to logcat, e.g.:
-    µ±°²×¿ÏµÍ³ÊÔÍ¼ÈÏÖ¤ÄãµÄappÁ´½ÓÊ±£¬PackageManager³ıÁËÏòlogcatÖĞ±¨¸ætrue/falseÖµÖ®Íâ£¬»¹ÓĞÒ»Ğ©ÆäËû·´À¡£¬±ÈÈç£º
+### Debugging App Links
+
+When the Android system attempts to verify your app link setup, there is little feedback aside from a true/false value reported by `PackageManager` to logcat, e.g.:
+
+å½“å®‰å“ç³»ç»Ÿè¯•å›¾è®¤è¯ä½ çš„appé“¾æ¥æ—¶ï¼ŒPackageManageré™¤äº†å‘logcatä¸­æŠ¥å‘Štrue/falseå€¼ä¹‹å¤–ï¼Œè¿˜æœ‰ä¸€äº›å…¶ä»–åé¦ˆï¼Œæ¯”å¦‚ï¼š
 
 <pre class="brush:js;toolbar:false">IntentFilter ActivityIntentInfo{1a61a0a com.example.myapp/.MainActivity}
  verified with result:true and hosts:example.com www.example.com</pre>
-	However, you can ask the system at any time for the app linking verification status of your package:
-    µ«ÊÇ£¬Äã¿ÉÔÚÈÎÒâÊ±¿ÌÏòÏµÍ³²éÑ¯packageµÄappÁ´½ÓÈÏÖ¤×´Ì¬£º
+
+However, you can ask the system at any time for the app linking verification status of your package:
+
+ä½†æ˜¯ï¼Œä½ å¯åœ¨ä»»æ„æ—¶åˆ»å‘ç³»ç»ŸæŸ¥è¯¢packageçš„appé“¾æ¥è®¤è¯çŠ¶æ€ï¼š
 
 <pre class="brush:js;toolbar:false">adb shell dumpsys package d</pre>
-	This will return a list of verification entries like this:
-    Õâ»á·µ»ØÈçÏÂµÄÈÏÖ¤ÌõÄ¿ĞÅÏ¢£º
+
+This will return a list of verification entries like this:
+
+è¿™ä¼šè¿”å›å¦‚ä¸‹çš„è®¤è¯æ¡ç›®ä¿¡æ¯ï¼š
 
 <pre class="brush:js;toolbar:false">Package Name: com.example.myapp
 Domains: example.com www.example.com
 Status: always</pre>
-    There may be multiple entries for your package: one for the system, and zero or more for users on the system, whose preferences override the system value.
-    ¿ÉÄÜ»áÓĞ¶à¸ö¹ØÓÚÄãpackageµÄÌõÄ¿£ºÒ»¸öÊÇÏµÍ³µÄ£¬Áã¸ö»òÕß¶à¸öÓÃ»§µÄ- ÓĞĞ©ÓÃ»§µÄÆ«ºÃ¸²¸ÇÁËÏµÍ³²ÎÊı¡£
-    The possible status values seem to be:
-    ¿ÉÄÜ»á²úÉúµÄ×´Ì¬Öµ´óÖÂÈçÏÂ£º
+
+There may be multiple entries for your package: one for the system, and zero or more for users on the system, whose preferences override the system value.
+
+å¯èƒ½ä¼šæœ‰å¤šä¸ªå…³äºä½ packageçš„æ¡ç›®ï¼šä¸€ä¸ªæ˜¯ç³»ç»Ÿçš„ï¼Œé›¶ä¸ªæˆ–è€…å¤šä¸ªç”¨æˆ·çš„- æœ‰äº›ç”¨æˆ·çš„åå¥½è¦†ç›–äº†ç³»ç»Ÿå‚æ•°ã€‚
+
+The possible status values seem to be:
+
+å¯èƒ½ä¼šäº§ç”Ÿçš„çŠ¶æ€å€¼å¤§è‡´å¦‚ä¸‹ï¼š
 	
-*   **undefined** ¡ª apps which do not have link auto-verification enabled in their manifest
-*   **ask** ¡ª apps which have failed verification (i.e. _ask_ the user via the "Open with" dialog)
-*   **always** ¡ª apps which have passed verification (i.e. _always_ open this app for these domains)
-*   **never** ¡ª apps which have passed verification, but have been disabled in the system settings
+*   **undefined** â€” apps which do not have link auto-verification enabled in their manifest
+*   **ask** â€” apps which have failed verification (i.e. _ask_ the user via the "Open with" dialog)
+*   **always** â€” apps which have passed verification (i.e. _always_ open this app for these domains)
+*   **never** â€” apps which have passed verification, but have been disabled in the system settings
 
-*   **undefined** ¡ª&nbsp; appÃ»ÓĞÔÚmanifestÖĞÆôÓÃÁ´½Ó×Ô¶¯ÑéÖ¤¹¦ÄÜ¡£
 
-*   **ask** ¡ª appÑéÖ¤Ê§°Ü£¨»áÍ¨¹ı´ò¿ª·½Ê½¶Ô»°¿òÑ¯ÎÊÓÃ»§£©
+*   **undefined** â€”&nbsp; appæ²¡æœ‰åœ¨manifestä¸­å¯ç”¨é“¾æ¥è‡ªåŠ¨éªŒè¯åŠŸèƒ½ã€‚
 
-*   **always** ¡ª appÍ¨¹ıÁËÑéÖ¤£¨µã»÷Õâ¸öÓòÃû×ÜÊÇ´ò¿ªÕâ¸öapp£©
+*   **ask** â€” appéªŒè¯å¤±è´¥ï¼ˆä¼šé€šè¿‡æ‰“å¼€æ–¹å¼å¯¹è¯æ¡†è¯¢é—®ç”¨æˆ·ï¼‰
 
-*   **never** ¡ª appÍ¨¹ıÁËÑéÖ¤£¬µ«ÊÇÏµÍ³ÉèÖÃ¹Ø±ÕÁË´Ë¹¦ÄÜ¡£
+*   **always** â€” appé€šè¿‡äº†éªŒè¯ï¼ˆç‚¹å‡»è¿™ä¸ªåŸŸåæ€»æ˜¯æ‰“å¼€è¿™ä¸ªappï¼‰
 
-    If you didn't manage to pass verification, you can retry by simpling reinstalling the same version, e.g.:
-    Èç¹ûÄãÃ»ÄÜÍ¨¹ıÈÏÖ¤£¬Äã¿ÉÒÔÔÙ´Î³¢ÊÔÖØĞÂ°²×°Í¬Ò»°æ±¾£º
+*   **never** â€” appé€šè¿‡äº†éªŒè¯ï¼Œä½†æ˜¯ç³»ç»Ÿè®¾ç½®å…³é—­äº†æ­¤åŠŸèƒ½ã€‚
+
+
+If you didn't manage to pass verification, you can retry by simpling reinstalling the same version, e.g.:
+
+å¦‚æœä½ æ²¡èƒ½é€šè¿‡è®¤è¯ï¼Œä½ å¯ä»¥å†æ¬¡å°è¯•é‡æ–°å®‰è£…åŒä¸€ç‰ˆæœ¬ï¼š
 
 <pre class="brush:js;toolbar:false">adb install -r app/build/outputs/apk/app-debug.apk</pre>
 
-    If you can't see the `statements.json` URL being requested on your web server at install time, you can clear out the Intent Verifier Service HTTP cache, so that next time it will have to hit the server:
-    Èç¹ûÄãÔÚ°²×°µÄÊ±ºòÃ»ÓĞÔÚ·şÎñÆ÷ÉÏ¿´¼ûstatements.json URLµÄÇëÇó£¬Äã¿ÉÒÔÇå¿ÕIntent Verifier·şÎñµÄHTTP»º´æ£¬ÕâÑùÏÂ´Î¾Í»áÖ±½ÓÇëÇó·şÎñÆ÷£º
+
+If you can't see the `statements.json` URL being requested on your web server at install time, you can clear out the Intent Verifier Service HTTP cache, so that next time it will have to hit the server:
+
+å¦‚æœä½ åœ¨å®‰è£…çš„æ—¶å€™æ²¡æœ‰åœ¨æœåŠ¡å™¨ä¸Šçœ‹è§statements.json URLçš„è¯·æ±‚ï¼Œä½ å¯ä»¥æ¸…ç©ºIntent VerifieræœåŠ¡çš„HTTPç¼“å­˜ï¼Œè¿™æ ·ä¸‹æ¬¡å°±ä¼šç›´æ¥è¯·æ±‚æœåŠ¡å™¨ï¼š
 
 <pre class="brush:js;toolbar:false">adb shell pm clear com.android.statementservice</pre>
 
-
-If you have doubts about whether the `statements.json` contents are returned correctly, you can use the `-tcpdump` option of the Android emulator to check exactly what's being sent over the network ¡ª though note this won't work so simply once the final M release is out and encryption is required.
+If you have doubts about whether the `statements.json` contents are returned correctly, you can use the `-tcpdump` option of the Android emulator to check exactly what's being sent over the network â€” though note this won't work so simply once the final M release is out and encryption is required.
 
 Alternatively you can use the `-http-proxy` option of the emulator and pass all network requests through a proxy like [Charles](http://charlesproxy.com/).
-    Èç¹ûÄã²»ÖªµÀstatements.jsonµÄÄÚÈİÊÇ·ñÕıÈ··µ»Ø£¬¿ÉÒÔÊ¹ÓÃ°²×¿Ä£ÄâÆ÷µÄ-tcpdumpÑ¡ÏîÀ´¼ì²éÍøÂçÉÏ·¢ËÍµÄÊÇÊ²Ã´ - ×¢Òâ°²×¿M×îÖÕ°æ³öÀ´Ö®ºó¾ÍÃ»ÄÇÃ´ÈİÒ×ÁË£¬ÒòÎªÊı¾İÊÇ¼ÓÃÜµÄ¡£
 
-    »¹ÓĞÒ»ÖÖÑ¡Ôñ£¬ÄÇ¾ÍÊÇÊ¹ÓÃÄ£ÄâÆ÷µÄ-http-proxyÑ¡Ïî£¬ÈÃËùÓĞµÄÍøÂçÇëÇó¶¼Í¨¹ı´úÀí£¬±ÈÈç[Charles](http://charlesproxy.com/)´úÀí¡£
+å¦‚æœä½ ä¸çŸ¥é“statements.jsonçš„å†…å®¹æ˜¯å¦æ­£ç¡®è¿”å›ï¼Œå¯ä»¥ä½¿ç”¨å®‰å“æ¨¡æ‹Ÿå™¨çš„-tcpdumpé€‰é¡¹æ¥æ£€æŸ¥ç½‘ç»œä¸Šå‘é€çš„æ˜¯ä»€ä¹ˆ - æ³¨æ„å®‰å“Mæœ€ç»ˆç‰ˆå‡ºæ¥ä¹‹åå°±æ²¡é‚£ä¹ˆå®¹æ˜“äº†ï¼Œå› ä¸ºæ•°æ®æ˜¯åŠ å¯†çš„ã€‚
 
-## 
-    ×Ü½á
+
+è¿˜æœ‰ä¸€ç§é€‰æ‹©ï¼Œé‚£å°±æ˜¯ä½¿ç”¨æ¨¡æ‹Ÿå™¨çš„-http-proxyé€‰é¡¹ï¼Œè®©æ‰€æœ‰çš„ç½‘ç»œè¯·æ±‚éƒ½é€šè¿‡ä»£ç†ï¼Œæ¯”å¦‚[Charles](http://charlesproxy.com/)ä»£ç†ã€‚
+
+##  æ€»ç»“
 
 Although I was initially sceptical about App Links due to a perceived takeover of the existing, amazing intent system of Android, I'm glad to see that it should help in most cases, and there is a very simple way to turn this off in the cases where users don't like it.
 
 Given that the JSON parsing and HTTP request behaviour are remarkably strict in the verifier service, hopefully some of the detailed information here will help you with your implementation of app linking.
 
 Good luck!	
-    ËäÈ»ÔÚ¿ªÊ¼ÎÒµ£ĞÄApp Links»áÈ¡´úÄ¿Ç°°²×¿ÉÏ·Ç³£¿áµÄintent»úÖÆ£¬µ«ÊÇÒ²ÀÖÓÚ¿´µ½Õâ¶ÔÓÚ´ó¶àÊıÇé¿ö¶¼ÊÇÓĞÓÃµÄ£¬¿öÇÒÈç¹ûÓÃ»§²»Ï²»¶£¬Ê¹ÓÃ¼òµ¥µÄ·½·¨¾Í¿ÉÒÔ°ÑËü¹Øµô¡£
 
-    ¿¼ÂÇµ½verifier·şÎñ¶ÔJSON½âÎöºÍHTTPÇëÇóÒì³£ÑÏ¸ñ£¬Ï£ÍûÕâÀïËùÌáµ½µÄÒ»Ğ©Ï¸½Ú¶ÔÄãÊµÏÖapp linkingÓĞËù°ïÖú¡£×£ÄãºÃÔË£¡
+è™½ç„¶åœ¨å¼€å§‹æˆ‘æ‹…å¿ƒApp Linksä¼šå–ä»£ç›®å‰å®‰å“ä¸Šéå¸¸é…·çš„intentæœºåˆ¶ï¼Œä½†æ˜¯ä¹Ÿä¹äºçœ‹åˆ°è¿™å¯¹äºå¤§å¤šæ•°æƒ…å†µéƒ½æ˜¯æœ‰ç”¨çš„ï¼Œå†µä¸”å¦‚æœç”¨æˆ·ä¸å–œæ¬¢ï¼Œä½¿ç”¨ç®€å•çš„æ–¹æ³•å°±å¯ä»¥æŠŠå®ƒå…³æ‰ã€‚
+
+
+è€ƒè™‘åˆ°verifieræœåŠ¡å¯¹JSONè§£æå’ŒHTTPè¯·æ±‚å¼‚å¸¸ä¸¥æ ¼ï¼Œå¸Œæœ›è¿™é‡Œæ‰€æåˆ°çš„ä¸€äº›ç»†èŠ‚å¯¹ä½ å®ç°app linkingæœ‰æ‰€å¸®åŠ©ã€‚ç¥ä½ å¥½è¿ï¼
 
     
