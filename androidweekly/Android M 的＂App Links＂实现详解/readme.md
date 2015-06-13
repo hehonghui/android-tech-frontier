@@ -1,4 +1,5 @@
 英文原文：  [Android M "App Links" implementation in depth](https://chris.orr.me.uk/android-app-linking-how-it-works/)
+
 At Google I/O 2015, a [new feature](http://www.androidpolice.com/2015/05/28/io-2015-android-m-will-support-app-deep-linking-without-that-annoying-selector-prompt/) was announced that allows "app developers to associate an app with a web domain they own."  This is intended to minimise the number of times a user sees the "Open with" dialog to choose which app, among those that can handle a certain URL, should be used to open a link.
 
 谷歌2015年的I/O大会上宣布了一个[新特性](http://www.androidpolice.com/2015/05/28/io-2015-android-m-will-support-app-deep-linking-without-that-annoying-selector-prompt/)：允许开发者将app和他们的web域名关联。这一举措是为了最小化用户遇到“打开方式”对话框的概率。
@@ -217,13 +218,9 @@ Likewise, if the device is offline when verification starts, or has a bad connec
 
 **HTTP 缓存**
 
-The current implementation of the Intent Filter Verifier respects regular HTTP caching rules for the most part.
-
 目前Intent Filter Verifier的实现基本遵循HTTP缓存规则。
 
 If your `statements.json` response contains a `Cache-Control: max-age=[seconds]` header, the response will be cached on disk by the verifier.  Though `max-age` values under 60 seconds are ignored; in fact 60 seconds seem to be _added_ to all `max-age` values (for some reason).  Similarly, an `Expires` header is also respected when caching responses.
-
-If your statements.json response contains a Cache-Control: max-age=[seconds] header, the response will be cached on disk by the verifier. &nbsp;Though max-age values under 60 seconds are ignored; in fact 60 seconds seem to be _added_ to all max-age values (for some reason). &nbsp;Similarly, an Expires header is also respected when caching responses.
 
 
 如果你的statements.json响应包含了Cache-Control: max-age=[seconds]头部，那么这个响应将被verifier缓存到磁盘。
