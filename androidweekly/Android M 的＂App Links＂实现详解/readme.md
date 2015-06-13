@@ -1,3 +1,4 @@
+英文原文：  [Android M "App Links" implementation in depth](https://chris.orr.me.uk/android-app-linking-how-it-works/)
 At Google I/O 2015, a [new feature](http://www.androidpolice.com/2015/05/28/io-2015-android-m-will-support-app-deep-linking-without-that-annoying-selector-prompt/) was announced that allows "app developers to associate an app with a web domain they own."  This is intended to minimise the number of times a user sees the "Open with" dialog to choose which app, among those that can handle a certain URL, should be used to open a link.
 
 谷歌2015年的I/O大会上宣布了一个[新特性](http://www.androidpolice.com/2015/05/28/io-2015-android-m-will-support-app-deep-linking-without-that-annoying-selector-prompt/)：允许开发者将app和他们的web域名关联。这一举措是为了最小化用户遇到“打开方式”对话框的概率。
@@ -34,16 +35,14 @@ If you have an app that handles links for, say, `example.com`, you must:
 
 如果你有一个需要处理链接（比如example.com）的app，你应该：
 
-*   Have the ability to upload files to the root of `example.com`
-
-*   Without this, you can't have your app automatically be the default for opening these links
+*   Have the ability to upload files to the root of `example.com`  Without this, you can't have your app automatically be the default for opening these links
 
 *   Update your `build.gradle` with `compileSdkVersion 'android-MNC'`
 *   Add the attribute `android:autoVerify="true"` to each `&lt;intent-filter&gt;` tag that contains `&lt;data&gt;` tags for HTTP or HTTPS URLs
 
-.有上传文件到example.com根路径的权限，如果没有，你无法让你的app成为这些链接的默认打开方式。
-.在build.gradle文件中设置compileSdkVersion &#39;android-MNC&#39;。
-.为每个这样的&lt;intent-filter&gt;标签
+*  有上传文件到example.com根路径的权限，如果没有，你无法让你的app成为这些链接的默认打开方式。
+*  在build.gradle文件中设置compileSdkVersion &#39;android-MNC&#39;。
+*  为每个这样的&lt;intent-filter&gt;标签
 
 <pre class="brush:js;toolbar:false">&lt;intent-filter&gt;
     &lt;data android:scheme=&quot;http&quot; /&gt;
