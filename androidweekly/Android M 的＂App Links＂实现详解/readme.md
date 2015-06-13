@@ -1,4 +1,5 @@
 英文原文：  [Android M "App Links" implementation in depth](https://chris.orr.me.uk/android-app-linking-how-it-works/)
+安卓周报156期
 
 At Google I/O 2015, a [new feature](http://www.androidpolice.com/2015/05/28/io-2015-android-m-will-support-app-deep-linking-without-that-annoying-selector-prompt/) was announced that allows "app developers to associate an app with a web domain they own."  This is intended to minimise the number of times a user sees the "Open with" dialog to choose which app, among those that can handle a certain URL, should be used to open a link.
 
@@ -223,7 +224,8 @@ Likewise, if the device is offline when verification starts, or has a bad connec
 If your `statements.json` response contains a `Cache-Control: max-age=[seconds]` header, the response will be cached on disk by the verifier.  Though `max-age` values under 60 seconds are ignored; in fact 60 seconds seem to be _added_ to all `max-age` values (for some reason).  Similarly, an `Expires` header is also respected when caching responses.
 
 
-如果你的statements.json响应包含了Cache-Control: max-age=[seconds]头部，那么这个响应将被verifier缓存到磁盘。
+如果你的statements.json响应包含了Cache-Control: max-age=[seconds]头部，那么这个响应将被verifier缓存到磁盘。虽然 60秒以下的'max-age'会被忽略，但是60秒似乎也足够了。同样的一个`Expires` header 也会被缓存。
+
 
 
 If you have ETag or Last-Modified headers, 
@@ -233,10 +235,14 @@ Though from what I&#39;ve seen, if these headers exist but without explicit
 cache control headers, the response will be cached for a possibly 
 indefinite length of time.
 
+如果你有ETag或者最近更新的headers，那么verifier将在下一次视情况使用这些值来验证相应的主机。据我所知，如果这些header子退出之后没有明确指定缓存控制头，那么响应的缓存时间将是不确定的。
+
 
 Cache headers are only respected for HTTP 200 responses. &nbsp;If you have
  a 404 response with any sort of cache expiry headers, these will be 
 ignored the next time the verifier needs to contact your hostname.
+
+缓存头部只理会http 200的响应，如果是一个404响应，那么下次将忽略，verifier需要直接连接主机。
 
 ### Debugging App Links
 
