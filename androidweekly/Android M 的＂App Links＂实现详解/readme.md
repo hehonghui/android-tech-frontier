@@ -162,23 +162,23 @@ App链接认证在安装的时候就一次性完成。这就是为什么刚刚�
 When a package is installed, or an existing package is updated:
 
 当一个package安装的时候，或者现有的package升级的时候：
-1.  PackageManager does its usual validation of the incoming APK
-2.  If successful, the package will be installed, and a broadcast intent with the action `android.intent.action.INTENT_FILTER_NEEDS_VERIFICATION` is sent, along with the installed package info
-3.  The Intent Filter Verifier has a broadcast receiver which picks this up
-4.  A list of _unique hostnames_ is compiled from the `&lt;intent-filter&gt;` tags in the package
-5.  The verifier attempts to fetch `statements.json` from each unique hostname
-6.  Every JSON file fetched is checked for the application ID and certificate of the installed package
-7.  If (and only if) **all** files match, then _success_ is signalled to PackageManager; otherwise _failure_
-8.  PackageManager stores the result
+* 1.  PackageManager does its usual validation of the incoming APK
+* 2.  If successful, the package will be installed, and a broadcast intent with the action `android.intent.action.INTENT_FILTER_NEEDS_VERIFICATION` is sent, along with the installed package info
+* 3.  The Intent Filter Verifier has a broadcast receiver which picks this up
+* 4.  A list of _unique hostnames_ is compiled from the `&lt;intent-filter&gt;` tags in the package
+* 5.  The verifier attempts to fetch `statements.json` from each unique hostname
+* 6.  Every JSON file fetched is checked for the application ID and certificate of the installed package
+* 7.  If (and only if) **all** files match, then _success_ is signalled to PackageManager; otherwise _failure_
+* 8.  PackageManager stores the result
 
-1.PackageManager对即将安装的apk做常规的验证。
-2.如果成功，这个package将被安装，同时发出一个带有android.intent.action.INTENT_FILTER_NEEDS_VERIFICATION的广播intent，intent中还携带有该package的信息。
-3.Intent Filter Verifier的广播接收器将获取这个广播。
-4.从package的&lt;intent-filter&gt;标签中编译出一个特有主机名的列表。
-5.verifier尝试从每个特有的主机名中获取statements.json。
-6.每一个被获取的JSON文件都会检查它的application ID和安装包的证书。
-7.只有当所有文件同时满足时，才会发送成功信息到PackageManager，否则失败。
-8.PackageManager存储结果。
+* 1.PackageManager对即将安装的apk做常规的验证。
+* 2.如果成功，这个package将被安装，同时发出一个带有android.intent.action.INTENT_FILTER_NEEDS_VERIFICATION的广播intent，intent中还携带有该package的信息。
+* 3.Intent Filter Verifier的广播接收器将获取这个广播。
+* 4.从package的&lt;intent-filter&gt;标签中编译出一个特有主机名的列表。
+* 5.verifier尝试从每个特有的主机名中获取statements.json。
+* 6.每一个被获取的JSON文件都会检查它的application ID和安装包的证书。
+* 7.只有当所有文件同时满足时，才会发送成功信息到PackageManager，否则失败。
+* 8.PackageManager存储结果。
 
 If verification fails, app link behaviour will not be available to your app until verification succeeds — your app will appear in the "Open with" dialog as usual (unless another app has passed verification for the same hostname).	
 
@@ -299,9 +299,10 @@ If you can't see the `statements.json` URL being requested on your web server at
 
 If you have doubts about whether the `statements.json` contents are returned correctly, you can use the `-tcpdump` option of the Android emulator to check exactly what's being sent over the network — though note this won't work so simply once the final M release is out and encryption is required.
 
-Alternatively you can use the `-http-proxy` option of the emulator and pass all network requests through a proxy like [Charles](http://charlesproxy.com/).
-
 如果你不知道statements.json的内容是否正确返回，可以使用安卓模拟器的-tcpdump选项来检查网络上发送的是什么 - 注意安卓M最终版出来之后就没那么容易了，因为数据是加密的。
+
+
+Alternatively you can use the `-http-proxy` option of the emulator and pass all network requests through a proxy like [Charles](http://charlesproxy.com/).
 
 
 还有一种选择，那就是使用模拟器的-http-proxy选项，让所有的网络请求都通过代理，比如[Charles](http://charlesproxy.com/)代理。
@@ -310,11 +311,12 @@ Alternatively you can use the `-http-proxy` option of the emulator and pass all 
 
 Although I was initially sceptical about App Links due to a perceived takeover of the existing, amazing intent system of Android, I'm glad to see that it should help in most cases, and there is a very simple way to turn this off in the cases where users don't like it.
 
+虽然在开始我担心App Links会取代目前安卓上非常酷的intent机制，但是也乐于看到这对于大多数情况都是有用的，况且如果用户不喜欢，使用简单的方法就可以把它关掉。
+
+
 Given that the JSON parsing and HTTP request behaviour are remarkably strict in the verifier service, hopefully some of the detailed information here will help you with your implementation of app linking.
 
 Good luck!	
-
-虽然在开始我担心App Links会取代目前安卓上非常酷的intent机制，但是也乐于看到这对于大多数情况都是有用的，况且如果用户不喜欢，使用简单的方法就可以把它关掉。
 
 
 考虑到verifier服务对JSON解析和HTTP请求异常严格，希望这里所提到的一些细节对你实现app linking有所帮助。祝你好运！
