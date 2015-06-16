@@ -1,3 +1,6 @@
+你可能漏掉的知识点: onResumeFragments
+---
+
 原文： 
 [http://www.randomlytyping.com/blog/2015/6/5/things-you-may-not-know-about-onresumefragments](http://www.randomlytyping.com/blog/2015/6/5/things-you-may-not-know-about-onresumefragments)
 
