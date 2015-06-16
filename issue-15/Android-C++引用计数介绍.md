@@ -10,9 +10,7 @@ Android C++ 引用计数介绍, part 1
 
 
 
-Anyone working on the Android native framework can't get around several utility classes that are used almost everywhere by the native C++ code. sp, or StrongPointer, is one of them. It is vital important to understand how it works so that you can understand the code precisely and write code that is clean and won't leak resource. In this article, we will cover the basic ideas and usage of sp, by examples. 
-
-任何一个基于Android 的native框架做开发的人都不可避免的会碰到一些几乎到处使用的native层C++工具类。`sp`，或者称为`StrongPointer`，就是其中之一。了解它是如何工作非常重要，这样你才能更清晰的理解代码、并且写出精简并且没有资源泄漏的代码。在这篇文章中，我们就要根据实例来了解`sp`的基本概念和使用方法。
+任何一个基于Android 的native框架做开发的人都不可避免的会碰到一些几乎到处使用的native层C++工具类。`sp`(或者称为`StrongPointer`)，就是其中之一。了解它是如何工作非常重要，这样你才能更清晰的理解代码，并且写出精简、没有资源泄漏的代码。在这篇文章中，我们就要根据实例来了解`sp`的基本概念和使用方法。
 
 ```cpp
 #include <utils/RefBase.h>
@@ -22,10 +20,7 @@ Anyone working on the Android native framework can't get around several utility 
 
 using namespace android;
 
-// class Memory subclass RefBase[1] so it can be reference counted
-// and be accepted by template class sp<T> [2], where the sp stands for
-// strong pointer
-// 我们自定义了一个 Memory 类继承自 RefBase[1] 以保证其拥有引用计数的能力，并且能被 sp<T> [2] 模板类接收，这里 sp 指的是强引用指针。
+// 我们自定义了一个 Memory 类继承自 RefBase [1]，以保证其拥有引用计数的能力，并且能被 sp<T> [2] 模板类接收，这里 sp 指的是强引用指针。
 // [1]https://android.googlesource.com/platform/frameworks/native/+/jb-mr1-dev/include/utils/RefBase.h
 // [2]https://android.googlesource.com/platform/frameworks/native/+/jb-mr1-dev/include/utils/StrongPointer.h
 
@@ -48,82 +43,54 @@ private:
     void *mData;
 };
 
-// used as a marker in the output log
 // 用于输出标记log
 #define L(N)   ALOGD("LINE %d TRIGGER:",N);
-// print out the strong counter number of the object
 // 输出object的强引用数量
 #define C(obj) ALOGD("        Count of %p : %d", (void*)obj, obj->getStrongCount());
 
 int main()
 {
     {
-        // create a Memory instance and assign it to a raw pointer
         // 创建一个 Memory 的实例，并且赋值给一个原始指针。
         L(1)
         Memory *m1 = new Memory(4);
-        // create a strong pointer, using constructor sp(T* other),
-        // which will increase m1's reference counter by 1, and
-        // call m1::onFirstRef, where you can do the lazy initialzation
         // 使用 sp(T* other) 构造函数创建一个强引用指针，这样会使 m1 的引用计数值加1，并且调用 m1::onFirstRef，这里你可以做一些延迟初始化操作。
         L(2)
         sp<Memory> spm1 = m1;
         C(m1);
-        // usually, we will combine previous two steps into one single statement.
         // 通常，我们会把上面两步合并为一行代码。
-        // create another strong pointer, spm2, and initialize it.
-        // To get the raw object, use sp<T>::get()
         // 然后我们创建另外一个强引用指针，spm2, 并且初始化。
         // 要拿到原始的object，可以使用 sp<T>::get() 方法。
         L(3)
         sp<Memory> spm2 = new Memory(128);
         Memory *m2 = spm2.get();
-        // to access the method, use sp as if you are working with raw pointer
         // 要想调用原object中的方法，使用 sp 就像用原始指针一样方便。
         int size = spm2->size();
-        // create a 3rd sp,spm3,using constructor sp(const sp<T>& other),
-        // which will increase the reference counter pointed by spm1 by 1.
-        // now, m1 is pointed by two strong pointers, spm1 and spm3
-        // 创建第三个 sp，spm3, 这里会调用构造函数 sp(const sp<T>& other)，这样会使 spm1 的引用计数加1，现在 m1 被两个强引用指针指向，spm1 和 spm3。
+        // 创建第三个 sp, spm3, 这里会调用构造函数 sp(const sp<T>& other)，这样会使 spm1 的引用计数加1，现在 m1 被两个强引用指针指向，spm1 和 spm3。
         L(4)
         sp<Memory> spm3 = spm1;
         C(m1);
-        // below are same as L(4), except that the scope of spm4 is within the block
         // 下面这段代码和 L(4) 差不多，区别在于 spm4 的作用域被限制在一个代码块中。
         L(5)
         {
             sp<Memory> spm4 = spm1;
             C(m1);
-            // at this point, m1 is pointed by spm1, spm3 and spm4
             // 这里 m1 被 spm1, spm3 和 spm4 指向。
         }
-        // beyond this point, spm4 is destructed and no longer point to m1
-        // so, the reference of m1 is still 2, i,e pointed by spm1, spm3
         // 到了这里，spm4 离开了作用域被销毁，不再指向 m1，因此 m1 的引用数变回了2，既被 spm1 和 spm3 指向。
         L(6)
         C(m1);
         // trigger sp& operator = (const sp<T>& other);
         L(7)
-        // before the assigment, spm2 pointed to m2 and spm3 pointed to m1
         // 在下面这行赋值之前，spm2 指向 m2，smp3 指向 m1。
         spm3 = spm2;
-        // after the assigment, spm3 will no longer point to m1 but m2.
-        // so the reference counter of m1 decrease by 1 and the reference counter
-        // of m2 increase by 1.
-        // now , m1 is pointed by spm1 m2 is pointed by spm2 and spm3
         // 赋值之后， spm3 不再指向 m1 而是 指向 m2，因此 m1 的引用计数减1，m2 的加1。
         C(m1);
         C(m2);
-        // spm5 is a reference to spm1, no new strong object is created.
-        // so reference count of m1 stays the same
         // spm5 是 spm1 的引用，没有新的对象创建，因此 m1 的引用计数没变。
         L(8)
         sp<Memory> &spm5 = spm1;
         C(m1);
-        // we can also create a smart pointer pointing to nothing at first
-        // and later assign it a value. We can also remove the reference 
-        explictly
-        // by calling sp::clear()
         // 我们也可以创建一个智能指针初始为空，后续再赋值。我们也可以调用 sp::clear() 来显式的清除引用。
         L(9)
         sp<Memory> spm6;
@@ -135,18 +102,12 @@ int main()
         assert(spm6.get() == NULL);
         C(m1);
     }
-    // beyond the close curly, all the smart pointer objects are out of
-    // scope, so they will be desctructed and cause the reference counter
-    // of its managed object decrease by 1. For example,
-    // when both spm1 and spm6 destructs,the reference count of m1 decrease to 0
-    // and it will trigger the destructor of m1.
     // 上述代码块结束之后，所有的智能指针都脱离了作用域，因此它们都将会被销毁，并且触发它们各自指向的object的引用计数减1。例如，当 spm1 和 spm6 都销毁时，m1 的引用计数减到了0，然后将会触发 m1 的析构。
     L(-1)
     return 0;
 }
 ```
 
-And, below is the output of the program. 
 下面是这个程序的输出。
 
 ```
@@ -178,5 +139,4 @@ LINE 10 TRIGGER:
 LINE -1 TRIGGER:
 ```
 
-In next article, we will look at the problem of circular reference and how to solve it with weak pointer, or wp, as it is called in Android.
 下一篇文章，我们会来研究一下循环引用的问题以及如何通过`弱引用指针`来处理它，也就是 Android 里所称呼的`wp`。
