@@ -15,11 +15,11 @@ Still here? Okay.
 
 What is the difference between onResume and onResumeFragments? From the documentation for FragmentActivity.onResume:
 
-onResume和onResumeFragments的区别是什么呢？根据官方文档对FragmentActivity.onResume的解释：
+onResume和onResumeFragments的区别是什么呢？根据[官方文档](http://developer.android.com/reference/android/support/v4/app/FragmentActivity.html#onResume()) 对FragmentActivity.onResume的解释：
 
-Dispatch onResume() to fragments. Note that for better inter-operation with older versions of the platform, at the point of this call the fragments attached to the activity are not resumed. This means that in some cases the previous state may still be saved, not allowing fragment transactions that modify the state. To correctly interact with fragments in their proper state, you should instead override onResumeFragments().
+>Dispatch onResume() to fragments. Note that for better inter-operation with older versions of the platform, at the point of this call the fragments attached to the activity are not resumed. This means that in some cases the previous state may still be saved, not allowing fragment transactions that modify the state. To correctly interact with fragments in their proper state, you should instead override onResumeFragments().
 
-将onResume() 分发给fragment。注意，为了更好的和旧版本兼容，这个方法调用的时候，依附于这个activity的fragment并没有到resumed状态。着意味着在某些情况下，前面的状态可能被保存了，不允许fragment transaction再修改状态。为了在状态上正确 的和fragment交互，你应该重写onResumeFragments()而不是onResume() 。
+>将onResume() 分发给fragment。注意，为了更好的和旧版本兼容，这个方法调用的时候，依附于这个activity的fragment并没有到resumed状态。着意味着在某些情况下，前面的状态可能被保存了，不允许fragment transaction再修改状态。为了在状态上正确 的和fragment交互，你应该重写onResumeFragments()而不是onResume() 。
 
 Basically, you cannot be sure that an activity's existing fragments have resumed in the activity's onResume and should avoid fragment transactions until onResumeFragments, when their state has restored and they have actually resumed.
 
@@ -28,7 +28,7 @@ Basically, you cannot be sure that an activity's existing fragments have resumed
 By doing this you can avoid ye good ol' IllegalStateException which Android throws whenever you try to perform transactions on a fragment after its state has already been saved (via onSaveInstanceState). If the fragment's activity is destroyed and re-created, you will lose those post-save changes. For a better and fuller explanation of this, read Alex Lockwood's "Fragment Transactions & Activity State Loss".
 
 这样做可以避免发生IllegalStateException异常，在一个fragment的状态已经保存的情况下（通过onSaveInstanceState），再试图进行fragment transaction操作就会抛出这个异常。
-如果fragment的activity销毁并重建，前面保存的变量将丢失。要想更深的理解这个问题，可以阅读Alex Lockwood的 "Fragment Transactions 与 Activity状态的丢失" 一文。
+如果fragment的activity销毁并重建，前面保存的变量将丢失。要想更深的理解这个问题，可以阅读Alex Lockwood的 ["Fragment Transactions 与 Activity状态的丢失"](http://www.androiddesignpatterns.com/2013/08/fragment-transaction-commit-state-loss.html)  一文。
 
 Admittedly, I learned about onResumeFragments long after I learned about fragments and fragment transactions. Most basic material on activity lifecycle omits it since it only exists in FragmentActivity in the support library and not in the SDK Activity class. However, onResumeFragments is a good-to-know.
 
