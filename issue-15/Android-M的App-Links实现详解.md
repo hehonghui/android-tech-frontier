@@ -1,7 +1,12 @@
-英文原文：  [Android M "App Links" implementation in depth](https://chris.orr.me.uk/android-app-linking-how-it-works/)
+# Android M的App Links实现详解
+-----
+
+> * 原文链接 : [THINGS YOU MAY NOT KNOW: ONRESUMEFRAGMENTS](http://www.randomlytyping.com/blog/2015/6/5/things-you-may-not-know-about-onresumefragments)
+* [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
+* 译者 : [jianghejie](https://github.com/jianghejie) 
+
 
 谷歌2015年的I/O大会上宣布了一个[新特性](http://www.androidpolice.com/2015/05/28/io-2015-android-m-will-support-app-deep-linking-without-that-annoying-selector-prompt/)：允许开发者将app和他们的web域名关联。这一举措是为了最小化用户遇到“打开方式”对话框的概率。
-
 
 比如，我们安装了两个Twitter应用 - 官方的和[Falcon Pro](https://play.google.com/store/apps/details?id=com.jv.materialfalcon)。当你在某个地方点击了Twitter URL的时候，你会看到如下的对话框：
 
