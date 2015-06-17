@@ -5,7 +5,6 @@
 * 原文作者 : [Sebastiano Poggi](https://medium.com/@seebrock3r)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [zijianwang90](https://github.com/zijianwang90) 
-* 状态 :  校对中
 
 [“太长不想看了”在文章末尾]
 

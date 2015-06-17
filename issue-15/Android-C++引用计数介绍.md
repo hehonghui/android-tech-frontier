@@ -5,9 +5,6 @@ Android C++ 引用计数介绍, part 1
 * 原文作者 : [Bin Chen](https://plus.google.com/+PierrChen/posts)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [BownX](https://github.com/BownX) 
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  未完成 / 校对中 / 完成 
-
 
 
 任何一个基于Android 的native框架做开发的人都不可避免的会碰到一些几乎到处使用的native层C++工具类。`sp`(或者称为`StrongPointer`)，就是其中之一。了解它是如何工作非常重要，这样你才能更清晰的理解代码，并且写出精简、没有资源泄漏的代码。在这篇文章中，我们就要根据实例来了解`sp`的基本概念和使用方法。
