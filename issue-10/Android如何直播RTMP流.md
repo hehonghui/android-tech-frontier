@@ -24,7 +24,7 @@ Vitamio是一个android和ios上基于[FFmpeg](https://www.ffmpeg.org/)的开源
 7. 完成！
 
 ####Android RTMP流
-在讲述如何使用之前，让我们先了解下RTMP。Real Time Messaging Protocol (RTMP)是一个Adobe Systems所拥有的一个协议。该协议是Adobe公司拥有的开发音视频流的flash player。后来该协议的部分被公开，供公众使用。更多请查看[这里](http://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol).这个协议大多用于IPTV和实时视频点播流，但它也用于其他领用。
+在讲述如何使用之前，让我们先了解下RTMP。Real Time Messaging Protocol (RTMP)是一个Adobe Systems所拥有的一个协议。该协议是Adobe公司拥有的开发音视频流的flash player。后来该协议的部分被公开，供公众使用。更多请查看[这里](http://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol).这个协议大多用于IPTV和实时视频点播流，但它也用于其他领域。
 
 在android上，标准的VideoView不支持RTMP播放。但WebView可以播放RTMP流。这解决了播放RTMP流的问题，但是我认为web apps 不能提供一个很好的界面和体验。因此这这个android RTMP例子中我们将运用第三方库-Vitamio 直播RTMP流的流媒体。在工程中引用Vitamio之后，请在你的layout文件添加Vitamio的VideoView：
 
