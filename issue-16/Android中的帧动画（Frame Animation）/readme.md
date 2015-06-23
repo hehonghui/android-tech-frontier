@@ -14,10 +14,13 @@ In Google’s official Material Design spec, there’s an entire page dedicated 
 
 ![](https://www.bignerdranch.com/img/blog/2015/05/frame_animation_example_1.gif)
 ![](https://www.bignerdranch.com/img/blog/2015/05/frame_animation_example_2.gif)
+
 Nifty animations! Unfortunately, nothing on the page links to resources for actually creating those delightful details, so here I am to help! Specifically, we’re going to walk through making an empty heart animate into a filled-up heart, then vice versa. It’ll look something like this:
 
 真是精美的动画！不幸的是，这个页面上没有丁点关于如何实现这种效果的参考链接，所以我就来帮忙了！我们将讲解一遍如何制作空心心形到实心心形的过渡动画，然后讲解与之反向的动画。效果如下：
+
 ![](https://www.bignerdranch.com/img/blog/2015/05/heart_looping.gif)
+
 
 …beautiful, I know.
 
@@ -68,7 +71,7 @@ Here’s an example of an Animation-list for my heart filling up, placed in res/
 Animation-list是帧动画的默认选择，因为在API 1的时候就有了，同时它非常简单。就是简单的掠过指定顺序和持续时间的图片序列。
 
 这里是填充到实心效果的Animation-list的例子，在res/drawable/animation_list_filling.xml中：
-<pre>
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
                 android:oneshot="true">
@@ -94,7 +97,7 @@ Animation-list是帧动画的默认选择，因为在API 1的时候就有了，�
         android:drawable="@drawable/ic_heart_100"/>
  
 </animation-list>
-</pre>
+```
 
 Each item in the list is just pointing to one of the images in our sequence from earlier. All we have to do is place them in the correct order and then add an appropriate duration in milliseconds.
 
@@ -104,7 +107,7 @@ And here’s an example of an Animation-list for my heart emptying, placed in re
 
 下面是实现变为空心效果的Animation-list，在res/drawable/animation_list_emptying.xml中：
 
-<pre>
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
                 android:oneshot="true">
@@ -130,7 +133,8 @@ And here’s an example of an Animation-list for my heart emptying, placed in re
         android:drawable="@drawable/ic_heart_0"/>
  
 </animation-list>
-</pre>
+```
+
 You might notice the android:oneshot=”true” in both of these code snippets, which is simply an attribute of the animation-list for playing the animation once and then stopping. If this is set to “false,” the animation will play on repeat.
 
 你可能注意到了，在两个代码片段中都有android:oneshot=”true”,这是animation-list的一个属性，表示播放完一次动画之后便停止动画。如果这个属性值设置为“false”，则动画会重复播放。
@@ -151,7 +155,7 @@ Here is an example of the Animated-selector, placed in res/drawable-v21/selector
 
 下面是一个Animated-selector的例子，放在res/drawable-v21/selector.xml中：
 
-<pre>
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
  
@@ -181,7 +185,7 @@ Here is an example of the Animated-selector, placed in res/drawable-v21/selector
     </transition>
  
 </animated-selector>
-</pre>
+```
 
 Take note of how it’s actually referencing our Animation-lists from earlier as Transitions.
 
@@ -191,7 +195,7 @@ This animated-selector works well, but we need to account for the non-Lollipop d
 
 这个animated-selector没有任何问题，但是我们需要考虑非Lollipop设备。我们在res/drawable/selector.xml中定义一个没有动画的selector：
 
-<pre>
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
  
@@ -206,7 +210,7 @@ This animated-selector works well, but we need to account for the non-Lollipop d
     </item>
  
 </selector>
-</pre>
+```
 
 Now our selector will work on any device. If tried on a pre-Lollipop device, the animated-selector will just just skip the Transitions and go directly to the end state, since we’re just using a normal selector. And of course, a Lollipop device will have our Transition that we defined in the animated-selector.
 
@@ -228,7 +232,7 @@ It’s time to set up some ImageViews for us to play with. Specifically, we’re
 
 显示可以设置一些图片来玩了。我们这里有三个ImageView，分别对应前面定义的三个XML Drawable。将下面的代码放到你的Activity的布局中：
 
-<pre>
+```xml
 <ImageView
     android:id="@+id/imageview_animation_list_filling"
     android:layout_width="wrap_content"
@@ -249,7 +253,7 @@ It’s time to set up some ImageViews for us to play with. Specifically, we’re
     android:layout_height="wrap_content"
     android:background="@drawable/selector"
     />
-</pre>
+```
 This is just a few ImageViews with unique ids and backgrounds pointing to our XML Drawables from earlier.
 
 这只是几个id唯一，背景为我们定义的xml Drawable的ImageView。
@@ -270,24 +274,25 @@ In our Activity, we grab a reference to the ImageView and then start the animati
 
 在Activity中，我们得到ImageView的引用，然后开始动画。如下：
 
-<pre>
+```java
 ImageView mImageViewFilling = (ImageView) findViewById(R.id.imageview_animation_list_filling);
 ((AnimationDrawable) mImageViewFilling.getBackground()).start();
-</pre>
+```
 
 Here’s what that looks like :
 
 下面是效果：
+
 ![](https://www.bignerdranch.com/img/blog/2015/05/heart_filling.gif)
 
 Now for its partner code (identical except for the id):
 
 接下来是它的搭档-反向过程（除了id都是一样的）
 
-<pre>
+```java
 ImageView mImageViewEmptying = (ImageView) findViewById(R.id.imageview_animation_list_emptying);
 ((AnimationDrawable) mImageViewEmptying.getBackground()).start();
-</pre>
+```
 
 And here’s what that part looks like:
 
@@ -307,14 +312,14 @@ When using the Animated-selector, the animation will trigger whenever the state-
 
 当使用Animated-selector的时候，动画将在状态条件满足selector的时候被触发。在我们这个简单的例子中，我们在Activity的onCreate方法中为ImageView添加一个click listener：
 
-<pre>
+```java
 mImageViewSelector.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         mImageViewSelector.setActivated(!mImageViewSelector.isActivated());
     }
 });
-</pre>
+```
 
 When the user clicks on our heart, the heart will fill or empty, depending on the current state. Here’s a nice GIF of my heart looping back and forth forever (presumably with a user clicking at each full and empty state):
 
