@@ -1,5 +1,4 @@
-Easy SQLite on Android with RxJava
-
+结合RxJava更简单地使用SQLite
 ---
 
 > * 原文链接 : [Easy SQLite on Android with RxJava][source]
