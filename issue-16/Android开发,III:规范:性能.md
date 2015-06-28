@@ -17,7 +17,6 @@ As mentioned in the UI Thread section in the Context chapter, expensive operatio
 
 ## 在动画和用户交互时避免复杂操作
 
-
 Layout: Measurement and layout is an expensive operation, and the more complicated the view hierarchy, the more expensive it can be. Measurement and layout happens on the UI thread (as does any operation that needs to manipulate the views of an activity). This means that an application that is currently trying to run a smooth animation and is then told to layout will do both things on the same thread, and the animation will suffer.
 Suppose your application is able to achieve an overall rendering duration of 13 milliseconds during a particular animation, which is within the 16ms requirement for 60 frames per second (fps). Then an event occurs that causes layout to occur, which takes 5 ms. This layout will occur before the next frame is drawn, which will push the overall frame drawing time to 18ms, and your animation will noticeably skip a frame.
 To avoid this situation when layout needs to occur, either run the layout operations before animations start or delay them until the animations are complete. Also, try to animate only properties that do not trigger layout. For example, View’s translationX and translationY properties affect post-layout properties. LayoutParams properties, on the other hand, require a layout to take effect, so animating those properties will cause jank in reasonably complex UIs.
