@@ -2,7 +2,7 @@
 ---
 
 > * 原文链接 : [How to distribute your own Android library through jCenter and Maven Central from Android Studio](http://inthecheesefactory.com/blog/how-to-upload-library-to-jcenter-maven-central-as-dependency/en)
-* 译文出自 :  [开发技术前线 www.devtf.cn](http://www.devtf.cn)
+* 译文出自 :  [开发技术前线 www.devtf.cn](http://www.devtf.cn)与 [泡在网上的日子http://www.jcodecraeer.com/](http://www.jcodecraeer.com)
 * 译者 : [jianghejie](https://github.com/jianghejie) 
 
 如果你想在Android Studio中引入一个library到你的项目，你只需添加如下的一行代码到模块的build.gradle文件中。
