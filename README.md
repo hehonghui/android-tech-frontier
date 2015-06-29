@@ -83,6 +83,19 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" ></b>
 ## 已完成列表
+
+# 2015.6.29 ( 第十六期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [手动实现布局Transitions动画-第一部分.md](issue-16/手动实现布局Transitions动画-第一部分.md)  | [Mr.Simple](https://github.com/bboyfeiyu)    
+| [手动实现布局Transitions动画-第二部分](issue-16/手动实现布局Transitions动画-第一部分.md)  | [Mr.Simple](https://github.com/bboyfeiyu)
+| [手动实现布局Transitions动画-第三部分](issue-16/手动实现布局Transitions动画-第一部分.md)  | [Mr.Simple](https://github.com/bboyfeiyu)      |
+| [为什么你应该停止使用EventBus](issue-16/为什么你应该停止使用EventBus.md)  | [Zhaoyy](https://github.com/Zhaoyy)      |
+| [结合RxJava更简单地使用SQLite](issue-16/结合RxJava更简单地使用SQLite.md)  | [tiiime](https://github.com/tiiime)      |
+| [Android一体机模式：规则限制](issue-16/Android一体机模式：规则限制.md)  | [rocko](https://github.com/zhengxiaopeng)
+
+
+
 # 2015.6.23 ( 第十五期 )
 | 文章名称 |   译者  | 
 |---------|--------|
