@@ -1,8 +1,11 @@
 Android中的帧动画（Frame Animation）
 ---
 
-原文： 
-[Frame Animations in Android](https://www.bignerdranch.com/blog/frame-animations-in-android/)
+> * 原文链接 : [Frame Animations in Android](https://www.bignerdranch.com/blog/frame-animations-in-android/)
+* 译文出自 :  [开发技术前线 www.devtf.cn](http://www.devtf.cn)
+* 译者 : [jianghejie](https://github.com/jianghejie) 
+* 校对 : [LangleyChang](https://github.com/LangleyChang) 
+
 
 动画可以为你的app注入活力与个性。让我们来看看实现动画的一个子类：帧动画(Frame Animation)，从名字上可以看出，这种动画是一帧一帧的绘制出来的。
 
