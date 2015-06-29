@@ -8,45 +8,26 @@
 * 校对者: [这里校对者的github用户名](github链接)  
 * 状态 :  未完成 / 校对中 / 完成 
 
-This part of the series is focused on the benefits that some funcional touches can provide a to our projects.
 
 本系列的这个部分主要是讲一些函数式技巧能给我们的项目带来的好处。
 
-
-A framework like RxJava of ReactiveX can easily help to handle different running environments running on tasks in background or in the UI thread. On android that has always been a nightmare for all us.
-
 [ReactiveX](http://reactivex.io/) 中的 ``RxJava``  是一个可以帮助我们轻松处理不同运行环境下的后台线程或UI线程任务的框架。这在 Android 上一直是我们所有人的噩梦。
 
-
-This article also focuses on how the operators can minimize the time in common development tasks, Reactive Extensions offers a wide range of operators to make your live easier.
-
 这篇文章主要会谈谈其中（RxJava）的一些 operators 如何能在常见开发任务中为我们节省时间，[Reactive Extensions](http://reactivex.io/) 提供了很多种类的 operators 来让我们用的更方便。
-
-As always, most of the code and snippets are uploaded to Github, feel free to comment, open an issue or complaining!.
 
 像以前一样，大部分代码和片段都已经上传到了 Github, 请随意评论、提 issue 或吐槽！
 
 [Avengers app on Github](https://github.com/saulmm/Avengers)
 
-In the first part of this series we talked about Dagger 2, as we go forward we'll see as the coupling between our layers will be less and increase scalability.
-
 在本系列[第一部分](http://saulmm.github.io/when-Thor-and-Hulk-meet-dagger2-rxjava-1/)中我们介绍了 [Dagger 2](http://google.github.io/dagger/)，现在我们更进一步会看到如何降低各层代码逻辑之间的耦合、增加可扩展性。
-
-RetroLambda
 
 #### RetroLambda
 
-Sometimes, in huge applications developed in Java, or large frameworks like android, it's really difficult or even impossible (android) to use features from Java 8 like the Lambda expressions.
-
 有时，在 Java 开发的大型应用程序中，或 Android 这样的大型框架中，使用 Java 8 中的 Lambda 表达式这类特性是非常困难或是几乎不可能的(Android中)。
-
-Retrolambda it's a Backport that comes to solve this problem, translating the Java 8 bytecode to previous Java versions like the v7, or even v5 or v6, allowing us to use Lambda among other features.
 
 Retrolambda 就是来解决这个问题的，它会把 Java 8 的字节码翻译成低版本 Java 像v7甚至v5、v6的字节码，这样可以让我们在这些低版本中使用到 Lambda 表达式的特性。
 
 ![](http://androcode.es/wp-content/uploads/2015/06/retrolambda.png)
-
-Retrolambda can be used with the Gradle plugin or Maven, I've choosen Gradle that comes for free in Android Studio, to use it you only have to add the Retrolambda plugin on the root build.gradle and apply it in your module build.gradle, setting the language level of Android Studio to 1.8 all it's done.
 
 [Retrolambda](https://github.com/orfjackal/retrolambda) 可以通过 Gradle 或 Maven 的方式来使用，我选择 Gradle 是因为 Android Studio 对其支持的很好。要使用它你只需要将 ``[Retrolambda](https://github.com/orfjackal/retrolambda)`` 插件加到项目根目录的 ``build.gradle``， 同时在 module 的 build 脚本中应用它，再设置 Android Studio 的语言级别到 ``1.8``，这就完成了。
 
@@ -69,11 +50,8 @@ android {
 }
 ```
 
-RetroLambda allows you to write less boilerplate code, also clarifies our code making it more readable. In this example by Dan Lew, you can taste the diference.
-
 [Retrolambda](https://github.com/orfjackal/retrolambda)可以让你少写很多重复的代码，同时理顺我们的代码让它有更好的可读性。在 [Dan Lew](http://blog.danlew.net/2014/09/15/grokking-rxjava-part-1/)给出的这个例子中，你可以感受到它所带来的不同。
 
-Without Retrolambda
 *没有 Retrolambda*
 ```java
 Observable.just("Hello, world!")
@@ -85,7 +63,6 @@ Observable.just("Hello, world!")
     });
 ```
 
-With Retrolambda
 *有 Retrolambda*
 ```java
 Observable.just("Hello, world!") .subscribe(
@@ -93,7 +70,6 @@ Observable.just("Hello, world!") .subscribe(
 );
 ```
 
-In the Avengers example
 *在我们的 Avengers 示例中*
 ```java
 mCharacterSubscription = mGetCharacterInformationUsecase
@@ -110,23 +86,12 @@ mComicsSubscription = mGetCharacterComicsUsecase
     );
 ```
 
-ReactiveX
-
 #### ReactiveX
-
-ReactiveX is a collection of Open Source projects among their main principles are the Observer pattern, the pattern Iterator and the functional programming.
-ReactiveX it's also defined as an API for asynchronous programming, in fact it's really easy to implement asynchronous task with these frameworks.
 
 [ReactiveX](http://reactivex.io/) 是一个开源项目的集合，它们所遵循的主要原则都是 [Observer](http://en.wikipedia.org/wiki/Observer_pattern) 模式、[Iterator](http://en.wikipedia.org/wiki/Iterator_pattern#Java) 模式以及函数式编程。
 [ReactiveX](http://reactivex.io/) 同时也提供了可用于异步编程的API，事实上使用这些框架来实现异步任务非常简单。
 
-
-ReactiveX as an asynchronous client
-
 #### ReactiveX 的异步客户端用法
-
-The great thing about dealing with ReactiveX is that you can create a fully asynchronous API or client, and then in the implementation decide whether the code will be treated asynchronously or in a separate Thread a Threadpool or synchronously.
-So we have an observable API rather than a blocking API.
 
 在使用 [ReactiveX](http://reactivex.io/) 时最棒的是你可以创建一个完全异步的API或客户端，在实现具体逻辑的时候再决定是把代码写成异步的、放到线程池中的一个独立线程执行、还是同步来执行。
 因此我们可以得到一个观察者模式的API而不是一个阻塞调用的API。
@@ -146,26 +111,15 @@ public interface Repository {
 }
 ```
 
-What is RxJava
-
 #### RxJava是什么
-
-RxJava is an implementation of the Reactive Extensions made by Netflix. There are implementations for the vast majority of programming languages including Javascript, Python, Ruby, Go and many more.
 
 [RxJava](https://github.com/ReactiveX/RxJava) 是一个由 **Netflix** 开发的 [Reactive Extensions](https://github.com/ReactiveX)的(Java版)实现。其他还有大量主流编程语言的实现，包括 Javascript, Python, Ruby, Go 等等。
 
-
-Observables & Observers
-
 #### Observables 和 Observers
-
-An Observable emits an object or series of objects, these objects are consumed or received by the Observer subscribed to the 'Observable'. 
 
 一个 ``Observable`` 可以输出一个或一系列的 objects，这些 objects 会被订阅到这个 ``Observable`` 的 ``Observer`` 所处理或接收。
 
 ![](http://androcode.es/wp-content/uploads/2015/06/observable-observer2.png)
-
-Is necessary that an Observer has to be registered into an Observable, if not the Observable won't emit anything. When the Observer is registered, an object of the type Subscription is created, which is used to unsubscribe from the Observable, this is useful for Activities and Fragments on the onStop or onPause methods, for example.
 
 把一个 ``Observer`` 注册到一个 ``Observable`` 上是很必要的，如果不这么做的话 ``Observable`` 什么都不会输出。当 ``Observer`` 注册之后，一个 ``Subscription`` 类型的实例会创建，它可以用来取消对 ``Observable`` 的订阅，这通常在 ``Activities`` 和 ``Fragments`` 的 ``onStop`` 或 ``onPause`` 方法中非常有用，例如：
 
@@ -185,27 +139,15 @@ public void onStop() {
 }
 ```
 
-Whenever an Observer subscribes to an Observable has to take into account three methods.
-
 无论何时 ``Observer`` 订阅 ``Observable`` 的消息，它都需要考虑处理3个方法：
-
-- onNext (T) method to receive objects issued by the 'Observable'
-- onError (Exception), the method that will be called when there is some kind of error
-- onCompleted(), method to be called when the Observable finished emitting objects.
-
 - ``onNext (T) `` 方法用来接收 ``Observable`` 发出的 objects.
 - ``onError (Exception)``，这个方法会在内部抛出异常的时候调用。
 - ``onCompleted()``，这个方法会在 ``Observable`` 停止释放 objects 的时候调用。
 
-I love this image :)
 我喜欢这张图 :)
 ![](http://androcode.es/wp-content/uploads/2015/06/observable_observer.png)
 
-Communicating components
-
 #### 组件间通信
-
-Let's take a look at how to use the GetCharacterInformationUsecase usecase. All usecases implement the interface Usecase <T>:
 
 让我们来看看如何使用 ``GetCharacterInformationUsecase`` 这个用例，所有的用例都实现了 ``Usecase <T>`` 接口。
 
@@ -217,12 +159,7 @@ public interface Usecase<T> {
 }
 ```
 
-
-When a usecase is run this return an object of the type Observable, this is useful to be able to chain observables & operators with the least effort, we will see the great power that these operators soon.
-
 这个例子被调用的时候会返回一个 ``Observable`` 类型的实例，它可以轻松的和其他的 observables 和 operators 组合成链式结构，我们很快将会看到这些 operators 的强大威力。
-
-When we run the GetCharacterInformationUsecase we say to our repository to make a request to our corresponding data source:
 
 当我们调用 ``GetCharacterInformationUsecase`` 的时候请求我们的仓库产生一个对应类型的数据源：
 
@@ -236,11 +173,6 @@ public Observable<Character> execute() {
 }
 ```
 
-
-The presenter AvengerDetailPresenter will be our Observer for this usecase will be who subscribes to the events sent by the Observable, this is done through the method subscribe, which connects the Observer with the Observable.
-
-onNext and onError methods are implemented to manage the results of the operation. The onCompleted method is not implemented in this case it's not necessary.
-
 ``AvengerDetailPresenter`` 这个 presenter 将会成为我们这个用例的 ``Observer``，它将会订阅这个 ``Observable`` 发出的所有事件，这个操作可以通过调用 ``subscribe`` 方法来完成，这样就把 ``Observer`` 和 ``Observable`` 关联在一起了。
 
 实现 ``onNext`` 和 ``onError`` 方法可以来处理操作结果。``onCompleted`` 方法并没有实现，因为在这个例子中不需要。
@@ -252,35 +184,17 @@ mCharacterSubscription = mGetCharacterInformationUsecase
             error       -> manageError(error));
 ```
 
-
-Retrofit & RxJava
-
 #### Retrofit 和 RxJava
-
-Retrofit from Square, RxJava supports methods of the type rx.Observable so the requests can be observed using Observers and modified and transformed by operators.
 
 [Square](http://square.github.io/) 出品了 [Retrofit](https://github.com/square/retrofit)，[RxJava](https://github.com/ReactiveX/RxJava) 支持其中的 ``rx.Observable`` 方法，这样网络请求的结果就可以通过 ``Observer`` 的方式来订阅、修改或通过 operators 加工。
 
-
-You must be aware of where are you calling it, Retrofit executes the requests in the thread where your Observable leaves, so if you call it from the UI thread (an activity or Fragment) would get an error. Let's talk about Schedulers!.
-
 你一定得十分清楚在什么地方来调用它，[Retrofit](https://github.com/square/retrofit) 的请求会在 ``Observable`` 所在线程上来执行，因此当你在 UI 线程(Activity 或 Fragment 中)来调用的话就会报错。接下来我们讲讲 ``Schedulers``!
-
-Schedulers
 
 #### Schedulers
 
-The http://reactivex.io/documentation/scheduler.html allow to use multhreading between operators and Observables. This can be used with different threads, a Thread Executor, or preset Schedulers, for example, for input and output operations exists the Schedulers.io ().
-
 [Schedulers](http://reactivex.io/documentation/scheduler.html) 可以让你在多线程中使用 ``operators`` 和 ``Observables``。它可以被用在不同的线程、一个 线程 Executor 或是预设的 ``[Schedulers](http://reactivex.io/documentation/scheduler.html)`` 中。例如，对于输入或输出这类操作会在 ``Schedulers.io ()`` 来执行。
 
-
-RxAndroid are a few specific android utilities for RxJava by Jake Wharton & Matthias Käppler, which includes some Schedulers to manage the threads of the Android platform.
-
 [RxAndroid](https://github.com/ReactiveX/RxAndroid) 是由 [Jake Wharton](http://jakewharton.com/) 和 [Matthias Käppler](https://plus.google.com/u/0/+MatthiasK%C3%A4ppler/posts) 开发的一些 Android 下专用的 [RxJava](https://github.com/ReactiveX/RxJava) 的工具，其中包括一些用来处理 Android 平台下多进程调用的 ``Schedulers``。
-
-
-It also provides the possibility of using an android Handler for concurrency management.
 
 它也提供了使用 Android 的 ``Handler`` 来处理并发的方式。
 
@@ -295,23 +209,13 @@ public Observable<Character> execute() {
 }
 ```
 
-This example demonstrates the ease provided by Rx for managing threads in Android, which has always been a terror to all :D
-
 这个例子演示了 Rx 提供的处理 Android 中多进程调用的方式，这真是非常的炫酷 :D
-
-Operators
 
 #### Operators
 
-ReactiveX great power lies in the operators, they allow to manipulate, transform and combine objects issued by the Observables.
-
 [ReactiveX](http://reactivex.io/) 最厉害的要数它的 ``operators`` 了，它们可以用来操作、变换、合并 ``Observables`` 输出的 objecs。
 
-Let's think about a list of comics of a character, comics have a specific year, and we want to show the comics to a given year. ReactiveX comes to help us!
-
 我们来看看一个漫画列表的例子，漫画都有一个特定的出版年份，我们想要展示特定年份出版的漫画，这时 [ReactiveX](http://reactivex.io/) 就能大显身手了！
-
-This filtering is done use of operator filter, which allows using a predicate to discriminate between the comics, in such a way, ask the user why year wants to filter and that year uses predicate to display comics to date.
 
 这个过滤过程是通过 ``filter`` 这个 operator 来完成的，它可以作为漫画的一个约束条件来加以判断。在这个过程中，询问用户要过滤出哪一年，然后使用这个年份来判定一个漫画是否允许被展示。
 
@@ -334,27 +238,15 @@ public Observable<Comic> filterByYear(String year) {
 }
 ```
 
- Error Handling
-
 #### 异常处理
-
-Another great example of how the Rx operators can save us some time and give us productivity are the error handling Operators.
 
 另一个很好的 Rx 的 operators 能帮我们节省时间提升效率的例子是异常处理的 operators。
 
-Imagine that a user makes a request to the network, and coincidentally is on the bus or subway passing through tunnel, connectivity in that case will be affected.
-
 设想一个用户要请求网络，但是在网络通道上发生了一些偶然因素，网络连接在这种情况下受到了影响。
-
-When we receive a SocketTimeoutException byRetrofit, what we will do will be to take advantage of the operator retry.
 
 当我们接收到了 [Retrofit](http://square.github.io/retrofit/) 抛出的 ``SocketTimeoutException`` 异常时，我们可以利用 [retry](http://reactivex.io/documentation/operators/retry.html#collapseRxJava) 这个 operator 来处理。
 
-The operator retry will accept a predicate as in the case of the operator 'filter', if we return true in that predicate the magic of Rx will issue the 'Observable' again making the Retrofit request for us.
-
 [retry](http://reactivex.io/documentation/operators/retry.html#collapseRxJava) 可以接收一个判定条件，就像之前我们在 [filter](http://reactivex.io/documentation/operators/filter.html) 中所做的一样，如果返回 true，那么 Rx 就会神奇的再次调用 ``Observable`` 重新执行 Retrofit 的网络请求。
-
-If as most 3 'SocketTimeoutExceptions' are fired, the program flow will go to the onError method to manage the error.
 
 如果最多抛出了3次 ``SocketTimeoutExceptions`` 异常，程序会继续执行后续的 ``onError`` 来处理异常。
 
@@ -372,8 +264,6 @@ public Observable<List<Comic>> getCharacterComics(int characterId) {
                 attemps < MAX_ATTEMPS);
 }
 ```
-
-Resources
 
 #### 一些参考资料
 
