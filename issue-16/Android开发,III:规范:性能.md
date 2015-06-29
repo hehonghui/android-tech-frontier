@@ -13,13 +13,26 @@ On Android, performance and memory are closely intertwined, since the memory foo
 在Android设备上, 性能和内存是密不可分的, 系统的总内存占用会影响到系统的每个进程的性能, 垃圾回收机制也会对runtime的性能表现产生重要影响. 但是本章节要讨论的重点是一些和内存无关的的runtime性能表现.
 
 Avoid Expensive Operations During Animations and User Interaction
-As mentioned in the UI Thread section in the Context chapter, expensive operations which happen on the UI thread can cause hiccups in the rendering process. This, in turn, causes problems for animations, which are dependent on this rendering process for every frame. This means that it is even more important than usual to avoid expensive operations on the UI thread while there are active animations. Here are some common situations to be avoided:
-
 ## 在动画和用户交互时避免复杂操作
 
+As mentioned in the UI Thread section in the Context chapter, expensive operations which happen on the UI thread can cause hiccups in the rendering process. This, in turn, causes problems for animations, which are dependent on this rendering process for every frame. This means that it is even more important than usual to avoid expensive operations on the UI thread while there are active animations. Here are some common situations to be avoided:
+
+
+之前在[Context](https://medium.com/google-developers/developing-for-android-i-understanding-the-mobile-context-fd2351b131f8)章节的 "UI Thread" 部分已经提到过,UI线程中的复杂操作会引起渲染工作的卡顿. 连锁反应会影响到动画效果, 因为动画的每一帧都是一次渲染. 这就意味着当有动画出现时UI线程里更应该避免复杂的操作. 下面是一些应该避免的常见情况:
+
 Layout: Measurement and layout is an expensive operation, and the more complicated the view hierarchy, the more expensive it can be. Measurement and layout happens on the UI thread (as does any operation that needs to manipulate the views of an activity). This means that an application that is currently trying to run a smooth animation and is then told to layout will do both things on the same thread, and the animation will suffer.
+
+* Layout: Measurement后Layout是一个非常复杂的操作, view的层级关系越复杂, 处理起来就越耗时. Measurement和layout发生在UI线程 (所有需要改动activity里view的操作都在UI线程中进行). 这就意味着如果一个程序正在执行一个流畅的动画的时候被告知需要在UI线程中同时执行layout操作, 结果动画肯定要受罪了.
+
 Suppose your application is able to achieve an overall rendering duration of 13 milliseconds during a particular animation, which is within the 16ms requirement for 60 frames per second (fps). Then an event occurs that causes layout to occur, which takes 5 ms. This layout will occur before the next frame is drawn, which will push the overall frame drawing time to 18ms, and your animation will noticeably skip a frame.
+
+假设你的程序可以在13毫秒内绘制完成一个指定的动画, 这是在16毫秒的规定范围内的(Google官方推荐每秒60帧的刷新频率). 如果这时一个事件触发了需要耗时5毫秒的一个layout操作, 那么这个layout操作会在动画的下一帧绘制之前执行, 这就会将总绘制耗时增加到18毫秒, 结果就是动画效果有一个明显的跳帧.
+
 To avoid this situation when layout needs to occur, either run the layout operations before animations start or delay them until the animations are complete. Also, try to animate only properties that do not trigger layout. For example, View’s translationX and translationY properties affect post-layout properties. LayoutParams properties, on the other hand, require a layout to take effect, so animating those properties will cause jank in reasonably complex UIs.
+
+
+为了避免这种情况的发生, layout操作要在动画开始前或动画完成后进行.  还有就是, 尽量使用不会触发layout操作的动画效果. 比如, view的translationX和translationY属性会影响post-layout属性. 而LayoutParams的属性又会触发一个layout操作去产生作用, 所以类似这种属性的动画效果会在影响已经比较合理的ui显示.
+
 Inflation: View inflation can only happen on the UI thread, and it can be a expensive operation (the larger the view hierarchy, the more expensive the operation). Inflation can happen by manually inflating a view or view hierarchy, or by implicitly inflating it by launching a separate activity. This will happen on the same UI thread as your main activity, and will cause animations to halt while that new activity is inflated.
 To avoid this situation, wait to inflate the views or launch the activities until the current animation is finished. Or for avoiding inflation-related jank while scrolling a list with different view types, consider pre-inflating views of those types. For example, RecyclerView supports priming the RecycledViewPool with item views of specific types.
 Launch Fast
