@@ -22,7 +22,8 @@ As mentioned in the UI Thread section in the Context chapter, expensive operatio
 
 Layout: Measurement and layout is an expensive operation, and the more complicated the view hierarchy, the more expensive it can be. Measurement and layout happens on the UI thread (as does any operation that needs to manipulate the views of an activity). This means that an application that is currently trying to run a smooth animation and is then told to layout will do both things on the same thread, and the animation will suffer.
 
-* Layout: Measurement后Layout是一个非常复杂的操作, view的层级关系越复杂, 处理起来就越耗时. Measurement和layout发生在UI线程 (所有需要改动activity里view的操作都在UI线程中进行). 这就意味着如果一个程序正在执行一个流畅的动画的时候被告知需要在UI线程中同时执行layout操作, 结果动画肯定要受罪了.
+### Layout:
+Measurement后Layout是一个非常复杂的操作, view的层级关系越复杂, 处理起来就越耗时. Measurement和layout发生在UI线程 (所有需要改动activity里view的操作都在UI线程中进行). 这就意味着如果一个程序正在执行一个流畅的动画的时候被告知需要在UI线程中同时执行layout操作, 结果动画肯定要受罪了.
 
 Suppose your application is able to achieve an overall rendering duration of 13 milliseconds during a particular animation, which is within the 16ms requirement for 60 frames per second (fps). Then an event occurs that causes layout to occur, which takes 5 ms. This layout will occur before the next frame is drawn, which will push the overall frame drawing time to 18ms, and your animation will noticeably skip a frame.
 
@@ -35,7 +36,8 @@ To avoid this situation when layout needs to occur, either run the layout operat
 
 Inflation: View inflation can only happen on the UI thread, and it can be a expensive operation (the larger the view hierarchy, the more expensive the operation). Inflation can happen by manually inflating a view or view hierarchy, or by implicitly inflating it by launching a separate activity. This will happen on the same UI thread as your main activity, and will cause animations to halt while that new activity is inflated.
 
-* Inflation: view 的inflation过程只能在UI线程完成, 如果操作不当会变成一个非常耗时的过程 (层级关系越深的view, inflation 过程约耗时) Inflation 过程可以通过主动inflate一个view或view树触发, 也会通过启动一个分开的activity时隐性触发, 隐性触发也会发生在和main activity一样的UI线程中, 进而会造成activity在inflation过程中的动画的停滞.
+### Inflation:
+view 的inflation过程只能在UI线程完成, 如果操作不当会变成一个非常耗时的过程 (层级关系越深的view, inflation 过程约耗时) Inflation 过程可以通过主动inflate一个view或view树触发, 也会通过启动一个分开的activity时隐性触发, 隐性触发也会发生在和main activity一样的UI线程中, 进而会造成activity在inflation过程中的动画的停滞.
 
 To avoid this situation, wait to inflate the views or launch the activities until the current animation is finished. Or for avoiding inflation-related jank while scrolling a list with different view types, consider pre-inflating views of those types. For example, RecyclerView supports priming the RecycledViewPool with item views of specific types.
 
