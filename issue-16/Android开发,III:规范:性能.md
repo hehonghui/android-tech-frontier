@@ -74,25 +74,55 @@ Avoid Complex View Hierarchies
 
 The more views that are in your hierarchy, the longer it will take to do common operations, including inflation, layout, and rendering (in addition to the potentially expensive memory implications of unused content; Views are expensive by themselves, in addition to any additional data brought in by custom views). Find cheaper ways to represent nested content. One approach to avoiding complex nested hierarchies is to use custom views or custom layouts in some situations; it may be cheaper for a single view to draw several pieces of text and icons rather than have a series of nested ViewGroups to accomplish this. One rule of thumb for deciding how to combine multiple elements lies in the interaction model: if the user can interact with an element (e.g., via touch, focus, etc.), then that element should be its own view rather than being combined with other, separate elements.
 
+界面层级关系中的view越多, 系统进行一般的操作需要消耗的时间就越长, 比如inflation, layout和rendering过程(许多无用的内容占据了很多内存; view本身也很能占据内存, 尤其是自定义控件带来的更多数据). 要找到最节约资源的方式去组织view中的控件. 在某些场景下用自定义view或者自定义layout可以避免复杂的view层级关系. 用一个单一的view去画一些文字和icon也许比用一系列组合viewgroup来实现一样的效果更加节省资源.  在交互界面中如何组合控件有一个准则: 如果用户可以和某一UI元素产生交互(比如touch事件, 获取到focus等), 那么这个UI元素应该是一个独立的view 而不应该和其他元素组合.
+
 Avoid RelativeLayout Near the Top of the View Hierarchy
+## 避免在靠近view层级关系顶层的地方使用RelativeLayout
+
 RelativeLayout is a very convenient layout to use, because it allows developers to specify how content should be placed relative to other content. In many situations, this is necessary and may be the best solution for the job. However, it is important to understand that RelativeLayout is an expensive solution, because it requires two measurement passes to ensure that it has handled all of the layout relationships correctly. Moreover, this problem compounds with every additional RelativeLayout throughout the hierarchy. Imagine a RelativeLayout at the top of your view hierarchy; this essentially doubles the measurement work on your entire view hierarchy. Now imagine another RelativeLayout as one of the children of that first one — this doubles again the measurement passes that happen under it, requiring four measurement passes for all of the views in its sub-hierarchy.
+
+RelativeLayout是一个用起来很方便的控件, 因为它允许工程师们用相对布局摆放控件. 在许多情况下, 这都是解决问题非常有必要的方案. 但是, 一定要明白使用RelativeLayout是一个非常好资源的方案. 因为RelativeLayout会触发两次measurement过程来保证正确的除了了所有子元素的关系. 更糟的是, 它会和view层级关系中其他的RelativeLayout一起产生更坏的后果. 想象一下你的一个view层级关系的顶部是一个RelativeLayout; 这本来就将所有view的measurement次数变成了原来的两倍. 此时如果另外一个RelativeLayout是顶部那个RelativeLayout的子view,这就使得它下面所有view的measurement次数又变成了原来的两倍, 也就是所它下面的所有view都经历了四次measurement过程.
 
 Use a different type of layout for situations that do not require the capabilities of RelativeLayout, such as LinearLayout or even a custom layout. Or for situations in which relative alignment of child views is necessary, consider the more optimized GridLayout, which pre-processes the child view relationships and avoids the double-measurement problem.
 
+所以要尽量使用不需要两次measure过程的控件, 比如LinearLayout或者自定义layout. 如果一定要用相对布局的方案, 可以考虑一个自定义的GridLayout, 它可以预处理view的相对关系, 从而避免了两次measure的问题.
+
 Avoid Expensive Operations on the UI Thread
+## 避免在UI线程中的复杂操作
+
 Stalling the UI Thread leads to delays in animations and drawing, which causes visible jank for the user. Avoid doing known-expensive operations while on the UI thread (such as during onDraw(), or onLayout(), or any of the other View-related methods that are called on that thread). Good examples of what not to do include calling a web service, executing other network operations (which will throw a NetworkOnMainThreadException), and doing database transactions. Instead, consider using Loaders or other facilities for performing the operations on other threads with the information feeding into the UI later as it comes in. One tool to help indicate this source of jank is StrictMode.
+
+拖延UI线程会导致动画和界面绘制过程的滞后, 造成用户可以感知到的卡顿. 在UI线程(比如 onDraw()方法 onLayout()方法, 或者一些UI线程中被调用的和view展示有关的方法)避免一些众所周知的耗时操作. 比如调用web service, 执行其它网络请求(会抛出NetworkOnMainThreadException), 或者是访问数据库. 相反, 应该考虑用Loader或者其它模块异步操作完成后再通知UI线程修改界面. 可以用StrictMode模块监控这种问题.
 
 Another reason to avoid accessing the file system or database on the UI Thread is that Android device storage is often not good at handling multiple, concurrent reads/writes. Even if your app is idle, there might be another application doing expensive disk I/O (e.g., Play Store updating apps) and this may cause an ANR, or at least significant delays, in your application.
 
+不可以在UI线程访问数据库和文件的另外一个重要原因是Android设备通常并不善于处理IO的并发. 及时你的程序闲置的时候, 其它的程序也许在高负荷的访问磁盘I/O (比如谷歌商店在更新软件). 结果就是有可能会导致ANR发生, 或者至少会导致你的程序的严重卡顿.
+
+
 In general, anything that can be done asynchronously should be; the UI Thread should be used just for core UI Thread operations, like manipulating View properties and drawing.
 
+总的来说, 只要可以放在异步处理的任务就尽量放在异步处理; UI线程需要做的应该只是和UI相关的核心操作, 比如控制界面上元素的属性或者是绘制过程.
+
 Minimize Wakeups
+## 把程序的唤醒次数降到最低
+
 BroadcastReceivers are used to receive information and events from other applications that your application may want to respond to. But responding to more of these items than your application actually needs will cause your application to wake up too often, causing overall system performance problems and resource drain. Consider disabling BroadcastReceivers when your application does not care about the results, and carefully choose the Intents that your application really needs to respond to.
 
+广播接收者被用来接受其它程序发来的消息或者事件. 但是如果超出实际需要的响应过多的广播会导致程序被频繁的唤醒, 从而影响这个系统的性能表现和资源消耗. 应该在程序不需要接受某个广播的时候反注册掉广播接收者. 注册广播接收者时也要只选择程序需要监听的Intent.
+
 Develop for the Low End
+## 为低端设备开发
+
 This relates to the earlier discussion in the Context chapter on Low-End Devices. Most of your users will have lower-end devices than you probably carry for your everyday phone, by virtue of their being either older or cheaper than yours. It is important to develop for this market, and not miss important performance nuances due to higher performance metrics of your development device glossing over elements of your application that would be hard to miss on lower-end devices. Your primary device should not be the fastest/latest one available, and you should always have a variety of devices to be able to try out different speeds and form factors to ensure that your application runs adequately across all of them.
 
+这与前面在[Context](https://medium.com/google-developers/developing-for-android-i-understanding-the-mobile-context-fd2351b131f8)章节关于低端设备的讨论有关.  也许大多数的用户所用的设备都不如你每天用的设备性能好, 也许比你的设备用的更久或者更便宜. 为这部分低端手机开发非常的总要, 一些在高端设备上很难察觉的性能差异在低端设备上会非常明显. 你的首选开发设备不应该是市面上最快最新的设备, 而且你也应该持有各种不同的设备, 这样就可以保证你的程序在不同速度不同厂商的设备上都有足够的性能表现.
+
 Other factors of low-end devices that are important to test against include small RAM sizes and small screen sizes. For example, 512MB is a common low-end configuration, and many Android devices have screen resolutions of 768x480 or less.
+这些需要测试的其它低性能设备包括内存较小的设备或者屏幕分辨率较小的设备. 比如512MB内存是一般低性能设备的配置, 或者拥有768x480或者更低的屏幕分辨率的Android设备.
 
 Measure Performance
+## 评测性能表现
+
 There is a plethora of tools available on Android. Use them to track important performance-related information about your application, including rendering performance (are you able to hit 60 fps?), memory allocations (are constant allocations triggering garbage collections leading to jank during animations?), and startup performance (are you doing too much at startup leading to long wait times for the user when your app first comes up?). Find the problems. Fix them.
+
+市面上有许多工具可以用来测试你的程序的性能表现, 比如rendering的性能(程序可以达到60fpf的刷新频率吗?), 内存回收性能(动画的过程中会因为持续的内存非配所引发的垃圾回收而发生卡顿吗?), 或者程序启动性能(用户会因为你的程序第一次启动做了大量的工作而耽误很长时间吗?). 找到问题. 修复他们.
