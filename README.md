@@ -99,7 +99,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 # 2015.6.23 ( 第十五期 )
 | 文章名称 |   译者  | 
 |---------|--------|
-| [2015-Google-IO带来的新Android开发工具.md](issue-15/2015-Google-IO带来的新Android开发工具.md)  | [ Mario Zechner](http://robovm.com/author/mario/)      
+| [2015-Google-IO带来的新Android开发工具.md](issue-15/2015-Google-IO带来的新Android开发工具 .md)  | [ Mario Zechner](http://robovm.com/author/mario/)      
 | [Android-C++引用计数介绍](issue-15/Android-C++引用计数介绍.md)  | [Bin Chen](https://plus.google.com/+PierrChen/posts) 
 | [Android-M的App-Links实现详解](issue-15/Android-M的App-Links实现详解.md)  | [jianghejie](https://github.com/jianghejie)      |
 | [facebook代码分析工具-infer](issue-15/facebook代码分析工具-infer.md)  | [Mr.Simple](https://github.com/bboyfeiyu)      |
