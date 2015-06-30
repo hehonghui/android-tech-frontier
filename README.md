@@ -83,10 +83,23 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" ></b>
 ## 已完成列表
+
+# 2015.6.29 ( 第十六期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [手动实现布局Transitions动画-第一部分.md](issue-16/手动实现布局Transitions动画-第一部分.md)  | [Mr.Simple](https://github.com/bboyfeiyu)    
+| [手动实现布局Transitions动画-第二部分](issue-16/手动实现布局Transitions动画-第一部分.md)  | [Mr.Simple](https://github.com/bboyfeiyu)
+| [手动实现布局Transitions动画-第三部分](issue-16/手动实现布局Transitions动画-第一部分.md)  | [Mr.Simple](https://github.com/bboyfeiyu)      |
+| [为什么你应该停止使用EventBus](issue-16/为什么你应该停止使用EventBus.md)  | [Zhaoyy](https://github.com/Zhaoyy)      |
+| [结合RxJava更简单地使用SQLite](issue-16/结合RxJava更简单地使用SQLite.md)  | [tiiime](https://github.com/tiiime)      |
+| [Android一体机模式：规则限制](issue-16/Android一体机模式：规则限制.md)  | [rocko](https://github.com/zhengxiaopeng)
+
+
+
 # 2015.6.23 ( 第十五期 )
 | 文章名称 |   译者  | 
 |---------|--------|
-| [2015-Google-IO带来的新Android开发工具.md](issue-15/2015-Google-IO带来的新Android开发工具.md)  | [ Mario Zechner](http://robovm.com/author/mario/)      
+| [2015-Google-IO带来的新Android开发工具.md](issue-15/2015-Google-IO带来的新Android开发工具 .md)  | [ Mario Zechner](http://robovm.com/author/mario/)      
 | [Android-C++引用计数介绍](issue-15/Android-C++引用计数介绍.md)  | [Bin Chen](https://plus.google.com/+PierrChen/posts) 
 | [Android-M的App-Links实现详解](issue-15/Android-M的App-Links实现详解.md)  | [jianghejie](https://github.com/jianghejie)      |
 | [facebook代码分析工具-infer](issue-15/facebook代码分析工具-infer.md)  | [Mr.Simple](https://github.com/bboyfeiyu)      |
