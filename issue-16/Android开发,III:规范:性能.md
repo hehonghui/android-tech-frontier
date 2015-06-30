@@ -3,7 +3,7 @@ Android开发, III: 规范: 性能
 
 > * 原文链接 : [Developing for Android, III: The Rules: Performance](https://medium.com/google-developers/developing-for-android-iii-2efc140167fd)
 * 原文作者 : [Google](https://medium.com/google-developers)
-* [译文出自 :  Medium.com](https://medium.com)
+* 译文出自 :  [Medium.com](https://medium.com)
 * 译者 : [dustookk](https://github.com/dustookk)
 * 校对者: [这里校对者的github用户名](github链接)  
 * 状态 :  未完成 / 校对中 / 完成
