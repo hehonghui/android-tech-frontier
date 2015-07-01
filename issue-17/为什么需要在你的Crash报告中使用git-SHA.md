@@ -5,7 +5,6 @@
 * 原文作者 : [DONN FELKER](http://www.donnfelker.com/author/donn/)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [sjyin](https://github.com/yinshijian-kkb) 
-* 校对者:
 * 状态 :  完成
 
 开发人员在开发中常常会遇到一个问题：使用一个像Crashlytics的crash管理工具来判断一个特定的crash/bug是否被修复或解决。
