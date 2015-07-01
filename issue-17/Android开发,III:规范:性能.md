@@ -11,25 +11,25 @@ Android开发, III: 规范: 性能
 
 ## 在动画和用户交互时避免复杂操作
 
-之前在[Context](https://medium.com/google-developers/developing-for-android-i-understanding-the-mobile-context-fd2351b131f8)章节的 "UI Thread" 部分已经提到过,UI线程中的复杂操作会引起渲染工作的卡顿. 连锁反应会影响到动画效果, 因为动画的每一帧都是一次渲染. 这就意味着当有动画出现时UI线程里更应该避免复杂的操作. 下面是一些应该避免的常见情况:
+之前在[Context](https://medium.com/google-developers/developing-for-android-i-understanding-the-mobile-context-fd2351b131f8)章节的 "UI Thread" 部分已经提到过, UI线程中的复杂操作会引起渲染过程的卡顿. 连锁反应会影响到动画效果, 因为动画的每一帧都是一次渲染. 这就意味着当有动画出现时UI线程里更应该避免复杂的操作. 下面是一些应该避免的常见情况:
 
-### Layout:
-Measurement和Layout都是非常复杂的操作, view的层级关系越复杂, 处理起来就越耗时. Measurement和layout发生在UI线程 (所有需要改动activity里view的操作都在UI线程中进行). 这就意味着如果一个程序正在执行一个流畅的动画的时候被告知需要在UI线程中同时执行layout操作, 结果动画肯定要受罪了.
+#### Layout:
+Measurement和Layout是非常复杂的操作, view的层级关系越复杂, 处理起来就越耗时. Measurement和layout发生在UI线程 (所有需要改动activity里view的操作都在UI线程中进行). 这就意味着如果一个程序正在执行一个流畅的动画的时候被告知需要在UI线程中同时执行layout操作, 结果动画肯定要受罪了.
 
 假设你的程序可以在13毫秒内绘制完成一个指定的动画, 这是在16毫秒的规定范围内的(Google官方推荐每秒60帧的刷新频率). 如果这时一个事件触发了需要耗时5毫秒的一个layout动作, 那么这个layout操作会在动画的下一帧绘制之前执行, 这就会将总绘制耗时增加到18毫秒, 结果就是动画效果有一个明显的跳帧.
 
 
 为了避免这种情况的发生, layout操作要在动画开始前或动画完成后进行.  还有就是, 尽量使用不会触发layout操作的动画效果. 比如, view的translationX和translationY属性会影响post-layout属性. 而LayoutParams的属性又会触发一个layout操作去产生作用, 所以类似这种属性的动画效果会影响已经比较合理的ui显示.
 
-### Inflation:
-view 的inflation过程只能在UI线程完成, 如果操作不当会变成一个非常耗时的过程 (view的层级关系越深, inflation过程就越耗时) Inflation 过程可以通过主动inflate一个view或view树触发, 也可以通过启动一个不同的的activity时隐性触发, 隐性触发会发生在和main activity一样的UI线程中, 进而会造成activity在inflation过程中的动画卡顿.
+#### Inflation:
 
+view的inflation过程只能在UI线程完成, 如果操作不当会变成一个非常耗时的过程 (view的层级关系越深, inflation过程就越耗时) Inflation 过程可以通过主动inflate一个view或view树触发, 也可以通过启动一个不同的的activity时隐性触发, 隐性触发会发生在UI线程中, 进而会造成activity在inflation过程中的动画卡顿.
 
 为了避免这种情况, 应该等待当前的动画结束后再触发view的inflation操作或者activity的启动操作. 还有一种情况就是, 为了避免多type的list在滚动时的inflation相关问题, 可以考虑预先inflate不同type的view. 比如, RecyclerView支持预设一个可以产生不同type的ItemView的RecycledViewPool.
 
 ## 快速启动
 
-view的inflation过程有些耗时. 并不只是解析一些资源文件那么简单, 更包含了实例化潜在的许许多多的view和各个view初始化时自身耗时的操作. 包括bitmap的解码过程, 绘制layout过程, 还有第一次初始化时的draw的过程. ui写的越复杂, view树状结构层级关系越深,整体的inflation过程就会越耗时.
+view的inflation过程有些耗时. 并不只是解析一些资源文件那么简单, 更包含了实例化潜在的许许多多的view和各个view初始化时自身耗时的操作. 包括bitmap的解码过程, 绘制layout的过程, 还有第一次初始化时的draw过程. ui写的越复杂, view树状结构层级关系越深,整体的inflation过程就会越耗时.
 
 以上的这些都会拖慢程序的启动过程. 当用户启动一个程序时, 他们期望看到的是几乎瞬时的反馈可以告知他们程序已经跑起来了. Android系统用了一个"启动界面" 来实现这一效果, 包括一个程序设定主题的空白窗口和一些特定的背景图画. "启动界面"是在程序在后台加载以及inflation的过程中在系统进程展示的. 当activity准备好可以被展示了, 启动界面就切换到了真正的内容, 用户就可以开始使用程序了.
 
