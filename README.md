@@ -89,7 +89,7 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 |---------|--------|
 | [如何使用Android-Studio把自己的Android-library分发到jCenter和Maven-Central](issue-17/如何使用Android-Studio把自己的Android-library分发到jCenter和Maven-Central.md)  | [jianghejie](https://github.com/jianghejie) 
 | [Android开发III-规范与性能](issue-17/Android开发III-规范与性能.md)  | [dustookk](https://github.com/dustookk) 
-| [Android中的帧动画](issue-17/Android中的帧动画.md)  | [LangleyChang](https://github.com/LangleyChang) 
+| [Android中的帧动画](issue-17/Android中的帧动画.md)  | [jianghejie](https://github.com/jianghejie) 
 | [为什么需要在你的Crash报告中使用git-SHA](issue-17/为什么需要在你的Crash报告中使用git-SHA.md)  | [sjyin](https://github.com/yinshijian-kkb) 
 | [当钢铁侠变得反应更快-RxJava](issue-17/当钢铁侠变得反应更快-RxJava.md)  | [BownX](https://github.com/BownX) 
 | [使用RxJava从几个数据源中加载数据](issue-17/使用RxJava从几个数据源中加载数据.md)  | [sjyin](https://github.com/yinshijian-kkb) 
