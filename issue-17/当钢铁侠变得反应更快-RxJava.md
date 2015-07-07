@@ -4,9 +4,8 @@
 > * 原文链接 : [When Iron Man becomes reactive, RxJava](http://saulmm.github.io/when-Iron-Man-becomes-Reactive-Avengers2/)
 * 原文作者 : [Saúl Molinero](https://twitter.com/_saulmm)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
-* 译者 : [BownX](https://github.com/BownX) 
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  未完成 / 校对中 / 完成 
+* 译者 : [BownX](https://github.com/BownX)   
+* 状态 :  完成 
 
 
 本系列的这个部分主要是讲一些函数式技巧能给我们的项目带来的好处。
