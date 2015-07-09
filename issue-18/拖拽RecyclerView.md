@@ -1,4 +1,4 @@
-#Drag and Swipe with RecyclerView
+#拖拽RecyclerView
 
 ---
 
@@ -6,8 +6,8 @@
 * 原文作者 : [Paul Burke](https://medium.com/@ipaulpro)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [objectlife](https://github.com/objectlife) 
-* 校对者: 
-* 状态 : 待校对
+* 校对者: [Mr.Simple](https://github.com/bboyfeiyu) 
+* 状态 : 完成
 
 <video loop video autoplay class="graf-image" data-image-id="1*4Cqfs-75ibhvC_3BMEIvVA.gif" data-width="1440" data-height="600"><source src="https://d262ilb51hltx0.cloudfront.net/max/2000/1*4Cqfs-75ibhvC_3BMEIvVA.mp4" type="video/mp4"></video>
 
