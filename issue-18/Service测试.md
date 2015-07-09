@@ -5,6 +5,7 @@
 * 原文作者 : [google develper](http://developer.android.com/)
 * 译文出自 :  [开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [sjyin](https://github.com/yinshijian-kkb) 
+* 校对者 : [Mr.Simple](https://github.com/bboyfeiyu) 
 
 Android为Service对象提供了一套测试框架，框架可以独立的运行，并且提供了模拟对象。这个测试用例类的名字叫做[ServiceTestCase](http://developer.android.com/tools/testing/service_testing.html)。因为这个Service类是独立于客户端的，所以，你不用使用`instrumentation`就可以测试Service对象。
 
