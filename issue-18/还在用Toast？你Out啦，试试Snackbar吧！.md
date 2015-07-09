@@ -1,4 +1,4 @@
-#Welcome Snackbar, Goodbye Toast!
+#还在用Toast？你Out啦，试试Snackbar吧！
 
 ---
 
@@ -6,8 +6,8 @@
 * 原文作者 : [Paresh Mayani](http://en.gravatar.com/pareshnmayani)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [objectlife](https://github.com/objectlife) 
-* 校对者: 
-* 状态 : 待校对
+* 校对者: [Mr.Simple](https://github.com/bboyfeiyu) 
+* 状态 : 完成
 
 
 欢迎来到Android design support library系列教程第二部分，第一部分我们讨论了[Floating action button](http://www.technotalkative.com/part-1-floating-action-button/)的一些attributes 和 常见issues。
