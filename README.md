@@ -83,6 +83,18 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" ></b>
 ## 已完成列表
+# 2015.7.13 ( 第十八期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [用组合代替继承能为Activity带来什么](issue-18/用组合代替继承能为Activity带来什么.md)  | [chaossss](https://github.com/chaossss) 
+| [Android-UI自动化测试](issue-18/Android-UI自动化测试.md)  | [Ashraff Hathibelagal](https://github.com/http://tutsplus.com/authors/ashraff-hathibelagal) 
+| [Service测试](issue-18/Service测试.md)  | [sjyin](https://github.com/yinshijian-kkb) 
+| [如何提高你的代码质量](issue-18/如何提高你的代码质量.md)  | [dengshiwei](https://github.com/dengshiwei) 
+| [拖拽RecyclerView](issue-18/拖拽RecyclerView.md)  | [objectlife](https://github.com/objectlife) 
+| [还在用Toast？你Out啦，试试Snackbar吧！](issue-18/还在用Toast？你Out啦，试试Snackbar吧！.md)  | [objectlife](https://github.com/objectlife) 
+
+
+
 
 # 2015.7.6 ( 第十七期 )
 | 文章名称 |   译者  | 
