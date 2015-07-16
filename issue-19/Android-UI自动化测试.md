@@ -14,17 +14,19 @@ Android测试支持库包含**UI自动化模块**，它可以对Android应用进
 
 ##先决条件
 在使用前，需要具备以下条件：
-  1.最新版本的[Android Studio](https://developer.android.com/sdk/index.html)
-  2.运行Android 4.3或者更高版本的设备或者虚拟器
-  3.理解[JUnit](http://junit.org/)
+
+  1. 最新版本的[Android Studio](https://developer.android.com/sdk/index.html)
+  2. 运行Android 4.3或者更高版本的设备或者虚拟器
+  3. 理解[JUnit](http://junit.org/)
 
 ##1. 安装依赖库
 
 工程中使用UI自动化模块，需要编辑你的工程下*app*目录下的文件*build.gradle*，添加如下信任：
+
 ```xml
-1  androidTestCompile 'com.android.support.test:runner:0.2'                       
-2  androidTestCompile 'com.android.support.test:rules:0.2'                        
-3  androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.0'
+  androidTestCompile 'com.android.support.test:runner:0.2'                       
+  androidTestCompile 'com.android.support.test:rules:0.2'                        
+  androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.0'
 ```
 现在屏幕上应该有*Sync Now*按钮了，但点击它时，会看到如下错误信息：
 
@@ -35,25 +37,27 @@ Android测试支持库包含**UI自动化模块**，它可以对Android应用进
 如果使用的是库**appcompat-v7** 且其版本号是**22.1.1**，你需要添加如下依赖以确保应用本身和测试应用都使用相同版本的```com.android.support:support-annotations```:
 
 ```xml
-1   androidTestCompile 'com.android.support:support-annotations:22.1.1'
+   androidTestCompile 'com.android.support:support-annotations:22.1.1'
 ```
 接下来，由于Android Studio自身的一个bug，你需要通过 ```packagingOptions``` 执行一个名为 **LICENSE.txt** 的文件。这个执行失败的话，在运行测试时将引起如下错误：
 
 ```
-1   Execution failed for task ':app:packageDebugAndroidTest'.                                                                                   
-2   Duplicate files copied in APK LICENSE.txt                                                                                                   
-3                                                                                                                                               
-4   File 1: ~/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.1/860340562250678d1a344907ac75754e259cdb14/hamcrest-core-1.1.jar  
-5   File 2: ~/.gradle/caches/modules-2/files-2.1/junit/junit-dep/4.10/64417b3bafdecd366afa514bd5beeae6c1f85ece/junit-dep-4.10.jar               
+   Execution failed for task ':app:packageDebugAndroidTest'.                                                                                   
+   Duplicate files copied in APK LICENSE.txt                                                                                                   
+                                                                                                                                               
+   File 1: ~/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.1/860340562250678d1a344907ac75754e259cdb14/hamcrest-core-1.1.jar  
+   File 2: ~/.gradle/caches/modules-2/files-2.1/junit/junit-dep/4.10/64417b3bafdecd366afa514bd5beeae6c1f85ece/junit-dep-4.10.jar               
 ```
 在你的**build.gradle**文件底部增加如下代码段：
+
 ```Java
-1   android {                                       
-2       packagingOptions {                          
-3           exclude 'LICENSE.txt'                   
-4       }                                           
-5   }                                               
+   android {                                       
+       packagingOptions {                          
+           exclude 'LICENSE.txt'                   
+       }                                           
+   }                                               
 ```
+
 ##2、创建测试类
 
 创建一个新的测试类，```CalculatorTester```，通过在 **androidTest** 目录下创建名为 **CalculatorTester.java** 的文件实现。创建的UI自动化测试用例，必须继承自```InstrumentationTestCase```。
@@ -65,19 +69,21 @@ Android测试支持库包含**UI自动化模块**，它可以对Android应用进
 ![P3](http://7xk12r.com1.z0.glb.clouddn.com/Android_UI_autotest3.png)
 
 再次按 **Alt+Insert** 后选择 **Test Method** 来生成新的测试方法，命名为```testAdd```。到此```CalculatorTester```类定义如下：
+
 ```Java
-01  public class CalculatorTester extends InstrumentationTestCase{
-02                                                                
-03      @Override                                                 
-04      public void setUp() throws Exception {                    
-05                                                                
-06      }                                                         
-07                                                                
-08      public void testAdd() throws Exception {                  
-09                                                                
-10      }                                                         
-11  }                                                                    
+  public class CalculatorTester extends InstrumentationTestCase{
+                                                                
+      @Override                                                 
+      public void setUp() throws Exception {                    
+                                                                
+      }                                                         
+                                                                
+      public void testAdd() throws Exception {                  
+                                                                
+      }                                                         
+  }                                                                    
 ```
+
 ##3、查看Launcher UI
 
 连接你的Android设备到电脑商，点击home按键，进入主界面。
@@ -112,37 +118,49 @@ Android测试支持库包含**UI自动化模块**，它可以对Android应用进
 3、点击计算器图标启动它
 
 在你的类中声明类型为```UiDevice```的变量```device```。它代表你的Android设备，后续使用它来模拟用户行为。
+
 ```Java
-1  private UiDevice device;
+  private UiDevice device;
 ```
+
 在```setUp```方法中，通过调用```UiDevice.getInstance method```来初始化```device```，传递```Instrumentation```实例，如下所示：
+
 ```Java
-1  device = UiDevice.getInstance(getInstrumentation());
+  device = UiDevice.getInstance(getInstrumentation());
 ```
+
 模拟点击设备home键，需要调用```pressHome```方法。
+
 ```Java
-1  device.pressHome();
+  device.pressHome();
 ```
+
 接下来，需要模拟点击Apps图标的动作。不能立即做这个动作，因为Android设备需要一个反应时间来加载界面。如果在屏幕显示出来之前执行这个动作就会引起运行时异常。
 
 等待一些事情发生时，需要调用```UiDevice```实例的```wait```方法。等待Apps图标显示到屏幕，使用```Until.hasObject```方法。
 
 识别Apps图标需要使用```By.desc```方法并传递值为**Apps**的参数。你还需要指定最长等待时间，单位为毫秒。此处设置为3000。
 至此形成如下代码段：
+
 ```Java
-1  // Wait for the Apps icon to show up on the screen
-2  device.wait(Until.hasObject(By.desc("Apps")), 3000);
+  // Wait for the Apps icon to show up on the screen
+  device.wait(Until.hasObject(By.desc("Apps")), 3000);
 ```
+
 要获取Apps图标的引用，需要使用```findObject```方法。一旦有了Apps图标的引用，就可以调用```click```方法来模拟点击动作了。
+
 ```Java
-1  UiObject2 appsButton = device.findObject(By.desc("Apps"));
-2  appsButton.click();
+  UiObject2 appsButton = device.findObject(By.desc("Apps"));
+  appsButton.click();
 ```
+
 和前面一样，我们需要等待一些时间，保证计算器图标显示到屏幕上。在之前的步骤中，我们看到可以通过```text```字段唯一的识别计算器图标。我们调用```By.text```方法来找到图标，传递参数为```Calculator```。
+
 ```Java
-1  // Wait for the Calculator icon to show up on the screen
-2  device.wait(Until.hasObject(By.text("Calculator")), 3000);
+  // Wait for the Calculator icon to show up on the screen
+  device.wait(Until.hasObject(By.text("Calculator")), 3000);
 ```
+
 ##5、检查计算器UI
 
 在你的Android设备上启动计算器应用，使用 **UI Automater Viewer** 来查看显示。获取到一个截屏后，点击不同的按钮来观察使用何值可以唯一的区分它们。
@@ -152,6 +170,7 @@ Android测试支持库包含**UI自动化模块**，它可以对Android应用进
 ![P7](http://7xk12r.com1.z0.glb.clouddn.com/Android_UI_autotest7.jpg)
 
 在我的设备上，如下是我收集到的信息：
+
 1. 数字按键匹配```text```值
 2. **+** 和 **=** 使用```content-desc```值，分别对应 **plus** 和 **equals**
 3. 返回值显示在```EditText```控件中
@@ -161,37 +180,41 @@ Android测试支持库包含**UI自动化模块**，它可以对Android应用进
 ##6、创建测试类
 
 在前面几步操作中，你已经学会了使用```findObject```方法通过```By.text```或者```By.desc```来获取屏幕上不同对象的引用。还学会了通过```click```方法来模拟点击对象的动作。下面的代码使用这些方法来模拟 **9+9=**。添加这些到类```CalculatorTester```的方法```testAdd```中。
+
 ```Java
-01  // Wait till the Calculator's buttons are on the screen        
-02  device.wait(Until.hasObject(By.text("9")), 3000);              
-03                                                                 
-04  // Select the button for 9                                     
-05  UiObject2 buttonNine = device.findObject(By.text("9"));        
-06  buttonNine.click();                                            
-07                                                                 
-08  // Select the button for +                                     
-09  UiObject2 buttonPlus = device.findObject(By.desc("plus"));     
-10  buttonPlus.click();                                            
-11                                                                 
-12  // Press 9 again as we are calculating 9+9                     
-13  buttonNine.click();                                            
-14                                                                 
-15  // Select the button for =                                     
-16  UiObject2 buttonEquals = device.findObject(By.desc("equals")); 
-17  buttonEquals.click();                                          
+  // Wait till the Calculator's buttons are on the screen        
+  device.wait(Until.hasObject(By.text("9")), 3000);              
+                                                                 
+  // Select the button for 9                                     
+  UiObject2 buttonNine = device.findObject(By.text("9"));        
+  buttonNine.click();                                            
+                                                                 
+  // Select the button for +                                     
+  UiObject2 buttonPlus = device.findObject(By.desc("plus"));     
+  buttonPlus.click();                                            
+                                                                 
+  // Press 9 again as we are calculating 9+9                     
+  buttonNine.click();                                            
+                                                                 
+  // Select the button for =                                     
+  UiObject2 buttonEquals = device.findObject(By.desc("equals")); 
+  buttonEquals.click();                                          
 ```
+
 现在就等待运行结果。此处不能使用```Until.hasObject```，因为包含计算结果的```EditText```已经显示在屏幕上了。取而代之，我们使用```waitForIdle```方法来等待计算完成。同样，最长等待时间是3000毫秒。
 ```Java
-1 device.waitForIdle(3000);
+device.waitForIdle(3000);
 ```
 使用```findObject```和```By.clazz methods```方法获取```EditText```对象的引用。一旦有了此引用，就可以调用```getText``` 方法来确定计算结果是否正确。
+
 ```Java
-1  UiObject2 resultText = device.findObject(By.clazz("android.widget.EditText"));
-2  String result = resultText.getText();
+  UiObject2 resultText = device.findObject(By.clazz("android.widget.EditText"));
+  String result = resultText.getText();
 ```
 最后，使用```assertTrue```来检验范围值是否为**18**。
+
 ```Java
-1  assertTrue(result.equals("18"));
+  assertTrue(result.equals("18"));
 ```
 测试到此结束。
 
