@@ -4,8 +4,6 @@ RxJava Observables单元测试
 * 原文作者 : [Iván Carballo](https://medium.com/@ivanc)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [dengshiwei](https://github.com/dengshiwei) 
-* 校对者:
-* 状态 :  校对中
 
 ##RxJava Observables单元测试
 
@@ -19,12 +17,15 @@ RxJava是一个非常棒的类库，但是它不容易上手，在这里，我�
 
 我们头脑中首先想到的是以同样的方式简单地描述我们的外部测试结果，然后将结果保存在一个全局变量，可以在以后进行断言。例如，假设我们有一个方法在一个database helper类中，负责加载用户对象。
 
-	public Observable<User> loadUser() {
+```
+public Observable<User> loadUser() {
     ...
-	}
+}
+```
 
 然后，针对这个方法的测试就会如同下面这样：
 
+```
 	User mUser;
 	@Test
 	public void shouldLoadUser() throw Exception {
@@ -37,6 +38,7 @@ RxJava是一个非常棒的类库，但是它不容易上手，在这里，我�
          });
     assertNotNull(mUser);
 	}
+```
 
 默认情况下，这段代码将会执行，因为Observable会在同一个线程上执行。
 因此，在结果设置为全局变量后断言会一直执行。
@@ -44,6 +46,7 @@ RxJava是一个非常棒的类库，但是它不容易上手，在这里，我�
 ###更好的方式
 我们很快意识到先前的解决方式是不完美的。尽管先前的方法能够工作，(但是)它需要大量的模版代码。所以，我们决定创建一个类，该类提供一个名称为subscribeAssertingThat()的静态方法。这个类允许我们subscribe 一个observable，保存测试结果并且以一种清晰的方式执行一些断言。例如：
 
+```
 	@Test
 	public void shouldLoadTwoUsers() throw Exception {
   	 subscribeAssertingThat(databaseHelper.loadUser())
@@ -51,6 +54,7 @@ RxJava是一个非常棒的类库，但是它不容易上手，在这里，我�
        .hasSize(2)
        .emits(user1, user2)
 	}
+```
 
 通过100行左右的代码，我们称为RxAssertions的这个类使我们的测试可读性和可写性更好。你可以在[这里](https://gist.github.com/ivacf/874dcb476bfc97f4d555)找到RxAssertions类的代码。
 
@@ -61,6 +65,7 @@ TestSubscriber由各种各样的[Subscriber](http://reactivex.io/RxJava/javadoc/
 
 与第二个解决方案类似，测试subscriber允许你通过结果执行断言。例如：
 
+```
 	@Test
 	public void shouldLoadTwoUsers() throw Exception {
   	 	TestSubscriber<User> testSubscriber = new TestSubscriber<>();
@@ -68,6 +73,7 @@ TestSubscriber由各种各样的[Subscriber](http://reactivex.io/RxJava/javadoc/
   	 	testSubscriber.assertNoErrors();
    		testSubscriber.assertReceivedOnNext(Arrays.asList(user1, user2))
 	}
+```
 
 我们还没有频繁的使用TestSubscriber，但你可以看到上面的代码是相当优雅和可读。除了不同的断言，通过 Observable调用getOnNextEvents()方法，它也允许你恢复整个发现的问题列表。
 
