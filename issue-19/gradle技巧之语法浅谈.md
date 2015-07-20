@@ -5,7 +5,8 @@ gradle技巧之语法浅谈
 * 原文作者 : [Pavlo Dudka](http://trickyandroid.com/#blog)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [FTExplore](https://github.com/FTExplore) 
-* 状态 :  未完成 / 校对中 / 完成 
+* 校对者 : [chaossss](https://github.com/chaossss)
+* 状态 :  完成 
 
 
 # 回顾
