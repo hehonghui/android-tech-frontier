@@ -4,6 +4,8 @@ RxJava Observables单元测试
 * 原文作者 : [Iván Carballo](https://medium.com/@ivanc)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [dengshiwei](https://github.com/dengshiwei) 
+* 校对者 : [chaossss](https://github.com/chaossss)
+* 状态 : 完成
 
 ##RxJava Observables单元测试
 
