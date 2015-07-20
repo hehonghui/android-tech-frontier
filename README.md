@@ -83,6 +83,16 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" ></b>
 ## 已完成列表
+# 2015.7.20 ( 第十九期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [RxJava-Observables单元测试](issue-19/RxJava-Observables单元测试.md)  | [dengshiwei](https://github.com/dengshiwei) 
+| [gradle技巧之语法浅谈](issue-19/gradle技巧之语法浅谈.md)  | [FTExplore](https://github.com/FTExplore) 
+| [Android-UI自动化测试](issue-19/Android-UI自动化测试.md)  | [Doris](https://github.com/DorisMinmin) 
+
+
+
+
 # 2015.7.13 ( 第十八期 )
 | 文章名称 |   译者  | 
 |---------|--------|
