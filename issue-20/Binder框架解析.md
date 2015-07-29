@@ -1,19 +1,11 @@
 #Why are you here?
 
-You want to better understand how Android works Intents, ContentProviders, Messenger
-Access to system services Life-cycle call-backs Security
-
 *  你想要更好的理解Android是怎样工作的
 
     。Intent、ContextProvider、Messenger   
 	。访问系统的服务   
 	。生命周期中的回调   
 	。安全
-
-You want to modularize your own business logic across application boundaries via a highly efficient and low-latency IPC framework
-You want to add new system services and would like to learn how to best expose them to your developers
-You just care about IPC and Binder seems unique and interesting 
-You don’t have anything better to do?
 
 * 你想要通过高效率和低延时的IPC框架打破应用程序模块化的业务逻辑  
 
@@ -55,19 +47,19 @@ Marakana
 
 * 马里亚纳（位于西太平洋）Android Internals and Security training的开发者和指导师
 
-Founder and co-organizer of San Francisco Android User Group (sfandroid.org)
+
 
 * San Francisco Android User Group (sfandroid.org)的创始人和组织者
 
-Founder and co-organizer of San Francisco Java User Group (sfjava.org) 
+
 
 * San Francisco Java User Group (sfjava.org) 的创始人和组织者
 
-Co-founder and co-organizer of San Francisco HTML5 User Group (sfhtml5.org)
+
 
 * San Francisco HTML5 User Group (sfhtml5.org) 的合作发起人和组织者
 
-Speaker at AnDevCon, AndroidOpen, Android Builders Summit, etc.
+
 
 * AnDevCon, AndroidOpen, Android Builders Summit 等等的演讲者
 
@@ -75,7 +67,6 @@ Speaker at AnDevCon, AndroidOpen, Android Builders Summit, etc.
 
 * Android/embedded Java and Linux, since 2009
 
-Worked on SMS, WAP Push, MMS, OTA provisioning in previous life
 
 * 曾就职于 SMS, WAP Push, MMS, OTA provisioning
 
@@ -90,40 +81,35 @@ Worked on SMS, WAP Push, MMS, OTA provisioning in previous life
 
 ![](http://git.oschina.net/sjyin/android-tech-translate/raw/master/pics//binder-pic/what_is_Binder_01.png)
 
-An IPC/component system for developing object- oriented OS services
 
 * 一个IPC组件，开发面向对象的操作系统服务
 
-	Not yet another object-oriented kernel  
 	。没有另外一个面向对象内核   
-	Instead an object-oriented operating system environment that works on traditional kernels, like Linux!  
 	。代替运行在传统内核上，面向对象的操作系统环境，如：Linux
 
-Essential to Android!   
+
 * Android的关键
 
-Comes from OpenBinder   
 * 来自OpenBinder
 
-	Started at Be, Inc. as a key part of the "next generation BeOS" 
+	
 	* 发源于 Be,Inc ,作为 "next generation BeOS"(~ 2001) 的关键部分
 
-	Acquired by PalmSource
+	
 	* 被 PalmSource 收购
 
-	First implementation used in Palm Cobalt (micro-kernel based OS)
+	
 	* 最初使用在 Palm Cobalt (micro-kernel based OS)
 
-	Palm switched to Linux, so Binder ported to Linux, open-sourced (~ 2005)
+	
 	*  Palm 切换到 Linux，所以，Binder被移植到Linux，开源(~ 2005)
 
-	Google hired Dianne Hackborn, a key OpenBinder engineer, to join the Android team Used as-is for the initial bring-up of Android, but then completely rewritten (~ 2008) 
+	
 	* 谷歌雇用了OpenBinder的核心工程师Dianne Hackborn，加入Android团队(~ 2008) 
 
-	OpenBinder no longer maintained - long live Binder!
+	
 	* OpenBinder不再维护 -- Binder长存
 
-Focused on scalability, stability, flexibility, low-latency/overhead, easy programming model    
 * 专注于可伸缩性、稳定性、灵活性、低延迟和开销、简单的编程模型
 
 
