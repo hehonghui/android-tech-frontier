@@ -94,7 +94,12 @@ This is what Android networking looks like in Ficus Kirkpatrick (a Googler behin
 
 Gson was developed by Google.
 
+[Gson](https://goo.gl/gqAAi) 是通过 Java 的反射机制使你用 Java 实现的数据 Model 对象与 JSON 数据对象能够相互转换的 JSON 序列化与反序列化的库。而且你还能根据自己的需求实现自定义的序列化转换器和反序列化转换器。
+
+Gson 由 Google 开发。
+
 ###Setup
+###安装
 
 Gradle dependencies in Android Studio
 You need to add the next lines to your app’s build.gradle file.
@@ -104,9 +109,20 @@ You need to add the next lines to your app’s build.gradle file.
 > compile 'com.mcxiaoke.volley:library:1.0.16'
 > compile 'com.google.code.gson:gson:2.3.1'
 
+因为 Gradle 与 Android Studio 之间的依赖关系，你需要在需要开发的 App 的 build.gradle 文件中添加以下的 Gradle 命令：
+
+> compile 'com.squareup.okio:okio:1.5.0'
+> compile 'com.squareup.okhttp:okhttp:2.4.0'
+> compile 'com.mcxiaoke.volley:library:1.0.16'
+> compile 'com.google.code.gson:gson:2.3.1'
+
 The versions may be different as they are updated. Try to avoid + sintaxis on version numbers as is recommended.
 
+当这些库更新，命令中对应的版本号也会发生改变。所以最好在输入这类命令的时候避免输入版本号。
+
 All the dependencies above are official but Volley, that is not official but is trustworthy. There’s not official gradle dependency for Volley as far as I know as I'm writing this.
+
+除了 Volley，上面的所有依赖都由官方提供，但通过上面的命令获得的 Volley 绝对是可靠的，至于为什么 Volley 没有官方提供的依赖，在我写这篇博文的时候也还搞不清楚，反正就是没有……
 
 ![](https://d262ilb51hltx0.cloudfront.net/max/800/1*QUO-bbhxtocaU0XC_dap_Q.png)
 
@@ -114,7 +130,11 @@ All the dependencies above are official but Volley, that is not official but is 
 
 The way Volley works is creating requests and adding them to a queue. One queue is enough for the whole application, so each time you want to make a request you'll get the (only) Volley queue to add the request to that queue.
 
+Volley 执行网络操作的方式是：创建请求，然后把请求添加到一个队列中。对于一个应用来说，一个队列就够了。所以每当你想要创建一个请求，你只能得到唯一的 Volley 队列，并把该请求添加到这个队列里面。
+
 I’m using a global application singleton instance of the queue with the next method:
+
+我在下面的方法中使用了一个该队列的全局单例：
 
 ```java
 /**
@@ -134,9 +154,15 @@ public RequestQueue getVolleyRequestQueue()
 
 The method we are using to create a new request queue has an HttpStack as a parameter. If you use the method that don’t provide an HttpStack Volley will create an stack depending on your API level. (based on the AndroidHttpClient for API level 9 and and HttpURLConnection stack for API level 10 and above)
 
+在我们用于创建新请求队列的方法的参数中，有一个是 HttpStack。如果你使用了不提供 HttpStack 的方法，Volley 则会创建一个受当前 Android API 版本影响的栈。（如果当前 Android API 版本低于9，使用的是 AndroidHttpClient；如果大于9，则是 HttpURLConnection）
+
 As I mention before, we’d like to use OkHttp as our transport layer, that’s the reason we are using as a parameter an OkHttpStack. The OkHttpClient implementation I'm using is [this one](https://gist.github.com/bryanstern/4e8f1cb5a8e14c202750).
 
+正如我之前所说，我们希望让 OkHttp 成为我们的传输层，而这也是我们让 OkHttpStack 成为其中一个参数的原因。我使用的 OkHttpClient 实现是[这样的](https://gist.github.com/bryanstern/4e8f1cb5a8e14c202750)。
+
 The next are methods to add the requests to the Volley requests queue:
+
+下面是将请求添加到 Volley 的请求队列的方法：
 
 ```java
 /**
@@ -163,6 +189,8 @@ public static void addRequest(Request<?> request)
 
 And this is the method to cancel requests that should normally used in the onStop lifecycle method.
 
+同时这个方法也是用于取消应该在 onStop 生命周期方法中正常使用的请求。
+
 ```java
 /**
  * Cancels all the request in the Volley queue for a given tag
@@ -181,6 +209,8 @@ public static void cancelAllRequests(String tag)
 So far we already have Volley and OkHttp ready. So we can start making either String, JsonObject or JsonArray request.
 
 A JsonObject request would be like this:
+
+到这里我们已经用上了 Volley 和 OkHttp，所以我们可以开始让 String，JsonObject，JsonArray 这类对象成为我们请求的对象，那么 JsonOject 对象的实现如下：
 
 ```java
 JsonObjectRequest jsonObjectRequest =
@@ -206,15 +236,23 @@ App.addRequest(jsonObjectRequest, mTAG);
 
 We still need to parse the JSON object to our Java model. The response we are receiving on every Volley request (either String, JsonObject or JsonArray) is not really useful as it is.
 
+现在我们需要解析 JSON 对象，转换为我们的 Java 数据 Model。我们从每一个 Volley 请求中获得的响应（String，JsonObject，JsonArray）并没有那么好用。
+
 ![](https://d262ilb51hltx0.cloudfront.net/max/1280/1*ve4BJ_IfQ3BIKHLL-3HGqg.png)
 
 You are not alone in the Android networking world.
+
+但你在 Android 网络开发的领域并不孤独，还有许多开发者陪你翻山越岭：
 
 ##Gson
 
 We can customize the request to get as responses Java objects that match our data model and we are more comfortable with. All it’s needed is a GsonRequest class extending the Volley Request [like in this example](https://goo.gl/Bo2ahN).
 
+有了 Gson，我们能固自定义请求去获得符合我们 Java 数据 Model 的 Java 对象响应，这无疑会让我们很爽。我们需要的只是一个 Volley Request 类的子类：GsonRequest 类，[就像这样](https://goo.gl/Bo2ahN)。
+
 In the next example we can how would be a GET call to retrieve and parse a Json object:
+
+在下面的例子中，我们将展示怎么通过 GET 调用转换并解析 Json 对象：
 
 ```java
 /**
@@ -248,6 +286,8 @@ public static GsonRequest<DummyObject> getDummyObject
 }```
 
 In the next example we can how would be a GET call to retrieve and parse a Json array:
+
+在下面的代码中，我们将展示怎么通过 GET 调用转换并解析 JsonArray：
 
 ```java
 /**
@@ -283,18 +323,30 @@ public static GsonRequest<ArrayList<DummyObject>> getDummyObjectArray
 
 The Gson parsing with a GsonRequest happens on the background worker thread instead of the main thread.
 
+Gson 解析 GsonRequest 类对象在后台的工作线程中完成，而不是在主线程中。
+
 I’m providing a deserializer in the examples above but note that is not mandatory to provide serializers/deserializers and Gson can handle this very well as far as the field names in the class match (including the case) with the names in the JSON file. I like to provide my serializer/deserializer for customization.
+
+我在上面的示例中提供了反序列化转换器，但要注意的是：并不是强制需要提供序列化，反序列化转换器的，而且 Gson 能够通过 JSON 文件很好的处理与类对应的数据域名（包括 case）。我只是更喜欢用我自己定义的序列化，反序列化转换器而已。
 
 On both examples above we are making GET calls. In case the call is a POST one I've included an for a [GsonPostRequest](https://goo.gl/6t4nJM) and [how to use it](https://goo.gl/Rp8TMx).
 
+在上面的例子中我们都是使用 GET 调用，POST 调用相应的代码则在这：[GsonPostRequest](https://goo.gl/6t4nJM) and [使用方法](https://goo.gl/Rp8TMx).
+
 > *OkHttp works as the transport layer for Volley, which on top of OkHttp is a handy way of making network requests that are parsed to Java objects by Gson just before delivering the response to the main thread*
 
+> *OkHttp 作为 Volley 的传输层，便利地创建用于通过 Gson 在将请求提交到主线程之前解析 Java 对象的网络请求*
+
 ##Loading images
+##读取图片
+
 ###ImageLoader and NetworkImageView
 
 Volley has a custom view called NetworkImageView (subclassing ImageView) that is very handy to load images. You can set an URL, a default view holder and an error image.
 
 Example:
+
+Volley 有一个便于读取图片的叫做 NetworkImageView 的自定义 View（ImageView 的子类）。你可以设置一个 URL，默认的 View Holder 和读取错误显示的图片。例如：
 
 ```java
 mNetworkImageView = (NetworkImageView) itemView.findViewById(R.id.networkImageView);
@@ -306,6 +358,8 @@ mNetworkImageView.setImageUrl(imageUrl, App.getInstance().getVolleyImageLoader()
 The important bit in the code above is the setImageUrl method, which receives two parameters: the image address and an ImageLoader (Volley helper that handles loading and caching images from remote URLs)
 
 Let’s take a look at the getVolleyImageLoader method and how we can get an ImageLoader.
+
+上面的代码的重点在 setImageUrl 方法中，该方法接收两个参数：图片的网络地址和 ImageLoader（Volley 用于加载和缓存从 URL 中获取的图片的辅助类）。
 
 ```java
 /**
@@ -344,9 +398,13 @@ private LruBitmapCache getVolleyImageCache()
 
 The only piece missing in this puzzle is LruBitmapCache. Volley does not provide us with an implementation but [we can get one from here](https://developer.android.com/training/volley/request.html) that looks appropriate and handles the cache size per device specs, which is cool.
 
+还有一个重要的类则是 LruBitmapCache。Volley 没有为我们提供具体实现，但[我们可以在这里得到](https://developer.android.com/training/volley/request.html)，这可以根据设备的内存空间设置缓存大小，非常方便。
+
 ###ImageRequest
 
 In some cases we might want not to use NetworkImageView. Image for example we want circular images and we are using [CircleImageView](https://github.com/hdodenhof/CircleImageView). In that case we'll have to use ImageRequest, which works like this:
+
+某些时候我们可能不想使用 NetworkImageView。例如我们想要显示圆形的图片，此时使用的库是 [CircleImageView](https://github.com/hdodenhof/CircleImageView)。那么在这种情况下我们就得使用 ImageRequest 来满足需求：
 
 ```java
 final CircleImageView circleImageView =
@@ -389,9 +447,18 @@ final CircleImageView circleImageView =
 
 - OkHttp engine is backing HttpURLConnection as of Android 4.4. Twitter, Facebook and Snapchat bundles it as well.
 
+- 在这片博文中提到的所有组件（Okio, OkHttp, Volley 和 Gson）都可以独立被使用，并不一定非要绑定在一起用。
+
+- 我在篇博文引用的文章中的第一篇是由 Jesse Wilson 写的。Jesse Wilson 是唯一站在 Android HTTP, Gson, OkHttp 和 Okio 前面的男人，我认为他值得被我特别提出来并予以夸耀。
+
+- OkHttp 的实现在 Android 4.4 版本会退化为使用 HttpURLConnection。Twitter, Facebook 和 Snapchat 的 Bundle 也会这样。
+
 ##How relevant is this solution in 2015?
+##在2015年这个解决方法有用吗？
 
 The Volley/Gson solution is mature and was quite popular around 2013 and 2014 mainly for been a Google solution and appear in the Android Developers website. Is still a good option to use because is simple and works well. Something to consider is Volley and Gson are not being actively developed anymore (and for a while).
+
+Volley/Gson 解决办法是成熟的而且在2013年和2014年都广泛被使用，原因在于：它们是 Google 官方推荐的方法，而且在各类 Android 开发者网站中被提及。到了今天，它们仍是网络开发的不错选择，因为它们很简便，运行效果也不错。但需要考虑的是，Volley 和 Gson 的更新频率已经越来越低了（而且好久没更新了）。
 
 Analyzing different solutions and compare each other on fields like speed, simplicity and how customizable they are is something will help to decide which one should be used.
 
@@ -401,22 +468,24 @@ You may want to check out some alternatives:
 
 - Android Networking III: ION (coming article)
 
+分析不同的解决方案，并比较各种解决方案的优劣，如：效率、简便性、能否深度定制都是判断某个解决方案能否被采用的标准
+
 ##Github project sample
 
-- [Code sample in Github](https://github.com/Sottti/OkHttpVolleyGsonSample)
+- [源代码](https://github.com/Sottti/OkHttpVolleyGsonSample)
 
 ##Sources
 
-- [Okio in Github](https://github.com/square/okio)
+- [Okio](https://github.com/square/okio)
 
-- [OkHttp webpage](https://square.github.io/okhttp/)
+- [OkHttp 网页](https://square.github.io/okhttp/)
 
-- [Volley introduction at Google IO 2013](https://goo.gl/MvNPQn)
+- [Volley 在 Google IO 2013 中的介绍](https://goo.gl/MvNPQn)
 
 - [Android Developers Volley training](https://goo.gl/9HXqJw)
 
-- [OkHttp as the transport layer for Volley](https://goo.gl/ZjtY6Q)
+- [OkHttp 作为 Volley 传输层被使用](https://goo.gl/ZjtY6Q)
 
 - [A Few Ok Libraries (Jake Wharton at Droidcon Montreal)](https://www.youtube.com/watch?v=WvyScM_S88c)
 
-- [HttpStack implementation which uses OkHttp’s native request/response API instead of relying on the HttpURLConnection wrapper.](https://plus.google.com/+JakeWharton/posts/31jhDwaCvtg)
+- [HttpStack 用 OkHttp 自带的请求/响应 API 的实现，而不是依赖于 HttpURLConnection](https://plus.google.com/+JakeWharton/posts/31jhDwaCvtg)
