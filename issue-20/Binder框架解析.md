@@ -444,28 +444,28 @@ public class DownloadClientActivity extends Activity {
 ```
     
 
-1 指定我们想要调用的对象（返回使用Intent）
+* 1 指定我们想要调用的对象（返回使用Intent）
 
 
-2 为我们的调用指定输入参数
+* 2 为我们的调用指定输入参数
 
 
-3 在我们的handler中创建一个messenger
+* 3 在我们的handler中创建一个messenger
 
 
-4 传递的messenger也是输入的参数
+* 4 传递的messenger也是输入的参数
 
 
-5 启动异步的调用
+* 5 启动异步的调用
 
 
-6 我们的handler保存客户端的引用
+* 6 我们的handler保存客户端的引用
 
 
-7 通过一个handler中的回调收接收响应
+* 7 通过一个handler中的回调收接收响应
 
 
-8 获取响应数据
+* 8 获取响应数据
 
 
 * 和我们的服务端可以看下面：
@@ -513,21 +513,21 @@ public class MessengerDemoService extends IntentService {
 ```
 
 
-1 处理客户端的请求（可能是本地的或远程的）
+* 1 处理客户端的请求（可能是本地的或远程的）
 
 
-2 获取请求数据
+* 2 获取请求数据
 
 
-3 获取messenger的引用
+* 3 获取messenger的引用
 
 
-4 用Message作为数据的通用信封
+* 4 用Message作为数据的通用信封
 
-5 设置我们的应答
+* 5 设置我们的应答
 
 
-6 发送我们的应答
+* 6 发送我们的应答
 
 
 #Binder 术语
@@ -536,67 +536,67 @@ public class MessengerDemoService extends IntentService {
 
 * Binder (Framework) 
 
-所有的IPC架构
+        所有的IPC架构
 
 * Binder Driver
 
-内核级别的驱动，处理各个进程之间的通信
+        内核级别的驱动，处理各个进程之间的通信
 
 * Binder Protocol
 
-底层协议（基于ioctl），用于与Binder驱动通信
+        底层协议（基于ioctl），用于与Binder驱动通信
 
 * IBinder Interface
 
-定义良好的行为（例如：方法），Binder对象必须实现
+        定义良好的行为（例如：方法），Binder对象必须实现
 
 * AIDL
 
-Android接口定义语言，用于描述IBinder接口的业务操作
+        Android接口定义语言，用于描述IBinder接口的业务操作
 
 * Binder (Object)
 
-通用IBinder接口的实现
+        通用IBinder接口的实现
 
 * Binder Token
 
-一个抽象的32位数值，在系统的所有进程中唯一的标识一个Binder对象
+        一个抽象的32位数值，在系统的所有进程中唯一的标识一个Binder对象
 
 * Binder Service
 
-真正实现Binder（对象）的业务操作
+        真正实现Binder（对象）的业务操作
 
 * Binder Client
 
-一个对象，使用Binder服务提供的行为
+        一个对象，使用Binder服务提供的行为
 
 * Binder Transaction
 
-远程Binder对象调用一个行为（例如：一个方法），基于Binder协议，可能涉及发送、接受的数据
+        远程Binder对象调用一个行为（例如：一个方法），基于Binder协议，可能涉及发送、接受的数据
 
 * Parcel
  
-"可以在IBinder中发送消息的容器（数据和对象的引用）"，事务处理的数据单元——一个用作流出请求，另一个用作流入响应
+        "可以在IBinder中发送消息的容器（数据和对象的引用）"，事务处理的数据单元——一个用作流出请求，另一个用作流入响应
 
 * Marshalling
 
-将高级的应用程序数据结构（例如：请求、响应参数）转化成parcel对象的过程，目的是将它们嵌套进Binder的事务中
+        将高级的应用程序数据结构（例如：请求、响应参数）转化成parcel对象的过程，目的是将它们嵌套进Binder的事务中
 ￼
 * Unmarshalling
 
-将Binder事务中获取到的parcel对象重构成高级应用的数据结构的过程（例如：请求、响应参数）
+        将Binder事务中获取到的parcel对象重构成高级应用的数据结构的过程（例如：请求、响应参数）
 
 * Proxy
 
-一个AIDL接口的实现，编组、解组数据，映射调用事务的方法，将一个封装的IBinder引用指向Binder对象
+        一个AIDL接口的实现，编组、解组数据，映射调用事务的方法，将一个封装的IBinder引用指向Binder对象
 
 * Stub
 
-一个AIDL接口局部的实现，当编组/解组数据时，映射事务到Binder Service调用
+        一个AIDL接口局部的实现，当编组/解组数据时，映射事务到Binder Service调用
 
 * Context Manager (a.k.a. servicemanager)
 
-一个特殊的已知处理的Binder对象，被用作为其它Binder注册、查询
+        一个特殊的已知处理的Binder对象，被用作为其它Binder注册、查询
 
 
 Binder Communication and Discovery
@@ -943,8 +943,7 @@ parcelable Bar;
 * 在每个的事务中，Binder驱动都会自动的将远程的binder handle映射成本地的地址，将本地的地址映射成远程的Binder handle
 
 
-这种映射实现：
-
+这种映射实现:
     
     。Binder事务的目标
     
@@ -1036,7 +1035,7 @@ FibonacciCommon - Define AIDL Interface and Custom Types
 
 * 因为库工程从来不会进入到实际的应用（APKS），所以我们可以简化清单文件：
 
-* FibonacciCommon/AndroidManifest.xml* 
+*FibonacciCommon/AndroidManifest.xml* 
 
 ```xml
 
@@ -1053,7 +1052,7 @@ FibonacciCommon - Define AIDL Interface and Custom Types
 
 * 我们现在已经准备好创建AIDL接口了
 
-* FibonacciCommon/src/com/marakana/android/fibonaccicommon/IFibonacciService.aidl* 
+*FibonacciCommon/src/com/marakana/android/fibonaccicommon/IFibonacciService.aidl* 
 
 ```java
 
@@ -1772,7 +1771,7 @@ public class FibonacciActivity extends Activity implements OnClickListener, Serv
 #FibonacciCommon - 定义一个单向的 AIDL 服务
 
 
-* 首先，我们需要一个监听器，它自己是单向的”服务“: 
+* 首先，我们需要一个监听器，它自己是单向的"服务": 
 
 *FibonacciCommon/src/com/marakana/android/fibonaccicommon/IFibonacciServiceResponseListener.aidl:* 
 
@@ -1790,7 +1789,7 @@ oneway interface IFibonacciServiceResponseListener {
 
 * 现在我们可以创建我们自己的单向的(例如：异步的) 接口：
 
-* FibonacciCommon/src/com/marakana/android/fibonaccicommon/IFibonacciService.aidl:* 
+*FibonacciCommon/src/com/marakana/android/fibonaccicommon/IFibonacciService.aidl:* 
 
 ```java
 
@@ -1806,13 +1805,12 @@ oneway interface IFibonacciService {
 
 ```
 
-FibonacciService - Implementing our async AIDL service
 #FibonacciService - 实现异步的 AIDL 服务
 
 
 * 服务的实现调用这个监听器，而不是返回一个结果：
 
-* FibonacciService/src/com/marakana/android/fibonacciservice/IFibonacciServiceImpl.java:* 
+*FibonacciService/src/com/marakana/android/fibonacciservice/IFibonacciServiceImpl.java:* 
 
 ```java
 
@@ -1879,7 +1877,7 @@ public class IFibonacciServiceImpl extends IFibonacciService.Stub {
 
 * 最后，实现的客户端，它本身也必然实现服务端的监听器
 
-* FibonacciClient/src/com/marakana/android/fibonacciclient/FibonacciActivity.java:* 
+*FibonacciClient/src/com/marakana/android/fibonacciclient/FibonacciActivity.java:* 
 
 ```java
 
