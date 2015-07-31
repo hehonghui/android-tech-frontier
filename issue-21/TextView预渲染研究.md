@@ -104,7 +104,7 @@ testcase的内容为，在一个ListView中，显示300个Item，每个item都�
 
 测量性能的指标为，ListView连续向下滚动，测量其平均帧率为多少，分别测量五次，计算其平均值，最终性能测试结果如下：
 
-![](static/images/staticLayoutPerformance.png)
+![](http://ragnraok.github.io/static/images/staticLayoutPerformance.png)
 
 这里测试的机器是MX3，左侧是直接使用StaticLayout的方案，右侧是系统的默认方案，Y轴是FPS，可以看出来，使用优化之后的方案，帧率提升了许多。
 
