@@ -54,7 +54,7 @@ This picture summarizes a bit a few of this concepts:
 
 下面这张图简要总结了一下上述这些概念。
 
-![Paste_Image.png](http://upload-images.jianshu.io/upload_images/30689-55846998f4f5b4ce.png?imageMogr2/auto-orient/strip|imageView2/2/w/1240)
+![](http://upload-images.jianshu.io/upload_images/30689-55846998f4f5b4ce.png?imageMogr2/auto-orient/strip|imageView2/2/w/1240)
 
 **So…where and when can we apply AOP?**
 Some examples of cross-cutting concerns are:
@@ -100,26 +100,34 @@ There are a few tools and libraries out there that help us use AOP:
 * [ASMDEX:](http://asm.ow2.org/asmdex-index.html) 一个类似 ASM 的字节码操作库，运行在Android平台，操作Dex字节码。
 
 **Why AspectJ?**
+
 For our example below I have chosen AspectJ for the following reasons:
+
 * **Very powerful.**
 * **Supports build time and load time code injection.**
 * **Easy to use.**
 
 ## 为什么用 AspectJ？
+
 我们下面的例子选用AspectJ，有以下原因：
+
 * **功能强大**
 * **支持编译期和加载时代码注入**
 * **易于使用**
 
 **Example**
+
 Let’s say we want to measure the performance of a method (how long takes its execution). For doing this we want to mark our method with a **@DebugTrace** annotation and want to see the results using the logcat transparently without having to write code in each annotated method. Our approach is to use AspectJ for this purpose.This is what is gonna happen under the hood:
+
 * **The annotation will be processed in a new step we are adding to our compilation fase.**
 * **Necessary boilerplate code will be generated and injected in the annotated method.**
 
 ## 示例
+
 比方说，我们要测量一个方法的性能（执行这个方法需要多长时间）。为此我们用一个**@DebugTrace** 的注解标记我们的这个方法，并且无需在每个注解过的方法中编写代码，就可以通过 logcat 输出结果。我们的方法是使用 AspectJ 达到这个目的。
 
 我们看下在底层到底发生了什么：
+
 * **注解会在我们增加到编译过程中的一个新的步骤被处理。**
 * **注解的方法内会生成和注入必要的样板代码。**
 
@@ -127,7 +135,7 @@ I have to say here that while I was researching I found [Jake Wharton’s Hugo 
 
 在此，我必须要提到当我研究这些时，发现了[Jake Wharton’s Hugo Library](https://github.com/JakeWharton/hugo) 这个项目，支持做同样的事情。因此，我重构了我的代码，看上去和它类似。尽管，我的代码是一个更加原始和简化的版本（顺便提一下，通过看这个项目的代码，我学到了很多）。
 
-![AspectWeaving.png](http://fernandocejas.com/wp-content/uploads/2014/08/AspectWeaving.png）
+![](http://upload-images.jianshu.io/upload_images/30689-77fa4ba34c4afe60.png?imageMogr2/auto-orient/strip|imageView2/2/w/1240)
 
 Project structure
 We will break up our sample application into 2 modules, the first will contain our android app and the second will be an android library that will make use of AspectJ library for weaving (code injection).
@@ -458,20 +466,20 @@ Also I have another AOP example for Java (you can use if for Android as well) us
 
 
 Resources
-[Aspect-oriented programming.](http://en.wikipedia.org/wiki/Aspect-oriented_programming)
-[Aspect-oriented software development.](http://en.wikipedia.org/wiki/Aspect-oriented_software_development)
-[Practical Introduction into Code Injection with AspectJ, Javassist, and Java Proxy.](http://www.javacodegeeks.com/2011/09/practical-introduction-into-code.html)
-[Implementing Build-time Bytecode Instrumentation With Javassist.](http://java.dzone.com/articles/implementing-build-time)
-[Frequently Asked Questions about AspectJ.](http://www.eclipse.org/aspectj/doc/released/faq.php)
-[AspectJ Cheat Sheet.](http://blog.espenberntsen.net/2010/03/20/aspectj-cheat-sheet/)
+* [Aspect-oriented programming.](http://en.wikipedia.org/wiki/Aspect-oriented_programming)
+* [Aspect-oriented software development.](http://en.wikipedia.org/wiki/Aspect-oriented_software_development)
+* [Practical Introduction into Code Injection with AspectJ, Javassist, and Java Proxy.](http://www.javacodegeeks.com/2011/09/practical-introduction-into-code.html)
+* [Implementing Build-time Bytecode Instrumentation With Javassist.](http://java.dzone.com/articles/implementing-build-time)
+* [Frequently Asked Questions about AspectJ.](http://www.eclipse.org/aspectj/doc/released/faq.php)
+* [AspectJ Cheat Sheet.](http://blog.espenberntsen.net/2010/03/20/aspectj-cheat-sheet/)
 
 ##资源
-[Aspect-oriented programming.](http://en.wikipedia.org/wiki/Aspect-oriented_programming)
-[Aspect-oriented software development.](http://en.wikipedia.org/wiki/Aspect-oriented_software_development)
-[Practical Introduction into Code Injection with AspectJ, Javassist, and Java Proxy.](http://www.javacodegeeks.com/2011/09/practical-introduction-into-code.html)
-[Implementing Build-time Bytecode Instrumentation With Javassist.](http://java.dzone.com/articles/implementing-build-time)
-[Frequently Asked Questions about AspectJ.](http://www.eclipse.org/aspectj/doc/released/faq.php)
-[AspectJ Cheat Sheet.](http://blog.espenberntsen.net/2010/03/20/aspectj-cheat-sheet/)
+* [Aspect-oriented programming.](http://en.wikipedia.org/wiki/Aspect-oriented_programming)
+* [Aspect-oriented software development.](http://en.wikipedia.org/wiki/Aspect-oriented_software_development)
+* [Practical Introduction into Code Injection with AspectJ, Javassist, and Java Proxy.](http://www.javacodegeeks.com/2011/09/practical-introduction-into-code.html)
+* [Implementing Build-time Bytecode Instrumentation With Javassist.](http://java.dzone.com/articles/implementing-build-time)
+* [Frequently Asked Questions about AspectJ.](http://www.eclipse.org/aspectj/doc/released/faq.php)
+* [AspectJ Cheat Sheet.](http://blog.espenberntsen.net/2010/03/20/aspectj-cheat-sheet/)
 
 
 -----
