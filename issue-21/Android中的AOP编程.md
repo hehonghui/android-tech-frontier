@@ -137,7 +137,7 @@ I have to say here that while I was researching I found [Jake Wharton’s Hugo 
 
 ![](http://upload-images.jianshu.io/upload_images/30689-77fa4ba34c4afe60.png?imageMogr2/auto-orient/strip|imageView2/2/w/1240)
 
-Project structure
+**Project structure**
 We will break up our sample application into 2 modules, the first will contain our android app and the second will be an android library that will make use of AspectJ library for weaving (code injection).
 You may be wondering why we are using an android library module instead of a pure java library: the reason is that for AspectJ to work on Android we have to make use of some hooks when compiling our app and this is only possible using the android-library gradle plugin. (Do not worry about this yet, cause I will be giving some more details later).
 
@@ -146,7 +146,7 @@ You may be wondering why we are using an android library module instead of a pur
 
 你可能会想知道为什么我们用一个 Android Library 工程，而不是用一个纯的 Java Library：原因是为了使 AspectJ 能在 Android 上运行，我们必须在编译时做一些 hook。这只能使用 andorid-library gradle 插件完成。（先不要为此担心，后面我会给出更多细节。）
 
-Creating our annotation
+**Creating our annotation**
 We first create our Java annotation. This annotation will be persisted in the class (RetentionPolicy.CLASS) file and we will be able to annotate any constructor or method with it (ElementType.CONSTRUCTOR and ElementType.METHOD). So our DebugTrace.java file will look like this:
 
 ### 创建注解
@@ -158,7 +158,7 @@ We first create our Java annotation. This annotation will be persisted in the cl
 public @interface DebugTrace {}
 ```
 
-Our StopWatch for performance monitoring
+**Our StopWatch for performance monitoring**
 I have created a simple class that encapsulates time start/stop. Here is our StopWatch.java class:
 
 ### 我们的性能监控计时类
@@ -203,7 +203,7 @@ public class StopWatch {
 }
 ```
 
-DebugLog Class
+**DebugLog Class**
 
 I just decorated the “android.util.Log” cause my first idea was to add some more functionality to the android log. Here it is:
 
@@ -230,7 +230,7 @@ public class DebugLog {
 }
 ```
 
-Our Aspect
+**Our Aspect**
 
 Now it is time to create our aspect class (TraceAspect.java) that will be in charge of managing the annotation processing and source-code weaving.
 
@@ -308,7 +308,7 @@ Some important points to mention here:
 * `“Object result = joinPoint.proceed();” `这行代码是被注解的方法执行的地方。因此，在此之前，我们启动我们的计时类计时，在这之后，停止计时。
 * 最后，我们构造日志信息，用 Android Log 输出。
 
-Making AspectJ work with Android
+**Making AspectJ work with Android**
 
 Now everything should be working, but, if we compile our sample, we will see that nothing happens.
 The reason is that we have to use the AspectJ compiler (ajc, an extension of the java compiler) to weave all classes that are affected by an aspect. That’s why, as I mention before, we need to add some extra configuration to our gradle build task to make it work.
@@ -391,7 +391,7 @@ android.libraryVariants.all { variant ->
 }
 ```
 
-Our test method
+**Our test method**
 
 Let’s use our cool aspect annotation by adding it to a test method. I have created a method inside the main activity for testing purpose. Let’s have a look at it:
 
@@ -410,7 +410,7 @@ Let’s use our cool aspect annotation by adding it to a test method. I have cre
 ```
 
 
-Executing our application
+**Executing our application**
 
 We build and install our app on an android device/emulator by executing the gradle command:
 
@@ -434,7 +434,7 @@ You can use the Dex Dump android application (from your phone), or any any other
 **我们的第一个使用 AOP 的Androd 应用可以工作了！**
 你可以用 Dex Dump 或者任何其他的逆向工具反编译 apk，看一下生成和注入的代码。
 
-Recap
+**Recap**
 
 So to recap and summarize:
 
@@ -451,7 +451,7 @@ So to recap and summarize:
 * 我们已经使用 AOP 能力创建了一个可以工作的示例。
 
 
-Conclusion
+**Conclusion**
 
 Aspect Oriented Programming is very powerful. Using it the right way, you can avoid duplicating a lot of code when you have “cross-cutting concerns” in your Android apps, like performance monitoring, as we have seen in our example. I do encourage you to give it a try, you will find it very useful.
 I hope you like the article, the purpose of it was to share what I’ve learnt so far, so feel free to comment and give feedback, or even better, fork the code and play a bit with it.
@@ -464,7 +464,7 @@ I’m sure we can add very interesting stuff to our AOP module in the sample app
 
 我确信我们能在示例 app 的 AOP 模块里增加些有趣的东西，欢迎提出你的想法;)。
 
-Source Code
+**Source Code**
 
 You can check the example app here (using AspectJ): https://github.com/android10/Android-AOPExample
 Also I have another AOP example for Java (you can use if for Android as well) using a Dynamic Proxy: https://github.com/android10/DynamicProxy_Java_Sample
@@ -473,7 +473,7 @@ Also I have another AOP example for Java (you can use if for Android as well) us
 你可以在 https://github.com/android10/Android-AOPExample 下载示例 app 代码。另外我还有一个使用动态代理的 Java AOP 示例（也可以用在Android上）：https://github.com/android10/Android-AOPExample
 
 
-Resources
+**Resources**
 * [Aspect-oriented programming.](http://en.wikipedia.org/wiki/Aspect-oriented_programming)
 * [Aspect-oriented software development.](http://en.wikipedia.org/wiki/Aspect-oriented_software_development)
 * [Practical Introduction into Code Injection with AspectJ, Javassist, and Java Proxy.](http://www.javacodegeeks.com/2011/09/practical-introduction-into-code.html)
