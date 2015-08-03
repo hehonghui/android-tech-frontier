@@ -81,7 +81,7 @@ Some examples of cross-cutting concerns are:
 There are a few tools and libraries out there that help us use AOP:
 
 ## 工具和库
-有一些工具和库帮助我们使用AOP:
+有一些工具和库帮助我们使用 AOP:
 
 * [AspectJ:](https://eclipse.org/aspectj/) A seamless aspect-oriented extension to the Javatm programming language (works with Android).
 
@@ -109,7 +109,7 @@ For our example below I have chosen AspectJ for the following reasons:
 
 ## 为什么用 AspectJ？
 
-我们下面的例子选用AspectJ，有以下原因：
+我们下面的例子选用 AspectJ，有以下原因：
 
 * **功能强大**
 * **支持编译期和加载时代码注入**
@@ -204,6 +204,7 @@ public class StopWatch {
 ```
 
 DebugLog Class
+
 I just decorated the “android.util.Log” cause my first idea was to add some more functionality to the android log. Here it is:
 
 ### DebugLog 类
@@ -230,6 +231,7 @@ public class DebugLog {
 ```
 
 Our Aspect
+
 Now it is time to create our aspect class (TraceAspect.java) that will be in charge of managing the annotation processing and source-code weaving.
 
 ### Aspect 类
@@ -307,6 +309,7 @@ Some important points to mention here:
 * 最后，我们构造日志信息，用 Android Log 输出。
 
 Making AspectJ work with Android
+
 Now everything should be working, but, if we compile our sample, we will see that nothing happens.
 The reason is that we have to use the AspectJ compiler (ajc, an extension of the java compiler) to weave all classes that are affected by an aspect. That’s why, as I mention before, we need to add some extra configuration to our gradle build task to make it work.
 This is how our build.gradle looks like:
@@ -316,7 +319,7 @@ This is how our build.gradle looks like:
 
 我们的 build.gradle 文件如下：
 
-```
+```java
 import com.android.build.gradle.LibraryPlugin
 import org.aspectj.bridge.IMessage
 import org.aspectj.bridge.MessageHandler
@@ -389,12 +392,13 @@ android.libraryVariants.all { variant ->
 ```
 
 Our test method
+
 Let’s use our cool aspect annotation by adding it to a test method. I have created a method inside the main activity for testing purpose. Let’s have a look at it:
 
 ### 我们的测试方法
 我们添加一个测试方法，来使用我们炫酷的 aspect 注解。我已经在主 Activity 类中增加了一个方法用来测试。看下代码：
 
-```
+```java
   @DebugTrace
   private void testAnnotatedMethod() {
     try {
@@ -407,6 +411,7 @@ Let’s use our cool aspect annotation by adding it to a test method. I have cre
 
 
 Executing our application
+
 We build and install our app on an android device/emulator by executing the gradle command:
 
 ### 运行我们的应用
@@ -430,6 +435,7 @@ You can use the Dex Dump android application (from your phone), or any any other
 你可以用 Dex Dump 或者任何其他的逆向工具反编译 apk，看一下生成和注入的代码。
 
 Recap
+
 So to recap and summarize:
 
 * We have had a taste of Aspect Oriented programming paradigm.
@@ -446,6 +452,7 @@ So to recap and summarize:
 
 
 Conclusion
+
 Aspect Oriented Programming is very powerful. Using it the right way, you can avoid duplicating a lot of code when you have “cross-cutting concerns” in your Android apps, like performance monitoring, as we have seen in our example. I do encourage you to give it a try, you will find it very useful.
 I hope you like the article, the purpose of it was to share what I’ve learnt so far, so feel free to comment and give feedback, or even better, fork the code and play a bit with it.
 I’m sure we can add very interesting stuff to our AOP module in the sample app. Ideas are very welcome ;).
@@ -458,6 +465,7 @@ I’m sure we can add very interesting stuff to our AOP module in the sample app
 我确信我们能在示例 app 的 AOP 模块里增加些有趣的东西，欢迎提出你的想法;)。
 
 Source Code
+
 You can check the example app here (using AspectJ): https://github.com/android10/Android-AOPExample
 Also I have another AOP example for Java (you can use if for Android as well) using a Dynamic Proxy: https://github.com/android10/DynamicProxy_Java_Sample
 
