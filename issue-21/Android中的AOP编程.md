@@ -45,7 +45,7 @@ Android 中的 AOP 编程
 * **缓存**
 * [其他更多](http://en.wikipedia.org/wiki/Cross-cutting_concern)
 
-取决于你所选的其中一种或其他的方案 :)。
+取决于你所选的其中一种或其他方案 :)。
 
 ## 工具和库
 有一些工具和库帮助我们使用 AOP:
@@ -68,7 +68,7 @@ Android 中的 AOP 编程
 
 ## 示例
 
-比方说，我们要测量一个方法的性能（执行这个方法需要多长时间）。为此我们用一个**@DebugTrace** 的注解标记我们的这个方法，并且无需在每个注解过的方法中编写代码，就可以通过 logcat 输出结果。我们的方法是使用 AspectJ 达到这个目的。
+比方说，我们要测量一个方法的性能（执行这个方法需要多长时间）。为此我们用一个 **@DebugTrace** 的注解标记我们的这个方法，并且无需在每个注解过的方法中编写代码，就可以通过 logcat 输出结果。我们的方法是使用 AspectJ 达到这个目的。
 
 我们看下在底层到底发生了什么：
 
@@ -85,7 +85,7 @@ Android 中的 AOP 编程
 你可能会想知道为什么我们用一个 Android Library 工程，而不是用一个纯的 Java Library：原因是为了使 AspectJ 能在 Android 上运行，我们必须在编译时做一些 hook。这只能使用 andorid-library gradle 插件完成。（先不要为此担心，后面我会给出更多细节。）
 
 ### 创建注解
-首先我们创建我们的Java注解。这个注解周期声明在class文件上（RetentionPolicy.CLASS），可以注解构造函数和方法（ElementType.CONSTRUCTOR 和 ElementType.METHOD）。因此，我们的 DebugTrace.java 文件看上是这样的：
+首先我们创建我们的Java注解。这个注解周期声明在 class 文件上（RetentionPolicy.CLASS），可以注解构造函数和方法（ElementType.CONSTRUCTOR 和 ElementType.METHOD）。因此，我们的 DebugTrace.java 文件看上是这样的：
 
 ```java
 @Retention(RetentionPolicy.CLASS)
@@ -94,7 +94,7 @@ public @interface DebugTrace {}
 ```
 
 ### 我们的性能监控计时类
-我已经创建了一个简单的计时类，包含 `start/stop` 方法。下面是 StopWatch.java :
+我已经创建了一个简单的计时类，包含 `start/stop` 方法。下面是 StopWatch.java 文件:
 
 ```java
 /**
@@ -331,14 +331,14 @@ Gintonic --> testAnnotatedMethod --> [10ms]
 ```
 
 **我们的第一个使用 AOP 的 Androd 应用可以工作了！**
-你可以用 Dex Dump 或者任何其他的逆向工具反编译 apk，看一下生成和注入的代码。
+你可以用 Dex Dump 或者任何其他的逆向工具反编译 apk 文件，看一下生成和注入的代码。
 
 ## 回顾
 回顾总结如下：
 
 * 我们已经对面向切面编程（AOP）这一范式有了初步体验。
 * 代码注入是 AOP 中的重要部分。
-* AspectJ 是在Android应用中进行代码织入的强大且易用的工具。
+* AspectJ 是在 Android 应用中进行代码织入的强大且易用的工具。
 * 我们已经使用 AOP 能力创建了一个可以工作的示例。
 
 
@@ -364,4 +364,4 @@ Gintonic --> testAnnotatedMethod --> [10ms]
 -----
 译注
 > * AOP 中的术语并没有统一的中文翻译，翻译过程中，术语一节我选取了用的比较多的中文名称注释在括号中帮助理解，正文中其他部分出现的术语，使用原始英文命名。
-* 这篇文章是2014年发布的，2015年7月，阿里巴巴刚刚开源了一个强大的 Android 平台 AOP 框架[Dexposed](https://github.com/alibaba/dexposed)，该项目基于著名的[Xposed](https://github.com/rovo89/Xposed)。
+* 这篇文章是2014年发布的，2015年7月，阿里巴巴刚刚开源了一个强大的 Android 平台 AOP 框架 [Dexposed](https://github.com/alibaba/dexposed)，该项目基于著名的[ Xposed 项目](https://github.com/rovo89/Xposed)。
