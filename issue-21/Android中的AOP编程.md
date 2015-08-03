@@ -58,12 +58,12 @@ This picture summarizes a bit a few of this concepts:
 
 **So…where and when can we apply AOP?**
 Some examples of cross-cutting concerns are:
-**Logging**
-**Persistance**
-**Performance monitoring**
-**Data Validation**
-**Caching**
-[Many others](http://en.wikipedia.org/wiki/Cross-cutting_concern)
+* **Logging**
+* **Persistance**
+* **Performance monitoring**
+* **Data Validation**
+* **Caching**
+* [Many others](http://en.wikipedia.org/wiki/Cross-cutting_concern)
 
 ## 那么...我们何时何地应用AOP呢？
 一些示例的 cross-cutting concerns 如下：
@@ -101,9 +101,9 @@ There are a few tools and libraries out there that help us use AOP:
 
 **Why AspectJ?**
 For our example below I have chosen AspectJ for the following reasons:
-**Very powerful.**
-**Supports build time and load time code injection.**
-**Easy to use.**
+* **Very powerful.**
+* **Supports build time and load time code injection.**
+* **Easy to use.**
 
 ## 为什么用 AspectJ？
 我们下面的例子选用AspectJ，有以下原因：
@@ -113,15 +113,15 @@ For our example below I have chosen AspectJ for the following reasons:
 
 **Example**
 Let’s say we want to measure the performance of a method (how long takes its execution). For doing this we want to mark our method with a **@DebugTrace** annotation and want to see the results using the logcat transparently without having to write code in each annotated method. Our approach is to use AspectJ for this purpose.This is what is gonna happen under the hood:
-**The annotation will be processed in a new step we are adding to our compilation fase.**
-**Necessary boilerplate code will be generated and injected in the annotated method.**
+* **The annotation will be processed in a new step we are adding to our compilation fase.**
+* **Necessary boilerplate code will be generated and injected in the annotated method.**
 
 ## 示例
 比方说，我们要测量一个方法的性能（执行这个方法需要多长时间）。为此我们用一个**@DebugTrace** 的注解标记我们的这个方法，并且无需在每个注解过的方法中编写代码，就可以通过 logcat 输出结果。我们的方法是使用 AspectJ 达到这个目的。
 
 我们看下在底层到底发生了什么：
-* 注解会在我们增加到编译过程中的一个新的步骤被处理。
-* 注解的方法内会生成和注入必要的样板代码。
+* **注解会在我们增加到编译过程中的一个新的步骤被处理。**
+* **注解的方法内会生成和注入必要的样板代码。**
 
 I have to say here that while I was researching I found [Jake Wharton’s Hugo Library](https://github.com/JakeWharton/hugo) that it is suppose to do the same, so I refactored my code and looks similar to it, although mine is a more primitive and simpler version (I have learnt a lot by looking at its code by the way).
 
@@ -286,10 +286,10 @@ public class TraceAspect {
 
 Some important points to mention here:
 
-We declare 2 public methods with 2 pointcuts that will filter all methods and constructors annotated with “org.android10.gintonic.annotation.DebugTrace”.
-We define the “weaveJointPoint(ProceedingJoinPoint joinPoint)” annotated with “@Around” which means that our code injection will happen around the annotated method with “@DebugTrace”.
-The line “Object result = joinPoint.proceed();” is where the annotated method execution happens, so before this, is where we start our StopWatch to start measuring time, and after that, we stop it.
-Finally we build our message and print it using the Android Log.
+* We declare 2 public methods with 2 pointcuts that will filter all methods and constructors annotated with “org.android10.gintonic.annotation.DebugTrace”.
+* We define the “weaveJointPoint(ProceedingJoinPoint joinPoint)” annotated with “@Around” which means that our code injection will happen around the annotated method with “@DebugTrace”.
+* The line “Object result = joinPoint.proceed();” is where the annotated method execution happens, so before this, is where we start our StopWatch to start measuring time, and after that, we stop it.
+* Finally we build our message and print it using the Android Log.
 
 几个在此提到的重点：
 
@@ -424,10 +424,10 @@ You can use the Dex Dump android application (from your phone), or any any other
 Recap
 So to recap and summarize:
 
-We have had a taste of Aspect Oriented programming paradigm.
-Code Injection becomes a very important part of this approach (AOP).
-AspectJ is a very powerful and easy to use tool for source code weaving in Android applications.
-We have created a working example using AOP capabilities.
+* We have had a taste of Aspect Oriented programming paradigm.
+* Code Injection becomes a very important part of this approach (AOP).
+* AspectJ is a very powerful and easy to use tool for source code weaving in Android applications.
+* We have created a working example using AOP capabilities.
 
 ## 回顾
 回顾总结如下：
