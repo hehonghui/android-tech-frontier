@@ -15,9 +15,9 @@ Data Binding框架将会接管Presenter的主要职责（作用于model和view�
 
 我们今天要讲述的架构是MVVM（[Model－View－ViewModel](https://en.wikipedia.org/wiki/Model_View_ViewModel)），它最初是在2005年（不要吓到哦）由微软提出的一个被证明可用的概念。下面我将举例说明从MVP到MVVM的改变，容我盗用下Hanne Dorfmann在他介绍[TED MOSBY框架](http://hannesdorfmann.com/android/mosby/)的文章中的插图。
 
-![](https://tech.vg.no/files/2015/07/mvp.png)
+![](http://tech.vg.no/files/2015/07/mvp.png)
 
-![](https://tech.vg.no/files/2015/07/mvvm.png)
+![](http://tech.vg.no/files/2015/07/mvvm.png)
 
 可以看到对view中数据的所有绑定和更新操作都是通过Data Binding框架实现的。通过[ObservableField类](https://developer.android.com/tools/data-binding/guide.html#observablefields)，View在model发生变化时会作出反应，在XML文件中对属性的引用使得框架在用户操作View时可以将变化推送给对应的ViewModel。我们也可以通过代码订阅属性的变化，这样可以实现例如当CheckBox被点击后，TextView被禁用这样的功能。像这样使用标准Java类来表示View的视觉状态的一个很大优势是明显的：你可以很容易对这种视觉行为进行单元测试。
 
@@ -66,7 +66,7 @@ new ShowToastMessage("hello world")
 
 下面这个app只是起一个演示的作用，它具有一个简单的登陆页面，后台会加载一些异步数据，views之间会有一些依赖。
 
-![](https://tech.vg.no/files/2015/07/illustration.png)
+![](http://tech.vg.no/files/2015/07/illustration.png)
 
 如果你希望在Android Studio中阅读代码，可以到[Github上](https://github.com/Nilzor/mvp-to-mvvm-transition)分别检出MVP和MVVM的标签。
 
@@ -671,8 +671,4 @@ public class MainModel {
     }
 }
 ```
-
-> 文末摄影鉴赏
-
-![](http://image226-c.poco.cn/mypoco/myphoto/20140423/00/17361611220140423003128088.jpg?1024x683_120)
 
