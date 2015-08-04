@@ -83,6 +83,23 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" ></b>
 ## 已完成列表
+# 2015.8.3 ( 第二十一期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [Android数据绑定-再见Presenter,你好ViewModel](issue-21/Android数据绑定-再见Presenter,你好ViewModel.md)  | [ASCE1885](https://github.com/ASCE1885) 
+| [TextView预渲染研究](issue-21/TextView预渲染研究.md)  | [ragnraok](http://ragnraok.github.io/) 
+| [Yelp是如何通过Glide优化图片加载的](issue-21/Yelp是如何通过Glide优化图片加载的.md)  | [tiiime](https://github.com/tiiime) 
+| [使用Mockito对异步方法进行单元测试](issue-21/使用Mockito对异步方法进行单元测试.md)  | [Mr.Simple](https://github.com/bboyfeiyu) 
+
+
+
+# 2015.7.27 ( 第二十期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [在你开发应用前应知道的六件事情](issue-20/在你开发应用前应知道的六件事情.md)  | [dengshiwei](https://github.com/dengshiwei)
+| [检测和解决Android应用的性能问题](issue-20/检测和解决Android应用的性能问题.md)  | [Mr.Simple](https://github.com/bboyfeiyu) 
+
+
 # 2015.7.20 ( 第十九期 )
 | 文章名称 |   译者  | 
 |---------|--------|
