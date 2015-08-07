@@ -157,6 +157,7 @@ public class CustomerViewModel extends BaseObservable {
 - 短路的通知周期将被查看，是否值在通知前发生了变更。
 
 - 避免在view的自己通知自己发生了变更。如果其他view需要在这个情况下被通知，你需要绑定和通知再更细的级别
+
 #统一处理。
 
 到目前为止，我们建立的说明都相互做出了反应，做了对的事情。剩下的事情就是引导绑定途径。这个将在你的Activity或Fragment中。自从我用Fragment加载所有view，我将像这个样子。
