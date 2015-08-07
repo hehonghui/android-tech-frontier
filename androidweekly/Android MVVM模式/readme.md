@@ -3,8 +3,9 @@
 ---
 > * 原文链接 : [MVVM on Android using the Data Binding Library](http://stablekernel.com/blog/mvvm-on-android-using-the-data-binding-library/)
 > * 译者 : [shenyansycn](https://github.com/shenyansycn)
-> * 校对 : 
+> * 校对 :
 
+Google 2015开发者大会终于来了，其中只有一个开发工具真的让我兴奋。我们看到了一系列的改善，例如Android M和以用户为中心的特性，Android Studio支持NDK（C/C++），矢量图，heap分析，改进的主题和layout编辑器，Gradle性能改善，等等。我高兴的是我们终于有了一个[Design Support Library][3] 可以实现[Material Design UI patterns][4]。但大多数这些都已经被其他社区工具和库实现。
 
 有一件事是社区渴望的，但是还没有一个好的模式或工具，那就是如何在我们的项目中改进model和views相互协调的代码。直到现在，Activities和Fragment 通常包含许多脆弱的，不可检测的和乏味的与views关联的代码。但[Data Binding Library][6]改变了这一切。
 
@@ -21,7 +22,7 @@
 在这个library官方文档中，提供了一个例子直接绑定一个实体类User到layout的一个属性上。他们给你一个想法，你可以想象下边这样：
 
 
-```android
+```xml
 android:visibility="<strong>@{age &lt; 13 ? View.GONE : View.VISIBLE}</strong>"
 ```
 
@@ -35,17 +36,17 @@ android:visibility="<strong>@{age &lt; 13 ? View.GONE : View.VISIBLE}</strong>"
 
 增加这些依赖到你项目的**build.gradle**中：
 
-```android
+```gradle
 classpath 'com.android.databinding:dataBinder:1.0-rc1'
 classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
 ```
 
 然后再你的app module的**build.gradle**文件中增加这些；
 
-```android
+```gradle
 apply plugin: 'com.android.databinding'
 apply plugin: 'com.neenbedankt.android-apt'
- 
+
 dependencies {
   apt 'com.android.databinding:compiler:1.0-rc1'
 }
@@ -81,7 +82,7 @@ dependencies {
 
 我们可以使用这个**viewModel**做许多有趣的事情，它的内容绑定到layout的widget属性
 
-```android
+```xml
 <EditText
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -89,7 +90,7 @@ dependencies {
   android:inputType="textCapWords"
   android:text="@{viewModel.customerName}"
   app:enabled="@{viewModel.primaryInfoEnabled}"
-  app:error="@{viewModel.nameError}" 
+  app:error="@{viewModel.nameError}"
   app:addTextChangedListener="@{viewModel.nameWatcher}"
   app:onFocusChangeListener="@{viewModel.nameFocusListener}" />
 ```
@@ -105,17 +106,17 @@ dependencies {
 现在让我们看下ViewModel中相对应的方法。ViewModel继承了**BaseObservable**(这不是必须的，但它帮你节省了很多工作)，公共方法的名字是layout要绑定的并且返回类型要与view的setter方法的类型一致。
 
 
-```android
+```java
 public class CustomerViewModel extends BaseObservable {
- 
+
   public String getCustomerName() {
-    return customer.getName(); 
+    return customer.getName();
   }
-  
+
   public boolean isPrimaryInfoEnabled() {
-    return editMode && !customer.isVerified(); 
+    return editMode && !customer.isVerified();
   }
- 
+
   @Bindable
   public String getNameError() {
     if (customer.getName().isEmpty()) {
@@ -123,7 +124,7 @@ public class CustomerViewModel extends BaseObservable {
     }
     return null;
   }
- 
+
   public TextWatcher getNameWatcher() {
     return new SimpleTextWatcher() {
       @Override
@@ -132,7 +133,7 @@ public class CustomerViewModel extends BaseObservable {
       }
     };
   }
- 
+
   public EditText.OnFocusChangeListener getNameFocusListener() {
     return (v, hasFocus) -> {
       if (!hasFocus) notifyPropertyChanged(BR.nameError);
