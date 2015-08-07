@@ -9,24 +9,13 @@
 * 校对者: [这里校对者的github用户名](github链接)  
 * 状态 :  校对中 
 
-
-I’m using TDD to write a HackerNews client for Android. This post (and the ones that will likely follow it) share a little bit about some of the techniques I used to follow a TDD-based work-flow for developing this application. It also discusses the architecture that arises when Android apps are built with testability in mind from the ground up.
-
 我正在运用TDD的方法去写一个 HackerNews 的 Android 客户端。这篇文章（以及后续会有的一系列文章）分享了一些我基于TDD工作流开发这个应用程序时的所用到的相关技术。本文同时也讨论了具有可测试性的 Android 程序架构从一开始构思到最后成型的过程。
-
-##Testing a Walking Skeleton
-The first step in kick-starting a TDD workflow, according to Steve Freeman and Nat Pryce in Growing Object Oriented Software Guided by Tests, is to “test a walking skeleton.” A walking skeleton, as they define it, is this:
->A “walking skeleton” is an implementation of the thinnest possible slice of real functionality that we can automatically build, deploy, and test end-to-end.
->
->pg. 69-70
 
 ##测试“可行骨架”
 根据 Steve Freeman 和 Nat Pryce 在 Growing Object Oriented Software Guided by Tests 一书中的表述，开始 TDD 工作流的第一步，是“测试可行骨架”。根据他们的定义，一个“可行骨架”的意思是：
 >“可行骨架”是我们能够完成自动化构建、部署，以及端到端之间测试等实际功能的最小可能实现。
 
 >来自第69-70页
-
-A walking skeleton for a HackerNews client, as I see it, should just display a list of HackerNews story ids. To implement this test, I use a simple espresso test that looks like this:
 
 在我看来，对一个 HackerNews 客户端而言，“可行骨架”应该具有能够显示出一个 HackerNews 的故事 id 列表的功能。为了实现这个测试，我写了一个像这样的“超浓缩”测试代码：
 ```Java
@@ -44,12 +33,6 @@ public class MainActivityTests {
     }
 }
 ```
-##How I Got Consistent Test Data
-Here’s a question that arose immediately when writing this test: How can we ensure that the MainActivity was fetching the same data for every test run so that the value 9897306 that we’re checking against is always appropriate. Jake Wharton’s discussion on Dagger modules that can override the dependencies that are injected into your Android objects came to mind here, so I decided to use this approach to ensure that the data the test uses is always the same.
-
-Let me briefly describe how I used this approach in my application.
-
-Objects in PhilHackerNews access the Dagger object graph from the PhilHackerNewsApplication subclass. That class is responsible for making the ObjectGraph:
 
 ##我怎么得到一致的测试数据
 
@@ -75,8 +58,6 @@ public class PhilHackerNewsApplication extends Application {
     }
 }
 ```
-
-So, when I’m running a test, I use a custom test runner that creates a subclass of PhilHackerNewsApplication to create the ObjectGraph with the overridden module:
  
 所以，当我正在运行一个测试的时候，我使用了一个自定义的测试器生成了一个 `PhilHackerNewsApplication` 的子类，通过重新定义的模块生成了 `ObjectGraph` ：
 ```Java
@@ -89,7 +70,6 @@ public class DaggerModuleOverridingAndroidJUnitRunner extends AndroidJUnitRunner
     }
 }
 ```
-The `TestApplication` class creates the `ObjectGraph` with a module that overrides the dependencies responsible for fetching HackerNews data:
 
 这个`TestApplication`的类生成的 `ObjectGraph` 对象，其中包含着的模块能够重新定义那些负责取回 HackerNews 数据的依赖：
 ```Java
@@ -100,7 +80,6 @@ public class TestApplication extends PhilHackerNewsApplication {
     }
 }
 ```
-TestLoaderModule is the module that provides the overridden dependency. It provides a HackerNewsRestAdapter that simply loads HackerNews data from memory instead of the server:
 
 `TestLoaderModule` 模块则提供了那些被重新定义的依赖。它提供了一个 `HackerNewsRestAdapter` 可以直接从内存里载入 HackerNews 的数据，而不用重复访问服务器：
 ```Java
@@ -122,38 +101,23 @@ public class TestLoaderModule {
 }
 ```
 
-##The Current State of App’s Architecture
-Let me point out a few things about the architecture needed to get this test to pass. First off, I want to say that this architecture is likely to change for the same reasons that Pryce and Freeman point out:
-
->When testing a walking skeleton, we’re not trying to elaborate the whole design down to classes and algorithms before we start coding. Any ideas we have now are likely to be wrong, so we prefer to discover those details as we grow the system.
->
->Pg. 73
-
 ##应用的当前架构情况
 让我指出几个使这个程序的构建能够顺利通过测试环节的关键之处。首先，我想说目前的程序架构可能会进一步改变，基于 Pryce 和 Freeman 所说的同样原因：
 >当在测试“可行骨架”的时候，我们并不是尝试在实际写代码之前将全部的算法和所需要用到的类都考虑进去。我们现在所冒出来的想法都有可能是错误的，所以我们更偏向于在进一步发展整个体系的过程中去发现那些细节。
 >
 >第73页
 
-Here’s something interesting about the state of the architecture currently: it uses a combination of RxJava and Loaders to ensure that
-- The network calls are made and delivered properly even if the MainActivity and its Fragment are destroyed because of a configuration change
-- The classes in the “Application Layer” of this app are freed from having to worry about the Android-specific problem of asynchronous data loading for app components that can be destroyed and recreated at any time.
 
 有一些关于当前架构情况的趣事：它使用了 RxJava 和 Loaders 的组合，用来确保：
 - 即使因为设置改变的原因导致 MainActivity 和 Fragment 被销毁，网络请求仍然可以被正确地建立并恰当部署；
 - 该程序应用层的类不用再担心应用组件在异步数据加载方面的一些 Android 具体问题，从而能够随时销毁及重建。
 
-The inspiration for this decision comes from Freeman and Pryce’s advice:
->We don’t want technical concepts to leak into the application model, so we write interfaces to describe its relationships with the outside world in its terminology (Cockburn’s ports ). Then we write bridges between the application core and each technical domain (Cockburn’s adapters ).
->
->Pg. 90
 
 这个决定的灵感来自于 Freeman 和 Pryce 的建议：
 >我们不希望技术性的概念会泄露到应用模型当中，所以我们写了一些接口去描述它们与外界世界的联系（Cockburn的端口）。然后我们写了一些连接应用核心和各个技术域的桥梁（Cockburn的适配器）。
 >
 >来自第90页
 
-The problem that Loaders attempt to solve, as I see it, is a technical one that doesn’t belong in the Application Layer. To shield application layer objects from this technical detail, I’ve created and pass around an Observable that, upon subscription, initializes a load from a Loader using a LoaderManager:
 在我看来，`Loader` 尝试去解决的是一个不属于应用层的技术问题。为了能够将应用层对象与这里的技术细节隔绝开，根据订阅情况，我使用 `LoaderManager` 从 `Loader` 里生成并传递了一个 `Observable（观察者）`，初始化了一次加载：
 ```Java
 public class LoaderInitializingOnSubscribe<T> implements Observable.OnSubscribe<T> {
@@ -187,7 +151,6 @@ public class LoaderInitializingOnSubscribe<T> implements Observable.OnSubscribe<
     }
 }
 ```
-Rather than dealing with loaders directly, clients that want to consume the “loaded” data subscribe to the Observable that’s created with a `LoaderInitializingOnSubscribe`. In my application, Activities/Fragments/Presenters will not interact with this Observable directly, however. Instead, they’ll interact with a StoryRepository that will (eventually) be responsible for deciding whether data gets loaded from the cache or from the network. Here’s what that class looks like at the moment:
 相比于直接处理loader的方式，客户端更希望能够处理那些已经加载过的数据。这部分的数据由`Observable（观察者）` 订阅并由 `LoaderInitializingOnSubscribe` 类生成。但在我的项目中，Activity, Fragment, Presenter都不会与 `Observable` 进行直接交互。相反，它们会利用一个 `StoryRepository` 的类来进行互动。这个类会最终决定到底是从缓存中读取数据，还是从网络中得到数据。在目前，这个类的代码是这样的：
 ```Java
 public class ConnectivityAwareStoryRepository implements StoryRepository {
@@ -209,7 +172,6 @@ public class ConnectivityAwareStoryRepository implements StoryRepository {
     }
 }
 ```
-And here’s a relevant snippet of the Fragment that uses this class to load the HackerNews data:
 这里是另一个与之相关的代码块。这个 Fragment 也使用了 `StoryRepository` 这个类来加载 HackerNews 的数据：
 ```Java
 public class MainActivityFragment extends Fragment {
@@ -238,7 +200,6 @@ public class MainActivityFragment extends Fragment {
     //...
 }
 ```
-If you want to have a closer look at what I’ve done, feel free to take a look at the repo for this project.
 如果你想进一步地了解我到目前为止完成的工作，可以到这个 [Github 地址](https://github.com/kmdupr33/PhilHackerNews)查看。
 
 
