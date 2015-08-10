@@ -82,6 +82,16 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" ></b>
 ## 已完成列表
+# 2015.8.10 ( 第二十二期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [Android-Activity测试](issue-22/Android-Activity测试.md)  | [desmond1121](https://github.com/desmond1121) 
+| [深入剖析Android网络开发库-part1: OkHttp, Volley and Gson](issue-22/深入剖析Android网络开发库-part1.md)  | [chaossss](https://github.com/chaossss) 
+| [Binder框架解析](issue-22/Binder框架解析.md)  | [Mr.simple](https://github.com/bboyfeiyu) 
+| [Android中的AOP编程](issue-22/Android中的AOP编程.md)  | [byronwind](https://github.com/byronwind) 
+
+
+
 # 2015.8.3 ( 第二十一期 )
 | 文章名称 |   译者  | 
 |---------|--------|
