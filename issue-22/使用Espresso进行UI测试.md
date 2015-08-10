@@ -34,7 +34,7 @@ Espresso测试是非常容易实现的，它由三部分组成：
 
 Espresso官方文档有这样一段话：
 
->*Espresso测试有个很强大的地方是它在多个测试操作中是线程安全的。Espresso会等待当前进程的消息队列中的UI事件，并且在任何一个测试操作中会等待其中的AsyncTask结束才会执行下一个测试。这能够解决程序中大部分的线程同步问题。
+>*Espresso测试有个很强大的地方是它在多个测试操作中是线程安全的。Espresso会等待当前进程的消息队列中的UI事件，并且在任何一个测试操作中会等待其中的AsyncTask结束才会执行下一个测试。这能够解决程序中大部分的线程同步问题。*
 
 我一般使用[Retrofit](http://square.github.io/retrofit/)来处理我的Http请求，而不是`AsyncTask`（虽然大多数人还是使用`AsyncTask`），在这种情况下也有别的办法来实现线程安全的测试。Espresso中有个API叫做`registerIdlingResource`，它可以让你使用自定义的线程安全逻辑。
 
