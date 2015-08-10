@@ -21,15 +21,15 @@ Espresso测试是非常容易实现的，它由三部分组成：
 
 ViewMatchers – something to find the view to act upon/assert something about
 
-- ViewMachers：用于寻找用来测试的View的工具。
+- ViewMachers：寻找用来测试的View。
 
 ViewActions – something to perform an action (type text, click a button)
 
-- ViewActions：用于发送交互事件的工具。
+- ViewActions：发送交互事件。
 
 ViewAssertions – something to verify what you expect
 
-- ViewAssertions：用于检验测试结果的工具。
+- ViewAssertions：检验测试结果。
 
 For example, the following test would type the name “Steve” into an EditText with the id name_field, click a Button with the id greet_button and then verify that the text “Hello Steve!” appears on the screen:
 
