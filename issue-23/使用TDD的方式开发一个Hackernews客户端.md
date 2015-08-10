@@ -6,8 +6,8 @@
 * 原文作者 : [K. Matthew Dupree](http://www.philosophicalhacker.com)
 * 译文出自 : [开发技术前线 www.devtf.cn。未经允许，不得转载!](http://www.devtf.cn)
 * 译者 : [Anthonyeef](https://github.com/Anthonyeef) 
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  校对中 
+* 校对者: [Mr.simple](https://github.com/bboyfeiyu)  
+* 状态 :  完成 
 
 我正在运用TDD的方法去写一个 HackerNews 的 Android 客户端。这篇文章（以及后续会有的一系列文章）分享了一些我基于TDD工作流开发这个应用程序时的所用到的相关技术。本文同时也讨论了具有可测试性的 Android 程序架构从一开始构思到最后成型的过程。
 
