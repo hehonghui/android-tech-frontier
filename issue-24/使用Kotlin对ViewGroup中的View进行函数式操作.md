@@ -1,4 +1,14 @@
-Functional operations over Views in ViewGroup using Kotlin
+使用 Kotlin 对 ViewGroup 中的 View 进行函数式操作
+---
+
+> * 原文链接 : [Functional operations over Views in ViewGroup using Kotlin](http://antonioleiva.com/functional-operations-viewgroup-kotlin/)
+* 原文作者 : [Antonio](https://plus.google.com/+AntonioLeivaGordillo)
+* 译文出自 : [开发技术前线 www.devtf.cn。未经允许，不得转载!](http://www.devtf.cn)
+* 译者 : [tiiime](https://github.com/tiiime)
+* 校对者: [这里校对者的github用户名](github链接)  
+* 状态 :   校对中
+
+
 
 Collections, iterators, arrays, sequences… all share a good set of useful functions that help do transformations, sortings and other kind of operations over their items. But there are parts in Android SDK where this is not available due to the way the classes are constructed.
 
@@ -11,7 +21,7 @@ If we have a Sequence, the world of functional operations is open for us to use 
 >there’s an easier way to get the same result without using a sequence.
 >I’ll leave the original text for the record, but I suggest you to take a look to the alternative solution.
 
-使用 Kotlin 对 ViewGroup 中的 View 进行函数式操作
+
 
 Collections, iterators, arrays, sequences...都对 **转换，排序或者其他对 item
 的操作** 提供了完整的支持。不过由于这些类在 Android 中被构造的方式不同，
