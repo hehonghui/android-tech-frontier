@@ -195,7 +195,9 @@ We also explicitly destroy the Prism instance in onDestroy(). While this isn’t
 
 So there we have the fundamentals of Prism: By adding an additional 6 lines of code to our onCreate() we can do this if we hook up our FAB to toggle colours:
 
-这样我们就了解了Prism的基础工作原理：在`onCreate()`中添加6行代码就可以让`FloatingActionButton`转换颜色。
+这样我们就了解了Prism的基础工作原理：在`onCreate()`中添加6行代码就可以让`FloatingActionButton`和你的`Toolbar`、`TextView`转换颜色：
+
+![示例](http://img.blog.csdn.net/20150816235240096)
 
 So that’s pretty powerful stuff but we haven’t even looked at incorporating Triggers in to the equation yet. In the next article we’ll do just that.
 
