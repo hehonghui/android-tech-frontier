@@ -36,7 +36,7 @@ Prism下含有三个库：
 
 The reasoning behind splitting them up was that the core Prism library has no external dependencies and is small and cheap to add to your project. However both the ViewPager and Palette extensions have external dependencies on the relevant support libraries. So if, for example, your project needs neither of these extensions you do not incur any unnecessary dependencies. However, if you do need ViewPager then you’re project will already have a dependency on the ViewPager support library so the overhead of adding the Prism ViewPager extension lib will be negligible.
 
-分成三个库的原因是为了区分依赖条件：核心库不依赖外部条件，它能够很容易地添加到你的工程之中；但是prism-viewpager和prism-palette需要依赖相应的support库。所以当你的程序不使用这些依赖库时，你可以只使用prism库来省去不必要的依赖条件。不过当你的程序中使用了`ViewPager`时，即已经对相关的support库有了依赖，那么添加prism-viewpager库就不需要额外的依赖条件。
+分成三个库是为了区分依赖条件：核心库不依赖外部条件，它能够很容易地添加到你的工程之中；但是prism-viewpager和prism-palette需要依赖相应的support库。所以当你的程序不使用这些依赖库时，你可以只使用prism库来省去不必要的依赖条件。不过当你的程序中使用了`ViewPager`时，即已经对相关的support库有了依赖，那么添加prism-viewpager库就不需要额外的依赖条件。
 
 Prism is published to both jCenter and Maven Central so, assuming that you already have one or both of these configured as repos for your project it is simply a case of adding the dependencies to your build.grade:
 
