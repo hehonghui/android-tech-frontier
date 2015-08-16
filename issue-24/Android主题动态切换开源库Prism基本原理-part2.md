@@ -1,6 +1,6 @@
 #Android主题动态切换开源库Prism基本原理(1)
 
-> * 原文链接 : [Prism Fundamentals Part 1](https://blog.stylingandroid.com/prism-fundamentals-part-1/)
+> * 原文链接 : [Flux Architecture on Android](http://lgvalle.github.io/2015/08/04/flux-architecture/)
 * 原文作者 : [Mark Allison](https://blog.stylingandroid.com/)
 * 译者 : [Desmond1121](https://github.com/desmond1121)  
 * 校对者: 
