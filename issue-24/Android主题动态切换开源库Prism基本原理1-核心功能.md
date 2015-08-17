@@ -1,4 +1,4 @@
-#Android主题动态切换开源库Prism基本原理(1)
+#Android主题动态切换开源库Prism基本原理1-核心功能
 
 > * 原文链接 : [Prism Fundamentals Part 1](https://blog.stylingandroid.com/prism-fundamentals-part-1/)
 * 原文作者 : [Mark Allison](https://blog.stylingandroid.com/)
