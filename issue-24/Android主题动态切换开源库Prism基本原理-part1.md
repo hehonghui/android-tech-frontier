@@ -131,7 +131,7 @@ Prism提供了智能的工厂方法，它会根据你传入的数据来智能选
 
 这样我们就了解了Prism的基础工作原理：在`onCreate()`中添加6行代码就可以让`FloatingActionButton`和你的`Toolbar`、`TextView`转换颜色：
 
-![Demo](http://i1.tietuku.com/bf82cd0357002c5b.gif)
+![Demo](http://img.blog.csdn.net/20150816235240096)
 
 怎么样，Prism厉害吧？下一篇文章的内容是怎样Trigger集合到代码中，尽请期待！
 
