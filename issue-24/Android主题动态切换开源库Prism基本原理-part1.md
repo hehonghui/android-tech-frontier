@@ -3,8 +3,7 @@
 > * 原文链接 : [Prism Fundamentals Part 1](https://blog.stylingandroid.com/prism-fundamentals-part-1/)
 * 原文作者 : [Mark Allison](https://blog.stylingandroid.com/)
 * 译者 : [Desmond1121](https://github.com/desmond1121)  
-* 校对者: 
-* 状态 :  未校对
+* 校对者: [bboyfeiyu](https://github.com/bboyfeiyu)
 
 **重要提示：Prism源码目前停止更新了（你可以在[Prism-Github](https://github.com/StylingAndroid/Prism) 描述文件中看到）。不过我还是决定写出这一系列的文章来介绍Prism现在的版本，因为它很可能还有用。**
 
