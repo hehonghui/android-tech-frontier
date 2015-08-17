@@ -82,6 +82,17 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 <b id="articles" ></b>
 ## 已完成列表
+# 2015.8.17 ( 第二十三期 )
+| 文章名称 |   译者  | 
+|---------|--------|
+| [Android-MVVM模式](issue-23/Android-MVVM模式.md)  | [shenyansycn](https://github.com/shenyansycn) 
+| [Android-MVPR-架构模式-Part1](issue-23/Android-MVPR-架构模式-Part1.md)  | [chaossss](https://github.com/chaossss) 
+| [Android双向数据绑定](issue-23/Android双向数据绑定.md)  | [tiiime](https://github.com/tiiime) 
+| [使用Espresso进行UI测试](issue-23/使用Espresso进行UI测试.md)  | [desmond1121](https://github.com/desmond1121) 
+| [使用TDD的方式开发一个Hackernews客户端](issue-23/使用TDD的方式开发一个Hackernews客户端.md)  | [Anthonyeef](https://github.com/Anthonyeef) 
+
+
+
 # 2015.8.10 ( 第二十二期 )
 | 文章名称 |   译者  | 
 |---------|--------|
