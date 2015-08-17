@@ -2,8 +2,11 @@
 
 ---
 > * 原文链接 : [MVVM on Android using the Data Binding Library](http://stablekernel.com/blog/mvvm-on-android-using-the-data-binding-library/)
-> * 译者 : [shenyansycn](https://github.com/shenyansycn)
-> * 校对 :
+* 原文作者 : [Ross Hambrick](http://stablekernel.com/)
+* 译文出自 : [开发技术前线 www.devtf.cn。未经允许，不得转载!](http://www.devtf.cn)
+* 译者 : [shenyansycn](https://github.com/shenyansycn)
+* 校对者: [chaossss](https://github.com/chaossss)  
+* 状态 :   完成
 
 Google 2015开发者大会终于来了，其中只有一个开发工具真的让我兴奋。我们看到了一系列的改善，例如Android M和以用户为中心的特性，Android Studio支持NDK（C/C++），矢量图，heap分析，改进的主题和layout编辑器，Gradle性能改善，等等。我高兴的是我们终于有了一个[Design Support Library][3] 可以实现[Material Design UI patterns][4]。但大多数这些都已经被其他社区工具和库实现。
 

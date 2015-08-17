@@ -5,7 +5,7 @@
 * 原文作者 : [Michael Evans](http://www.michaelevans.org/)
 * 译者 : [desmond1121](https://github.com/desmond1121)
 * 校对者: [bboyfeiyu](https://github.com/bboyfeiyu)
-* 状态 :  已校对
+* 状态 :  完成
 
 在我和很多Android开发者聊天的时候我注意到他们在开发的过程中并不注重测试这一环节，原因是他们认为Android测试太难实现或者难以集成到现有的工程中等等。但是实际上写一个[Espresso](https://code.google.com/p/android-test-kit/wiki/Espresso)并不是一件很难的事情，而且它能够非常方便地集成到你的工程之中。
 
