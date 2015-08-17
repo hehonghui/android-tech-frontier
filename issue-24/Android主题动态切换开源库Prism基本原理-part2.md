@@ -208,11 +208,11 @@ Trigger是Prism触发颜色主题变换时必须的组件。我们首先来看`V
 
 简简单单的几行代码就能够让我们在滑动页面的时候改变主题颜色，看一下Demo吧：
 
-![Demo1](http://i1.tietuku.com/6c408dae268240b4.gif)
+![Demo1](http://img.blog.csdn.net/20150817115052504)
 
 可能有细腻的程序员会发现颜色转换并不是跳跃式的，它会有一个渐变的过程，而且渐变过程是跟随着你的拖拽过程的！
 
-![Demo2](http://i1.tietuku.com/e5e4692656a06798.gif)
+![Demo2](http://img.blog.csdn.net/20150817115119108)
 
 这里面所有的例子都会在[源码Github](https://github.com/StylingAndroid/Prism)中的[示例代码](https://github.com/StylingAndroid/Prism/tree/master/sample-veiwpager) 中看到。
 
