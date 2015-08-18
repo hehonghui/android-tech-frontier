@@ -1,7 +1,5 @@
 #Android LayerDrawable 和 Drawable.Callback
 
-@(Android文章翻译)[UI]
-
 > * 原文链接 : [Android LayerDrawable and Drawable.Callback](http://www.roman10.net/android-layerdrawable-and-drawable-callback/)
 > * 原文作者 : [Liu Feipeng](www.roman10.net)
 > * 译文出自 : [开发技术前线 www.devtf.cn。未经允许，不得转载!](www.devtf.cn)
