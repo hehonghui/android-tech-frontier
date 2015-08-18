@@ -136,3 +136,6 @@ The code contains two methods, one works and the other doesn’t due to the bug 
         animateActionBarNotWorking();
     }
   
+参考文章：
+
+[LayerDrawable - Android Developers](http://developer.android.com/reference/android/graphics/drawable/LayerDrawable.html)
