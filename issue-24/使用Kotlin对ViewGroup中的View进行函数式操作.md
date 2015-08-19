@@ -5,22 +5,8 @@
 * 原文作者 : [Antonio](https://plus.google.com/+AntonioLeivaGordillo)
 * 译文出自 : [开发技术前线 www.devtf.cn。未经允许，不得转载!](http://www.devtf.cn)
 * 译者 : [tiiime](https://github.com/tiiime)
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :   校对中
-
-
-
-Collections, iterators, arrays, sequences… all share a good set of useful functions that help do transformations, sortings and other kind of operations over their items. But there are parts in Android SDK where this is not available due to the way the classes are constructed.
-
-For instance, we can’t directly get a list of the views inside a ViewGroup, so these kind of operations are not possible. But not everything is lost. In Kotlin, we have a way to prepare any kind of data to work with these operations. The trick is easy: we just need to create a Sequence. In our case, the sequence will be a set of Views in sequential order. We just need to implement its single function, which returns an Iterator.
-
-If we have a Sequence, the world of functional operations is open for us to use them. So let’s start with that.
-
->Note: Read till the end of the article
->As lakedaemon666 suggests in comments,
->there’s an easier way to get the same result without using a sequence.
->I’ll leave the original text for the record, but I suggest you to take a look to the alternative solution.
-
+* 校对者: [bboyfeiyu](https://github.com/bboyfeiyu)
+* 状态 :  完成
 
 
 Collections, iterators, arrays, sequences...都对 **转换，排序或者其他对 item
@@ -33,7 +19,7 @@ Collections, iterators, arrays, sequences...都对 **转换，排序或者其他
 在我们的例子中，sequence 是一组按顺序排列的 View 集合。我们只需要去
 **实现一个返回 Iterator 的函数**。
 
-假设我们有一个 **Sequence**，函数世界的大门已经为我们打开。那么让我们开始吧。
+假设我们有一个 **Sequence**，函数世界的大门就已经为我们打开。那么让我们开始吧。
 
 >**Note: 请看文章结尾部分**
 >
@@ -41,9 +27,6 @@ Collections, iterators, arrays, sequences...都对 **转换，排序或者其他
 >  Sequence 。原文这里不会修改，不过我建议你去看一看他的解决办法。
 
 ---
-
-##Creating a Sequence from a ViewGroup
-As mentioned before, we’ll create an iterator, which must know if there is a next item, and which one it is. We can create an extension function, which will be available for any ViewGroup and descendant classes A simple way to do that:
 
 ##从 ViewGroup 中创建一个 Sequence
 
@@ -82,13 +65,6 @@ fun ViewGroup.asSequence(): Sequence<View> = object : Sequence<View> {
 
 ---
 
-##Retrieving a recursive list of views
-It’d be very useful to have a list of views we can apply functions to. So we
-could first create a list of the Views in the first level, and then use it to
-retrieve the views inside the rest of ViewGroups inside the parent in a recursive way.
-Let’s create a new extension property for ViewGroup. An extension property
-is very similar to an extension function,and can be applied to any class:
-
 ##检索 View 的递归 list
 
 获取一个 view 的list 对其进行函数操作的 。我们首先创建一个所有一级 view 的 list，
@@ -101,7 +77,6 @@ public val ViewGroup.views: List<View>
     get() = asSequence().toList()
 ```
 
-With this, we could create a recursive function that returns all the Views inside any ViewGroup in the layout:
 接下来，创建一个递归函数返回 layout 中每个 ViewGroup 里的所有 view。
 
 ```kotlin
@@ -114,19 +89,13 @@ public val ViewGroup.viewsRecursive: List<View>
     }
 ```
 
-With flatMap, we convert all the multiple lists from every result into one single list.
-It will iterate over any view, and if it’s a ViewGroup, it will ask for its own views.
-Otherwise, it’ll return a list with a single item.
 
 使用 **flatap** 操作将所有结果中的多个 list 转换成单个的 list。
 它会遍历所有 view，返回仅有一个 item 的 list，
 如果遍历的对象是一个 **ViewGroup**，就会请求获取 ViewGroup 内的 view。
 
-##Usage examples
 ##用例
 
-Now we can get the viewsRecursive property to perform any operation we can think of.
-Here you can see a couple of examples. I created a simple layout that looks like this:
 
 现在我们可以对 viewsRecursive 属性执行我们想要的操作了。这里有两个例子,
 我创建了下面这样的一个 layout:
@@ -207,8 +176,6 @@ Here you can see a couple of examples. I created a simple layout that looks like
 
 ---
 
-This is the code that, for instance, can be applied in MainActivity.onCreate(). It will convert the Hello Kotlin! string to uppercase, and the even checkboxes to checked:
-
 下面是代码部分，可以在  MainActivity.onCreate() 执行。它把 `Hello Kotlin`
 字符串转换成大写，然后还设置了 Checkox 的点击事件:
 
@@ -237,11 +204,6 @@ views filter {
 
 ![img](http://antonioleiva.com/wp-content/uploads/2015/07/views-modified-e1437489038699.png)
 
-##Alternative solution
-As lakedaemon666 mentions in comments (thanks for the explanation), there’s no much sense in creating a sequence if we are iterating over the whole sequence right after that. Sequences are meant for lazy iteration, for instance, when reading the lines of a file. Only the necessary items will be requested. However, in this situation we are using all of them, so a plain list will be enough.
-
-Besides, there’s a much easier way to create a list of views. We can rely on ranges to generate a list of the indexes of the views and map them to the list of views we need. Everything in just one line:
-
 ##另一种思路
 lakedaemon666 在评论中提到(感谢回复)，创建并遍历一个 sequence 没有什么意义。
 Sequences 意味着 lazy iteration，比如，当读取 file 里的某一行时，只有需要的
@@ -257,16 +219,8 @@ public val ViewGroup.views: List<View>
 
 ---
 
-##Conclusion
+
 ##结语
-
-This is a silly example, but with this idea you’ll probably be able to make all
-your code more functional, and stop depending on loops and other flow controls
- which are more typical from iterative programming.
-
-And remember you can learn this and many other things about Kotlin in the book
- I’m writing: [Kotlin for Android Developers][kotlin-for-android-developers],
- where you will learn Kotlin by creating an Android App from the ground up.
 
 这个例子看起来可能有点傻，不过你可以从中学到些东西让你的代码更加函数化，
 而不是循环或者其他更典型的迭代编程中的流程控制。
