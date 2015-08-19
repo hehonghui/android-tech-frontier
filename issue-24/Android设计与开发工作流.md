@@ -1,0 +1,275 @@
+Android设计与开发工作流
+---
+> * 原文链接 : [Wutson: Exploring Design And Development Workflows](http://novoda.com/blog/londroid-wutson/)
+* 原文作者 : [Ataul Munim](http://novoda.com/blog/author/ataulm/)
+* [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
+* 译者 : [dengshiwei](https://github.com/dengshiwei) 
+* 校对者: [这里校对者的github用户名](github链接)  
+* 状态 :  未完成 / 校对中 / 完成 
+
+At this month's Londroid, Qi and I presented Wutson - an app we've been working on since the start of this year. We share our workflow describing how we worked together, which tools we find most valuable, and tips for improving the dev-design process.
+
+Wutson is your own personal TV guide, an app to help you find what's on. We decided to make it because none of the existing options we found felt quite right: some had thoughtful features and UX but looked dated and carried ads, while others looked brilliant but had confusing UX and awkward user journeys.
+
+![Home](http://novoda.com/blog/content/images/2015/07/wutson_photo.png)
+
+Development started around the time that Android TV was launching - Wutson would be a perfect app for the living room: very visual, really simple and of course, it's the right place for a TV guide.
+
+This year, we've also been quite focused on exploring accessibility for Android in some of our newer projects; a lot of the considerations that would make an app usable for TV would also help make the app accessible, so this was an ideal case to experiment and learn.
+
+在这个月的Londroid，Qi和我一起发布了Wutson，这是一款我们从年初就为此工作的app。我们分享我们的工作流程，包含我们如何一起工作、我们发现的哪些工具最有用以及改进开发设计过程的技巧。
+
+Wutson是你的私人TV指南，它帮助你找到什么在上映。我们决定开发它是因为我们没有发现现有的app选项是合适的：一些原本体贴的功能和UX但是看起来显得过时并且夹杂着广告，还有一些看起来非常明亮，但是却混淆着UX和不友好的用户使用流程。
+
+![Home](http://novoda.com/blog/content/images/2015/07/wutson_photo.png)
+
+开始开发的时间在Android TV启动的时间前后 - Wutson将是家居生活中的完美app应用：非常直观、很简单，当然它是非常适合TV指南。
+
+今年里，我们也非常专注于探索Android在我们的一些新项目中的可行性。大量的使一个app应用适用于TV和有助于app的可访问的考虑，所以这是一个对于实验和学习的理想情况。
+
+We started by looking at existing apps - two of the most popular were [SeriesAddict](https://play.google.com/store/apps/details?id=com.zenstyle.seriesaddict) and [SeriesGuide](https://play.google.com/store/apps/details?id=com.battlelancer.seriesguide).
+
+SeriesGuide is a great example of an app with a gorgeous UI; it's the one I currently use. Unfortunately some simple tasks are not intuitive (searching for a show) or not possible (looking for the episode description for a show you don't yet track).
+
+SeriesAddict is a popular app in France backed by the [BetaSeries](https://www.betaseries.com/introduction) API. It doesn't follow the most up-to-date UI patterns, but has some well designed features like the watchlist, a view which presents the oldest five episodes that you haven't marked as watched for every show you're tracking.
+
+![Flow](http://novoda.com/blog/content/images/2015/07/userflow.png)
+
+我们开始寻找现有的app应用 - [SeriesAddict](https://play.google.com/store/apps/details?id=com.zenstyle.seriesaddict) 和 [SeriesGuide](https://play.google.com/store/apps/details?id=com.battlelancer.seriesguide)是最有名的两款。
+
+SeriesGuide对于UI华丽的app应用是一个很棒的范例。它是我现在使用的一个应用。不幸的是一些简单的工作并不直观（寻找一个节目）或不可能的（寻找一个你没跟踪的节目的情节描述）。
+
+在法国，SeriesAddict是一款基于[BetaSeries](https://www.betaseries.com/introduction) API的很瘦欢迎的app。它不跟随最先进的UI模式，但是有一些非常精心设计元素，如watchlist，这个view对于你追踪的每个节目展现你没有标记为已看的最古老的5集。
+
+![Flow](http://novoda.com/blog/content/images/2015/07/userflow.png)
+
+Qi and I made a list of all the features from these apps (and more), then identified the ones we felt were most important to include in an initial release of Wutson, mapping them together as user journeys to form a rough information architecture.
+
+After the initial project bootstrap tasks were complete, it's time to start working on features. We follow a process that's similar to the one we use at Novoda:<br>
+1、Plan<br>
+2、Scribbles/prototype<br>
+3、Visual design and specs<br>
+4、Implement visual refinements<br>
+5、Review (then back to 1)
+
+![trello](http://novoda.com/blog/content/images/2015/07/trello.png)
+
+While we tend to use Atlassian JIRA at work, for our personal project, Qi and I chose to use [Trello](https://trello.com/).
+
+Our Trello board is made up of four columns:
+
+* a to-do list
+* Qi's current tasks
+* my current tasks
+* completed tasks
+
+Qi和我列举了其他app的所有要素，然后确认我们感觉很重要的要素包含在Wutson的初始版本中，把他们映射到一起作为用户指南形成一个粗略的信息框架。
+
+在最初项目的引导任务完成后，是时候开始在要素上工作了。我们遵循一个过程，就像我们在Novoda中使用的一个：<br>
+1、Plan<br>
+2、Scribbles/prototype<br>
+3、Visual design and specs<br>
+4、Implement visual refinements<br>
+5、Review (then back to 1)
+
+![trello](http://novoda.com/blog/content/images/2015/07/trello.png)
+
+我们倾向于选择使用Atlassian JIRA，为了我们的项目，Qi和我选择使用[Trello](https://trello.com/)。
+
+我们的Trello模版由四列组成：
+
+* a to-do list
+* Qi's current tasks
+* my current tasks
+* completed tasks
+
+Our planning meetings would begin with a review of the previous week's work, running through the completed tasks column and either archiving the ticket, or moving it back into the to-do list, if it wasn't [done-done](http://chrislema.com/what-is-done-done/).
+
+Then we'd run through the remaining tasks, deleting the ones that weren't going to be worked on in the near-ish future, and selecting others to move to our respective columns with the intent to start these tasks next.
+
+By planning and reviewing together (instead of separately) we're able to:
+
+* organise tasks so we don't block each other
+* give feedback to contribute to the direction the product is taking
+* receive praise and feedback after presenting the work we've spent time and effort on completing
+
+We presented our workflow for the search feature:
+![scribbles](http://novoda.com/blog/content/images/2015/07/scribbles.png)
+
+我们的计划会议将以审查上周的工作为开始，浏览那些完成的任务或者那些存档的、或放置在to-do列表中的，如果它不是[done-done](http://chrislema.com/what-is-done-done/)。
+
+然后，我们会通过剩余的任务，删除那些在不久的将来不工作的任务，并且选择那些接下来开始工作的任务到我们的列表中。
+
+通过计划和审查一起进行（而不是分开），我们能够：
+
+* 组织任务，所以我们不会阻碍对方
+* 反馈产品的发展方向
+* 展示那些我们花费时间和努力完成的工作，收到赞美和反馈
+
+我们提出了我们工作流程中的搜索功能：
+![scribbles](http://novoda.com/blog/content/images/2015/07/scribbles.png)
+
+Based on the user flow, Qi is able to produce quickly scribble out the basic structures page by page. The Search Overlay and Search Results screens are shown above.
+
+For this stage, there's no need to worry about the details - it doesn't matter what text is displayed, what colour the app bar is, which images to use, and it doesn't even matter if you can't even draw straight lines; they're meant to be pen & paper scribbles.
+
+While Qi is working on these, I'm keeping myself busy by setting up the data side. During the planning stage, we already discuss what the feature should include, so I know which APIs I'll need to hit. On Wutson, I used a combination of [Retrofit](http://square.github.io/retrofit/) and [RxJava](https://github.com/ReactiveX/RxJava) to work quickly.
+
+I should have also started to write tests at this point - it's one of the things we do daily at Novoda but I regret not doing for Wutson. It's never too late though!
+
+When Qi is ready with some scribbled screens, we'll meet again to discuss them:
+![single](http://novoda.com/blog/content/images/2015/07/single.png)
+
+Now is the time we identify all the assets I'll need to implement the design, including overlays for focused and pressed states, icons in various sizes, image placeholders, and font files - that is, we make a list of all the things I need from Qi.
+
+In terms of accessibility, we identify which components can fall under a single content description. To ensure we have keyboard/trackball/switch access (non-touch mode), we take decisions on which elements are core to the screen. For example, we might hide the star icon here if the user is in non-touch mode, because it'll make navigation through the list take two clicks per item instead of one. We must be careful not to remove functionality though - there is an affordance to track a show on a different screen (show details).
+
+By doing these now, the app is already TV ready - after spending around 8 months with a Nexus Player, I'm certain when I say I'd rather have a completely functional app with similar UI to the phone version than none at all.
+![implementedscribbles](http://novoda.com/blog/content/images/2015/07/implementedscribbles.png)
+
+基于用户工作流程，Qi能够快速的描述出基本结构页面。Search Overlay和Search Results在屏幕上显示。
+
+对于这个阶段，没有必要担心这些细节 - 它不关心到显示的内容文字、app bar的颜色、用到哪个图片、它甚至不关心到无法绘制直线，他们意味着pen和paper scribbles。
+
+当Qi正在做这些，我让自己忙于建立数据面。在规划阶段，我们已经讨论了什么功能应该包括，所以我知道哪些APIs我将会使用。在Wutson中，我使用[Retrofit](http://square.github.io/retrofit/)和[RxJava](https://github.com/ReactiveX/RxJava)来更快的工作。
+
+这个时候，我也应该开始写测试 - 它是我们每天在Novoda必须要做的事情，但我不后悔做Wutson，它永远不会太晚。
+
+当Qi做好一些scribbled的屏幕，我们将再次会面讨论他们。
+![single](http://novoda.com/blog/content/images/2015/07/single.png)
+
+现在是时候确定我将需要实现的设计，包含focueds和pressed状态下的overlays，各种尺寸的图标(icons)，图像占位符(image placeholders)和字体文件(font-files)，这些都是我列举清单上的事物需要从Qi得到的。
+
+在可访问性方面，我们确定哪些组件可以在归入单一文档内容描述类别下。为了确保我们有keyboard/trackball/switch方式(非触摸模式)，我们决定哪些是核心元素在屏幕上显示。例如，如果用户在非触摸模式下我们可能会隐藏星图标(star icon)，因为它会让整个列表导航需要点击两次每个项目而不是一次。我们必须小心不要删除功能 - 它有一个功能追踪不同屏幕的展现(展示细节)。
+
+现在做这些，应用已经准备好了TV - 在xu和一个Nes Player花费了八个月的时间后。我敢肯定，我说我宁愿有一个UI类似功能完善的app而不是功能一点不完善的app。
+![implementedscribbles](http://novoda.com/blog/content/images/2015/07/implementedscribbles.png)
+
+Qi will cut up the scribbles into slices and I'll put them in the app. Implementing it like this for now means:
+
+* Qi can work on visual design (mock ups) while I work on functionality
+* I can consider adding acceptance tests (Espresso) while everything is bare bones
+* I can ensure I've added focus and press states for all interactive elements, even if they're only temporary ones; I should be able to swap the assets later
+
+![geny](http://novoda.com/blog/content/images/2015/07/geny.png)
+
+To test focus states, you need a device with a dpad or trackball, a USB-OTG adapter to plug a keyboard in, or an emulator ([you don't use 'focusable in touch mode'](http://android-developers.blogspot.co.uk/2008/12/touch-mode.html)). The first doesn't really exist with recent versions of Android and the second is feasible but annoying. I tend to use Genymotion virtual devices:
+
+* I can use keyboard to enable non-touch mode, so I can check all focus/press states
+* it has a resizable window
+* screenshots/screen recording
+* very fast
+
+I create a 360x640 px device with 160 pixel density (MDPI) to match Qi's output. Apart from Android's font rendering, this makes it easy to spot differences between the designs and the implementation.
+
+I'll create a device at my minSdkVersion, and one at targetSdkVersion which is especially useful when you're theming or styling anything to do with AppCompat.
+
+So while I'm working on implementing the scribbles, Qi's working on making the scribbles pretty:
+![sketchoutput](http://novoda.com/blog/content/images/2015/07/sketchoutput.png)
+
+Qi将会把scribbles切片，我将把它们放置在app中。类似于现在的意思实现：
+
+* Qi工作在视觉效果(visual design)，我工作在功能上。
+* 当一切都是光秃秃的框架，我可以考虑加入一些验收测试(acceptance tests)。
+* 我可以确定我已经为所有的交互元素添加了focus和press状态，尽管它们只是暂时的，以后我能够进行替换
+![geny](http://novoda.com/blog/content/images/2015/07/geny.png)
+
+为了测试focus状态，你需要一个拥有dpad或trackball的设备(device)、一个USB-OTG适配器插在键盘上或者一个emulator(你不使用['focusable in touch mode'](http://android-developers.blogspot.co.uk/2008/12/touch-mode.html))。第一种情况并不会真是的存在于最近的Android版本，第二个是可行的。我倾向于使用Genymotion虚拟设备(virtual devices)。
+
+* 我可以用键盘来实现non-touch(非接触)模式，这样我就可以检查所有focus/press状态
+* 它有一个可调整大小的窗口
+* it has a resizable window
+* screenshots/screen 录制(recording)
+* 非常快
+
+我创建了一个160像素(pixel density)密度大小为360x640 px的设备(device)来匹配Qi的输出。除了Android的字体渲染(font rendering)，这使得它很容易被发现设计和实现之间的差异。
+
+我将在我的minSdkVersion下创建一个设备(device)，在targetSdkVersion下创建一个设备(device)，当你正在通过AppCompat进行theming or styling这是非常有用的。
+
+因此我工作的落实scribbles，齐的工作就做漂亮的scribbles：
+![sketchoutput](http://novoda.com/blog/content/images/2015/07/sketchoutput.png)
+
+Qi explains that Sketch is currently her favourite tool for visual design, particularly loving the vast improvements on loading/running speed (over Photoshop/Illustrator). The Hover Guide allows you to see the distances from your selected element to other elements:
+
+![TUZw2lczewo](https://www.youtube.com/embed/TUZw2lczewo)
+
+Sketch also uses symbols. You create a symbol (e.g. an icon) and use it in multiple places, but when you change the symbol, it updates all the other instances. A similar feature exists for styles, applying the same set of attributes (like text colour, font, etc.) to multiple text boxes:
+
+![eJ6HlmCtbH0](https://www.youtube.com/embed/eJ6HlmCtbH0)
+
+[Sketch itself is available for a 30 day free trial](http://bohemiancoding.com/sketch/) (Mac only) and there are plenty of [design kits online to](http://www.sketchappsources.com/) get you started.
+
+Getting designs over to the development team in a format that's useful to them used to be a hassle. We'd have to produce, for each screen, a PDF showing the margins and paddings, colours, text styles and dimensions. Here's an example that Dave produced while we were working on the Sun Mobile app:
+![redlines](http://novoda.com/blog/content/images/2015/07/redlines.png)
+
+It's not great. For designers, it's a waste of time, and it's easy to miss things. As a developer, the spec sheet is very noisy - and flipping between different projects meant having to get used to the spec sheets from different designers.
+
+Zeplin is program which hopes to have the solution to redlines/spec sheets. It's available as a web app and for designers using Sketch, producing a Zeplin project is as simple as using "Cmd+E" to export their artboards.
+
+Zeplin provides an interactive portal into what we used to get as static spec sheets - we can now query for the information we need, when we need it:
+
+It does require care from designers though - Zeplin isn't clever enough to know what information we need - as developers, we know there's a difference between what the user can see on the screen and what views/view groups make up that screen. These look the same:
+![bounding_before](http://novoda.com/blog/content/images/2015/07/bounding_before.png)
+
+But in Sketch, Qi has to add an invisible bounding box around the numbers so Zeplin can pick it up:
+![bounding-after](http://novoda.com/blog/content/images/2015/07/bounding-after.png)
+
+Once we have the designs exported to Zeplin, it's time to update the app from scribbles to match the design.
+
+I bought [this whiteboard from Amazon](http://www.amazon.co.uk/Brainstorm-Toys-Magnetic-Wipe-Board/dp/B00368CGL4) and it's glorious. You need to get the thin pens too, the fat ones are not useful.
+![whiteboard](http://novoda.com/blog/content/images/2015/07/whiteboard.png)
+
+I draw the part I need to implement as a lo-fi sketch; even though Zeplin hides a lot of information by default, I still think it's a lot of noise, and by making a list, I find it easier to get from A to B.
+
+Ta-da!
+
+![visualdesign](http://novoda.com/blog/content/images/2015/07/wutson-visualdesign.gif)
+
+Next steps will include releasing a beta via Google+ communities and exploring a smart TV app.
+
+Qi说现在Sketch是她最喜欢的视觉设计工具(visual design)，尤其喜爱极大的改善了loading/running速度(超过了Photoshop/Illustrator)。Hover Guide可以让你看到你选择的要素与其他要素之间的距离：
+
+Sketch也使用符号。你创建一个符号(例如：图标)，并在多个地方使用它。但是当你改变这个符号的时候，它会改变所有的实例。类似的现象存在于styles、对于多文本框使用相同的属性(attributes)集(例如文本颜色(text color)、字体(font)等等)。
+
+Sketch本身提供30天的免费使用(仅限Mac)，并有大量的在线设计套件供你使用。
+
+让设计采用开发团队格式对他们来说是有用的，但过去是一个麻烦。我们需要为每一个屏幕(screen)、PDF展示margins和paddings、颜色(colors)、文本样式(text style)以及尺寸(dimentions)。这里是一个例子，当我们为 Sun Mobile app工作的时候Dave创造的：
+![redlines](http://novoda.com/blog/content/images/2015/07/redlines.png)
+
+这不是很好。对设计师来说，这是浪费时间，而且很容易错过事情。作为一名开发人员，规格表是很杂乱的 - 翻转在不同项目之间意味着必须习惯不同设计师的规格表。
+
+Zeplin是一个有希望解决红线/规格表的程序，。它可以为使用Sketch的设计者作为一个Web应用程序，生产Zeplin项目很简单就如同使用“CMD+ E”导出他们的画板。
+
+Zeplin提供了一个互动门户网站变成了我们用来获取静态规格表 - 我们现在可以查询我们需要的信息，当我们需要的时候：
+
+它虽然需要照顾设计者 - Zeplin是不够聪明对于知道我们需要什么样的信息 - 作为开发者，我们知道有哪些东西用户可以在屏幕上什么看到以及什么样的views/view出现在屏幕上。这些看起来是一样的：
+![bounding_before](http://novoda.com/blog/content/images/2015/07/bounding_before.png)
+
+但是在Sketch中，Qi已经在数字周围添加了不可见的边框，所以Zeplin可以捕捉到它：
+![bounding-after](http://novoda.com/blog/content/images/2015/07/bounding-after.png)
+
+一但我们让设计(designs)导入到Zeplin，是时候更新将应用从scribbles更新到匹配design。
+
+我从[Amazon上买了这个whiteboard](http://www.amazon.co.uk/Brainstorm-Toys-Magnetic-Wipe-Board/dp/B00368CGL4)) ，你需要得到一个细笔(thin pens)，粗笔(fat pens)是没用的。
+![whiteboard](http://novoda.com/blog/content/images/2015/07/whiteboard.png)
+
+我画我需要实现一个lo-fi sketch的一部分;即使Zeplin隐藏了许多默认的信息，我仍然认为这是繁杂，并通过一个名单，我发现它更容易从A到B.
+
+Ta-da!
+
+![visualdesign](http://novoda.com/blog/content/images/2015/07/wutson-visualdesign.gif)
+
+接下来的步骤将包括通过发布Google+的社区beta和导出智能电视的app。
+
+
+
+
+
+
+
+
+
+
+
+
+
