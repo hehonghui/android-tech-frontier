@@ -19,13 +19,13 @@ This year, we've also been quite focused on exploring accessibility for Android 
 
 在这个月的Londroid，Qi和我一起发布了Wutson，这是一款我们从年初就为此工作的app。我们分享我们的工作流程，包含我们如何一起工作、我们发现的哪些工具最有用以及改进开发设计过程的技巧。
 
-Wutson是你的私人TV指南，它帮助你找到什么在上映。我们决定开发它是因为我们没有发现现有的app选项是合适的：一些原本体贴的功能和UX但是看起来显得过时并且夹杂着广告，还有一些看起来非常明亮，但是却混淆着UX和不友好的用户使用流程。
+Wutson是你的私人TV指南，它帮助你找到什么在上映。我们决定开发它是因为我们没有发现现有的app选项是合适的：一些原本体贴的功能和用户体验(UX)但是看起来显得过时并且夹杂着广告，还有一些看起来App看起来非常棒，但是用户体验设计(UX)不明确并且有着糟糕的用户使用流程。
 
 ![Home](http://novoda.com/blog/content/images/2015/07/wutson_photo.png)
 
 开始开发的时间在Android TV启动的时间前后 - Wutson将是家居生活中的完美app应用：非常直观、很简单，当然它是非常适合TV指南。
 
-今年里，我们也非常专注于探索Android在我们的一些新项目中的可行性。大量的使一个app应用适用于TV和有助于app的可访问的考虑，所以这是一个对于实验和学习的理想情况。
+今年里，我们也非常专注于探索Android在我们的一些新项目中的可行性。大量的关于App如何适用于TV的考虑也会使做出的App容易使用，所以这是一个实验和学习的理想情况。
 
 We started by looking at existing apps - two of the most popular were [SeriesAddict](https://play.google.com/store/apps/details?id=com.zenstyle.seriesaddict) and [SeriesGuide](https://play.google.com/store/apps/details?id=com.battlelancer.seriesguide).
 
@@ -39,7 +39,7 @@ SeriesAddict is a popular app in France backed by the [BetaSeries](https://www.b
 
 SeriesGuide对于UI华丽的app应用是一个很棒的范例。它是我现在使用的一个应用。不幸的是一些简单的工作并不直观（寻找一个节目）或不可能的（寻找一个你没跟踪的节目的情节描述）。
 
-在法国，SeriesAddict是一款基于[BetaSeries](https://www.betaseries.com/introduction) API的很瘦欢迎的app。它不跟随最先进的UI模式，但是有一些非常精心设计元素，如watchlist，这个view对于你追踪的每个节目展现你没有标记为已看的最古老的5集。
+在法国，SeriesAddict是一款基于[BetaSeries](https://www.betaseries.com/introduction) API的很受欢迎的app。它不跟随最先进的UI模式，但是有一些非常精心设计元素，如watchlist，它会展示出你正在追的节目中没看过的前五集。
 
 ![Flow](http://novoda.com/blog/content/images/2015/07/userflow.png)
 
@@ -65,23 +65,23 @@ Our Trello board is made up of four columns:
 
 Qi和我列举了其他app的所有要素，然后确认我们感觉很重要的要素包含在Wutson的初始版本中，把他们映射到一起作为用户指南形成一个粗略的信息框架。
 
-在最初项目的引导任务完成后，是时候开始在要素上工作了。我们遵循一个过程，就像我们在Novoda中使用的一个：<br>
-1、Plan<br>
-2、Scribbles/prototype<br>
-3、Visual design and specs<br>
-4、Implement visual refinements<br>
-5、Review (then back to 1)
+在最初项目的引导任务完成后，是时候开始在要素上工作了。我们遵循一个过程，与我们在Novoda中使用的一样：<br>
+1、计划(Plan)<br>
+2、草图/原型(Scribbles/prototype)<br>
+3、视觉设计和规格(Visual design and specs)<br>
+4、实现视觉(Implement visual refinements)<br>
+5、回顾(Review)(返回步骤1) (then back to 1)
 
 ![trello](http://novoda.com/blog/content/images/2015/07/trello.png)
 
-我们倾向于选择使用Atlassian JIRA，为了我们的项目，Qi和我选择使用[Trello](https://trello.com/)。
+虽然我们倾向于使用Atlassian JIRA去管理项目，但是在私人项目上我们一般使用[Trello](https://trello.com/)。
 
 我们的Trello模版由四列组成：
 
-* a to-do list
-* Qi's current tasks
-* my current tasks
-* completed tasks
+* 一个to-do列表
+* Qi的当前任务
+* 我的当前任务
+* 完成的任务
 
 Our planning meetings would begin with a review of the previous week's work, running through the completed tasks column and either archiving the ticket, or moving it back into the to-do list, if it wasn't [done-done](http://chrislema.com/what-is-done-done/).
 
@@ -129,20 +129,20 @@ By doing these now, the app is already TV ready - after spending around 8 months
 
 基于用户工作流程，Qi能够快速的描述出基本结构页面。Search Overlay和Search Results在屏幕上显示。
 
-对于这个阶段，没有必要担心这些细节 - 它不关心到显示的内容文字、app bar的颜色、用到哪个图片、它甚至不关心到无法绘制直线，他们意味着pen和paper scribbles。
+对于这个阶段，细节是不重要的 - 显示的内容文字、app bar的颜色、用到哪个图片、甚至到是否绘制直线都不重要，只要用笔和纸画出来就好。
 
 当Qi正在做这些，我让自己忙于建立数据面。在规划阶段，我们已经讨论了什么功能应该包括，所以我知道哪些APIs我将会使用。在Wutson中，我使用[Retrofit](http://square.github.io/retrofit/)和[RxJava](https://github.com/ReactiveX/RxJava)来更快的工作。
 
-这个时候，我也应该开始写测试 - 它是我们每天在Novoda必须要做的事情，但我不后悔做Wutson，它永远不会太晚。
+这个时候，我也应该开始写测试 - 它是我们每天在Novoda必须要做的事情，但我不后悔做它(测试)，它永远不会太晚。
 
-当Qi做好一些scribbled的屏幕，我们将再次会面讨论他们。
+当Qi做好一些UI设计的手稿，我们将再次会面讨论他们。
 ![single](http://novoda.com/blog/content/images/2015/07/single.png)
 
 现在是时候确定我将需要实现的设计，包含focueds和pressed状态下的overlays，各种尺寸的图标(icons)，图像占位符(image placeholders)和字体文件(font-files)，这些都是我列举清单上的事物需要从Qi得到的。
 
 在可访问性方面，我们确定哪些组件可以在归入单一文档内容描述类别下。为了确保我们有keyboard/trackball/switch方式(非触摸模式)，我们决定哪些是核心元素在屏幕上显示。例如，如果用户在非触摸模式下我们可能会隐藏星图标(star icon)，因为它会让整个列表导航需要点击两次每个项目而不是一次。我们必须小心不要删除功能 - 它有一个功能追踪不同屏幕的展现(展示细节)。
 
-现在做这些，应用已经准备好了TV - 在xu和一个Nes Player花费了八个月的时间后。我敢肯定，我说我宁愿有一个UI类似功能完善的app而不是功能一点不完善的app。
+现在做这些，应用已经为TV准备好了 - 在Nexus Player上调试了8个月之后，应用已经能够在TV上使用了。但是我非常肯定的说，我更倾向要一个功能与UI都一样的手机版App，否则不如不要。
 ![implementedscribbles](http://novoda.com/blog/content/images/2015/07/implementedscribbles.png)
 
 Qi will cut up the scribbles into slices and I'll put them in the app. Implementing it like this for now means:
@@ -167,26 +167,26 @@ I'll create a device at my minSdkVersion, and one at targetSdkVersion which is e
 So while I'm working on implementing the scribbles, Qi's working on making the scribbles pretty:
 ![sketchoutput](http://novoda.com/blog/content/images/2015/07/sketchoutput.png)
 
-Qi将会把scribbles切片，我将把它们放置在app中。类似于现在的意思实现：
+Qi将界面进行分割，我将它们实现到APP中，就像下面说的这样:
 
-* Qi工作在视觉效果(visual design)，我工作在功能上。
+* Qi做界面设计，我实现功能。
 * 当一切都是光秃秃的框架，我可以考虑加入一些验收测试(acceptance tests)。
 * 我可以确定我已经为所有的交互元素添加了focus和press状态，尽管它们只是暂时的，以后我能够进行替换
 ![geny](http://novoda.com/blog/content/images/2015/07/geny.png)
 
-为了测试focus状态，你需要一个拥有dpad或trackball的设备(device)、一个USB-OTG适配器插在键盘上或者一个emulator(你不使用['focusable in touch mode'](http://android-developers.blogspot.co.uk/2008/12/touch-mode.html))。第一种情况并不会真是的存在于最近的Android版本，第二个是可行的。我倾向于使用Genymotion虚拟设备(virtual devices)。
+为了测试focus状态，你需要一个拥有方向键或轨迹球的设备，以及一个连接键盘的USB-OTG的适配器或者模拟机(你不使用[触屏模式](http://android-developers.blogspot.co.uk/2008/12/touch-mode.html))。前者在最近的Android版本中不存在，后者操作起来很麻烦。我推荐使用Genymotion虚拟机，它有以下几个优点。
 
 * 我可以用键盘来实现non-touch(非接触)模式，这样我就可以检查所有focus/press状态
 * 它有一个可调整大小的窗口
-* it has a resizable window
-* screenshots/screen 录制(recording)
-* 非常快
+* 拥有一个可变的窗体
+* 截屏与录屏(screenshots/screen)
+* 运行速度非常快
 
-我创建了一个160像素(pixel density)密度大小为360x640 px的设备(device)来匹配Qi的输出。除了Android的字体渲染(font rendering)，这使得它很容易被发现设计和实现之间的差异。
+我创建了一个160像素密度(mdpi)的大小为360x640 px的设备(device)来匹配Qi的输出。除了Android的字体渲染(font rendering)，这使得它很容易被发现设计和实现之间的差异。
 
-我将在我的minSdkVersion下创建一个设备(device)，在targetSdkVersion下创建一个设备(device)，当你正在通过AppCompat进行theming or styling这是非常有用的。
+我将在我的minSdkVersion下创建一个设备(device)，如果你使用的是向上兼容版本的Theme或Style等涉及到AppCompat类型的话，最好使用targetSdkVersion创建设备。
 
-因此我工作的落实scribbles，齐的工作就做漂亮的scribbles：
+那么我的工作就是实现UI设计稿，Qi的工作就是做出漂亮的UI设计稿。：
 ![sketchoutput](http://novoda.com/blog/content/images/2015/07/sketchoutput.png)
 
 Qi explains that Sketch is currently her favourite tool for visual design, particularly loving the vast improvements on loading/running speed (over Photoshop/Illustrator). The Hover Guide allows you to see the distances from your selected element to other elements:
@@ -259,7 +259,7 @@ Ta-da!
 
 ![visualdesign](http://novoda.com/blog/content/images/2015/07/wutson-visualdesign.gif)
 
-接下来的步骤将包括通过发布Google+的社区beta和导出智能电视的app。
+接下来的步骤将包括发布到Google+的测试版本和发布轻量级App应用。
 
 
 
