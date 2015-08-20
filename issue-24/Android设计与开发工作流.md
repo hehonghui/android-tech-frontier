@@ -4,8 +4,8 @@ Android设计与开发工作流
 * 原文作者 : [Ataul Munim](http://novoda.com/blog/author/ataulm/)
 * [译文出自 :  开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 译者 : [dengshiwei](https://github.com/dengshiwei) 
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  未完成 / 校对中 / 完成 
+* 校对者: [desmond1121](https://github.com/desmond1121)  
+* 状态 : 校对中
 
 At this month's Londroid, Qi and I presented Wutson - an app we've been working on since the start of this year. We share our workflow describing how we worked together, which tools we find most valuable, and tips for improving the dev-design process.
 
