@@ -77,7 +77,7 @@ Filter可以多样化颜色调整。Prism框架通常只使用单个颜色为所
 
 Trigger触发了Prism的颜色变换。特别的，它是通过调用`setColour(int colour)`，让所有注册过的Setter的来让UI组件产生相应的颜色变换。
 
-在Prism核心库内没有提供内置的Trigger，因为那需要额外的依赖库。不过在VierPager和Palette相应的扩展库中是有提供的。
+在Prism核心库内没有提供内置的Trigger，因为那需要额外的依赖库。不过在ViewPager和Palette相应的扩展库中是有提供的。
 
 现在我们需要将这三个组件整合起来，幸运的是`Prism`实例会帮我们做这件事情。每个`Prism`实例可能没有Trigger也可能有多个Trigger，有一个或多个Setter。每个Setter可以有一个Filter来在不同情况下产生不同的颜色。
 
