@@ -8,11 +8,11 @@
 
 With the release of Android Lollipop, several new support libraries have been created. One of the new libraries is for the Palette class. This new class makes it easy to extract prominent colors from bitmap images, which is useful if you want to style other view components to match colors from your image, such as a background for the image or a text color with suitable contrast.
 
-一些Support库随着Android Lollipop的发布而诞生了，其中就有Palette。这个库可以让你很轻松地从一幅图中抽取特征颜色，这在你希望界面的颜色风格适应指定图像时非常有用（它会提供与指定颜色相搭配的字体颜色）。
+一些Support库随着Android Lollipop的发布而诞生了，其中就有Palette。这个库可以让你很轻松地从一幅图中抽取特征颜色，这在你希望界面的颜色风格适应指定图片时非常有用，它还会提供与指定颜色相搭配的字体颜色。
 
 One particular way I like to use this is to color the ripple drawable behind the image. It is a subtle effect, but I think it is a nice improvement over the standard gray. Before you can use it in your projects, you need to add the following compile line to the Gradle dependencies block in your build.gradle file.
 
-Palette有一个用处我特别喜欢：我可以用它定制图像波纹的颜色。这个效果一般比较微妙，但是相比于纯灰色波纹来说是一个很大的提升。你需要在工程下的`build.gradle`里添加依赖才可以使用Palette，像如下代码所示：
+Palette有一个用法我特别喜欢：它可以定制图像波纹的颜色。这是其实一个微不足道的效果，但是 我认为相比于纯灰色波纹来说是一个很大的提升。你需要在工程下的`build.gradle`里添加依赖才可以使用Palette，像如下代码所示：
 
     dependencies {
       compile 'com.android.support:palette-v7:21.0.0'
