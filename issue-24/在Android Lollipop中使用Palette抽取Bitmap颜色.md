@@ -81,28 +81,20 @@ Once you have the Palette object, there are built-in getter methods for the six 
 
 These generated colors come from an object called a Swatch, which contains some useful data about a color found in the image. You can get the color in either a RGB packed int or the HSL values. It also includes the number of pixels of that color in the image (the population). Finally, the Swatch provides title and body text colors. These colors are guaranteed to have sufficient contrast with the Swatch color, so you won’t have issues with legibility.
 
-这些颜色都来自于对应的`Swatch`，在`Swatch`里面含有很多关于对应颜色的有用信息。你可以从这里面获取RGB颜色值、HSV颜色值、对应颜色在图像中所占的比例、与对应颜色搭配的标题字体颜色和正文字体颜色（这两个颜色和对应颜色的对比值是处理好的，你不必再去操心）。如下面这段代码所示：
+这些颜色都来自于对应的`Swatch`，在`Swatch`里面含有很多关于对应颜色的有用信息。你可以从`Swatch`中获取RGB颜色值、HSV颜色值、对应颜色在图像中所占的比例、与对应颜色搭配的标题字体颜色和正文字体颜色（这两个颜色和对应颜色的对比值是处理好的，你不必再去操心）。如下面这段代码所示：
 
 
     Palette palette  = Palette.generate(myBitmap);
     Palette.Swatch swatch = palette.getVibrantSwatch();
-    // Gets the RGB packed int -> same as palette.getVibrantColor(defaultColor);
     int rgbColor = swatch.getRgb();
-    // Gets the HSL values
-    // Hue between 0 and 360
-    // Saturation between 0 and 1
-    // Lightness between 0 and 1
     float[] hslValues = swatch.getHsl();
-    // Gets the number of pixels represented by this swatch
     int pixelCount = swatch.getPopulation();
-    // Gets an appropriate title text color
     int titleTextColor = swatch.getTitleTextColor();
-    // Gets an appropriate body text color
     int bodyTextColor = swatch.getBodyTextColor();
 
 For each of the six color profiles, there is another method for getting its Swatch object. Unlike the get color methods, there is no default parameter for the Swatch methods. If the Palette object was not able to find a color that matches a particular color profile, the get Swatch method will just return null.
 
-获取六个主颜色的`Swatch`要使用与之前直接获取颜色不同的getter函数，如下面这部分代码所示。它们不需要提供默认值，如果Palette没有解析到对应颜色种类，它会直接返回空的`Swatch`。
+获取六个主颜色的`Swatch`要使用与之前直接获取颜色不同的getter函数，如下面这部分代码所示。它们不需要提供默认值，如果Palette没有解析到对应颜色种类，它会直接返回null。
 
     Palette palette = Palette.generate(myBitmap);
     Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
@@ -124,7 +116,7 @@ Here is an example of the swatches the Palette generates with their respective p
 
 The fact that the Palette object comes with built-in generator methods that run asynchronously make it very quick to use, and I can see the Palette being used in a lot of places. It was neat to see how it collects the different colors in the image, then how it narrows those colors down to the max color number. I recommend digging through the source files to learn more.
 
-Palette的异步方法使得它非常容易去使用，而且我也看到了它用在很多地方。它真是一个非常棒的工具，能够收集一幅图中所有的颜色，并将他们总结到几个不同种类的颜色中。我建议你阅读[源码](https://android.googlesource.com/platform/frameworks/support/+/master/v7/palette/src/android/support/v7/graphics)来更多地学习它！
+Palette的异步方法使得它非常容易去使用，而且我也看到了它用在很多地方。它真是一个非常棒的工具，能够收集一幅图中所有的颜色，并将它们总结到几个不同种类的颜色中。我建议你阅读[源码](https://android.googlesource.com/platform/frameworks/support/+/master/v7/palette/src/android/support/v7/graphics)来更多地学习它！
 
 
 
