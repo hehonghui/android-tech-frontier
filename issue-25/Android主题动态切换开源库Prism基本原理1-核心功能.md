@@ -2,6 +2,7 @@
 
 > * 原文链接 : [Prism Fundamentals Part 1](https://blog.stylingandroid.com/prism-fundamentals-part-1/)
 * 原文作者 : [Mark Allison](https://blog.stylingandroid.com/)
+* 译文出自 : [开发技术前线 www.devtf.cn。未经允许，不得转载!](www.devtf.cn)
 * 译者 : [Desmond1121](https://github.com/desmond1121)  
 * 校对者: [bboyfeiyu](https://github.com/bboyfeiyu)
 
