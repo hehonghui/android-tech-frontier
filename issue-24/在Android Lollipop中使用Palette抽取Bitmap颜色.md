@@ -4,7 +4,7 @@
 * 原文作者 : [Brian Gardner](https://www.bignerdranch.com/about-us/nerds/brian-gardner/)
 * 译文出自 : [开发技术前线 www.devtf.cn。未经允许，不得转载!](http://www.devtf.cn)
 * 译者 : [Desmond1121](https://github.com/desmond1121)
-* 校对者:
+* 校对者: [Desmond1121](https://github.com/desmond1121)
 
 一些Support库随着Android Lollipop的发布而诞生了，其中就有Palette。这个库可以让你很轻松地从一幅图中抽取特征颜色，这在你希望界面的颜色风格适应指定图片时非常有用，它还会提供与指定颜色相搭配的字体颜色。
 
