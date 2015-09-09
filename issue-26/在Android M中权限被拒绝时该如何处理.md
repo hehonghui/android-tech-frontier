@@ -4,7 +4,7 @@
 * 原文作者 : [Wojtek Kaliciński](https://plus.google.com/+WojtekKalicinski/posts)
 * 译文出自 : [开发技术前线 www.devtf.cn。未经允许，不得转载!](www.devtf.cn)
 * 译者 : [Desmond1121](https://github.com/desmond1121)
-* 校对者: [Desmond1121](https://github.com/desmond1121)
+* 校对者: [chaossss](https://github.com/chaossss)
 
 Android M Preview 2 的SDK中引入了一个方法来处理运行时权限：`Activity.shouldShowRequestPermissionRationale()`。
 
