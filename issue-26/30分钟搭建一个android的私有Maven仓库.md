@@ -5,7 +5,7 @@
 * 原文作者 : [JEROEN MOLS](http://jeroenmols.github.io/blog/)
 * 译文出自 : [开发技术前线 www.devtf.cn。未经允许，不得转载!](http://www.devtf.cn)
 * 译者 : [MiJack](https://github.com/mijack)
-* 校对者: [MiJack](https://github.com/chaossss)  
+* 校对者: [chaossss](https://github.com/chaossss)  
 * 状态 :  已完成
 
 ![](http://jeroenmols.github.io/img/blog/artifactory.png)
