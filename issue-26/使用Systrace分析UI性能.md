@@ -86,63 +86,38 @@ Systrace 可以通过[命令行](http://developer.android.com/intl/zh-cn/tools/h
 
 ###监视帧数
 
-Each app that is rendering frames shows a row of frame circles, which are typically colored green. Circles that are colored yellow or red, exceeding the 16.6 millisecond run time limit required to maintain a stable 60 frames per second. Zoom in using the 'w' key to see the frames of your application, and look for long-running frames getting in the way of smoothness.
-
 每个应用都有一行专门显示frame，每一帧就显示为一个绿色的圆圈。不过也有例外，当显示为黄色或者红色的时候，它的渲染时间超过了16.6ms（即达不到60fps的水准）。'w'键可以放大，看看这一帧的渲染过程中系统到底做了什么。
 
->Note: Hit the '?' key, or the button in the top right for help navigating the trace.
 >提示：你可以按右上角的'?'按钮来查看界面使用帮助。
 
 ![frame-unselected](http://desmondtu.oss-cn-shanghai.aliyuncs.com/translation/systrace-frame-unselected.png)
-Figure 2. Systrace display after zooming in on a long-running frame.
 **图2.** Systrace显示长渲染时间的帧
-
-Clicking on one such frame highlights it, focusing only on the work done by the system for that frame. On devices running Android 5.0 (API level 21) or higher, this work is split between the UI Thread and RenderThread. On prior versions, all work in creating a frame is done on the UI Thread.
 
 单击该帧可以高亮它，这时候跟该帧有关的内容会被突出显示。在5.0及以上的系统中，显示工作被拆分成UI线程和Render线程两部分；在5.0以下的系统中，所有的显示工作在UI线程中执行。
 
-Click on individual components of the frame to see how long they took to run. Some events, such as performTraversals, describe what the system is doing in that method when you select it. Selecting a frame displays any alerts present in that frame.
-
 点击单个Frame下面的组件可以看他们所花费的时间。每个事件（比如`performTraversals`）都会在你选中的时候显示出它们调用了哪些方法及所用的时间。
 
-###Investigating Alerts
-###调查警告
-
-Systrace does automatic analysis of the events in the trace, and highlights many performance problems as alerts, suggesting what to do next.
+###调查警告事件
 
 Systrace会自动分析事件，它会将任何它认为性能有问题的东西都高亮警告，并提示你要怎么去优化。
 
 ![frame-selected](http://desmondtu.oss-cn-shanghai.aliyuncs.com/translation/systrace-frame-selected.png)
 **图3.** 选择一个被高亮帧，它会显示出检测到的问题（回收ListView消耗时间太长）。
 
-After you select a slow frame such as the one shown in Figure 3, an alert may be displayed. In the case above, it calls out that the primary problem with the frame is too much work being done inside ListView recycling and rebinding. There are links to the relevant events in the trace, which can be followed to explain more about what the system is doing during this time.
-
 在你选择类似图三中的问题帧之后，它就会提示你检测出的问题。在这个例子中，它被警告的主要原因是ListView的回收和重新绑定花费太多时间。在Systrace中也会提供一些对应链接，它们会提供更多解释。
-
-If you see too much work being done on the UI thread, as in this case with this ListView work, you can use Traceview, the app code profiling tool, to investigate exactly what is taking so much time.
 
 如果你想知道UI线程怎么会花费这么多时间的话，你可以使用[TraceView](http://developer.android.com/intl/zh-cn/tools/debugging/debugging-tracing.html)，它会告诉你都是哪些函数在消耗时间。
 
-Note that you can also find about every alert in the trace by clicking the Alerts tab to the far right of the window. Doing so expands the Alerts panel, where you can see every alert that the tool discovered in your trace, along with an occurrence count.
-
-你可以通过右侧的'Alert'选项卡来查看整个trace过程中发生的问题，并进行快速定位。
+你可以通过右侧的'Alert'选项卡来查看整个trace过程中发生的所有问题，并进行快速定位。
 
 ![frame-selected-alert](http://desmondtu.oss-cn-shanghai.aliyuncs.com/translation/systrace-frame-selected-alert-tab.png)
-Figure 4. Clicking the Alert button to the right reveals the alert tab.
 **图4.** 点击Alert选项卡。
-
-The Alerts panel helps you see which problems occur in the trace, and how often they contribute to jank. Think of the alerts panel as a list of bugs to be fixed, often a tiny change or improvement in one area can eliminate an entire class of alerts from your application!
 
 你可以将Alert面板中的问题视为需要处理的bug，很有可能每一次微小的优化能够去除整个应用中的警告！
 
-##Tracing Application Code
-##追踪应用代码
-
-The tracing signals defined by the framework do not have visibility into everything your application is doing, so you may want to add your own. In Android 4.3 (API level 18) and higher, you can use the methods of the Trace class to add signals to your code. This technique can help you see what work your application's threads are doing at any given time. Tracing begin and end events do add overhead while a trace is being captured, a few microseconds each, but sprinkling in a few per frame, or per worker thread task can go a long way to adding context to a trace of your app.
+##应用级别调试
 
 Systrace并不会追踪应用的所有工作，所以你可以在有需求的情况下自己添加要追踪的代码部分。在Android 4.3及以上的代码中，你可以通过[`Trace`](http://developer.android.com/reference/android/os/Trace.html)类来实现这个功能。它能够让你在任何时候跟踪应用的一举一动。在你获取trace的过程中，`Trace.beginSection()`与`Trace.endSection()`之间代码工作会一直被追踪。
-
-The following code example shows how to use the Trace class to track execution of an application method, including two nested code blocks within that method.
 
 下面这部分代码展示了使用`Trace`的例子，在整个方法中含有两个Trace块。
 
@@ -151,35 +126,27 @@ The following code example shows how to use the Trace class to track execution o
         try {
             Trace.beginSection("Processing Jane");
             try {
-                // code for Jane task...
+               // 待追踪的代码
             } finally {
-                Trace.endSection(); // ends "Processing Jane"
+                Trace.endSection(); // 结束 "Processing Jane"
             }
     
             Trace.beginSection("Processing John");
             try {
-                // code for John task...
+                // 待追踪的代码
             } finally {
-                Trace.endSection(); // ends "Processing John"
+                Trace.endSection(); // 结束 "Processing John"
             }
         } finally {
-            Trace.endSection(); // ends "ProcessPeople"
+            Trace.endSection(); // 结束 "ProcessPeople"
         }
     }
 
->Note: When you nest trace calls within each other, the endSection() method ends the most recently called beginSection(String) method. This means that a trace started within another trace cannot extend beyond the end of the enclosing trace, so make sure your beginning and ending method calls are properly matched to measure your applications processing.
-
 >注意：在Trace是被嵌套在另一个Trace中的时候，`endSection()`方法只会结束理它最近的一个`beginSection(String)`。即在一个Trace的过程中是无法中断其他Trace的。所以你要保证`endSection()`与`beginSection(String)`调用次数匹配。
-
->Note: Traces must begin and end on the same thread. Do not call beginSection(String) on one thread of execution and then attempt to end the trace with a call to endSection() on another thread.
 
 >注意：Trace的begin与end必须在同一线程之中执行！
 
-When using application-level tracing with Systrace, you must specify the package name of your application in the user interface or specify the -a or --app= options on the command line. For more information, see the Systrace usage guide.
-
 当你使用应用级别追踪的时候，你必须通过`-a`或者`-app=`来显式地指定应用包名。可以通过[Systrace指南](http://developer.android.com/intl/zh-cn/tools/help/systrace.html)查看更多关于它的信息。
-
-You should enable app level tracing when profiling your app, even if you have not added signals yourself. Library code can include very useful tracing signals when you enable application-level tracing. The RecyclerView class is a great example of this, providing information about several important stages of work it executes.
 
 你在评估应用的时候应该开启应用级别跟踪，即使当你没有手动添加`Trace`信号。因为很多库函数里面是有添加Trace信号的（比如`RecyclerView`），它们往往能够提供很多信息。
 
