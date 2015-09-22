@@ -5,59 +5,32 @@
 * 原文作者 : [Android Developers](http://developer.android.com//)
 * 译文出自 : [开发技术前线 www.devtf.cn。未经允许，不得转载!](http://www.devtf.cn)
 * 译者 : [desmond1121](https://github.com/desmond1121) 
-* 校对者: 
-
-While developing your application, you should check that user interactions are buttery smooth, running at a consistent 60 frames per second. If something goes wrong, and a frame gets dropped, the first step in fixing the problem is understanding what the system is doing.
+* 校对者: [desmond1121](https://github.com/desmond1121) 
 
 开发应用的时候，应该检查它是否有流畅的用户体验，即60fps的帧率。如果由于某种原因丢帧，我们首先要做的就是知道系统在做什么（造成丢帧的原因）。
 
-The Systrace tool allows you to collect and inspect timing information across an entire Android device, which is called a trace. It shows where time and CPU cycles are being spent, displaying what each thread and process is doing at any given time. It also inpects the captured tracing information to highlight problems that it observes, from list item recycling to rendering content, and provide recommendations about how to fix them. This document explains how to navigate the trace files produced by the tool, and use them to analyze the performance of an application's user interface (UI).
+Systrace允许你监视和跟踪Android系统的行为(trace)。它会告诉你系统都在哪些工作上花费时间、CPU周期都用在哪里，甚至你可以看到每个线程、进程在指定时间内都在干嘛。它同时还会突出观测到的问题，从垃圾回收到渲染内容都可能是问题对象，甚至提供给你建议的解决方案。本文章将介绍如何导出trace以及使用它来优化UI的办法。
 
-Systrace允许你监视、收集Android系统的时间消耗与行为(trace)。它告诉你系统都在哪些工作上花费时间、CPU周期都花费在哪里，甚至你可以看到每个线程、进程在指定时间内都在干嘛。它会在得到trace后高亮观测到的问题，从垃圾回收到渲染内容都可能有，并提供给你建议的解决方案。本文章将介绍如何浏览Systrace导出的trace以及使用它来优化UI的办法。
-
-##Overview
 ##总览
 
-Systrace helps you analyze how the execution of your application fits into the many running systems on an Android device. It puts together system and application thread execution on a common timeline. In order to analyze your app with Systrace, you first collect a trace log of your app, and the system activity. The generated trace allows you to view highly detailed, interactive reports showing everything happening the system for the traced duration.
-
-Systrace可以帮助你分析应用在不同Android系统上的运行情况。它将系统和应用的线程运行情况放置在同一条时间线上分析。你首先需要收集应用和系统应用的trace log（后面会告诉你怎么做），之后你可以使用Systrace生成一份细致、直观的报告，它展示了设备在你监测的这段时间内所发生的事情。
+Systrace可以帮助你分析应用在不同Android系统上的运行情况。它将系统和应用的线程运行情况放置在同一条时间线上分析。你首先需要收集系统和应用的trace（后面会告诉你怎么做），之后Systrace会帮你生成一份细致、直观的报告，它展示了设备在你监测的这段时间内所发生的事情。
 
 ![overview](http://desmondtu.oss-cn-shanghai.aliyuncs.com/translation/systrace-overview.png)
-**图1.** 连续滑动应用5秒的Trace，显然它并没有表现得很好。
+**图1.** 连续滑动应用5秒的Trace，它并没有表现得很完美。
 
-Figure 1. shows a trace captured while scrolling an app that is not rendering smoothly. By default, a zoomed out view of the traced duration is shown. The horizontal axis is time, and trace events are grouped by process, and then by thread on the vertical axis.
+图1展示了应用在滑动不流畅的时候生成的trace。默认缩放成全局显示，你可以放大到自己所关注的地方。横轴代表着时间线，事件记录按照进程分组，同一个进程内按线程进行纵向拆分，每个线程记录自己的工作。
 
-图一展示了应用在滑动不流畅的时候生成的trace。默认缩放成全局显示，你可以放大到自己所关注的地方。横轴代表着时间线，事件记录按进程分组，同一个进程内按线程纵向拆分记录各自的事件。
+在本例中，一共有三个组：Kernel, SurfaceFlinger, App，他们分别以包名为标识。每个应用进程都会包含其中所有线程的记录信号，你可以看到从InputEvent到RenderThread都有。
 
-The groupings are in the order Kernel, SurfaceFlinger (the android compositor process), followed by apps, each labeled by package name. Each app process contains all of the tracing signals from each thread it contains, including a hierarchy of high level tracing events based on the enabled tracing categories.
-
-在本例中，一共有三个组：Kernel, SurfaceFlinger, App，他们分别以包名为标识。每个App进程都会包含其中所有线程的记录信号，你可以看到从InputEvent到RenderThread都有。
-
-##Generating a Trace
 ##生成Trace
 
-In order to create a trace of your application, you must perform a few setup steps. First, you must have a device running Android 4.1 (API 16) or higher. Set up the device for debugging, connect it to your development system, and install your application. Some types of trace information, specifically disk activity and kernel work queues, require that you have root access to the device. However, most Systrace log data only requires that the device be enabled for developer debugging.
-
-在获取trace之前，你需要一些启动步骤。首先，设备要求API>=16(Android 4.1)，之后开启debug、连接工作环境、安装App（正常的Debug流程）。由于需要记录磁盘活动和内核工作，你可能需要root权限。不过大部分时候你只要能够正常Debug即可。
-
-Systrace traces can be run either from a command line or from a graphical user interface. This guide focuses on using the command line options.
+在获取trace之前需要做一些启动工作。首先，设备要求API>=16(Android 4.1)，之后通过正常的Debug流程（开启调试、连接工作环境、安装App）连接设备。由于需要记录磁盘活动和内核工作，你可能需要root权限。不过大部分时候你只要能够正常Debug即可。
 
 Systrace 可以通过[命令行](http://developer.android.com/intl/zh-cn/tools/help/systrace.html#options)或者[图形界面](http://developer.android.com/intl/zh-cn/tools/help/systrace.html#gui)启动，本篇文章重点介绍通过命令行使用Systrace。
 
-###Tracing on Android 4.3 and higher
 ###在Android 4.3及以上的系统中获取trace
 
-To run a trace on Android 4.3 and higher devices:
-
 在4.3以上的系统获取Trace步骤：
-
-1. Make sure the device is connected through a USB cable and is enabled for debugging.
-2. Run the trace with the options you want, for example:
-```
-    $ cd android-sdk/platform-tools/systrace
-    $ python systrace.py --time=10 -o mynewtrace.html sched gfx view wm
-```
-3. On the device, execute any user actions you want be included in the trace.
 
 1. 保证设备USB连接正常，并可以debug；
 2. 在命令行中设置选项，开启trace，比如：
@@ -67,35 +40,14 @@ To run a trace on Android 4.3 and higher devices:
 ```
 3. 在设备上做任何你想让trace记录的操作。
 
-For more information on the available options for running Systrace, see the Systrace help page.
-
 你可以通过[Systrace选项](http://developer.android.com/intl/zh-cn/tools/debugging/systrace.html#options-4.3)来了解更多命令行选项。
 
-###Tracing on Android 4.2 and lower
 ###在Android 4.2及以下的系统中获取trace
-
-To use Systrace effectively with devices running Android 4.2 and lower, you must configure the types of processes you want to trace before running a trace. The tool can gather the following types of process information:
 
 在4.2及以下的系统中高效地使用Systrace的话，你需要在配置的时候显式指定要trace的进程种类。一共有这两类种类：
 
-- General system processes such as graphics, audio and input processes (selected using trace category tags).
-- Low level system information such as CPU, kernel and disk activity (selected using options).
-
 - 普通系统进程，比如图形、声音、输入等。（通过tags设置，具体在[Systrace命令行](http://developer.android.com/intl/zh-cn/tools/help/systrace.html#options)中有介绍）
 - 底层系统进程，比如CPU、内核、文件系统活动。（通过options设置，具体在[Systrace命令行](http://developer.android.com/intl/zh-cn/tools/help/systrace.html#options)中有介绍）
-
-To set trace tags for Systrace using the command-line:
-
-1. Use the `--set-tags` option:
-```
-    $ cd android-sdk/platform-tools/systrace
-    $ python systrace.py --set-tags=gfx,view,wm
-```
-2. Stop and restart the adb shell to enable tracing of these processes.
-```
-    $ adb shell stop
-    $ adb shell start
-```
 
 你可以通过以下命令行操作来设置tags：
 
@@ -110,49 +62,28 @@ To set trace tags for Systrace using the command-line:
     $ adb shell start
 ```
 
-To set trace tags for Systrace using the device user interface:
-
-1. On the device connected for tracing, navigate to: Settings > Developer options > Monitoring > Enable traces.
-2. Select the categories of processes to be traced and click OK.
-
 你也可以通过手机上的图形界面设置tags：
 
 1. 在设备上进入设置> 开发者选项 > 监控 > 启用跟踪（部分手机上没有这个选项）；
 2. 选择追踪进程类型，点击确认。
 
->Note: The adb shell does not have to be stopped and restarted when selecting trace tags using this method.
-
 >注意: 在图形界面中设置tag时adb shell不用重新启动。
-
-After you have configured the category tags for your trace, you can start collecting information for analysis.
 
 在配置完tags后，你可以开始收集操作信息了。
 
-To run a trace using the current trace tag settings:
-
-1. Make sure the device is connected through a USB cable and is enabled for debugging.
-2. Run the trace with the low-level system trace options and limits you want, for example:
-    ```$ python systrace.py --cpu-freq --cpu-load --time=10 -o mytracefile.html```
-3. On the device, execute any user actions you want be included in the trace.
-
-如何在目前的trace设置下启动trace：
+如何在当前设置下启动trace：
 
 1. 保证设备的usb连接正常，并且可以正常debug；
 2. 使用低系统等级的命令行选项开启trace，比如：
     ```$ python systrace.py --cpu-freq --cpu-load --time=10 -o mytracefile.html```
 3. 在设备上做任何你想让trace记录的操作。
 
-For more information on the available options for running Systrace, see the Systrace help page.
-
 你可以通过[Systrace选项](http://developer.android.com/intl/zh-cn/tools/debugging/systrace.html#options-4.3)来了解更多命令行选项。
 
-##Analyzing a Trace
-
-After you have generated a trace, open the output html file using a web browser. This section explains how to analyze and interpret the information that the tool produces to find and fix UI performance problems.
+##分析trace报告
 
 在你获取trace之后你可以在网页浏览器中打开它。这部分内容告诉你怎么通过trace去分析和解决UI性能。
 
-###Inspecting Frames
 ###监视帧数
 
 Each app that is rendering frames shows a row of frame circles, which are typically colored green. Circles that are colored yellow or red, exceeding the 16.6 millisecond run time limit required to maintain a stable 60 frames per second. Zoom in using the 'w' key to see the frames of your application, and look for long-running frames getting in the way of smoothness.
