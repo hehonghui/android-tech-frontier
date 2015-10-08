@@ -201,7 +201,7 @@ Data Binding库提供了一个链接待显示数据与UI组件的机制，将原
     
     }
 
-它比正常使用的`ViewHolder`（通常用于维持子View对象）更简单一点，在`bind()`方法中将对象赋予它绑定的layout。首先要注意到我们使用了`StatusItemBinding`，通过`DataBindingUtil.bind()`函数获取到它，不过它是Data Binding库生成的，我们不仅需要去自己写这些语句。
+它比正常使用的`ViewHolder`（通常用于维持子View对象）更简单一点，在`bind()`方法中将对象赋予它绑定的layout。首先要注意到我们使用了`StatusItemBinding`，可以通过`DataBindingUtil.bind()`函数获取到它，这个函数及`StatusItenBinding`类都是Data Binding库生成的。
 
 在下一章中我们会讨论更多的细节，不过此处我们已经有一个基本的应用能够让你对data binding的作用有一定认识：
 
