@@ -250,7 +250,8 @@
 
 [视频原始地址(Youtube，需翻墙)](https://www.youtube.com/watch?v=Tawl0E6qtfg&feature=youtu.be)
 
-译者下载了该youtube视频，发布到优酷上方便读者观看：
+译者下载了该youtube视频，发布到[优酷](http://v.youku.com/v_show/id_XMTM2MTI1Mzk0NA==.html)上方便读者观看：
+
 <embed src="http://player.youku.com/player.php/sid/XMTM2MTI1Mzk0NA==/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
 
 这篇文章展示了Data Binding的重要用法：我们可以在View的点击事件中绑定Model，这也是MVVM重要特性之一。为什么这个功能这么有用，我们将在下节分解。
