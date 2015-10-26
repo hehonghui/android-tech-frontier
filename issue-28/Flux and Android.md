@@ -127,17 +127,27 @@ The action bus is the event bus that all actions are posted to. The stores and m
 
 Models are where data is stored and transformed. Models in this case are similar to models in an MVC type framework. Models will subscribe to events posted onto the action bus. To continue with the calculator example, if an AddAction object is posted to the action bus, the model will receive that event, then add a number to whatever the current number is then post the updated data to the data bus.
 
-Stores are different than models in that the data stored in the store is strictly related to the current view state. To continue with the calculator example again, you could have a undo buffer stored in the store, as this data doesn’t relate to the actual application state. As another example, if you had some sort of list app and wanted to be able to live filter that list, your filtered list could be put in the store, while the raw list would be part of a model.
+models用于数据的存储和转换，在我的架构中期时和传统的MVC模式中的models相似。models会订阅投递到事件总线的事件，还是以计算器为例子吧，如果一个加法运算的操作事件对象被投递到事件总线上，Model就会接收该事件，无论当前数字是多少，就会将作为参数传入的数字与当前数字进行加法运算，然后将运算结果投递到数据总线上。
+
+stores are different than models in that the data stored in the store is strictly related to the current view state. To continue with the calculator example again, you could have a undo buffer stored in the store, as this data doesn’t relate to the actual application state. As another example, if you had some sort of list app and wanted to be able to live filter that list, your filtered list could be put in the store, while the raw list would be part of a model.
+
+而stores与models的不同之处在于：存储在store的数据与当前的View状态呈强相关关系，继续以计算器为例，此时你可以在store中存储一个操作事件的撤销缓冲区，因为此时数据不与应用的实际状态关联。再举个例子，如果你有一堆App，而且想要过滤掉某些App，那么此时你可以将过滤后的App列表放到store，而原来的App列表仍然在model中。
 
 ###Data Bus
 
 The data bus is the event bus that all model or store updates are posted to. The view subscribes to data posted on this bus in order to keep the view in sync with the data.
+
+数据总线是所有model和store投递数据更新事件的地方，View订阅某些数据，并将数据投递到数据总线上，从而达到异步更新View数据的目的。
 
 ##TDD!
 
 This architecture decouples all the parts of an Android app which makes development much easier. Additionally, DI becomes easier, and practicing TDD becomes much less of a headache!
 
 Following is a diagram illustrating a few recommended approaches to TDD you could take using this architecture. Architecture Template with TDD
+
+这个架构解耦了Android应用的所有组成部件，使Android开发变得更轻松。此外，以测试驱动开发和依赖注入也变得简单。
+
+下面这张图列举了一些你可以在我的架构模式中使用的常被推荐来进行测试驱动开发的办法。该测试驱动开发的架构模板如下：
 
 ![](http://armueller.github.io/images/Architecture-General-TDD.png)
 
@@ -151,26 +161,42 @@ There are a couple things you want to test in each view component.
 
 Note: I did not implement these tests in my code due to the fact that Robolectric does not yet support API level 21.
 
+下面是一些使用本架构的人想在View中测试的东西：
+
+- 首先，你想要确保你的View组件被正确绑定到数据总线中，而且一旦View被初始化或被填充完成就总会呈现正确的结果。要测试这个非常简单，我们只需要将测试数据投递到数据总线中哦你，然后测试只需要确保数据被正确地用于初始化View和填充View。
+
 ###Actions
 
 For each action creator you have, if you have multiple, you should test that each creator method correctly builds the appropriate action and posts it to the action bus. To test this, you can simply call the creator method and listen on the action bus to make sure that the correct action object was posted to the bus and that it contains the correct data.
 
+对创建的每一个操作事件产生部件，你应该为每一个部件创建对应的操作事件，投递到事件总线中让部件的方法进行测试。而要完成这个工作，你只需要简单地调用部件的方法，监听事件总线以确保正确的操作事件对象被投递到事件总线中，并让它装载正确的数据。
+
 ###Models & Stores
 
 Models and stores are the heart of you application and thus, will require most testing. Each model and store object should be fully unit tested. For simple objects that do not listen to actions or post data to the data bus, standard unit tests will do just fine. For Models and stores that listen for actions and post data to the data bus, along with testing business logic, you need to test that they are properly connected to each bus.
+
+models 和 stores 是应用的核心，因此，需要的测试是最多的。每一个model和store对象都应该进行充分的单元测试。对于没有监听操作事件或投递数据到数据总线上的简单对象，标准的单元测试就足够了。而监听操作事件、投递数据到数据总线上和具有某些业务逻辑的那些model和store，则需要在测试的时候关联对应的总线以完成测试。
 
 ##Implementation
 To put this new architecture to the test, I decided to use it for a simple todo app (Really original of me, I know…).
 
 Here is a diagram along with a detailed explanation of how each part works. 
 
+为了将这个新的架构投入测试，我决定将它应用到一个简单的待办事项App中（绝对是我原创的）
+
+下面这张架构图详细地说明了每一个部件是如何和其他部件交互的：
+
 ![](http://armueller.github.io/images/Architecture-Impl.png)
 
 Architecture Implementation with a ToDo App If you want even more detail, you can look at the actual code provided in this [repository](https://github.com/armueller/FluxyAndroidTodo).
 
+如果你想详细了解这个架构是怎么被应用的，可以到[这里](https://github.com/armueller/FluxyAndroidTodo)下载我开发的待办事项App源码进行学习。
+
 ##Future work
 
 Despite the fact that this app is completely self contained (similar to how the todo app works from Facebook’s Flux), I am pretty satisfied with out it turned out. I came up with a couple different ideas on how server communication might be incorporated into this architecture, but I wasn’t really happy with any of them. Obviously, to be complete, server communication must fit into the equation somewhere, so that’s what I’ll be working on next. Once I come up with a solution that I’m satisfied with, I will update this blog to reflect what I came up with.
+
+尽管通过这个架构方式开发的App已经可以正常使用了（和用Facebook的Flux架构开发的待办事项App相似），我也挺满意实际的效果的。我想到了几个与服务器通信的新办法，感觉能应用到这个架构中，但这些办法我都不太满意。显然，我理想中的与服务器通信的办法，必须能在某些情况下能用某个方程表示，这也是我接下来要研究的东西。一旦我想到了一个满意的解决方案，我就会更新博客和大家分享！
 
 ##Todo:
 
@@ -178,6 +204,14 @@ Despite the fact that this app is completely self contained (similar to how the 
 - Set up db at firebase for todos
 - Make app sync data to firebase
 - Revise blog to incorporate server communication into architecture.
-Code
+
+- 找到我认为的和服务器通信的最优方案
+- 用数据库存储大量的待办事项
+- 让应用能异步处理大量数据
+- 更新博客
+
+##Code
 
 The ToDo app that I wrote to accompany this post can be found [here](https://github.com/armueller/FluxyAndroidTodo)
+
+[待办事项App源码](https://github.com/armueller/FluxyAndroidTodo)
