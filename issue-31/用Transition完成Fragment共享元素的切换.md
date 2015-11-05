@@ -1,4 +1,4 @@
-Fragment transitions with shared elements
+用 Transition 完成 Fragment 共享元素的切换
 ---
 
 > * 原文链接 : [Fragment transitions with shared elements](https://medium.com/@bherbst/fragment-transitions-with-shared-elements-7c7d71d31cbb#.fp2fgmvoi)
