@@ -52,7 +52,6 @@ Android Marshmallow introduced App Links. The system basically authenticates wit
 
 Android棉花糖引进了应用关联。系统主要通过你的web页面来认证，并且自动使用你的app来打开这些URL，而不会向你做任何请求。或者你可以到系统设置，选择“应用程序”，然后点击一个应用，再点击“默认打开方式”，然后设置“用这个应用打开”，就可以每次都使用这个应用打开。
 
-Application default setting page in Marshmallow
 ![棉花糖的应用默认设置页面](https://cdn-images-1.medium.com/max/800/1*MVZbYKhwu-7qnyGAFWuNsw.png)
 
 In that case, queryIntentActivities method will give developers a list with only 1 Activity (which is Google+ in this case).
