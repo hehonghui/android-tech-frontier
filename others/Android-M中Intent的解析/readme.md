@@ -33,28 +33,39 @@ List<ResolveInfo> infos = packageManager
 ```
 
 It is a familiar method to almost all Android developers and I am sure that it is currently being used in lots of apps.
+
 I have 2 browsers in my phone. “An Intent with Google+ URL” is expected to give a list of 3 ResolveInfo objects (Google+ app and 2 browsers).
 
 这段代码几乎所有Android开发者都比较熟悉，并且我也相信大部分app都有用到这段代码。
+
 我的手机里有两个浏览器。“一个URL是Google+ 的Intent”期望得到一个具有3个ResolveInfo对象的列表（Google+应用以及两个浏览器）。
 
 Well, not anymore!
+
 Welcome to Android Marshmallow!
+
 Android Marshmallow introduced App Links. The system basically authenticates with your web-page and opens those URLs automatically using your application without asking anything to user. Or you can go to system Settings, Apps, click an app, click “Open by default” and then set “Open in this app” to use always that app.
 
 好吧，并不是这样！
+
 欢迎来到Android棉花糖！
+
 Android棉花糖引进了应用关联。系统主要通过你的web页面来认证，并且自动使用你的app来打开这些URL，而不会向你做任何请求。或者你可以到系统设置，选择“应用程序”，然后点击一个应用，再点击“默认打开方式”，然后设置“用这个应用打开”，就可以每次都使用这个应用打开。
 
 Application default setting page in Marshmallow
 ![棉花糖的应用默认设置页面](https://cdn-images-1.medium.com/max/800/1*MVZbYKhwu-7qnyGAFWuNsw.png)
 
 In that case, queryIntentActivities method will give developers a list with only 1 Activity (which is Google+ in this case).
+
 Even if this is the desired behavior, this should be documented because it breaks the behavior of a public API.
+
 I researched a little bit and found MATCH_ALL flag. It’s documentation says that it will disable all system level filters.
 
 在这种情况下，queryIntentActivities方法只会给开发者返回一个只有一个Activity的列表（此例子返回的是Google+）。
-虽然这是在意料之中的，但是应该在文档中注明，因为它与公共API相矛盾了。我研究了一下，发现了一个MATCH_ALL标志，文档表示，它将禁用所有的系统级过滤器。
+
+虽然这是在意料之中的，但是应该在文档中注明，因为它与公共API相矛盾了。
+
+我研究了一下，发现了一个MATCH_ALL标志，文档表示，它将禁用所有的系统级过滤器。
 
 ```
 /**
@@ -66,17 +77,23 @@ public static final int MATCH_ALL = 0x00020000;
 ```
 
 It didn’t do anything for me. I opened the source code (at least we have that!) and investigated the method.
+
 It looks like they prioritize the domain verified applications. They did not just prioritize in their internal system, they also did it in the public API.
+
 If there is a domain verified application, it does not return anything else. MATCH_ALL flag removes some system filters but only if there is no verified application.
 
 这对我来说没什么用。我打开源码（至少我有源码）并开始研究这个方法。
+
 它似乎优先考虑验证应用程序的域，不仅在它的内部系统，在公共API中也是如此。
+
 如果有一个验证应用程序的域，它不会返回任何其他东西。MATCH_ALL标志会移除一些系统过滤器，但是仅仅是在没有验证程序的情况下。
 
 I couldn’t find any way to workaround this behavior. It simply eliminates browser apps even when their IntentFilters match.
+
 There is no workaround because it is an internal component (which we cannot access) and Android SDK communicates with it using IPC communication using AIDL.
 
 对于这个问题，我找不到任何可变通的措施。它只是排除浏览器应用，即使他们的IntentFilters匹配。
+
 之所以没有可变通的措施，是因为他是一个内部组件（我们无法访问），Android SDK通过IPC使用AIDL与它进行通信。
 
 Most of the developers are using this method to find if there is at least 1 Activity to handle the implicit Intent. In most of the situations the first item in the list is the one you want anyway.
@@ -84,9 +101,11 @@ Most of the developers are using this method to find if there is at least 1 Acti
 大部分开发者使用这个方法来判断是否至少有一个Activity来处理隐式的Intent。在大多数情况下，列表中第一项就是你想要的。
 
 After spending hours to understand what’s going on and trying to find a workaround, I thought everyone should know this.
+
 There are lots of behavior changes in Android M. Google actually provided a list of behavior changes. You can find it here. I am sure that just like this, there are lots of hidden behavior changes that may break applications.
 
 在花了几个小时搞明白到底发生了什么之后，我尝试寻找一个我认为每个人都应该知道的解决方案。
+
 在Android M中，改动的地方很多。实际上谷歌提供了一些改变清单，在清单中你能看到到底有哪些改变。我认为还有很多类似上面的一些没有在清单中列出的改变，而这些改动很有可能导致你的应用无法正常运行。
 
 So beware of this, and check your situation if you use PackageManager methods.
