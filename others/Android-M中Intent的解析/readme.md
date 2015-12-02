@@ -113,6 +113,6 @@ So beware of this, and check your situation if you use PackageManager methods.
 
 Thanks to the people who proofread this article: Yağmur Dalman, Sebastiano Poggi, Salim KAYABAŞI, Hasan Keklik
 
-感谢此文的校对着：[Yağmur Dalman](https://twitter.com/yagmurdalman)、[ Sebastiano Poggi](https://medium.com/u/9706138c9bfb)、[Salim KAYABAŞI](https://medium.com/u/73761c65c602)、[Hasan Keklik](https://medium.com/u/24a0490cd588)
+感谢此文的校对者：[Yağmur Dalman](https://twitter.com/yagmurdalman)、[ Sebastiano Poggi](https://medium.com/u/9706138c9bfb)、[Salim KAYABAŞI](https://medium.com/u/73761c65c602)、[Hasan Keklik](https://medium.com/u/24a0490cd588)
 
 
