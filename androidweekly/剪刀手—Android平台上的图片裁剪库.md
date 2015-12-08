@@ -35,7 +35,7 @@ Before uploading the picture to our servers it had to be cropped following certa
 
 At Lyft we love open source, so naturally we researched existing solutions. None of them fulfilled the requirements we needed so we decided to build our own. Fast forward a few months and we are now open sourcing the view that represents the core of this feature: [Scissors](https://github.com/lyft/scissors).
 
-因为在Lyft我们都喜欢开源，所以自然而然的想到了搜索现成的解决方案。但是没有一个能满足我们的需求，所以我们决定自己动手实现这个需求。一晃几个月过去了，我们现在打算开源这个库中的核心特性的View:[Scissors](https://github.com/lyft/scissors)。
+因为在Lyft我们都喜欢开源，所以自然而然的想到了搜索现成的解决方案。但是没有一个能满足我们的需求，所以我们决定自己动手实现这个需求。一晃几个月过去了，我们现在打算将这个库([Scissors](https://github.com/lyft/scissors))的核心代码开源。
 
 ## Scissors
 ![](https://cdn-images-1.medium.com/max/1600/1*o9wj6y7Xt5zn6nHI4p5t7Q.png)
