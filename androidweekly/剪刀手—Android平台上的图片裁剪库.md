@@ -9,22 +9,10 @@
 * 状态 :  未完成 / 校对中 / 完成 
 
 
-After [we introduced profiles](http://blog.lyft.com/posts/profiles) a few months ago, Helen — an Engineer in one of our features team — was tasked to implement the second iteration of profiles for our Android app. This update to profiles included numerous improvements including the ability to set a custom profile picture, either from the camera or picking it from external applications like Gallery or Photos.
-
 几个月前我们往我们的App中[引入个人简介功能](http://blog.lyft.com/posts/profiles)后，Helen——我们其中一个特性团队的工程师——接到了对个人简介进行第二次迭代的任务。这次版本迭代包括了众多的改进，其中包括支持自定义个人头像功能，头像可以用相机直接拍摄，也可以从Gallery或者Photos这类相册App中选择。
 
 ![Lyft的Android版本自定义图像的早期设计](https://cdn-images-1.medium.com/max/1600/1*An_iDXn6RtufzwUIdSUc-w.png)
-
-Early designs for custom profile picture feature for the Lyft Android app.
-
 Lyft的Android版本自定义头像的早期设计
-
-Before uploading the picture to our servers it had to be cropped following certain requirements, among which were:
-
-* Pinch to zoom up to 200%
-* Panning and snapping to the viewport
-* Maintaining a certain ratio regardless of screen density
-* Cropping based on current viewport dimensions
 
 在图片被上传到服务器之前，图片必须被裁剪以符合一定的要求，这其中包括:
 
@@ -33,20 +21,10 @@ Before uploading the picture to our servers it had to be cropped following certa
 * 不管在什么样的屏幕密度上都保持固定的比例
 * 基于当前屏幕尺寸进行裁剪
 
-At Lyft we love open source, so naturally we researched existing solutions. None of them fulfilled the requirements we needed so we decided to build our own. Fast forward a few months and we are now open sourcing the view that represents the core of this feature: [Scissors](https://github.com/lyft/scissors).
-
 因为在Lyft我们都喜欢开源，所以自然而然的想到了搜索现成的解决方案。但是没有一个能满足我们的需求，所以我们决定自己动手实现这个需求。一晃几个月过去了，我们现在打算将这个库([Scissors](https://github.com/lyft/scissors))的核心代码开源。
 
 ## Scissors
 ![](https://cdn-images-1.medium.com/max/1600/1*o9wj6y7Xt5zn6nHI4p5t7Q.png)
-
-### What does it do?
-[Scissors](https://github.com/lyft/scissors) provides a view called **CropView**, which extends [ImageView](https://developer.android.com/reference/android/widget/ImageView.html) offering familiar ways to provide a Bitmap to crop, for example, using [setImageBitmap](https://developer.android.com/reference/android/widget/ImageView.html#setImageBitmap%28android.graphics.Bitmap%29). Once the user has panned and zoomed around (constrained by cropviewMaxScale and cropviewMinScale) all you have to do is call
-
-~~~java
-Bitmap croppedBitmap = cropView.crop();
-~~~
-The returned Bitmap matches the viewport dimensions, which can be controlled by using cropviewViewportHeightRatio.
 
 ### 这个库能做什么？
 [Scissors](https://github.com/lyft/scissors)提供了一个叫做**CropView**的控件，它继承于[ImageView](https://developer.android.com/reference/android/widget/ImageView.html)并且提供了熟悉的方式来提供用于裁剪的图像，比如使用[setImageBitmap](https://developer.android.com/reference/android/widget/ImageView.html#setImageBitmap%28android.graphics.Bitmap%29)来设置要裁剪的图像。一旦用户设置好了要裁剪的位置和缩放比例(这受限于cropviewMaxScale和cropviewMinScale)只需调用
@@ -57,31 +35,6 @@ Bitmap croppedBitmap = cropView.crop();
 该方法返回的Bitmap符合视图的尺寸，这个尺寸可以通过cropviewViewportHeightRatio来进行控制。  
 
 ![](https://cdn-images-1.medium.com/max/1600/1*SbhkZppPqhMwj4CdcrFS_w.gif)  
-
-### Extensions
-We also added some handy extensions to help with common tasks like:
-
-* Loading a Bitmap to fit the viewport using [Picasso](https://github.com/square/picasso) or [Glide](https://github.com/bumptech/glide) into CropView
-
- ~~~java
-cropView.extensions()
- .load(galleryUri);
- ~~~  
-   
- 
-You can also create a custom BitmapLoader to provide a Bitmap just the way you want it.
-
-* Saving a cropped Bitmap into a File or stream without blocking the main thread
-
- ~~~java
-cropView.extensions()
- .crop()
- .quality(87)
- .format(PNG)
- .into(croppedFile);
- ~~~
- 
-You can also provide format and quality of resulting File/stream.
 
 ### 扩展
 我们也提供了一些实用的扩展来进行一些常见的任务，比如:  
@@ -106,11 +59,6 @@ cropView.extensions()
  ~~~
  
  你也可以指定裁剪后输出到文件或者流中的图片格式和质量
- 
- ### Future work
-We want to make Scissors as sharp as possible so in the future we aim to [add double tap drag to zoom](https://github.com/lyft/scissors/issues/1) support, among other [fixes and optimizations](https://github.com/lyft/scissors/issues/). We hope you find Scissors useful and it will become the library for all your image cropping needs.
-
-Get started with Scissors on Github
 
 ### 未来的计划
 我们想让Scissors越来越好用，所以以后Scissors将会支持[双击拖动与缩放](https://github.com/lyft/scissors/issues/1)，同时也会[修复一些bug和进行一些优化](https://github.com/lyft/scissors/issues/)。我们希望Scissors对你来说是有用的并且能够满足你所有关于图片裁剪的需求。
