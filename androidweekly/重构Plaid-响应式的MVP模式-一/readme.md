@@ -6,68 +6,34 @@
 * 原文作者 : [HANNES DORFMANN](http://hannesdorfmann.com/)
 * 译文出自 : [hanks.xyz](http://hanks.xyz/2015/12/08/refactoring-plaid-1/)
 * 译者 : [hanks-zyh](https://github.com/hanks-zyh)
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  校对中
-
-Nick Butcher has open sourced on github an awesome app called Plaid. The app is pretty cool and has an outstanding UI / UX. Whenever source code of such awesome apps are available developers start to copy code and best practice tips from it. So I did the same and decided to dive into the code of Plaid. As always, you will find some parts of the code that you think could be implemented or be written in another way. So instead of just talking about code I have decided to spend some of my spare time to refactor some parts of Plaid’s source code. This blog post is the first part of a series of 3 posts of how I would refactor the Plaid app and to share my thoughts.
+* 校对者: [desmond1121](https://github.com/desmond1121)
+* 状态 :  完成
 
 Nick Butcher 在 [github](https://github.com/nickbutcher/plaid) 上开源了Plaid。这个app不仅很酷,还拥有极致的 UI / UX。如此炫酷的app的代码对开发者来说copy下来阅读一下可谓是最佳实践。于是我也copy下来,决定深入Plaid的代码。和往常一样，你会发现里面的一些代码可以用其他的方式实现。因此不只是谈论代码,我决定花一些时间来重构Plaid的部分源代码。我将写3篇文章来分享我关于如何重构Plaid的,这篇文章是第一部分。
 
-
-Preface: I started the refactoring with the strong belief that I can refactor the whole app. Surprisingly (ironic), it turns out that I was a very naive man. I simply have underestimated the complexity of the app and the number of features. I discovered some features only after having spent some hours with Nick Buchter’s code, which were not “visible” to me just by using the app. In short: I realized that I don’t have the time to put all my thoughts into action. Hence my “refactoring” is focused on the apps “homepage” and the “search screen”, which I have refactored mostly. Nevertheless, I want discuss (in theory) some more things that could be refactored, but I didn’t because of time constraints. My refactored code can be found on github as well.
-
 前言: 开始我以为自己能重构整个app. 然而,事实是我太天真了,我低估了这个应用的复杂度和新特性的数量。在我花了几个小时阅读 Nick Butcher 的代码之后, 我发现有些功能仅仅通过使用应用程序很难发现。一句话: 我意识到我没有时间把所有的想法付诸行动。因此我的“重构”集中于应用程序的“主页”和“搜索屏幕”。本来想看看有没有更多模块可以重构，但是我没有太多空闲时间来做了。重构代码可以在[github上](https://github.com/sockeqwe/plaid)找到
-
-
-First look
-The overall user experience and user interface is pretty awesome. I can’t describe it even better than this tweet:
 
 ## 初见
 整体的用户体验和用户交互都非常赞.看下面这条tweet:
  ![图片](https://dn-coding-net-production-pp.qbox.me/754a0ecf-5545-4c24-9d4a-3f16bf89ed8e.png)
 
-It’s a joy to use the app. The UI / UX is truly an inspiration for every developer and designer. However, after playing around a little bit more with the app I faced some visual bugs:
-
 使用这个app真是在享受. 它的 UI / UX 对每个开发者或者设计师很激励, 然而,在使用过程中我遇到了一些bug:
-
-Displaying a loading indicator and error message at the same time:
-
 - 同时显示了加载提示和错误提示:
 <iframe width="880" height="660" src="https://www.youtube.com/embed/zCwESjEpNdk" frameborder="0" allowfullscreen></iframe>
-
-In the app you can apply some “filters” or in other words: You can specify which “sources” of Dribbble, Designer News and Product Hunt you want to display. If you deselect such sources while loading an http request is currently running you can run into the state where the app displays items, but shouldn’t since no sources are selected:
 
 - 在筛选面板中你可以从 Dribbble, Designer News 和 Product Hunt 选择你想要显示的来源.但是当取消选择正在加载数据的"源"的时候,你会遇到item还在显示的问题:
 <iframe width="880" height="660" src="https://www.youtube.com/embed/nJ3VUjpW0N0" frameborder="0" allowfullscreen></iframe>
 
-Also the app doesn’t handle screen orientation changes properly. It simply rebuilds the entire screen so that after each orientation change you see the loading indicator again, and re-execute the http calls:
-
 - 而且app没有考虑屏幕旋转.当屏幕旋转界面会被重新创建,重新执行http请求,你可以看到加载提示
 <iframe width="880" height="660" src="https://www.youtube.com/embed/tuIDrtvL0lg" frameborder="0" allowfullscreen></iframe>
 
-
-
-
-Typically such “issues” are a first indicator for spaghetti code and a moderate software architecture. So let’s take a look under the hood and check out the source code and the components for displaying a list of items: The HomeActivity (about 750 lines of code) handles the visibility of UI elements like displaying the RecylcerView or the ProgressBar. This activity also decides when to display the Source-Filters-Drawer (on the right side). Furthermore, in it’s onActivityResults() it does a lot of things inclusive posting new post to designers news. Last but not least it also loads the data for the selected filters by using a DataManager. You see, the HomeActivity has many responsibilities, probably too many. The DataManager basically uses a combination of Retrofit and AsyncTasks to execute http calls to load the data. The tricky thing here is pagination. Whenever the end of the RecyclerView has been reached, more (older) items are loaded. DataManager uses internally a HashMap to track the current page each source (backend endpoint like “Dribbble Popular” or “Dribbble Recent” or “Designer News Popular”) is currently displaying. The items are displayed in a RecyclerView by using FeedAdapter. The SearchActivity is working quite similar as HomeActivity: It uses a DataManager and a FeedAdapter as well.
-
 通常这样的“问题”是由于**面条式代码** 和架构不够好。所以我们来看看显示项目列表的源代码: 在 `HomeActivity` (大约750行代码)处理UI元素的可见性,如 `RecylcerView` 或 `ProgressBar`. `HomeActivity` 包含了何时显示Source-Filters-Drawer(右边侧滑栏)的逻辑。此外,它的 `onactivityresult()`方法里面  做了很多事情,包括发布新的post到designers news。而且它使用 `DataManager`为选定的 filter 加载数据。你看, `HomeActivity` 有很多责任,可能太多了。`DataManager` 基本上使用 `retrofit` 和 `asynctask` 来执行http请求加载数据。这里的最头疼的问题是分页,尤其是RecyclerView滑动到底部时需要加载更多数据。`DataManager` 内部使用`HashMap`来记录每个源显示的页面数据(后端的endpoint 如 “Dribbble Popular” , “Dribbble Recent” 或者 “Designer News Popular”)。项目中使用`FeedAdapter`来显示到 RecyclerView上。 并且`SearchActivity`跟`HomeActivity`非常相似:它也使用`DataManager`和`FeedAdapter`。
 
-
-
-The architecture
-From my point of view there is no clear architecture in the current implementation. HomeActivity is some kind of god object that manages many things. Another “issue” is that HomeActivity changes the UI state by calling the same (internal) methods from different other methods and different events, i.e. the method checkEmptyState() get’s called from 4 different point’s in HomeActivity source code.
-
-We will refactor that by applying a Model-View-Presenter with a passive view. The passive view will only be display that things that the presenter tells to do. I’m a fan of MVP with a passive view. People ask me from time to time why I recommend to use passive view and not supervising controller or other MVP derivations. Well, if you use MVP without passive view, you basically are splitting the spaghetti code formerly sitting in the view to half presenter and half view.
 ## 架构
 
 我觉得当前的项目架构不够清晰。`HomeActivity`管理了太多事情,简直就是神一样的存在。另一个“问题”是,`HomeActivity`从不同的方法和不同的事件中调用相同的(内部)方法去改变UI状态,如 `checkEmptyState()` 在`HomeActivity`的4个不同的地方被调用.
 
 我们将使用 `Model-View-Presenter` 来重构一下.  passive view 仅仅用来展示, `presenter` 告诉 `passive view` 什么时候展示. 我比较热衷于MVP架构. 经常有人问我为什么我建议使用 passive view,而不是控制器或MVP派生的其他模式。好吧,如果你使用没有 passive view的MVP,你基本上是把**面条式代码**写成了一半的 presenter 一半的 passive view。
-
-
-HomeActivity in MVP
-
-So with MVP + passive view we split the responsibilities into two classes: HomeActivity implements HomeView is now considered as View (passive view) and implements this interface:
 
 ## HomeActivity in MVP
 
@@ -83,9 +49,6 @@ interface HomeView : MvpView {
     fun addOlderItems(items: List<PlaidItem>)
 }
 ```
-
-
-From now on the job of HomeActivity is to manage the UI elements (visibility, coordinate animations, etc.) but only after the presenter told to do so. So the state of the View is managed by the HomePresenter. The HomePresenter looks like this:
 
 现在 `HomeActivity` 负责管理UI(是否可见,位置,动画),但是由 `presenter` 决定什么时候去执行, 所以View的状态由`HomePresenter` 管理, `HomePresenter` 的代码如下:
 
@@ -125,22 +88,11 @@ class HomePresenter(private val itemsLoader: ItemsLoader<List<PlaidItem>>) : RxP
 }
 ```
 
-If you haven’t noticed yet: We use kotlin as programming language, mainly because I like the language and to have the chance to see how development with kotlin works in a “real world” application. Thanks to the kotlin’s interoperability I can easily reuse Nick Butcher’s java source code, mainly for UI / View things.
-
-For implementing MVP we use Mosby, a MVP library, which also allows us to keep the presenters during screen orientation changes. So we don’t have to restart with loading data and we don’t see the ProgressBar after screen orientation changes. Mosby allows us to keep the views state as before the orientation change.
-
-Last but not least I have decided to use RxJava for my “Model” (hence the subscribe() method in the presenter). So the ItemsLoader is my refactored and reactive version Nick Butcher’s DataManager. I will explain the ItemsLoader in a minute.
-
 可能你注意到了,我使用的是kotlin语言,主要是因为我喜欢这个语言并且有幸看到kotlin的发展,由于kotlin的互操作性(与java相互调用)使得我很容易的重用 Nick Butcher的 java 代码(主要是UI 或者View 方面的东西).
 
 为了实现 MVP, 我们使用了 **Mosby** 库,这是一个MVP 库,当旋转屏幕的时候允许我们保持 presenters, 这样就不会在旋转屏幕时重新启动界面,加载提示,进行请求了, **Mosby** 也可以在旋转屏幕的时候保持view的状态.
 
 此外我决定在Model层使用  `RxJava` (这样在 presenters中可以使用 `subscribe()` 方法). `ItemsLoader`类 是我重构的 reactive版本的 DataManager. 我来花一分钟解释一下.
-
-## SearchActivity in MVP
-
-As already said, running a search is very similar to HomeActivity. It displays a list (grid) of items and adds pagination to load more items when the end of the RecyclerView has been reached. So applying MVP to SearchActivity is pretty the same as shown before:
-
 
 ## SearchActivity in MVP
 
@@ -199,37 +151,17 @@ class SearchPresenter(private val itemsLoaderFactory: SearchItemsLoaderFactory) 
 }
 ```
 
-The only different compared to HomePresenter is that SearchPresenter takes a SearchItemsLoaderFactory as constructor parameter and creates a ItemsLoader dynamically for each search query. We will see how this works in a minute.
-
 跟 `HomePresenter` 唯一不同的是,  `SearchPresenter` 通过传入一个`SearchItemsLoaderFactory` 作为构造方法的参数,为每次搜索查询创建了一个 `ItemsLoader`. 我们来简单看一下它是怎么工作的.
-
-
-ItemsLoader and Pagination
-So far we have covered View and Presenter. Now lets discuss how we could refactor the “Model” or use case / interactor if you want to compare it with uncle Bob’s clean architecture.
 
 ## ItemsLoader 和 Pagination
 
 目前我们完成了 `View` 和 `Presenter`, 现在讨论一下如何重构 "Model"
-
-
-Before we start: There is a class called PlaidItem (holds properties like title and image url). This class is the base class to represent a single item:
-Shot extends PlaidItem for an item loaded from Dribbble
-Story extends PlaidItem for an item loaded from Designer News
-Post extends PlaidItem for an item loaded from Product Hunt
-So now let’s discuss how we rewrite DataManager more efficiently by using RxJava. I don’t use RxJava because I think it’s cool and all the cool kids have to use RxJava nowadays. You will (hopefully) see the benefits of using RxJava afterwards (especially in the second part of this blog post series).
-
 
 在我们开始之前: 了解一下 `PlaidItem`类 ( 包含title和 image url). 这个类是单个item的基类
 `Shot` extends `PlaidItem` :代表从Dribbble加载的item
 `Story` extends `PlaidItem`: 代表从Designer News加载的item
 `Post` extends `PlaidItem`: 代表从 Product Hunt 加载的item
 现在我们讨论一下使用`RxJava` 来高效的重写一下 `DataManager`, 我使用RxJava是因为它简直酷毙了, 你将会体会到它的强大(特别是这个系列的第二篇)并且从中受益.
-
-
-The hard part of loading items is that we support pagination and loading items from different backends. So let’s build the ItemsLoader from “bottom-up”. At the “bottom” we will find a Retrofit interface for executing the http call. Right now in Plaid you can search DesignerNews and Dribbble. The pagination problem: Dribbble loads 100 items and requires such a call loadItems(0, 100) and the next page will be loadItems(100, 200) while DesignerNews increments his page by 1 loadItems(0, 1) and next page will be loadItems(1, 2). We need a common API for both. Since we use kotlin we can pass “method references” (function poitners) or lambdas. So what we need is a component that takes such a function, executes this function and returns an Observable where we get the result of the actual http call. So basically we need something like this: backendMethodToCall: (Int, Int) -> Observable<T>, where the first int parameter is the page offset, the second int parameter the limit (how many items should be loaded per page) and T is the generic type of the result (in fact we are always loading List<PlaidItem>).
-
-We call that component RouteCaller:
-
 
 加载项的困难的部分是,我们从不同的后端支持分页和加载items。我们“自下而上”构建 `ItemsLoader` 。“底部”有一个执行 http 的 Retrofit 接口。现在你可以搜索Dribbble和DesignerNews。分页的问题: Dribbble 调用 loadItems(0,100) 来加载100个items, 调用loadItems(100、200)加载下一个页面的100个, 而DesignerNews是每次page加1,通过调用 loadItems(0,1)来加载第一个页面, 调用loadItems(1,2)加载下一个页面。我们需要一个通用的API。我们可以使用kotlin的高级函数(传递函数参数或者匿名函数)。所以我们需要的是一个组件,这个组件包含一个可以执行http请求并返回一个Observable的方法。所以我们需要这样的:  `backendMethodToCall:(Int,Int)-> Observable<T>`, 第一个参数代表page,第二个代表limit(每页加载多少条), T 泛型代表返回结果的类型(事实上类型总是< PlaidItem>)。
  我们把这个组件叫做 `RouteCaller`:
@@ -278,19 +210,6 @@ class RouteCaller<T>(private val startPage: Int = 0,
 }
 ```
 
-RouteCaller takes such a method (Int, Int) -> Observable<T> as constructor parameter and will call this method internally with the correct parameters: - getFirst() loads the first page - getOlderWithRetry(): This method is responsible to load older items. We keep track of the current page in the field olderPageOffset and we will increment this one when we start loading more items (or in other words: load an older page). Additionally, we use .doOnError() to retry to load the failed page when loading the next page.
-
-So the responsibility of RouteCaller is to fill out the parameters (page offset and page limit) needed for the real http backend endpoint call. So what we have is something like this:
-
-RouteCaller
-
-For executing a search we have two backends to query DesignerNewsService and DribbleService. That means that we have two RouteCallers (one for each backend search method to invoke):
-
-RouteCaller
-
-The next question is: How do we instantiate a RouteCaller? We define a RouteCallerFactory for each backend, which basically offers a method getAllBackendCallers() where we get an Observable List<RouteCaller> we should execute to load items.
-
-
 `RouteCaller` 接受一个`method(Int, Int) -> Observable<T>` 作为构造函数的参数, 根据传入不同的参数执行不同的动作:
 - getFirst() 加载第一页
 - getOlderWithRetry(): 加载老的数据.
@@ -314,7 +233,6 @@ interface RouteCallerFactory<T> {
      */
     fun getAllBackendCallers(): Observable<List<RouteCaller<T>>>
 }
-For executing a search we have DesignerNewsSearchCallerFactory and DribbbleSearchCallerFactory: The DesignerNewsSearchCallerFactory looks like this:
 
 class DesignerNewsSearchCallerFactory(private val searchQuery: String, private val backend: DesignerNewsService) : RouteCallerFactory<List<PlaidItem>> {
 
@@ -336,11 +254,6 @@ class DesignerNewsSearchCallerFactory(private val searchQuery: String, private v
 }
 ```
 
-At first glance DesignerNewsSearchCallerFactory looks a little bit strange if you are new to kotlin because we don’t use lambdas but instead we create a property searchCall which actually is a function (Int, Int) -> Observable<List<PlaidItem>>.
-
-The reason why we do this is testability: Recently I have watched the fireside chat of Android Dev Summit 2015 where the guys from the Android Team has been asked when they will add Java 8 support. Then Reto Meier, from the Android Team, answered that many developers are mainly interessted in lambdas and asked the audience if they could raise the hand if they want lambdas for android development: Almost the whole audience has raised the hand. I think that there is a general misunderstanding with lambdas: the real power of programming language that offer lambdas are not lambdas itself, is higher order functions and the ability to passing method references. Lambdas are just kind of anonymous functions. Actually, lambdas are not testable, because they are hardcoded. For example if I would have implemented something like this:
-
-
 如果你是初学kotlin,乍一看 `DesignerNewsSearchCallerFactory` 有点奇怪,我们没有使用Lambda而是创建一个searchCall属性,它实际上是一个函数 `(Int, Int) -> Observable<List<PlaidItem>>`。
 
 这样做是有原因的: 最近我看到Android团队在`Android2015开发者峰会`被问到何时添加Java 8支持。**Reto Meier** 回答说,许多开发人员主要是对Lambda 感兴趣, 当他问观众:想要Android加入Lambda 的请举手,然后几乎所有人举手了。我认为,对于Lambda 有一种普遍的误解: Lambda如此强大是因为它的高阶函数和函数传递。Lambda 只不过是一个是匿名函数。实际上,Lambda并不能测试,它们是硬编码的。例如,我还会实现这样的:
@@ -348,15 +261,6 @@ The reason why we do this is testability: Recently I have watched the fireside c
 ```
 RouteCaller(0, 100, { pageOffset, limit -> backend.search(searchQuery, pageOffset) })
 ```
-How do we write a unit test for that lambda? It’s not possible to write a unit test for that lambda since the lambda is “hardcoded”, whereas if we pass a function reference we can easily unit test a function. In java 8 we can pass a method reference by writing this::searchCall. Unfortunately, this syntax is not supported yet in kotlin (right now :: only supports static methods). Therefore this “workaround” by defining a function as property. More about my experience with kotlin in the last part of this series of blog post.
-
-All right, so for executing a Search we have something like this:
-
-RouteCallerFactory
-
-Please note that for the search getAllBackendCallers() returns a list containing just one RouteCaller, but the idea is that a RouteCallerFactory creates all RouteCallers to all available endpoints of a certain backend. As we will see later, the HomeDribbbleCallerFactory returns a list of RouteCallers for each Dribbble endpoint to load items like popular items, recent, animated etc. So we have something like that:
-
-RouteCallerFactory
 
 Next we introduce a Router which is responsible to combine all RouteCaller from different RouteCallerFactories to one single Observable list:
 
@@ -394,13 +298,6 @@ class Router<T>(private val routeFactories: List<RouteCallerFactory<T>>) {
 }
 ```
 
-As you see the Router takes a list of RouteCallerFactory, in other words: a Router can be configured via constructor. So to complete the “routing picture”:
-
-Router
-
-Ok, so far we have covered the “routing part”. So at the end the Router offers an Observable<List<RouteCaller<T>>>. But when do we finally load items to display them in the RecyclerView. This is the responsibility of ItemsLoader. As the name already suggests this component loads items:
-
-
 如你所见 `Route` 接收一个`RouteCallerFactory`列表,换句话说:通过构造函数可以配置Route。下面来完成“路由图”:
 
 ![](http://hannesdorfmann.com/images/plaid/routing5.png)
@@ -419,10 +316,6 @@ class ItemsLoader<T>(protected val router: Router<T>) {
     }
 }
 ```
-
-The ItemsLoader takes a Router as constructor parameter and offers two methods: - firstPage(): Returns an Observable representing the first page. - olderPages(): Returns an Observable to load older pages.
-
-A Page represents a page of items displayed in the RecyclerView. If we scroll to the end of the RecyclerView we load the next page containing older items. Let’s have a look at the FirstPage extends Page and OlderPage extends Page classes:
 
 `ItemsLoader` 接受一个 `Router` 作为构造函数的参数, 此外接受两个方法, firstPage()返回一个代表first page的 `Observable`, olderPages()返回一个代表older pager的 `Observable`.一个page代表RecyclerView显示的一页items,当我们滑动到底部的时候加载下一页数据.
 看一下 `Page`, `FirstPage` 和 `OlderPage` 的代码:
@@ -479,14 +372,7 @@ class OlderPage<T>(routeCalls: Observable<List<RouteCaller<T>>>) : Page<T>(route
 }
 ```
 
-Page is responsible for finally executing the http call by invoking RouteCaller's method. We also don’t want that one entire page fails just because one backend call has fails. Therefore we use onErrorResumeNext() to “intercept” errors and only return an error if all http calls have failed.
-
-Then the Presenter subscribes to the “page” observable via ItemsLoader.
-
 `Page`类负责调用`RouteCaller`的方法来执行http请求,我们不希望因为某个后端的调用失败导致整个页面数据获取失败,因此我们使用 `onErrorResumeNext()` 来拦截错误,然后返回一个http请求调用失败的 error.然后 `Presenter`通过`ItemsLoader` 订阅页面的 `observable`.
-
-Dependency Injection
-You might have already noticed that almost all components described so far takes other components as constructor parameter. This is by design. Now, we use Dagger (I used Dagger1) to compose such element as needed:
 
 ## 依赖注入
 
@@ -520,21 +406,8 @@ public class HomeModule {
 }
 ```
 
-As you see, we can use Dagger to configure our Router and ItemsLoader. For the SearchPresenter we configure an ItemsLoader and Router in SearchModule. The advantage is that if we one day would like to add another “source”, like reddit, to display items from reddit, the only thing we have to do is to define a RedditService (Retrofit), a RedditCallerFactoy and add this CallerFactory to the Router. We can do that in the concrete dagger module without having to touch another already existing component’s source code (Open-Closed principle). In other words: we have built a “plugin system” configureable through dependency injection.
-
-You might have noticed the SourceDao class in the code shown above. We will talk about that in the second part of this blog series when we are going “truly reactive”.
-
 正如你所见, 我们可以使用 `Dagger`来配置 `Router` 和 `ItemsLoader`. 我们给 `SearchModule`的`SearchPresenter`  配置一个 `ItemsLoader`和`Router`. 优势就是,如果有一天我们想要添加另一个“源”,如reddit,我们唯一要做的就是定义一个`RedditService`(Retrofit), `RedditCallerFactoy`并在`Router`中添加这个`CallerFactory`。我们可以在一个具体的 dagger module中,而不用修改其他类(开闭原则)。换句话说:我们已经通过依赖注入建立了一个可配置“插件系统”。
 您可能已经注意到 `SourceDao` 类的代码。我们将在第二篇博客中讨论如何将响应式编程进行得更彻底。
-
-Conclusion of Part 1
-This is the first part of a series of blog post. In this first part we have built the fundament by applying Model-View-Presenter and have refactored the way how the app loads data from the backend endpoints. The main idea is to cut this huge and complex task down into several smaller and reusable components like ItemsLoader, Page, Router and RouteCaller which follows more the SOLID principle as Nick Butcher’s DataManager implementation.
-
-As always, there are better ways to implement such an app. Especially, the ItemsLoader can be done entirely different. My first intention was to create an unlimited Observable for load older pages by using RxJava’s switchOnNext() or merge operators as described by Matthias Käppler, but I came to the conclusion that some things regarding UI and error handling are slightly easier to implement if I can split the single observable into two observables (one for first page, one for older page).
-
-As always, feedback and suggestions are very welcome!
-
-In the next (second) part of this series of blog posts about refactoring the Plaid app we will go “truly reactive” by using the real power of RxJava. Stay tuned.
 
 
 ## 第一部分总结
