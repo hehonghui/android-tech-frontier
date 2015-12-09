@@ -108,7 +108,7 @@ god object是十分复杂的，他的每一个部分都不能重复利用，无�
 ###总结
 
 
-现在你可以发现，一个调用了setRetainInstance(true)的Fragment也不奏效，我们还是需要保存/恢复fragment的状态，所以为简化问题，我们暂不考虑上述情况的Fragment。[Occam's razor](http://en.wikipedia.org/wiki/Occam's_razor)
+现在你可以发现，一个setRetainInstance(true)的Fragment也不奏效，我们还是希望这样的Fragment在所有的情景下为保存/恢复的状态模式，所以为简化问题，我们暂不考虑上述情况的Fragment。[Occam's razor](http://en.wikipedia.org/wiki/Occam's_razor)
 
 
 
@@ -126,7 +126,7 @@ god object是十分复杂的，他的每一个部分都不能重复利用，无�
 * 重启后台请求由于进程重启
 
 
-第一个部分,用Android的API可以实现。第二个部分，就是Presenter的作用了。Presenter将会记住有哪些请求需要执行，当进程在执行过程中重启时，Presenter将会出现执行它们。
+第一个部分,用Android的API可以实现。第二个部分，就是Presenter的作用了。Presenter只会记住有哪些请求需要执行，当进程在执行过程中重启时，Presenter将会再次执行它们。
 
 
 #####一个简单的例子(no MVP)
@@ -257,7 +257,7 @@ public class MainPresenter {
 
 ```
 
-从严格意义上来说，MainPresenter有三个事件处理线程： *onNext*, *onError*, *onTakeView*。他们调用了`publish()`方法，*onNext* 或 *onError*的值将会在MainActivity中发布，而不是由onTakeView提供。 	 
+从严格意义上来说，MainPresenter有三个事件处理线程： *onNext*, *onError*, *onTakeView*。他们在`publish()`方法中被回调，*onNext* 或 *onError*的值将会在由onTakeView方法传入的View实例,也就是MainActivity中来发布。 	 
 
 
 ```java
@@ -315,11 +315,11 @@ Nucleus是我从[Mortar](https://github.com/square/mortar)和 Keep It Stupid Sim
 
 它有以下特征：
 
-* 它支持在View/Fragment/Activity的Bundle中保存/恢复Presenter的状态，一个Presenter可以保存请求参数，以便之后重启它们
+* 它支持在View/Fragment/Activity的Bundle中保存/恢复Presenter的状态，一个Presenter可以保存它的请求参数到bundles中，以便之后重启它们
  
-* 只需要一行代码，它就可以直接将请求结果或者错误反馈给View，所以你不需要写`!= null`之类的核对代码。
+* 只需要一行代码，它就可以直接将请求结果和错误反馈给View，所以你不需要写`!= null`之类的非空判断语句。
  
-* 它允许你可以有多个持有Presenter的实例。 不过你不能在用[Dagger](http://square.github.io/dagger/)实例化的presenter中这样使用(传统方法).
+* 它允许一个view实例可以持有多个Presenter。不过你不能在用[Dagger](http://square.github.io/dagger/)实例化的presenter中这样使用(传统方法).
 
 * 它可以用一行代码快速的将View和Presenter绑定。
 
@@ -327,7 +327,7 @@ Nucleus是我从[Mortar](https://github.com/square/mortar)和 Keep It Stupid Sim
 
 * 支持在进程重启后，自动重新发起请求，在`onDestroy`方法中，自动的退订RxJava的订阅。
 
-* 最后，它简洁明了，每一个开发者都会理解，Presenter的驱动只用了180行代码，RxJava用了230行代码。
+* 最后，它简洁明了，每一个开发者都会理解，以上这些只用了180行代码来驱动Presenter这个类,加上230行RxJava的依赖。
 
 
 使用了[Nucleus](https://github.com/konmik/nucleus) 的[例 02](https://github.com/konmik/MVPExamples/tree/master/example02)
@@ -385,7 +385,7 @@ public class MainActivity extends NucleusActivity<MainPresenter> {
 }
 ```
 
-正如你看到的，跟上一个代码相比，这个例子十分简洁。Nucleus 可以构造/销毁/变成 Presenter, 向Presenter中添加/分离 View ，并且自动向附加的view发送请求。。
+正如你看到的，跟上一个代码相比，这个例子十分简洁。Nucleus 可以构造/销毁/保存 Presenter, 绑定/解绑 View ，并且自动向已经绑定的view发送请求的结果。
 
 `MainPresenter`的代码比较短，因为它使用`deliverLatestCache（）`的操作，延迟了由一个数据源发出所有的数据和错误，直到View可用。它还把数据缓存在内存中，以便它可以在Configuration change时可以被重用。
 
