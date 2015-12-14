@@ -44,21 +44,26 @@ a unique reference and re-use it within the SVG via that reference), and
 transformations – which are all commonly used.  
 
 Android Studio 1.4带来了导入SVG图形的能力并且可以自动将SVG图形转为*VectorDrawable*.我们可以导入[material icons
-pack](https://www.google.com/design/icons/)中的图标或者是单独的SVG文件.
+pack](https://www.google.com/design/icons/)中的图标或者是单独的SVG文件.可以非常完美的导入material图标,并且有大量丰富的资源.然而导入SVG文件就会有很多问题.原因就是*VectorDrawable*只支持SVG的一个子集,缺少了常用的gradient,pattern fills,local IRI references(赋予元素唯一的引用并且在SVG中通过这个引用来复用此元素)和transformations功能.
 
 For example, even a relatively simple image such as the official [SVG
 logo](http://www.w3.org/2009/08/svg-logos.html) (below) fails to import
-because it uses local IRI references:
+because it uses local IRI references:  
+举个例子,导入官方的[SVG
+logo](http://www.w3.org/2009/08/svg-logos.html)这种相对简单的图片(如下图)都会失败,因为缺少了对local IRI references的支持
 
 [![svg\_logo](https://blog.stylingandroid.com/wp-content/uploads/2015/10/svg_logo.svg)](http://blog.stylingandroid.com/wp-content/uploads/2015/10/svg_logo.svg)
 
 It’s currently unclear whether these omissions are for performance
 reasons (for example, gradients can be complex to render) or are future
-developments.
+developments.  
+现在还不知道这些遗漏的功能是因为出于对性能问题的考虑(比如gradients的渲染就很复杂)还是在开发中.
 
 With an understanding the SVG format (which is beyond the scope of this
 article) it is possible to manually tweak the logo to remove the local
-IRI references and this is identical to the one above:
+IRI references and this is identical to the one above:  
+通过对SVG格式的了解(超出了这篇文章的范围),我们可以手动调整上面的图片,移除local
+IRI references.下图是和SVG logo同样的.
 
 [![svg\_logo2](https://blog.stylingandroid.com/wp-content/uploads/2015/10/svg_logo2.svg)](http://blog.stylingandroid.com/wp-content/uploads/2015/10/svg_logo2.svg)
 
@@ -67,7 +72,8 @@ file” gives little clue where the problem lies. Thanks to a suggestion
 from [Wojtek Kaliciński](https://plus.google.com/+WojtekKalicinski) I
 changed the width and height from percentage values to absolute values
 and the import now worked. However because translations are not
-supported all of the elements were positioned badly:
+supported all of the elements were positioned badly:  
+###### 但这仍然不能导入到Android Studio中,提示的错误信息是“premature end of file”.感谢[Wojtek Kaliciński](https://plus.google.com/+WojtekKalicinski)的建议,我将宽高从百分比修改为了绝对数值之后可以导入到Android Studio了.然而因为translations也是不支持的,所以所有的元素都布局的不正确:
 
 [![svg\_logo2](https://blog.stylingandroid.com/wp-content/uploads/2015/10/svg_logo2-300x300.png)](https://blog.stylingandroid.com/wp-content/uploads/2015/10/svg_logo2.png)
 
@@ -75,7 +81,8 @@ By manually applying the all of the translation and rotation
 transformations from the original file (by wrapping `` elements in ``
 elements which support transformations) I was able to actually get the
 official SVG logo to import and render correctly as a *VectorDrawable*
-on Marshmallow:
+on Marshmallow:  
+通过手动调整源文件中所有的translation和rotation transformations(使用支持transformations的`` elements in ``元素包装),我终于可以把官方的SVG logo导入了并且在Marshmallow(Android 6.0)上被*VectorDrawable*正确的渲染:
 
 [![SVGLogo](https://blog.stylingandroid.com/wp-content/uploads/2015/10/SVGLogo-300x225.png)](https://blog.stylingandroid.com/wp-content/uploads/2015/10/SVGLogo.png)
 
