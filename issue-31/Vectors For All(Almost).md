@@ -8,16 +8,16 @@
 * 校对者: [这里校对者的github用户名](github链接)
 * 状态 :  未完成
 
-[Leave a
-reply](http://blog.stylingandroid.com/vectors-for-all-almost/#respond)
-
 Regular readers of Styling Android will know of my love of
 *VectorDrawable* and *AnimatedVectorDrawable*. While (at the time of
 writing) we’re still waiting for *VectorDrawableCompat* so we can only
 use them on API 21 (Lollipop) and later. However, the release of Android
 Studio 1.4 has just added some backwards compatibility to the build
 tools so we can actually begin to use *VectorDrawable* for pre-Lollipop.
-In this article we’ll take a look at how this works.\
+In this article we’ll take a look at how this works.  
+
+Styling Android的读者们都知道我对*VectorDrawable*和*AnimatedVectorDrawable*的喜爱.然而在我写这篇文章的时候,我们仍然在等待*VectorDrawableCompat*,所以现在只能在API 21(Lollipop)及之后的系统上使用.
+不过Android Studio 1.4版本以及为编译工具加入了一些向后兼容的能力,使得我们可以开始在Lollipop之前的系统上使用*VectorDrawable*.
 
 Before we begin let’s have a quick recap of what *VectorDrawable* is.
 Essentially it is an Android wrapper around SVG path data. SVG paths are
@@ -27,7 +27,9 @@ unsuitable for photographic images. Traditionally in Android we have
 *ShapeDrawable* where we can do [some basic
 stuff](/more-vector-drawables-part-2/) but often we have to convert
 vector and line graphics in to bitmaps at various pixel densities in
-order to use them.
+order to use them.  
+
+在我们开始之前,让我们先来概述一下什么是*VectorDrawable*.本质上来说是对SVG path数据在Android上的封装.SVG path是通过声明来描述复杂图形元素的方式.SVG path适合于线条的绘制和矢量图形,不适合摄影图像.之前在Android上我们可以使用*ShapeDrawable*做一些[基本的东西](https://blog.stylingandroid.com/more-vector-drawables-part-2/),但是我们经常需要将矢量图和线条转换成位图来在各种各样的像素密度上使用他们.
 
 Android Studio 1.4 introduces the ability to import SVG graphics into
 Android Studio and converts them automatically to *VectorDrawable*.
@@ -39,7 +41,10 @@ problematic. The reason for this is that the *VectorDrawable* format
 only supports a subset of SVG and is missing features such as gradient
 and pattern fills, local IRI references (the ability to give an element
 a unique reference and re-use it within the SVG via that reference), and
-transformations – which are all commonly used.
+transformations – which are all commonly used.  
+
+Android Studio 1.4带来了导入SVG图形的能力并且可以自动将SVG图形转为*VectorDrawable*.我们可以导入[material icons
+pack](https://www.google.com/design/icons/)中的图标或者是单独的SVG文件.
 
 For example, even a relatively simple image such as the official [SVG
 logo](http://www.w3.org/2009/08/svg-logos.html) (below) fails to import
