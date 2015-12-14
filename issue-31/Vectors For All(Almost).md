@@ -100,89 +100,47 @@ By dropping this in our `res/drawable` folder we can now reference it as
 any drawable:
 把使用工具处理后的图片放到`res/drawable`文件夹下,我们就可以把它当做drawable引用了.
 
-res/layout/activity\_main.xml
+    res/layout/activity\_main.xml
 
-<?xml version="1.0" encoding="utf-8"?\> <RelativeLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout\_width="match\_parent"
-android:layout\_height="match\_parent"
-android:paddingBottom="@dimen/activity\_vertical\_margin"
-android:paddingLeft="@dimen/activity\_horizontal\_margin"
-android:paddingRight="@dimen/activity\_horizontal\_margin"
-android:paddingTop="@dimen/activity\_vertical\_margin"
-tools:context=".MainActivity"\> <ImageView
-android:layout\_width="wrap\_content"
-android:layout\_height="wrap\_content"
-android:contentDescription="@null" android:src="@drawable/svg\_logo2"
-/\> </RelativeLayout\>
+    <?xml version="1.0" encoding="utf-8"?> 
+    <RelativeLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:paddingBottom="@dimen/activity_vertical_margin"
+		android:paddingLeft="@dimen/activity_horizontal_margin"
+		android:paddingRight="@dimen/activity_horizontal_margin"
+		android:paddingTop="@dimen/activity_vertical_margin"
+		tools:context=".MainActivity"> 
 
-1
+    	<ImageView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:contentDescription="@null" 
+			android:src="@drawable/svg_logo2"
+		/> 
+    </RelativeLayout>
 
-2
+	<?xml version="1.0" encoding="utf-8"?\>
 
-3
+	<RelativeLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:paddingBottom="@dimen/activity\_vertical\_margin"
+		android:paddingLeft="@dimen/activity\_horizontal\_margin"
+		android:paddingRight="@dimen/activity\_horizontal\_margin"
+		android:paddingTop="@dimen/activity\_vertical\_margin"
+		tools:context=".MainActivity">
 
-4
-
-5
-
-6
-
-7
-
-8
-
-9
-
-10
-
-11
-
-12
-
-13
-
-14
-
-15
-
-16
-
-17
-
-<?xml version="1.0" encoding="utf-8"?\>
-
-<RelativeLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-
-xmlns:tools="http://schemas.android.com/tools"
-
-android:layout\_width="match\_parent"
-
-android:layout\_height="match\_parent"
-
-android:paddingBottom="@dimen/activity\_vertical\_margin"
-
-android:paddingLeft="@dimen/activity\_horizontal\_margin"
-
-android:paddingRight="@dimen/activity\_horizontal\_margin"
-
-android:paddingTop="@dimen/activity\_vertical\_margin"
-
-tools:context=".MainActivity"\>
-
-<ImageView
-
-android:layout\_width="wrap\_content"
-
-android:layout\_height="wrap\_content"
-
-android:contentDescription="@null"
-
-android:src="@drawable/svg\_logo2" /\>
-
-</RelativeLayout\>
+		<ImageView
+			android:layout\_width="wrap\_content"
+			android:layout\_height="wrap\_content"
+			android:contentDescription="@null"
+			android:src="@drawable/svg\_logo2" /\>
+	</RelativeLayout>` 
 
 Provided that we are using gradle plugin 1.4.0 or later (at the time of
 writing this isn’t released but `1.4.0-beta6` does the trick) this will
@@ -217,60 +175,6 @@ getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro' } }
 } dependencies { compile fileTree(dir: 'libs', include: ['\*.jar'])
 testCompile 'junit:junit:4.12' compile
 'com.android.support:appcompat-v7:23.0.1' }
-
-1
-
-2
-
-3
-
-4
-
-5
-
-6
-
-7
-
-8
-
-9
-
-10
-
-11
-
-12
-
-13
-
-14
-
-15
-
-16
-
-17
-
-18
-
-19
-
-20
-
-21
-
-22
-
-23
-
-24
-
-25
-
-26
-
-27
 
 apply plugin: 'com.android.application'
 
