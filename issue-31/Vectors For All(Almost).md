@@ -93,10 +93,12 @@ references, but does a much better job of converting my hand-tweaked
 SVG. It was not thrown by having percentage width and height values, and
 it has an experimental mode to apply transformations which worked well
 in this case. But the need to manually convert the local IRI references
-still required hand-tweaking of the raw SVG files.
+still required hand-tweaking of the raw SVG files.  
+有一个Juraj Novák制作的[方便的工具](http://inloop.github.io/svg2android/)可以将SVG直接转换成*VectorDrawable*.工具也有着同样的限制,不能处理gradients和local IRI references,但是比我手动修改做的好多了.工具没有因为百分比的宽高值而处理失败,而且还有一个实验模式来应用transformations.但是仍然需要手动调整原始SVG文件的local IRI references.
 
 By dropping this in our `res/drawable` folder we can now reference it as
 any drawable:
+把使用工具处理后的图片放到`res/drawable`文件夹下,我们就可以把它当做drawable引用了.
 
 res/layout/activity\_main.xml
 
@@ -184,21 +186,25 @@ android:src="@drawable/svg\_logo2" /\>
 
 Provided that we are using gradle plugin 1.4.0 or later (at the time of
 writing this isn’t released but `1.4.0-beta6` does the trick) this will
-now work back to API 1!
+now work back to API 1!  
+假设我们正在使用gradle plugin 1.4.0 或者更新的版本(写文章时还没有发布,不过`1.4.0-beta6`同样可以),我们兼容到了API 1.
 
 So what’s happening? If we take a look in the generated code in the
-build folder it becomes obvious:
+build folder it becomes obvious:  
+所以发生了什么呢?我们看一下build文件夹下生成的代码就很清楚了:
 
 [![Screen Shot 2015-10-03 at
 15.20.33](https://blog.stylingandroid.com/wp-content/uploads/2015/10/Screen-Shot-2015-10-03-at-15.20.33.png)](https://blog.stylingandroid.com/wp-content/uploads/2015/10/Screen-Shot-2015-10-03-at-15.20.33.png)
 
 For API 21 and later the XML vector drawable that we imported is used,
-but for earlier devices a PNG of the vector drawable is used instead.
+but for earlier devices a PNG of the vector drawable is used instead.  
+在API 21及之后的版本会使用我们导入的XML vector drawable,而之前的版本会使用PNG图片代替.
 
 But what if we decide that we don’t need all of these densities and are
 concerned about the increased size of our APK as a result of this? We
 can actually control which densities will be generated using the
-`generatedDensities` property of the build flavor:
+`generatedDensities` property of the build flavor:  
+但如果我们不需要
 
 app/build.gradle
 
