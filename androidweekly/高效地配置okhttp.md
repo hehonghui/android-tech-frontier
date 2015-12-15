@@ -1,12 +1,12 @@
-高效的配置OkHttp
+高效地配置OkHttp
 ---
 
 > * 原文链接 : [Effective OkHttp](http://omgitsmgp.com/2015/12/02/effective-okhttp/)
 * 原文作者 : [Michael Parker](http://omgitsmgp.com/)
 * 译文出自 : [开发技术前线 www.devtf.cn。本译文已授权开发者头条（链接：http://toutiao.io/download）享有独家转载权，未经允许，不得转载!](http://www.devtf.cn)
 * 译者 : [Damonzh](https://github.com/Damonzh) 
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  未完成 / 校对中 / 完成 
+* 校对者: [desmond1121](https://github.com/desmond1121)  
+* 状态 :  完成 
 
 当我为[可汗学院](https://www.khanacademy.org/)开发[Android app](https://play.google.com/store/apps/details?id=org.khanacademy.android)的时候，[OkHttp](http://square.github.io/okhttp/)是一个十分有用的第三方库。虽然它的默认设置已经提供了很大的便利，但我们还是采取了以下的步骤使OkHttp更加高效与智能:  
 
