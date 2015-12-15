@@ -16,7 +16,7 @@ Studio 1.4 has just added some backwards compatibility to the build
 tools so we can actually begin to use *VectorDrawable* for pre-Lollipop.
 In this article we’ll take a look at how this works.  
 
-[Styling Android](https://blog.stylingandroid.com/)的读者们将会了解到我对*VectorDrawable*和*AnimatedVectorDrawable*的喜爱。然而在我写这篇文章的时候,我们仍然在等待*VectorDrawableCompat*来支持老版本的系统,所以目前只能在API 21(Lollipop)及之后的系统上使用.不过Android Studio 1.4版本已经为编译工具加入了一些向后兼容的能力,使得我们可以开始在Lollipop之前的系统上使用*VectorDrawable*。
+[Styling Android](https://blog.stylingandroid.com/)的读者们将会了解我对*VectorDrawable*和*AnimatedVectorDrawable*的喜爱。在我写这篇文章的时候,我们仍然在等待*VectorDrawableCompat*来支持老版本的系统,所以目前只能在API 21(Lollipop)及之后的系统上使用它们.不过Android Studio 1.4版本已经为编译工具加入了一些向后兼容的能力,使得我们可以开始在Lollipop之前的系统上使用*VectorDrawable*。在这篇文章中,让我们看看这是如何实现的。
 
 Before we begin let’s have a quick recap of what *VectorDrawable* is.
 Essentially it is an Android wrapper around SVG path data. SVG paths are
@@ -27,7 +27,6 @@ unsuitable for photographic images. Traditionally in Android we have
 stuff](/more-vector-drawables-part-2/) but often we have to convert
 vector and line graphics in to bitmaps at various pixel densities in
 order to use them.  
-
 在我们开始之前,让我们先来简单了解一下什么是*VectorDrawable*。本质上来说就是对SVG path数据在Android上的封装。SVG path是通过声明来描述复杂图形元素的方式。SVG path适合于线条的绘制和矢量图形,不适合摄影图像。之前在Android上我们可以使用*ShapeDrawable*做一些[基本的东西](https://blog.stylingandroid.com/more-vector-drawables-part-2/),但是我们经常需要将矢量图和线条转换成位图来在各种各样的像素密度上使用他们。
 
 Android Studio 1.4 introduces the ability to import SVG graphics into
@@ -42,7 +41,7 @@ and pattern fills, local IRI references (the ability to give an element
 a unique reference and re-use it within the SVG via that reference), and
 transformations – which are all commonly used.  
 
-Android Studio 1.4带来了导入SVG图形的能力并且可以自动将它们转为*VectorDrawable*。我们可以导入[material icons
+Android Studio 1.4带来了导入SVG的能力并且可以自动将它们转为*VectorDrawable*。我们可以导入[material icons
 pack](https://www.google.com/design/icons/)中的图标或者是单独的SVG文件。导入material icons pack的图标执行的非常好,并且有大量丰富的资源可以选择。然而导入单独的SVG文件相比之下就会有很多问题。原因就是*VectorDrawable*只支持SVG的一个子集,缺少了常用的gradient,pattern fills,local IRI references(赋予元素唯一的引用并且在SVG中通过这个引用来复用此元素)和transformations功能。
 
 For example, even a relatively simple image such as the official [SVG
@@ -50,7 +49,7 @@ logo](http://www.w3.org/2009/08/svg-logos.html) (below) fails to import
 because it uses local IRI references:  
 举个例子,导入官方的[SVG logo](http://www.w3.org/2009/08/svg-logos.html)这种相对简单的图片(如下图)都会失败,因为缺少了对local IRI references的支持。
 
-[![svg\_logo](https://blog.stylingandroid.com/wp-content/uploads/2015/10/svg_logo.svg)
+![svg\_logo](https://blog.stylingandroid.com/wp-content/uploads/2015/10/svg_logo.svg)
 
 It’s currently unclear whether these omissions are for performance
 reasons (for example, gradients can be complex to render) or are future
@@ -60,9 +59,9 @@ developments.
 With an understanding the SVG format (which is beyond the scope of this
 article) it is possible to manually tweak the logo to remove the local
 IRI references and this is identical to the one above:  
-通过对SVG格式的了解(超出了这篇文章的范围),我们可以手动调整上面的图片,移除local IRI references.调整过的下图是和上面SVG logo效果是相同的。
+通过对SVG格式的了解(超出了这篇文章的范围),我们可以手动调整上面的图片,移除local IRI references.调整过的下图和上面SVG logo效果是相同的。
 
-[![svg\_logo2](https://blog.stylingandroid.com/wp-content/uploads/2015/10/svg_logo2.svg)
+![svg\_logo2](https://blog.stylingandroid.com/wp-content/uploads/2015/10/svg_logo2.svg)
 
 This still does not import and the error message of “premature end of
 file” gives little clue where the problem lies. Thanks to a suggestion
@@ -72,16 +71,16 @@ and the import now worked. However because translations are not
 supported all of the elements were positioned badly:  
 但这仍然不能导入到Android Studio中,提示的错误信息是“premature end of file”.感谢[Wojtek Kaliciński](https://plus.google.com/+WojtekKalicinski)的建议,我将宽高从百分比修改为了绝对数值之后可以导入了。然而因为translations也是不支持的,所以所有的元素都不能正确的布局(如下图):
 
-[![svg\_logo2](https://blog.stylingandroid.com/wp-content/uploads/2015/10/svg_logo2-300x300.png)](https://blog.stylingandroid.com/wp-content/uploads/2015/10/svg_logo2.png)
+![svg\_logo2](https://blog.stylingandroid.com/wp-content/uploads/2015/10/svg_logo2.png)
 
 By manually applying the all of the translation and rotation
-transformations from the original file (by wrapping `` elements in ``
+transformations from the original file (by wrapping `<path>` elements in `<group>`
 elements which support transformations) I was able to actually get the
 official SVG logo to import and render correctly as a *VectorDrawable*
 on Marshmallow:  
-通过手动调整源文件中所有的translation和rotation transformations(使用支持transformations的`` elements in ``元素包装),我终于可以把官方的SVG logo导入了并且在Marshmallow(Android 6.0)上能被*VectorDrawable*正确的渲染:
+通过手动调整源文件中所有的translation和rotation transformations(使用支持transformations的`<group>`元素嵌套`<path>`),我终于可以把官方的SVG logo导入了并且在Marshmallow(Android 6.0)上能被*VectorDrawable*正确的渲染:
 
-[![SVGLogo](https://blog.stylingandroid.com/wp-content/uploads/2015/10/SVGLogo-300x225.png)](https://blog.stylingandroid.com/wp-content/uploads/2015/10/SVGLogo.png)
+![SVGLogo](https://blog.stylingandroid.com/wp-content/uploads/2015/10/SVGLogo-300x225.png)
 
 There is a [conversion tool](http://inloop.github.io/svg2android/) by
 Juraj Novák which will convert SVG directly to *VectorDrawable*. It has
@@ -91,7 +90,7 @@ SVG. It was not thrown by having percentage width and height values, and
 it has an experimental mode to apply transformations which worked well
 in this case. But the need to manually convert the local IRI references
 still required hand-tweaking of the raw SVG files.  
-有一个Juraj Novák制作的[方便的工具](http://inloop.github.io/svg2android/)可以将SVG直接转换成*VectorDrawable*.但它也有着很多和导入一样的限制,不能处理gradients和local IRI references,但是在转换我手动调整过的SVG上表现的还是更好.工具没有因为使用百分比的宽高值而处理失败,而且还有一个实验模式来应用transformations并且工作正常.但是仍然需要手动调整原始SVG文件的local IRI references.
+有一个Juraj Novák制作的[方便的工具](http://inloop.github.io/svg2android/)可以将SVG直接转换成*VectorDrawable*.但它也有着很多和导入一样的限制,不能处理gradients和local IRI references,但是在转换我手动调整过的SVG上表现的更好.转换工具没有因为使用百分比的宽高值而处理失败,而且还有一个实验模式来应用transformations并且工作正常.但是仍然需要手动调整原始SVG文件的local IRI references.
 
 By dropping this in our `res/drawable` folder we can now reference it as
 any drawable:
@@ -99,7 +98,7 @@ any drawable:
 
     res/layout/activity\_main.xml
 
-    <?xml version="1.0" encoding="utf-8"?> 
+    <?xml version="1.0" encoding="utf-8"?>
     <RelativeLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:tools="http://schemas.android.com/tools"
@@ -128,7 +127,7 @@ So what’s happening? If we take a look in the generated code in the
 build folder it becomes obvious:  
 所以究竟发生了什么呢?我们看一下build文件夹下生成的代码就很清楚了:
 
-[![Screen Shot 2015-10-03 at 15.20.33](https://blog.stylingandroid.com/wp-content/uploads/2015/10/Screen-Shot-2015-10-03-at-15.20.33.png)
+![Screen Shot 2015-10-03 at 15.20.33](https://blog.stylingandroid.com/wp-content/uploads/2015/10/Screen-Shot-2015-10-03-at-15.20.33.png)
 
 For API 21 and later the XML vector drawable that we imported is used,
 but for earlier devices a PNG of the vector drawable is used instead.  
@@ -138,7 +137,7 @@ But what if we decide that we don’t need all of these densities and are
 concerned about the increased size of our APK as a result of this? We
 can actually control which densities will be generated using the
 `generatedDensities` property of the build flavor:  
-但如果我们不需要生成全部的分辨率而更关注这导致的APK增加的大小呢?我们可以通过build flavor的`generatedDensities`属性来控制需要生成的分辨率。
+但如果我们不需要对应全部的分辨率而更关注由此导致APK增加的大小呢?我们可以通过build flavor的`generatedDensities`属性来控制需要生成的分辨率。
 
 	app/build.gradle
 
@@ -171,30 +170,30 @@ were generated by previous builds) we can see this only creates the
 densities we’ve specified:  
 如果我们现在build一下（记得先clean来清除之前生成的资源），就会发现只生成了我们指定分辨率的资源：
 
-[![Screen Shot 2015-10-03 at 15.27.08](https://blog.stylingandroid.com/wp-content/uploads/2015/10/Screen-Shot-2015-10-03-at-15.27.08.png)
+![Screen Shot 2015-10-03 at 15.27.08](https://blog.stylingandroid.com/wp-content/uploads/2015/10/Screen-Shot-2015-10-03-at-15.27.08.png)
 
 So, let’s now actually take a look at what is produced in the png
 representation:  
 那么，现在让我们来看看实际生成的png:
 
-[![svg\_logo2](https://blog.stylingandroid.com/wp-content/uploads/2015/10/svg_logo2-300x300.png)](https://blog.stylingandroid.com/wp-content/uploads/2015/10/svg_logo2.png)
+![svg\_logo2](https://blog.stylingandroid.com/wp-content/uploads/2015/10/svg_logo2-300x300.png)
 
 This is essentially the same as how the imported SVG was rendered before
 I manually added the missing transformations. I should mention that
-there **is** a lint warning which indicates that `` elements are not
+there **is** a lint warning which indicates that `<group>` elements are not
 supported for raster image generation, but that does not detract from
 the fact that *VectorDrawable* is an Android-specific format so not
 fully supporting it seems baffling.  
-这和我手动添加缺少的transformations之前导入的SVG渲染出的一样。我之前应该提到lint有一个警告指出 元素是不支持光栅化的，但是这没有背离*VectorDrawable*是一个Android的特定格式，所以没有完整的支持是让人不爽的。
+这和我手动添加缺少的transformations之前导入的SVG渲染出的一样。我之前本该提到lint有一个警告指出`<group>`元素是不支持光栅化的，但是这不影响*VectorDrawable*是一个Android特定格式的事实，因此没有完整的支持它似乎令人费解。
 
 We now beginning to understand why transformations are not supported by
-the import tool – because transformations on *VectorDrawable* ``
+the import tool – because transformations on *VectorDrawable* `<group>`
 elements is not supported when converting *VectorDrawable* to a raster
 image for backwards compatibility. This would appear to be a major
 omission: Totally valid *VectorDrawable* assets which render perfectly
 under Lollipop and later do not actually render correctly when converted
 to PNG.  
-现在我们开始理解为什么transformations不被导入工具支持了，因为transformations在*VectorDrawable*被转换成光栅化图片以向后兼容时是不支持的。这应该是一个主要的遗漏：在Lollipop以及之后的系统上是可以完美渲染的有效的*VectorDrawable*资源转换成PNG图片就不正确了。
+现在我们开始理解为什么transformations不被导入工具支持了，因为`<group>`中的transformations在*VectorDrawable*被转换成光栅化图片以向后兼容时是不支持的。这应该是一个主要的遗漏：在Lollipop以及之后的系统上可以完美渲染的有效的*VectorDrawable*资源转换成PNG图片就不正确了。
 
 To, to summarise: If you use these new tools to import assets from the
 material icons library they work flawlessly. However, it seems
