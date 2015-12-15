@@ -205,7 +205,9 @@ correctly import most real-world SVG files. Moreover the lack of support
 even for the full *VectorDrawable* specification in the VectorDrawable
 -\> raster image conversion makes the implementation feel unfinished and
 not really ready for general use.  
-总结下：如果你使用这些新工具从material icons library中导入资源，那么一切都很完美。然而，声称导入工具可以导入SVG文件则是一种误导，因为它支持非常有限的SVG的子集，并且无法正确导入大部分实际真正使用的SVG文件。此外，缺少对*VectorDrawable*转换为光栅化视图的完整支持让人感觉这项功能没有真正完成，没有准备好投入使用。
+总结下：如果你使用这些新工具从material icons library中导入资源，那么一切都很完美。  
+![perfect](https://github.com/DroidWorkerLYF/Translate/blob/master/vectors%20for%20all/perfect.gif?raw=true)  
+然而，声称导入工具可以导入SVG文件则是一种误导，因为它支持非常有限的SVG的子集，并且无法正确导入大部分实际真正使用的SVG文件。此外，缺少对*VectorDrawable*转换为光栅化视图的完整支持让人感觉这项功能没有真正完成，没有准备好投入使用。
 
 For the level of manual tweaking that I was required to do to even get
 the official SVG logo to even be converted to a *VectorDrawable* by the
