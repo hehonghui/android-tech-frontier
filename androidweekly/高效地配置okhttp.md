@@ -164,5 +164,3 @@ settings.setUserAgentString(userAgentHeaderValue);
 
 ### 总结
 再次声明，默认的OkHttp的配置方式已经提供了很大的便利。但是通过以上步骤你可以提高它更加高效与智能，从而提升你的App质量。
-
-
