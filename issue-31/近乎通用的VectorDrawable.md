@@ -16,7 +16,7 @@ Studio 1.4 has just added some backwards compatibility to the build
 tools so we can actually begin to use *VectorDrawable* for pre-Lollipop.
 In this article we’ll take a look at how this works.  
 
-[Styling Android](https://blog.stylingandroid.com/)的读者们将会了解到我对*VectorDrawable*和*AnimatedVectorDrawable*的喜爱。在我写这篇文章的时候,我们仍然在等待*VectorDrawableCompat*来支持老版本的系统,所以目前只能在API 21(Lollipop)及之后的系统上使用它们。不过Android Studio 1.4版本已经为编译工具加入了一些向下兼容的能力,使得我们可以开始在Lollipop之前的系统上使用*VectorDrawable*。在这篇文章中,让我们看看这是如何实现的。
+[Styling Android](https://blog.stylingandroid.com/)的读者们将会了解到我对*VectorDrawable*和*AnimatedVectorDrawable*的喜爱。在我写这篇文章的时候，我们仍然在等待*VectorDrawableCompat*来支持老版本的系统，所以目前只能在API 21(Lollipop)及之后的系统上使用它们。不过Android Studio 1.4版本已经为编译工具加入了一些向下兼容的能力，使得我们可以开始在Lollipop之前的系统上使用*VectorDrawable*。在这篇文章中，让我们看看这是如何实现的。
 
 Before we begin let’s have a quick recap of what *VectorDrawable* is.
 Essentially it is an Android wrapper around SVG path data. SVG paths are
@@ -27,7 +27,7 @@ unsuitable for photographic images. Traditionally in Android we have
 stuff](/more-vector-drawables-part-2/) but often we have to convert
 vector and line graphics in to bitmaps at various pixel densities in
 order to use them.  
-在我们开始之前,让我们先来简单了解一下什么是*VectorDrawable*。本质上来说就是对SVG的path元素在Android上的封装。path元素是通过声明来描述复杂图形元素的方式。path元素适合于线条的绘制和矢量图形,不适合图片。之前在Android上我们可以使用*ShapeDrawable*做一些[基本的东西](https://blog.stylingandroid.com/more-vector-drawables-part-2/),但是我们经常需要将矢量图和线条转换成位图以适应多样的分辨率。
+在我们开始之前，让我们先来简单了解一下什么是*VectorDrawable*。本质上来说就是对SVG的path元素在Android上的封装。path元素是通过声明来描述复杂图形元素的方式。path元素适合于线条的绘制和矢量图形，不适合照片。之前在Android上我们可以使用*ShapeDrawable*做一些[基础的东西](https://blog.stylingandroid.com/more-vector-drawables-part-2/)，但是我们经常需要将矢量图和线条转换成位图以适应多样的分辨率。
 
 Android Studio 1.4 introduces the ability to import SVG graphics into
 Android Studio and converts them automatically to *VectorDrawable*.
@@ -41,12 +41,12 @@ and pattern fills, local IRI references (the ability to give an element
 a unique reference and re-use it within the SVG via that reference), and
 transformations – which are all commonly used.  
 Android Studio 1.4新加了导入SVG的功能并且可以自动将它们转为*VectorDrawable*。我们可以导入[material icons
-pack](https://www.google.com/design/icons/)中的图标或者是单独的SVG文件。导入material icons pack的图标很容易,并且有丰富的资源。相比之下,导入单独的SVG文件就会有很多问题。原因就是*VectorDrawable*只支持SVG的一个子集,缺少了常用的gradient,pattern fills,local IRI references(赋予元素唯一的引用并且在SVG中通过这个引用来复用此元素)和transformations(译者注:下文提到的translate和rotate就是两种transformations)功能。
+pack](https://www.google.com/design/icons/)中的图标或者是单独的SVG文件。导入material icons pack的图标很容易，并且有丰富的资源。相比之下，导入单独的SVG文件就会有很多问题。原因就是*VectorDrawable*只支持SVG的一个子集,缺少了对常用的gradient,pattern fills,local IRI references(赋予元素唯一的引用并且在SVG中通过这个引用来复用此元素)和transformations的支持。
 
 For example, even a relatively simple image such as the official [SVG
 logo](http://www.w3.org/2009/08/svg-logos.html) (below) fails to import
 because it uses local IRI references:  
-举个例子,导入官方的[SVG logo](http://www.w3.org/2009/08/svg-logos.html)这种相对简单的图片(如下图)都会失败,因为缺少了对local IRI references的支持。
+举个例子，导入官方的[SVG logo](http://www.w3.org/2009/08/svg-logos.html)这种相对简单的图片(如下图)都会失败，因为缺少了对local IRI references的支持。
 
 ![svg\_logo](https://github.com/DroidWorkerLYF/Translate/blob/master/vectors%20for%20all/1.png?raw=true)
 
@@ -58,7 +58,7 @@ developments.
 With an understanding the SVG format (which is beyond the scope of this
 article) it is possible to manually tweak the logo to remove the local
 IRI references and this is identical to the one above:  
-通过对SVG格式的了解(超出了这篇文章的讨论范围),我们可以手动调整上面的图片,移除local IRI references.调整过的下图和上面SVG logo效果是相同的。
+通过对SVG格式的了解(超出了这篇文章的讨论范围)，我们可以手动调整上面的图片，移除local IRI references。调整过的下图和上面SVG logo效果是相同的。
 
 ![svg\_logo2](https://github.com/DroidWorkerLYF/Translate/blob/master/vectors%20for%20all/2.png?raw=true)
 
@@ -68,7 +68,7 @@ from [Wojtek Kaliciński](https://plus.google.com/+WojtekKalicinski) I
 changed the width and height from percentage values to absolute values
 and the import now worked. However because translations are not
 supported all of the elements were positioned badly:  
-但这仍然不能导入到Android Studio中,提示的错误信息是“premature end of file”.感谢[Wojtek Kaliciński](https://plus.google.com/+WojtekKalicinski)的建议,我将宽高从百分比修改为绝对数值之后就可以导入了。然而因为translations也是不支持的,所以所有的元素都不能正确的布局(如下图):
+但这仍然不能导入到Android Studio中,提示的错误信息是“premature end of file”。感谢[Wojtek Kaliciński](https://plus.google.com/+WojtekKalicinski)的建议，我将宽高从百分比修改为绝对数值之后就可以导入了。然而因为translations也是不支持的，所以所有的元素都不能正确的布局(如下图):
 
 ![svg\_logo2](https://github.com/DroidWorkerLYF/Translate/blob/master/vectors%20for%20all/3.png?raw=true)
 
@@ -89,11 +89,11 @@ SVG. It was not thrown by having percentage width and height values, and
 it has an experimental mode to apply transformations which worked well
 in this case. But the need to manually convert the local IRI references
 still required hand-tweaking of the raw SVG files.  
-Juraj Novák制作了一个[方便的工具](http://inloop.github.io/svg2android/)可以将SVG直接转换成*VectorDrawable*.但它也有着很多和导入一样的限制,不能处理gradients和local IRI references,但是在转换我手动调整过的SVG上表现的更好.不但没有因为使用百分比的宽高值而处理失败,而且还提供了一个实验模式来很好的处理transformations.但是仍然需要手动调整原始SVG文件的local IRI references.
+Juraj Novák制作了一个[方便的工具](http://inloop.github.io/svg2android/)可以将SVG直接转换成*VectorDrawable*。但它也有着很多和导入一样的限制，不能处理gradients和local IRI references，但是在转换我手动调整过的SVG上表现的更好，不但没有因为使用百分比的宽高值而处理失败，而且还提供了一个实验模式来很好的处理transformations。但是仍然需要手动调整原始SVG文件的local IRI references。
 
 By dropping this in our `res/drawable` folder we can now reference it as
 any drawable:  
-把处理后的图片放到`res/drawable`文件夹下,我们就可以把它当做drawable引用了.
+把处理后的图片放到`res/drawable`文件夹下，我们就可以把它当做drawable引用了。
 
     res/layout/activity\_main.xml
 
@@ -120,7 +120,7 @@ any drawable:
 Provided that we are using gradle plugin 1.4.0 or later (at the time of
 writing this isn’t released but `1.4.0-beta6` does the trick) this will
 now work back to API 1!  
-假设我们正在使用gradle plugin 1.4.0 或者更新的版本(写文章时1.4.0还没有发布,不过`1.4.0-beta6`同样可以),就可以让*VectorDrawable*兼容到API 1!
+假设我们正在使用gradle plugin 1.4.0 或者更新的版本(写文章时1.4.0还没有发布，不过`1.4.0-beta6`同样可以)，就可以让*VectorDrawable*兼容到API 1!
 
 So what’s happening? If we take a look in the generated code in the
 build folder it becomes obvious:  
@@ -130,13 +130,13 @@ build folder it becomes obvious:
 
 For API 21 and later the XML vector drawable that we imported is used,
 but for earlier devices a PNG of the vector drawable is used instead.  
-在API 21及之后的版本会使用我们导入的XML vector drawable,而之前的版本会使用PNG格式图片代替.
+在API 21及之后的版本会使用我们导入的XML vector drawable,而之前的版本会使用PNG格式图片代替。
 
 But what if we decide that we don’t need all of these densities and are
 concerned about the increased size of our APK as a result of this? We
 can actually control which densities will be generated using the
 `generatedDensities` property of the build flavor:  
-但如果我们不需要对应全部的分辨率,而是更加关注由此导致APK增加的大小呢?我们可以通过build flavor的`generatedDensities`属性来控制需要生成的分辨率。
+但如果我们不需要对应全部的分辨率，而是更加关注由此导致APK增加的大小呢?我们可以通过build flavor的`generatedDensities`属性来控制需要生成的分辨率。
 
 	app/build.gradle
 
@@ -183,7 +183,7 @@ there **is** a lint warning which indicates that `<group>` elements are not
 supported for raster image generation, but that does not detract from
 the fact that *VectorDrawable* is an Android-specific format so not
 fully supporting it seems baffling.  
-这和我手动添加缺少的transformations之前导入的SVG渲染出的一样。我之前本该提到lint有一个警告指出`<group>`元素是不支持光栅化的，*VectorDrawable*是一个Android特定的格式，却没有被完整的支持,似乎令人费解。
+这和我手动添加缺少的transformations之前导入的SVG渲染出的一样。我之前本该提到lint有一个警告指出`<group>`元素是不支持光栅化的，*VectorDrawable*是一个Android特定的格式，却没有被完整的支持，似乎令人费解。
 
 We now beginning to understand why transformations are not supported by
 the import tool – because transformations on *VectorDrawable* `<group>`
@@ -202,9 +202,7 @@ correctly import most real-world SVG files. Moreover the lack of support
 even for the full *VectorDrawable* specification in the VectorDrawable
 -\> raster image conversion makes the implementation feel unfinished and
 not really ready for general use.  
-总结下：如果你使用这些新工具从material icons library中导入资源，那么一切都很完美。  
-![perfect](https://github.com/DroidWorkerLYF/Translate/blob/master/vectors%20for%20all/perfect.gif?raw=true)  
-然而，声称导入工具可以导入SVG文件则是一种误导，因为它支持非常有限的SVG的子集，并且无法正确导入大部分实际真正使用的SVG文件。此外，缺少对*VectorDrawable*转换为光栅化视图的完整支持让人感觉这项功能没有真正完成，没有准备好投入使用。
+总结下：如果你使用这些新工具从material icons library中导入资源，那么一切都很完美。然而，声称导入工具可以导入SVG文件则是一种误导，因为它支持非常有限的SVG的子集，并且无法正确导入大部分实际真正使用的SVG文件。此外，缺少对*VectorDrawable*转换为光栅化视图的完整支持让人感觉这项功能没有真正完成，没有准备好投入使用。
 
 For the level of manual tweaking that I was required to do to even get
 the official SVG logo to even be converted to a *VectorDrawable* by the
