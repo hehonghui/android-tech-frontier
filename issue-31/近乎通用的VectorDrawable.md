@@ -27,7 +27,7 @@ unsuitable for photographic images. Traditionally in Android we have
 stuff](/more-vector-drawables-part-2/) but often we have to convert
 vector and line graphics in to bitmaps at various pixel densities in
 order to use them.  
-在我们开始之前,让我们先来简单了解一下什么是*VectorDrawable*。本质上来说就是对SVG path数据在Android上的封装。SVG path是通过声明来描述复杂图形元素的方式。SVG path适合于线条的绘制和矢量图形,不适合图片。之前在Android上我们可以使用*ShapeDrawable*做一些[基本的东西](https://blog.stylingandroid.com/more-vector-drawables-part-2/),但是我们经常需要将矢量图和线条转换成位图以适应多样的分辨率。
+在我们开始之前,让我们先来简单了解一下什么是*VectorDrawable*。本质上来说就是对SVG的path元素在Android上的封装。path元素是通过声明来描述复杂图形元素的方式。path元素适合于线条的绘制和矢量图形,不适合图片。之前在Android上我们可以使用*ShapeDrawable*做一些[基本的东西](https://blog.stylingandroid.com/more-vector-drawables-part-2/),但是我们经常需要将矢量图和线条转换成位图以适应多样的分辨率。
 
 Android Studio 1.4 introduces the ability to import SVG graphics into
 Android Studio and converts them automatically to *VectorDrawable*.
@@ -40,9 +40,8 @@ only supports a subset of SVG and is missing features such as gradient
 and pattern fills, local IRI references (the ability to give an element
 a unique reference and re-use it within the SVG via that reference), and
 transformations – which are all commonly used.  
-
 Android Studio 1.4新加了导入SVG的功能并且可以自动将它们转为*VectorDrawable*。我们可以导入[material icons
-pack](https://www.google.com/design/icons/)中的图标或者是单独的SVG文件。导入material icons pack的图标很容易,并且有丰富的资源。相比之下,导入单独的SVG文件就会有很多问题。原因就是*VectorDrawable*只支持SVG的一个子集,缺少了常用的gradient,pattern fills,local IRI references(赋予元素唯一的引用并且在SVG中通过这个引用来复用此元素)和transformations功能。
+pack](https://www.google.com/design/icons/)中的图标或者是单独的SVG文件。导入material icons pack的图标很容易,并且有丰富的资源。相比之下,导入单独的SVG文件就会有很多问题。原因就是*VectorDrawable*只支持SVG的一个子集,缺少了常用的gradient,pattern fills,local IRI references(赋予元素唯一的引用并且在SVG中通过这个引用来复用此元素)和transformations(译者注:下文提到的translate和rotate就是两种transformations)功能。
 
 For example, even a relatively simple image such as the official [SVG
 logo](http://www.w3.org/2009/08/svg-logos.html) (below) fails to import
