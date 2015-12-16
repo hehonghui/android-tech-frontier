@@ -6,7 +6,7 @@
 * 译文出自 : [开发技术前线 www.devtf.cn。本译文已授权开发者头条（链接：http://toutiao.io/download）享有独家转载权，未经允许，不得转载!](http://www.devtf.cn)
 * 译者 : [DroidWorkerLYF](https://github.com/DroidWorkerLYF)
 * 校对者: [这里校对者的github用户名](github链接)
-* 状态 :  未完成
+* 状态 :  校对中
 
 Regular readers of Styling Android will know of my love of
 *VectorDrawable* and *AnimatedVectorDrawable*. While (at the time of
