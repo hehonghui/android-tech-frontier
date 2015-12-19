@@ -1,7 +1,7 @@
-这里写中文标题
+Android中的人脸识别入门
 ---
 
-> * 原文链接 : [原文标题](原文url)
+> * 原文链接 : [An Introduction to Face Detection on Android](http://code.tutsplus.com/tutorials/an-introduction-to-face-detection-on-android--cms-25212?utm_source=Android+Weekly&utm_campaign=15ee59bb7a-Android_Weekly_181&utm_medium=email&utm_term=0_4eb677ad19-15ee59bb7a-337955857)
 * 原文作者 : [作者](作者的博客或者其他社交页面)
 * 译文出自 : [开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 转载声明: 本译文已授权[开发者头条](http://toutiao.io/download)享有独家转载权，未经允许，不得转载!
