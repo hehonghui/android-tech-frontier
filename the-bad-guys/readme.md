@@ -43,10 +43,10 @@
 ## 优秀学习网站
 |   地址  |       备注   |
 |-------- |----------|
-|   [开发技术前线](devtf.cn) |  国内外各个开发领域优质技术文章的聚合网站  |
+|   [开发技术前线](http://devtf.cn) |  国内外各个开发领域优质技术文章的聚合网站  |
 |   [Android Dev Blog](http://android-developers.blogspot.com/) |  Android官方博客 |
-|   [Android Weekly](androidweekly.net) |  国外优秀技术文章的收集网站，每周发布  |
-|   [Android开发技术周报](androidweekly.cn) |  AndroidWeekly中国版  |
+|   [Android Weekly](http://androidweekly.net) |  国外优秀技术文章的收集网站，每周发布  |
+|   [Android开发技术周报](http://androidweekly.cn) |  AndroidWeekly中国版  |
 |   [码农周刊](http://weekly.manong.io/) |  文章、咨询周报  |
 |   [好东西传送门](http://memect.com/) |  各领域技术文章的日报  |
 
