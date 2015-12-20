@@ -6,15 +6,11 @@ Espresso:保存和恢复状态
 * 译文出自 : [开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 转载声明: 本译文已授权[开发者头条](http://toutiao.io/download)享有独家转载权，未经允许，不得转载!
 * 译者 : [DroidWorkerLYF](https://github.com/DroidWorkerLYF) 
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  校对  
-
-Do you save and restore state of your activities, fragments and custom
-views? Do you test them?  
+* 校对者: [desmond1121](https://github.com/desmond1121)  
+* 状态 :  完成  
+  
 你保存并且恢复activities,fragments和自定义视图的状态吗?你有测试过吗?
-
-One way to test saving and restoring state is to rotate the screen in
-your Espresso test.  
+  
 一种测试保存和恢复状态的方法就是在你的Espresso测试中旋转屏幕.
 
 	private void rotateScreen() {
@@ -28,8 +24,7 @@ your Espresso test.
           		ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 
-
-With this helper function, you can write tests like this:  
+ 
 有了上面的辅助方法,你可以写出如下的测试:
 
 	@Test
@@ -47,8 +42,5 @@ With this helper function, you can write tests like this:
       	onView(withId(R.id.count))
       	.check(matches(withText("2")));
 	}
-
-Source code
-[https://github.com/chiuki/espresso-samples/](https://github.com/chiuki/espresso-samples/tree/master/rotate-screen)
-under `rotate-screen`  
+ 
 [源码](https://github.com/chiuki/espresso-samples/tree/master/rotate-screen)
