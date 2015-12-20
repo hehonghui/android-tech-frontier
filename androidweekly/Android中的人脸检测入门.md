@@ -6,8 +6,8 @@ Android中的人脸检测入门
 * 译文出自 : [开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 转载声明: 本译文已授权[开发者头条](http://toutiao.io/download)享有独家转载权，未经允许，不得转载!
 * 译者 : [LangleyChang](https://github.com/LangleyChang) 
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  校对中
+* 校对者: [desmond1121](https://github.com/desmond1121)  
+* 状态 :  已完成
 
 
 
