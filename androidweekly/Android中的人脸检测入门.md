@@ -281,6 +281,15 @@ The landmarks that are available depend on the angle of the face detected. For e
 | 12° to 36° | right mouth, nose base, bottom mouth, left eye, right eye, right cheek, right ear tip |
 | > 36° | right eye, right mouth, right ear, nose base, right cheek |
  
+
+| 欧拉 Y 角度      | 可见的关键点          | 
+| ------------- |:-------------:| 
+| < -36°      | 左眼，嘴的左半边，左耳，鼻子基部，左脸颊 | 
+| -36° to -12°      | 嘴的左半边，鼻子基部，嘴的底部，右眼，左眼，左脸颊，左耳尖    |  
+| -12° to 12° | 右眼，左眼，鼻子基部，左脸颊，右脸颊，嘴的左半边，嘴的右半边，嘴的底部 |  
+| 12° to 36° | 嘴的右半边，鼻子基部，嘴的底部，左眼，右眼，右脸颊，右耳尖|
+| > 36° | 右眼，嘴的右半边，右耳，鼻子基部，右脸颊 |
+
 Landmarks are also incredibly easy to use in your application as you've already included them during face detection. You simply need to call getLandmarks() on a Face object to get a List of Landmark objects that you can work with.
 
 不管你信不信，在你的应用中使用关键点也是非常的容易，因为你已经在人脸检测的时候把它们包含到了你的项目中了。你只需要调用一个`Face`对象的`getLandMarks()`就能获取到一个`LandMark`对象的`List`，这样你就能使用它了。
