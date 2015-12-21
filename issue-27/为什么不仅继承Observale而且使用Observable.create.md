@@ -16,27 +16,19 @@
 
 但是你应该不介意看看这个类的构造函数说明文档，你可以看到：
 
-	Note: Use create(OnSubscribe) to create an Observable, instead of this constructor,
-	unless you specifically have a need for inheritance.
-
+```
 	注意: 除了你明确的需要继承的情况下，使用create(OnSubscribe)方法替代这个构造函数来创建一个 Observable对象。
+```
 
 好吧！既然你这么想知道这到底是怎么回事，你需要看一看onCreate()方法的说明文档：
 
-	Returns an Observable that will execute the specified function when a Subscriber subscribes to
-	it.
-	…
-	Write the function you pass to create so that it behaves as an Observable: It should invoke the
-	Subscriber’s onNext, onError, and onCompleted methods appropriately.
-	…
-	A well-formed Observable must invoke either the Subscriber’s onCompleted method exactly once or
-	its onError method exactly once.
-
+```
 	返回一个Observable对象，当一个Subscriber订阅它时执行特定的功能。
 	...
 	编写你传递给create()方法的函数以便它的行为作为一个Observable：它应该适当地唤醒Subscriber的onNext、onError、和onCompleted方法。
 	...
 	一个标准的Observable必须恰好唤醒一次Subscriber的onCompleted方法或它的onError方法。
+```
 
 额，看下这个方法的代码可能有些帮助？
 
