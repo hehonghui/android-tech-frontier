@@ -118,7 +118,8 @@ coordinates) to each vertex:
 We want to move as many calculations as we can to GPU because GPU is
 good at calculating many things simultaneously. I did the calculations
 for all positions in the vertex shader. It takes only one variable that
-is animated with the help of Android interpolator:
+is animated with the help of Android interpolator:  
+我们希望将更多的计算放到适合并行任务的GPU来进行.我通过定点着色器进行所有位置的计算.这只需要在Android插值器的帮助下对一个变量进行变化:
 
     // from 0 to plane height in OpenGL coordinates
     animator = ValueAnimator.ofFloat(0, -Const.PLANE_HEIGHT * 2);
@@ -135,13 +136,15 @@ is animated with the help of Android interpolator:
     animator.start();
 
 Finally, in the vertex shader we should add this value to the tile
-positions:
+positions:  
+最后,在顶点着色器中我们把这个数值付给碎片的位置:
 
     vec4 pos = a_Position;
     pos.y += u_DeltaPos;
     gl_Position = u_MVPMatrix * calcPos;
 
-### How to make stars fly
+### How to make stars fly  
+### 如何让星星飞起来
 
 The other part of the Star Wars animation is a flying star field. For
 drawing stars, I considered using the
@@ -150,7 +153,8 @@ standard Android Canvas which is very easy to use. However, animating
 lots of star objects inevitably leads to performance problems, so our
 animation would’ve become unresponsive, especially on older smartphones.
 Here is what I’ve got when I tested the animation using the Leonids
-library:
+library:  
+剩下的部分就是飞行的星空了.绘制星空,我考虑过使用[Leonids](https://github.com/plattysoft/Leonids)这个库.它使用了简单易用的Android画布来实现.然而,为这么多星星使用动画将不可避免的导致性能问题,让我们的动画变得迟钝,尤其是在旧手机上.下图是我使用Leonids时GPU的使用情况
 
 ![image](https://lh4.googleusercontent.com/Tu7DH-QEtt6vZGvlwOatY4zwEbz53RMD0vkT_akjIFGFu6Ud2sUaI1gs7S8-V14IpjBLkt4DXrEjvUeEuZ0F0XLAyqdu48JPdlPMeO7UikvMtb_D2_jHxwEZtHX9wtwxymaPKU-T)
 
@@ -158,11 +162,13 @@ library:
 animation, we shouldn’t cross the line.]*
 
 Given the performance issues, I decided to take a similar approach I
-used with tiles and animate star movement in the vertex shader.
+used with tiles and animate star movement in the vertex shader.  
+由于性能原因,我决定使用上面分裂视图的方式,在定点着色器中处理.
 
 I’ve noticed that a star texture is rather simple and can be replaced
 with a little fragment shader trick – by using a formula for rendering
-star objects:
+star objects:  
+我发现星星的纹理非常简单并且可以使用片段着色器替代-通过公式渲染出一个星星.
 
     // Render a star
 
@@ -173,7 +179,8 @@ star objects:
 As you can see, we got the same result that we would’ve gotten had we
 used an image. This also gave us 30% more frames per second. This
 solution might not always be faster than texture lookup (i.e. using an
-image) but it often is. The only way to find this out is to measure.
+image) but it often is. The only way to find this out is to measure.  
+正如你看到的,我们得到了和图片一样的效果.这还使得我们每秒提升了30%的帧率.这个解决方法可能不总是比纹理寻址快(例如使用一张图片),但通常是更快的.唯一能检测的方法就是实际测量.
 
 ![spark\_dark.png](https://lh5.googleusercontent.com/BQMLmeydDOAmY0wVo9yMlXB3fRGqOKDa4lptTM33O968aFqtQ6bO-ACJFWUDTif1APZKc0sGrTE82z3X56I0EET_tWB8IXppuUW__AISzUyDiLbUZwCEecyhm3kBvmG4GpqPd2Kf)
 
@@ -182,11 +189,14 @@ image) but it often is. The only way to find this out is to measure.
 *generated image on the right*
 
 When I tested this implementation on my three year old Nexus 4, I was
-able to render 100 000 stars with 60 FPS.
+able to render 100 000 stars with 60 FPS.  
+当我在3年前的Nexus 4上测试这个方案时,我可以在60帧下渲染100 000个星星
 
-### How to use the Star Wars library
+### How to use the Star Wars library  
+### 如何使用我们的星战库
 
-\1. Wrap your fragment or activity main view in *TilesFrameLayout*:
+\1. Wrap your fragment or activity main view in *TilesFrameLayout*:  
+1.在`TilesFrameLayout`中嵌套你的主视图
 
     <com.yalantis.starwars.TilesFrameLayout
 
@@ -204,8 +214,8 @@ able to render 100 000 stars with 60 FPS.
 
     </com.yalantis.starwars.TilesFrameLayout>
 
-\
- 2. Adjust animation with these parameters:
+\2. Adjust animation with these parameters:  
+2.通过以下属性调整动画效果
 
 -   sw\_animationDuration – duration in milliseconds
 -   sw\_numberOfTilesX – the number of square tiles the plane is
@@ -218,7 +228,8 @@ able to render 100 000 stars with 60 FPS.
     mTilesFrameLayout.setOnAnimationFinishedListener(this);
 
 \3. In your activity or fragment’s *onPause*() and *onResume*() it’s
-important to call the corresponding methods:
+important to call the corresponding methods:  
+3.在activity或者fragment的`onPause`和`onResume`方法中调用对应方法:
 
     @Override
 
@@ -242,11 +253,13 @@ important to call the corresponding methods:
 
     }
 
-\4. To start the animation simply call:
+\4. To start the animation simply call:  
+4.调用`startAnimation()`就可以启动动画
 
     mTilesFrameLayout.startAnimation();
 
-\5. Your callback will be called when the animation ends:
+\5. Your callback will be called when the animation ends:  
+5.你的回调会在动画结束时调用:
 
     @Override
 
@@ -256,13 +269,16 @@ important to call the corresponding methods:
 
     }
 
-That's all!
+That's all!  
+以上就是全部内容啦!
 
-### Future plans
+### Future plans  
+### 未来的计划
 
 It would be fun to rewrite the plane breaking logic utilizing the power
 of tessellation shaders when Android Extension Pack is more widespread.
-Stay tuned!
+Stay tuned!  
+当Android扩展包更普遍被支持时,使用细分曲面着色器来重写将会很有趣.保持关注!
 
 **Check out the animation on**:
 
