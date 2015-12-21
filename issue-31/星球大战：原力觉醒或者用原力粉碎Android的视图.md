@@ -1,4 +1,4 @@
-星球大战：原力觉醒或者如何用原力粉碎Android的视图
+星球大战：原力觉醒或者用原力粉碎Android的视图
 ---
 
 > * 原文链接 : [Star Wars: The Force Awakens Or How to Crumble View Into Tiny Pieces on Android](https://yalantis.com/blog/star-wars-the-force-awakens-or-how-to-crumble-view-into-tiny-pieces-on-android/)
