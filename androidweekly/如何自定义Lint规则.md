@@ -243,4 +243,4 @@
 - https://speakerdeck.com/ambergleam/linty-fresh
 - [Source code](https://android.googlesource.com/platform/tools/base/+/master/lint/)
 - http://tools.android.com/tips/lint-custom-rules
-ht- tps://github.com/googlesamples/android-custom-lint-rules
+- https://github.com/googlesamples/android-custom-lint-rules
