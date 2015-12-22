@@ -204,7 +204,7 @@
         }
     }
 
-就像你在上一条规则中看到的一样。首先我们用两个方法`getApplicableCallNames`和`` getApplicableMethodNames`来约束我们的查找目标。之后在有问题的情况下创建Issue。与之前唯一的不同就是我们这回只是简单的继承了`Detector`并实现`ClassScanner`来处理Java类。（实际上并没与太多的不同，如果你追朔`XmlResourceDetector`的实现，你会发现它也是继承了`Detector`并实现`XmlScanner`）。所以总的来说，自定义Lint规则就是继承`Detector`并实现正确地`Scanner`。
+就像你在上一条规则中看到的一样。首先我们用两个方法`getApplicableCallNames`和` getApplicableMethodNames`来约束我们的查找目标。之后在有问题的情况下创建Issue。与之前唯一的不同就是我们这回只是简单的继承了`Detector`并实现`ClassScanner`来处理Java类。（实际上并没与太多的不同，如果你追朔`XmlResourceDetector`的实现，你会发现它也是继承了`Detector`并实现`XmlScanner`）。所以总的来说，自定义Lint规则就是继承`Detector`并实现正确地`Scanner`。
 
 最终，我们将`Scope`变成了`CLASS_FILE_SCOPE`，因为我们只需要逐个文件扫描就可以找出这个`Issue`。有时候你需要同时扫描所有文件，那么你要将`Scope`变成`ALL_CLASS_FILES`。看，`Scope`很重要吧，你可以在[这里](https://android.googlesource.com/platform/tools/base/+/master/lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/Scope.java)找到所有`Scope`的定义。
 
