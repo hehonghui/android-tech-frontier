@@ -1,4 +1,4 @@
-# Android中 调试 RxJava
+# Android中调试RxJava
 
 > * 原文链接 : [Debugging RxJava on Android](http://fernandocejas.com/2015/11/05/debugging-rxjava-on-android/?utm_source=Android+Weekly&utm_campaign=038d344835-Android_Weekly_178&utm_medium=email&utm_term=0_4eb677ad19-038d344835-337955857)
 * 原文作者 : [Fernando Cejas](http://fernandocejas.com/)
@@ -14,18 +14,18 @@ Debugging is the process of finding and resolving bugs or defects that prevent c
 
 Nowadays debugging is not an easy task, specially with all the complexity around current systems: Android is not an exception to this rule and since we are dealing with asynchronous executions, that becomes way harder.
 
-当前调试不是一件容易的事情，特别是与当前系统的复杂性相关：因为异步操作**Android并不是一个列外**
+当前调试不是一件容易的事情，我们在处理**Android的异步操作**时，这一切将变得更为困难。
 
 As you might know, at @SoundCloud, we are heavily using RxJava as one of our core components for Android Development, so in this article I am gonna walk you through the way we debug Rx Observables and Subscribers.
 
-正如你可能知道的，在[@SoundCloud](https://soundcloud.com/),我们大量的使用[RxJava](https://github.com/ReactiveX/RxJava)为**Android开发**的核心代码，因此在这篇文章我会轻松的带你走进调试Rx [Observables](http://reactivex.io/documentation/observable.html)和[Subscribers](http://reactivex.io/RxJava/javadoc/rx/Subscriber.html)中。
+正如你可能知道的，在[@SoundCloud](https://soundcloud.com/),**Android开发**的核心代码中我们大量的使用[RxJava](https://github.com/ReactiveX/RxJava)，因此在这篇文章我会轻松的带你走进如何调试Rx [Observables](http://reactivex.io/documentation/observable.html)和[Subscribers](http://reactivex.io/RxJava/javadoc/rx/Subscriber.html)。
 
 ##Give a warm welcome to Frodo
 ##热烈欢迎Frodo
 
 Let me get started by introducing Frodo, but first, if you already watched Matthias Käppler talk at GOTO Conference (if you haven’t yet, I strongly recommend it), you may have noticed that he talks about someone called Gandalf (minute 41:15). All right, I have to say that in the beginning, Gandalf was my failed attempt to create an Aspect Oriented Library for Android, fortunately after working hard and receiving useful feedback, it became an Android Development Kit we use at @SoundCloud. However, I wanted to have something smaller that solves only one problem, so I decided to extract RxJava Logging specifics that I have been working on, and give life to Frodo.
 
-让我们先介绍下**Frodo**，如果你已经看过[Matthias Käppler talk at GOTO Conference](https://www.youtube.com/watch?v=R16OHcZJTno)(如果你还没有看过，我强烈推荐)，你应该已经注意到了关于他谈论到的[Gandalf](https://github.com/android10/gandalf)[(第41:15分钟)](https://youtu.be/R16OHcZJTno?t=2475)。开始时我要说的是[Gandalf是我在**Android中面向方面编程**的失败尝试](https://github.com/android10/gandalf)，幸运的是在艰苦的工作和有益的反馈后，它成为了我在[@SoundCloud](https://soundcloud.com/)中使用的**Android开发工具箱**，然而我想要一个**较小的只解决一个问题**的工具，所以我决定提取[RxJava](https://github.com/ReactiveX/RxJava)的日志细节，我一只在努力，献身于**Frodo**。
+让我们先介绍下**Frodo**，如果你已经看过[Matthias Käppler talk at GOTO Conference](https://www.youtube.com/watch?v=R16OHcZJTno)(如果你还没有看过，我强烈推荐)，你应该已经注意到了的[Gandalf](https://github.com/android10/gandalf)[(第41:15分钟)](https://youtu.be/R16OHcZJTno?t=2475)。开始时我要说的是[Gandalf是我在**Android中面向方面编程**的失败尝试](https://github.com/android10/gandalf)，幸运的是在艰苦的工作和收到有益的反馈后，它成为了我在[@SoundCloud](https://soundcloud.com/)中使用的**Android开发工具箱**，然而我想要一个**较小的只解决一个问题**的工具，所以我决定提取[RxJava](https://github.com/ReactiveX/RxJava)的日志细节，我一只在努力，献身于**Frodo**。
 
 Frodo is no more than an Android Library for Logging RxJava Observables and Subscribers (for now), let’s say Gandalf’s little son or brother. It was actually inspired by Jake Wharton’s Hugo Library.
 
@@ -37,22 +37,22 @@ Frodo is no more than an Android Library for Logging RxJava Observables and Subs
 ##调试RxJava
 First of all, I assume that you have basic knowledge about RxJava and its core components: Observables and Subscribers.
 
-首先，我假设了解**RxJava**和它的核心组件：**Observables** 和 **Subscribers**的基础知识。
+首先，我假设你有**RxJava**和它的核心组件：**Observables** 和 **Subscribers**的基础知识。
 
 Debugging is a cross cutting concern and we know how frustrating and painful could be. Additionally, many times you have to write code (that is not part of your business logic) in order to debug stuff, which make things even more complicated, specially when it comes to asynchronous code execution.
 
-调试是一个切入点，我们知道是如何令人沮丧和痛苦的。此外，很多时候你写为了**调试**的代码（不属于业务逻辑的部分）这使得事情更复杂。特别是当涉及到**异步代码执行**。
+**调试是一个切入点**，我们知道它是如何令人沮丧和痛苦的。此外，很多时候你为了写**调试相关**的代码（不属于业务逻辑的部分）这使得事情更复杂。特别是当涉及到**异步代码执行**。
 
 Frodo was born to achieve this and avoid writing code for debugging RxJava objects. It is based on Java Annotations and relies on a Gradle Plugin that detects when the Debug build type of your application is compiled, and weaves code, which is gonna print RxJava Objects logging information on the android logcat output. For instance, it is safe to keep Frodo annotations in your codebase even when you are generating Release versions of your Android App. So now, let’s get our hands dirty and have a taste of it.
 
-Frodo就是为了这个出现的避免为了调试RxJava对象而写代码。它基于Java注释和Gradle Plugin的依赖，当你的程序Debug编译时会检测，编写代码在Andorid的logcat！！！！！。例如，**在你的代码库中保留Frodo注释时安全的**，甚至当你编译Release版本的时候。现在，让我们具体看看。
+**Frodo就是为了避免编写用于调试RxJava对象的代码而出现的。它依赖Java注解和Gradle Plugin**，程序Debug编译时会检测，它会将**RxJava对象的相关信息**输出到logcat。例如，即使是在生成release版的app时，**在你的代码库中保留Frodo注解也是安全的**。现在，让我们具体看看。
 
 ##Using Frodo
 ##使用Frodo
 
 To use Frodo the first thing we need to do is to simply apply a Gradle Plugin to our Android Project like this:
 
-第一件事时在我们Android项目的Gradle Plugin中做如下这样：
+使用**Frodo**第一步是在我们Android项目中将**Gradle Plugin**修改为如下这样：
 
 build.gradle
 
@@ -74,14 +74,14 @@ apply plugin: 'com.fernandocejas.frodo'
 As you can see, we add “com.fernandocejas.frodo:frodo-plugin:0.8.1” to the classpath and afterwards we apply the plugin ‘com.fernandocejas.frodo’.
 That should be enough to have access to the Java annotations provided by the Library.
 
-正如你看到的，我们在classpath中添加了**“com.fernandocejas.frodo:frodo-plugin:0.8.1”**然后我们声明了**‘com.fernandocejas.frodo’**插件。这足以使用**库提供的Java注释**。
+正如你看到的，我们在classpath中添加了**“com.fernandocejas.frodo:frodo-plugin:0.8.1”**然后我们声明了**‘com.fernandocejas.frodo’** plugin。这足够使用**这个库提供的Java注解**。
 
 ##Inspecting @RxLogObservable
-##审视@RxLogObservable
+##检验@RxLogObservable
 
 The first core functionality of Frodo is to log RxJava Observables through @RxLogObservable Java annotation. Let’s say we have a method that returns an Observable which will emit a list of some sort of DummyClass:
 
-**Frodo第一个核心功能是通过@RxLogObservable Java注释记录RxJava Observables**。比方说我们也有一个返回一个Observable的方法将返回DummyClass List。
+**Frodo第一个核心功能是通过Java注解@RxLogObservable 记录RxJava Observables日志**。比方说我们有一个返回带有DummyClass List参数的Observable的方法。
 
 ObservableSample.java
 
@@ -113,7 +113,7 @@ public class ObservableSample {
 ```
 
 Then we subscribe to our sample observable:
-然后我们subscribe到我们的observable例子中：
+然后我们订阅到我们的observable例子中：
 
 MyClass.java
 
@@ -132,7 +132,7 @@ observableSample.list()
 
 When compiling and running our application, this is the information we are gonna see on the logcat:
 
-编译和运行应用时，这是我们在logcat中看到的信息：
+编译并运行应用后，这是我们在logcat中看到的信息：
 
 LogcatShell
 
@@ -147,14 +147,14 @@ LogcatShell
 
 Basically this means that we subscribed to an Observable returned by the list() method in ObservableSample class. Then we get information about the emitted items, schedulers and events triggered by the annotated Observable.
 
-主要是我们订阅了一个在ObservableSample类中被list()方法返回的Observable。然后通过带注释的Observable我们获得了关于被发出的元素、调度和事件被触发的信息。
+**主要意思是在ObservableSample类中我们订阅了一个返回Observable的list()方法**。然后通过带注释的Observable我们获得了关于被发送的元素、执行方法和事件被触发的信息。
 
 ##Inspecting @RxLogSubscriber
-##审视@RxLogSubscriber
+##检验@RxLogSubscriber
 Let’s now explore what @RxLogSubscriber is capable of.
-现在让我们看下@RxLogSubscriber能做什么。
+**现在让我们看下@RxLogSubscriber能做什么。**
 To put an example, let’s create a RxJava dummy Subscriber and annotate it with @RxLogSubscriber.
-下面例子，让我们创建一个RxJava虚拟Subscriber用@RxLogSubscriber做注释。
+下面例子，让我们创建一个用**@RxLogSubscriber**做注释的**RxJava**虚拟Subscriber。
 
 MySubscriberBackpressure.java
 
@@ -188,7 +188,7 @@ public class MySubscriberBackpressure extends Subscriber<Integer> {
 
 Forget about the backpressure name of this Subscriber for now, since this topic deserves a whole article. Just know that this Subscriber will only request 16 elements and it is gonna do nothing with the items it receives on the onNext() method. Even though that, we still wanna see what is going on when it subscribes to any Observable which emits Integer values:
 
-现在我们不提这个Subscriber的名字backpressure，因为这个话题得用一整篇文章。只要知道这个Subscriber仅要求16个元素和onNext()方法被调用时什么都不会做。可是，我仍然想看到当被调用时会发生什么。
+现在我们不提这个Subscriber的名字[backpressure](https://github.com/ReactiveX/RxJava/wiki/Backpressure)，因为这个话题得说一整篇文章。只要知道这个Subscriber仅请求16个元素和**onNext()**方法被调用时什么都不会做。可是，**我仍然想看到当被调用时会发生什么。**
 
 ObservableSample.java
 
@@ -258,39 +258,41 @@ SubscriberBackpressure  D  Frodo => [@Subscriber :: MySubscriberBackpressure -> 
 ```
 
 Information here includes each of the items received, number of elements, schedulers, execution time and events triggered.
-这里得信息包括每一个被接收得item，元素得数量、调用函数，执行事件和触发事件。
+这里得信息包括每一个被接收的item，元素的数量、调用函数，执行事件和触发事件。
 
 As you can see this information is useful in cases of backpressure, or to see in which thread the items are being emitted or when we wanna se if our Subscriber has subscribed successfully, thus avoiding memory leaks for example.
 
-正如你所看到的这个信息在[backpressure](https://github.com/ReactiveX/RxJava/wiki/Backpressure)情况下是有用的，或看到哪个县城发出的item又或者当我们想是否Subscriber被成功订阅，从而避免内存泄漏。
+正如你所看到了在[backpressure](https://github.com/ReactiveX/RxJava/wiki/Backpressure)中有用的信息，或看到哪个线程发出的item又或者当我们想是否Subscriber被成功订阅，从而避免了内存泄漏。
 
 
 ##Frodo under the hood
 ##Frodo高级选项
 In this article, I’m not gonna explain in details how the library internally works, however, if you are curious about it, you can check an article I wrote last year which includes an example with the same approach I am using for Frodo.
 
-在这篇文章中，我没有说明这个库内部工作的细节，然而，你好奇，我可以看下我一年前写的一篇文章，包括一个我使用Frodo同样的一个例子。
+在这篇文章中，我没有说明这个库内部工作的细节，然而，你好奇，[可以看下我一年前写的一篇文章](http://fernandocejas.com/2014/08/03/aspect-oriented-programming-in-android/)，包括我同样使用Frodo的一个例子。
 
 
 You can also look into a presentation I prepared as an introduction for both AOP and the Library or even better, dive into the source code.
 
-你也可以浏览一个准备好的一个描述关于AOP和库的介绍或更好的深入到源码中。
+[你也可以浏览我已经准备好的一个描述](https://speakerdeck.com/android10/android-aspect-oriented-programming)关于[AOP和这个库](https://speakerdeck.com/android10/android-aspect-oriented-programming)的介绍，更深入的可以看源码。
 
 ##Disclaimer: Early stage
 ##免责说明：初期
 Frodo was just born and there is a long way ahead of it. It is still in a very early stage, so you might find issues or things to improve.
-Frodo刚刚诞生，未来还有很长的路。它仍然处在一个非常早期的阶段，所以你可能发现一个问题或者可以提到的地方。
+**Frodo刚刚诞生，未来还有很长的路。它仍然处在一个非常早期的阶段，所以你可能会发现问题或者可以提升的地方。**
 
 Actually, one of the main reasons why it was open source, was to receive feedback/input from the community in order to improve it, make it better and more useful. I have to say that I’m very excited and I have already used it in 3 different projects without many problems (check the known issues section below for more information). Of course pull requests are very welcome too.
 
-实际上，它开源的一个主要原因是为了改善它想在社区中收到反馈或建议，让它更好用。我不得不说我非常激动，我已经在3个不同的项目中使用没有发现很多问题（更多信息可以查看下边的已知问题）。
+实际上，开源的一个主要原因是**在社区中收到反馈或建议**完善自己，让它更好用。我不得不非常激动的说，我已经在3个不同的项目中使用并没有发现很多问题（更多信息可以查看下边的已知问题）。
 
 ##Known issues
 ##已知问题
 So far, there is a well known issue: since Frodo relies on a Gradle Plugin (as explained earlier) to detect Android Debug build variant and weave code, if you make use of Android Library Projects, when you build your Application (even the debug build type), the official Android Gradle Plugin will always generate release versions of all the Android Library projects included in your solution, thus, this stops Frodo from injecting generated code in annotated methods/classes. Of course this is not gonna make your app to crash but you won’t see any output on the logcat. There is a workaround for this but be careful if you use it, since you do not wanna ship a release version of your app with business objects being logged all over the place and exposing critical information.
 Just add this flag to the android section in the build.gradle file of you Android Library Project:
 
-目前为止知道的一个已知问题：因为Frodo依赖Gradle Plugin（正如之前说的）检测Android编译变种版本和组织代码，如果你做为使用Android Library项目使用，当你编译时（即使时debug编译类型），官方的Android Gradle Plugin通常会编译Android Library项目的release版本，这样，这就阻止了Frodo在注释的方法／类上生成代码。当然这不会引起你的应用奔溃但在logcat中你看不到任何输出。这是一个措施，你使用的时候要注意，因为你不希望在商用的release版本中到处都是暴露重要信息的log日志。
+**目前为止知道的一个已知问题**：因为**Frodo**依赖**Gradle Plugin**（正如之前说的）检测**Android Debug编译版本和植入代码，如果你做为Android Library项目使用**，当你编译应用（即使是debug编译类型），官方的Android Gradle Plugin总是会编译Android Library项目的release版本，这样，**这就阻止了Frodo在注释的方法／类上植入代码**。当然这不会引起你的应用奔溃但在logcat中你看不到任何输出。既然你不希望在商用的release版本中到处都是暴露重要信息的log日志，这里有一个应对方案，你使用的时候要注意。
+在你项目的Android Library module的**build.gradle**文件中添加下边标记：
+**(编者注：新版本的Androdi Studio的library module也可以设置为不混淆了。)**
 
 build.gradle
 
@@ -301,19 +303,27 @@ android {
 ```
 
 ##Frodo Example Application
-##Frodo例子
+##Frodo应用例子
 The repository includes a sample app where you can see different use cases, such as Observable errors and other logging information. I have also enabled Frodo in my Android Clean Architecture repo if you wanna have a look into it.
 
-这个repository包括一个例子应用，你可以看到不同情况下的使用实例，比如Observable的错误和其他log信息。我在我的[Android Clean Architecture repo](https://github.com/android10/Android-CleanArchitecture)使用了**Frodo**，你可以去看看。
+这个[repository](https://github.com/android10/frodo)包括一个**应用例子**，你可以看到不同情况下的使用实例，比如**Observable的错误和其他log信息**。我也在我的[Android Clean Architecture repo](https://github.com/android10/Android-CleanArchitecture)使用了**Frodo**，你可以去看看。
 
 ##Wrapping up
 ##总结
 This is pretty much I have to offer in this article, and I hope you have found Frodo useful.
+
+**这是我在这边文章中尽力提供的，希望你能找到Frodo的好处**。
+
 The first version is out and you can find the repository of the project here:
+最新的版本你可以在这里找到：
 https://github.com/android10/frodo
+
 As always, any feedback is welcome. PRs as well if you wanna contribute. See you soon.
+一如既往，欢迎任何反馈，也欢迎贡献，再会。
+
 
 ##Useful links
+##相关链接
 > * [Frodo Project website](https://github.com/android10/frodo)
 > * [Aspect Oriented Programming in Android](http://fernandocejas.com/2014/08/03/aspect-oriented-programming-in-android/)
 > * [AO Programming and Frodo Presentation](https://speakerdeck.com/android10/android-aspect-oriented-programming)
