@@ -38,11 +38,11 @@ defaultConfig {
 buildTypes {
     debug {
       buildConfigField "String", "API_URL", '"http://api.dev.com/"'
-      buildConfigField "boolean", "REPORT_CRASHES", "true"
+      buildConfigField "boolean", "REPORT_CRASHES", "true"
     }
     release {
       buildConfigField "String", "API_URL", '"http://api.prod.com/"'
-      buildConfigField "boolean", "REPORT_CRASHES", "false"
+      buildConfigField "boolean", "REPORT_CRASHES", "false"
     }
 }
 ```
