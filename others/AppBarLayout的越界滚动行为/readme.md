@@ -16,7 +16,7 @@ Unfortunately, Youtube Music app is not available in my country and I tried to g
 
 From what I could see, my first guess that the album art is inside a AppBarLayout and scaled when the content below overscrolls. Let’s assume this assumption is correct and attempt to express it in terms of Behavior. IMHO, if my assumptions are true, Google should include overscroll guidelines and specs in their Scrolling Techniques section of MD guidelines.
 
-根据我所看到的，我首先想到的就是专辑封面是放到一个AppBarLayout里面，并且在滚动区域拖到边界的时候尺寸会发生变化。让我们假定这个猜想是正确的并且用“行为”这个术语表示它。依鄙人之见，如果我的猜想是正确的，谷歌应该会在Material Design文档的[滚动](https://www.google.com/design/spec/patterns/scrolling-techniques.html)部分提供一个越界滚动的使用说明。
+根据我所看到的，我首先想到的就是专辑封面是放到一个AppBarLayout里面，并且在滚动区域拖到边界的时候尺寸会发生变化。让我们假定这个猜想是正确的并且用“Behavior”这个术语表示它。依鄙人之见，如果我的猜想是正确的，谷歌应该会在Material Design文档的[滚动](https://www.google.com/design/spec/patterns/scrolling-techniques.html)部分提供一个越界滚动的使用说明。
 
 Our goal is to keep the AppBarLayout.Behavior intact and create our extended behavior on top of it. Therefore:
 
