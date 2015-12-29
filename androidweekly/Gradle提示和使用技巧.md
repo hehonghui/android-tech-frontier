@@ -17,7 +17,7 @@ Rick Grimes不能帮助你，所以让我们一起获得它！
 
 [Gradle](http://www.gradle.org/) is here to stay. Although existing before [Android Studio](https://developer.android.com/sdk/installing/studio.html), it became the official IDE for android development and was the turning point on making it popular. But, are we taking full advantage of this great build automation system?
 
-[Gradle](http://www.gradle.org/) 在这里。尽管它经存在于[Android Studio](https://developer.android.com/sdk/installing/studio.html)之前，它已经成为Android开发官方IDE并且成为让它受欢迎的转折点。但是，我们充分利用这个伟大的构建自动化系统了吗？
+[Gradle](http://www.gradle.org/) 虽然之前一直存在于[Android Studio](https://developer.android.com/sdk/installing/studio.html)中，但是它变成热门的转折点是Android Studio成为官方开发IDE。但是，我们充分利用这个伟大的构建自动化系统了吗？
 
 
 
@@ -26,7 +26,7 @@ With gradle, a **BuildConfig** class is automatically generated and we have the 
 
 ## 工程和构建专门的全局变量
 
-使用gradle，会自动生成一个**BuildConfig**类文件并且我们有能力生成额外的字段到它里面。这将是非常有用的对于像配置服务器URLs和轻松切换开关功能。
+使用gradle，会自动生成一个**BuildConfig**类文件并且我们有能力在它里面生成额外的字段。这对于像配置服务器URL和切换开关这类功能都是非常有用的。
 
 
 
@@ -49,7 +49,7 @@ buildTypes {
 
 Accessible from the **BuildConfig** final class, **BuildConfig.TWITTER_TOKEN**, **BuildConfig.REPORT_CRASHES** and **BuildConfig.API_URL** (the last two will be different according to the type of build they’re in).
 
-可以访问**BuildConfig**最终类，**BuildConfig.TWITTER_TOKEN**, **BuildConfig.REPORT_CRASHES** 和 **BuildConfig.API_URL** （后两个的值将依据它们所在的构建类型而不同）。
+**BuildConfig.TWITTER_TOKEN**, **BuildConfig.REPORT_CRASHES** 和 **BuildConfig.API_URL** 都是能够通过**BuildConfig**这个final class访问的。（后面两个变量的值根据构建类型而不同）
 
 
 
@@ -96,7 +96,7 @@ Android要求所有的应用被安装之前用一个证书进行数字签名。A
 
 You should **NEVER** check-in this kind of information into your source control.
 
-你永远不应该提交这种信息到源代码控制上。
+你永远不应该提交这种信息到版本控制工具上。
 
 
 Some people argue that you should have a local config file or even a global ~/.gradle/build.gradle with this values, but if you’re doing Continuous Integration/Deployment and specially if you don’t own your CI server, you should’t have any kind of file with the credentials in plain-text laying around in your CVS.
@@ -116,7 +116,7 @@ signingConfigs {
 
 This way I can provide sensible information through Environment Variables to my CI and not worry about checking-in anything “dangerous” to my company.
 
-这种方式是我可以提供的敏感信息通过环境变量到我的CI服务器并且不用担心任何“危险的”信息提交到我的公司。
+通过这种方式我可以将敏感信息提交到我自己的CI服务器而不用担心提交到公司的CVS上。
 
 
 ## Auto generated versionName and versionCode
@@ -125,7 +125,7 @@ This way I can provide sensible information through Environment Variables to my 
 
 Break up your version into its logical components and manage them separately. Stop wondering if you’ve bumped the version code correctly or updated the version name properly.
 
-把你的版本信息从逻辑组件分离出来并且分别管理它们。不要想了，如果你碰到了正确的版本号或更新了正确的版本名。
+把你的版本信息从逻辑组件分离出来并且分别管理它们。不用再烦恼如何放置正确的版本号与版本名称。
 
 
 ```
@@ -159,7 +159,7 @@ android {
 
 Now you have two available variables, BuildConfig.GIT_SHA and BuildConfig.BUILD_TIME, which are awesome for binding the commits/build time to your logs among other things!
 
-现在有两个变量可以用，BuildConfig.GIT_SHA 和BuildConfig.BUILD_TIME ，这是极好的对于绑定提交/构建时间到你的日志中！
+现在有两个变量可以用，BuildConfig.GIT_SHA 和BuildConfig.BUILD_TIME ，这在绑定提交/构建时间到log里面是非常方便的！
 
 ## Fastening your seatbelts
 
