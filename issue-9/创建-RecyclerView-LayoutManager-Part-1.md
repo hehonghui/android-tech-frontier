@@ -428,8 +428,8 @@ public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler,
 
 [source]:http://wiresareobsolete.com/2014/09/building-a-recyclerview-layoutmanager-part-1/
 [author]:http://wiresareobsolete.com/
-[part2]:http://wiresareobsolete.com/2014/09/recyclerview-layoutmanager-2/
-[part3]:http://wiresareobsolete.com/2015/02/recyclerview-layoutmanager-3/
+[part2]:../issue-13/创建-RecyclerView-LayoutManager-Part-2.md
+[part3]:../issue-13/创建-RecyclerView-LayoutManager-Part-3.md
 [res-1]:http://www.grokkingandroid.com/first-glance-androids-recyclerview/
 [res-2]:http://lucasr.org/2014/07/31/the-new-twowayview/
 [res-3]:https://github.com/gabrielemariotti/RecyclerViewItemAnimators
