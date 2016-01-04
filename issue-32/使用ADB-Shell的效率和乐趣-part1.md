@@ -4,7 +4,8 @@ In this article, I want to show how to use basic adb commands to do
 things like `install`, `uninstall`, `copy`, `clean` app that used most
 often during Android development and testing. This could also be helpful
 if we want to automate builds on CI server and be sure everything clean
-and legit.
+and legit.  
+在这片文章中，我想展示开发和测试中常用的adb命令，比如`install`，`uninstall`，`copy`，`clean`。这对我们最动画构建也是有帮助的，
 
 [Android Debug
 Bridge](https://developer.android.com/tools/help/adb.html)(adb) is a
@@ -16,15 +17,16 @@ can use to run a variety of commands on an emulator/device. ADB included
 into [SDK](https://developer.android.com/sdk/index.html) and you can
 find it at `OurSdkPath/platform-tools`. Depending of our operation
 system we may also need to do additional
-[tuning](https://developer.android.com/tools/device.html#setting-up).
-![ADB Shell](https://github.com/DroidWorkerLYF/Translate/blob/master/Efficiency%20and%20fun%20from%20using%20ADB/adb_shell.png?raw=true)
+[tuning](https://developer.android.com/tools/device.html#setting-up).  
+[Android Debug Bridge](https://developer.android.com/tools/help/adb.html)(adb)是一个可以帮你和模拟器或者真机通讯的多功能命令行工具。ADB包含在[SDK](https://developer.android.com/sdk/index.html)中，你可以在`OurSdkPath/platform-tools `中找到它。因为系统的原因，我们可能还需要做一些额外的[调整](https://developer.android.com/tools/device.html#setting-up)。  
+![ADB Shell](https://github.com/DroidWorkerLYF/Translate/blob/master/Efficiency%20and%20fun%20from%20using%20ADB/adb_shell.png?raw=true)  
 
 ##Install and Uninstall
+##安装和删除
 
 First let’s install any apk, most likely we have more than one device
-connected, and need to pick one:
-
-
+connected, and need to pick one:  
+首先，让我们安装一个apk，我们通常需要从多个设备中选一个：
 
     1 adb devices
     2 //output
@@ -33,20 +35,15 @@ connected, and need to pick one:
     5 //now specifying device to install simple apk
     6 adb -s 106a6a4f install /OurLocalPath/sample.apk
 
-
-
 We can specify our device for any adb command for ex. to display and
-update sorted information about processes
+update sorted information about processes  
 
 
     1 adb -s 106a6a4f top
 
-
 For uninstall application we just add package-name to command
 
-
     1 adb uninstall our.package.name
-
 
 
 To see list of all packages installed on device and associated file we
@@ -55,10 +52,8 @@ use remote shell and package manager command
 
     1 adb shell pm list packages -f
 
-
 Almost for every command from adb exists additional flags most of them
 you can see with command
-
 
      1 adb help
      2 …
@@ -70,7 +65,6 @@ you can see with command
      8                                  (-s: install application on sdcard)
      9                                  (-d: allow version code downgrade)
     10                                  (-g: grant all runtime permissions)
-
 
 ##Copy files
 
