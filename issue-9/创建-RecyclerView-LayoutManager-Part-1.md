@@ -105,7 +105,7 @@ Recycler 就会从 recycle pool 里弄一个合适的视图出来，
 
 LayoutManager 需要实时添加，测量和布局所有它需要的子视图。
 当用户滚动屏幕时，布局管理器将来决定什么时候添加新的子视图，
-什么时候可以 detache/scrap (分离/废弃)视图。
+什么时候可以 detach/scrap (分离/废弃)视图。
 
 你需要实现下面这些方法创建一个可行的 LayoutManager 最小系统。
 
