@@ -1,7 +1,7 @@
 Android高性能JSON数据解析
 ---
 
-> * 原文链接 : [原文标题](http://www.donnfelker.com/hi-performance-json-parsing-in-android/)
+> * 原文链接 : [Hi Performance JSON Parsing in Android](http://www.donnfelker.com/hi-performance-json-parsing-in-android/)
 * 原文作者 : [DONN FELKER](http://www.donnfelker.com/author/donn/)
 * 译文出自 : [开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 转载声明: 本译文已授权[开发者头条](http://toutiao.io/download)享有独家转载权，未经允许，不得转载!
