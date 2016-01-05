@@ -294,14 +294,14 @@ public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State
 
 #接下来？
 
-我们现在已经有些起色了！事实上还有很多可以实现的功能。在下篇文章中，我们会介绍
+我们现在已经有些起色了！事实上还有很多可以实现的功能。在[下篇文章][part3]中，我们会介绍
 如何给你的 LayoutManager 提供数据集改变时的动画效果。
 
 
 ---
 
-[part1]:https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-9/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-1.md
+[part1]:../issue-9/创建-RecyclerView-LayoutManager-Part-1.md
 [author]:http://wiresareobsolete.com/
-[part2]:https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-13/https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-13/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-2.md
-[part3]:https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-13/https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-13/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-3.md
+[part2]:http://wiresareobsolete.com/2014/09/recyclerview-layoutmanager-2/
+[part3]:./创建-RecyclerView-LayoutManager-Part-3.md
 [sample-github]:https://github.com/devunwired/recyclerview-playground
