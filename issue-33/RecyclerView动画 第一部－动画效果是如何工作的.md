@@ -1,7 +1,7 @@
 #RecyclerView Animations Part 1 – How Animations Work
 #RecyclerView动画 第一部－动画是如何工作的
 
-> * 原文链接 : [RecyclerView Animations Part 1 – How Animations Work](http://www.birbit.com/recyclerview-animations-part-2-behind-the-scenes/)
+> * 原文链接 : [RecyclerView Animations Part 1 – How Animations Work](http://www.birbit.com/recyclerview-animations-part-1-how-animations-work/)
 > * 原文作者 : [Yiğit Boyar](http://www.birbit.com/)
 > * 译文出自 : [开发技术前线 www.devtf.cn](http://www.devtf.cn)
 > * 转载声明: 本译文已授权[开发者头条](http://toutiao.io/download)享有独家转载权，未经允许，不得转载!
