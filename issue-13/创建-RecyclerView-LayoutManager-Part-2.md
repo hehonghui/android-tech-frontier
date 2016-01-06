@@ -294,7 +294,7 @@ public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State
 
 #接下来？
 
-我们现在已经有些起色了！事实上还有很多可以实现的功能。在下篇文章中，我们会介绍
+我们现在已经有些起色了！事实上还有很多可以实现的功能。在[下篇文章][part3]中，我们会介绍
 如何给你的 LayoutManager 提供数据集改变时的动画效果。
 
 
