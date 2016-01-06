@@ -12,7 +12,7 @@ things like `install`, `uninstall`, `copy`, `clean` app that used most
 often during Android development and testing. This could also be helpful
 if we want to automate builds on CI server and be sure everything clean
 and legit.  
-在这篇文章中，我想展示在开发和测试中如何使用常用的adb命令，比如`install`，`uninstall`，`copy`，`clean`。这对我们在持续集成服务器上进行自动化构建也是有帮助的，并且能确保一切干净合法。
+在这篇文章中，我想展示在开发和测试中如何使用常用的adb命令实现`install`，`uninstall`，`copy`，`clean`。这对我们在持续集成服务器上进行自动化构建也是有帮助的，并且能确保一切干净合法。
 
 [Android Debug
 Bridge](https://developer.android.com/tools/help/adb.html)(adb) is a
@@ -25,7 +25,7 @@ into [SDK](https://developer.android.com/sdk/index.html) and you can
 find it at `OurSdkPath/platform-tools`. Depending of our operation
 system we may also need to do additional
 [tuning](https://developer.android.com/tools/device.html#setting-up).  
-[Android Debug Bridge](https://developer.android.com/tools/help/adb.html)(adb)是一个可以帮你和模拟器或者真机通讯的多功能命令行工具。它是一个client-server程序并且提供了Unix [shell](https://developer.android.com/tools/help/shell.html)，使得你可以在模拟器或真机上运行多种命令。ADB包含在[SDK](https://developer.android.com/sdk/index.html)中，你可以在`OurSdkPath/platform-tools `中找到它。因为系统的原因，我们可能还需要做一些额外的[调整](https://developer.android.com/tools/device.html#setting-up)。  
+[Android Debug Bridge](https://developer.android.com/tools/help/adb.html)(adb)是一个可以帮你和模拟器或者真机通讯的多功能命令行工具。它是一个client-server程序并且提供了Unix [shell](https://developer.android.com/tools/help/shell.html)，使得你可以在模拟器或真机上运行多种命令。ADB包含在[SDK](https://developer.android.com/sdk/index.html)中，你可以在`OurSdkPath/platform-tools `中找到它。根据系统的不同，我们可能还需要做一些额外的[调整](https://developer.android.com/tools/device.html#setting-up)。  
 ![ADB Shell](https://github.com/DroidWorkerLYF/Translate/blob/master/Efficiency%20and%20fun%20from%20using%20ADB/adb_shell.png?raw=true)  
 
 ##Install and Uninstall
@@ -55,14 +55,14 @@ For uninstall application we just add package-name to command
 
 To see list of all packages installed on device and associated file we
 use remote shell and package manager command  
-想要查看设备上安装的包以及相关联的文件，我们使用远程shell和package manager的命令
+想要查看设备上安装的包以及相关联的文件，我们使用远程shell和package manager命令
 
 
     adb shell pm list packages -f
 
 Almost for every command from adb exists additional flags most of them
 you can see with command  
-几乎每个命令都有额外的参数，你可以通过adb help查看
+几乎每个adb命令都有额外的参数，你可以通过adb help查看
 
      adb help
      …
@@ -124,7 +124,7 @@ root devices.
 
 Often happens that we just need to clean data of application, keeping
 the same build and saving time, you can use PackageManager command:  
-我们经常需要清理应用的数据，方便使用同一个build并且节省时间，你可以使用PackageManager的命令：
+我们经常需要清理应用的数据，方便使用同一个build并且节省时间，你可以使用PackageManager命令：
 
     adb shell pm clear our.package.name
 
@@ -132,4 +132,4 @@ That is it, with this set of command we can handle most of the basic
 use-cases. In next Part, I’ll tell more useful tips and tricks about adb
 and Android. Stay tuned and keep investigating this wonderful Android
 World! ;)  
-以上就是part1全部内容了，你已经可以应对基本的使用了。在下一部分，我会讲一些关于adb和Android更有用的建议和tricks。敬请期待，继续研究这美妙的Android世界吧
+以上就是part1全部内容了，你已经可以应对基本的使用了。在下一部分，我会讲一些关于adb和Android更有用的建议和tricks。敬请期待，继续研究这美妙的Android世界吧 ;)
