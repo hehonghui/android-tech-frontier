@@ -4,7 +4,7 @@
 * 译文出自 : [开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 转载声明: 本译文已授权[开发者头条](http://toutiao.io/download)享有独家转载权，未经允许，不得转载!
 * 译者 : [DroidWorkerLYF](https://github.com/DroidWorkerLYF) 
-* 校对者: [这里校对者的github用户名](github链接)  
+* 校对者: [desmond1121](https://github.com/desmond1121)  
 * 状态 :  完成 
 
 在这篇文章中，我想展示在开发和测试中如何使用常用的adb命令实现`install`，`uninstall`，`copy`，`clean`。这对我们在持续集成服务器上进行自动化构建也是有帮助的，并且能确保一切干净合法。
