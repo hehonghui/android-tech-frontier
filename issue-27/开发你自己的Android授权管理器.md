@@ -119,7 +119,7 @@ public Bundle addAccount(AccountAuthenticatorResponse response, String accountTy
 
 ###getAuthToken
 
-如上面的流程图所示，getAuthToken可以获取存储在设备上的已经登陆成功用户的auth-token。如果auth-token不存在，将会提示用户登录。在成功登陆之后，请求auth-token的app会“长等待“此token。为了避免此情况，我们应该通过 ``AccountManager#peekAuthToken()``来检查``AccountManager``是否已经存在一个有效的auth-token。如果没有，我们应该返回与``addAccount()``相同的结果。
+如上面的流程图所示，根据`account type`获取之前成功登录后存储在这台设备上的`auth-token`。如果auth-token不存在，将会提示用户登录。在成功登陆之后，请求auth-token的app会获取到它等待已久的auth-token。为了完成这个过程，我们应该通过 ``AccountManager#peekAuthToken()``来检查``AccountManager``是否已经存在一个有效的auth-token。如果没有，我们应该返回与``addAccount()``相同的结果。
 
 
 ``` Java

@@ -3,7 +3,8 @@
 
 > * 原文链接 : [原文标题](原文url)
 * 原文作者 : [作者](作者的博客或者其他社交页面)
-* 译文出自 : [开发技术前线 www.devtf.cn。本译文已授权开发者头条（链接：http://toutiao.io/download）享有独家转载权，未经允许，不得转载!](http://www.devtf.cn)
+* 译文出自 : [开发技术前线 www.devtf.cn](http://www.devtf.cn)
+* 转载声明: 本译文已授权[开发者头条](http://toutiao.io/download)享有独家转载权，未经允许，不得转载!
 * 译者 : [这里写你的github用户名](github链接) 
 * 校对者: [这里校对者的github用户名](github链接)  
 * 状态 :  未完成 / 校对中 / 完成 
