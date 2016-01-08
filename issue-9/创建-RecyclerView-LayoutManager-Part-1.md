@@ -105,7 +105,7 @@ Recycler 就会从 recycle pool 里弄一个合适的视图出来，
 
 LayoutManager 需要实时添加，测量和布局所有它需要的子视图。
 当用户滚动屏幕时，布局管理器将来决定什么时候添加新的子视图，
-什么时候可以 detache/scrap (分离/废弃)视图。
+什么时候可以 detach/scrap (分离/废弃)视图。
 
 你需要实现下面这些方法创建一个可行的 LayoutManager 最小系统。
 
@@ -420,7 +420,7 @@ public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler,
 目前，我们已经实现了基本的功能。它少了很多的细节部分，
 不过滚动和适当的视图回收已经完成了。
 关于自定义 LayoutManager 还有很多要说的东西。
-[接下来][next-session]，我们会细致的介绍 decorations, data set changes
+[接下来][part2]，我们会细致的介绍 decorations, data set changes
 还有实现滚动到特定位置。
 
 ---
@@ -428,11 +428,10 @@ public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler,
 
 [source]:http://wiresareobsolete.com/2014/09/building-a-recyclerview-layoutmanager-part-1/
 [author]:http://wiresareobsolete.com/
-[part2]:http://wiresareobsolete.com/2014/09/recyclerview-layoutmanager-2/
-[part3]:http://wiresareobsolete.com/2015/02/recyclerview-layoutmanager-3/
+[part2]:../issue-13/创建-RecyclerView-LayoutManager-Part-2.md
+[part3]:../issue-13/创建-RecyclerView-LayoutManager-Part-3.md
 [res-1]:http://www.grokkingandroid.com/first-glance-androids-recyclerview/
 [res-2]:http://lucasr.org/2014/07/31/the-new-twowayview/
 [res-3]:https://github.com/gabrielemariotti/RecyclerViewItemAnimators
 [demo]:https://github.com/devunwired/recyclerview-playground
 [flinging]:http://www.google.com/design/spec/patterns/gestures.html#gestures-touch-mechanics
-[next-session]:http://wiresareobsolete.com/2014/09/recyclerview-layoutmanager-2/
