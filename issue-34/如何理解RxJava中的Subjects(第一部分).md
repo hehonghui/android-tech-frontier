@@ -156,17 +156,17 @@ There you have it! A pipe connector for all your Rx streams. A complete working 
 
 ## 一些建议：
 
-Dispose your subscriptions responsibly!
+* Dispose your subscriptions responsibly!
 
-响应式处理你的subscription！
+* 响应式处理你的subscription！
 
 In the snippets above, I’ve omitted the parts where we responsibly dispose the subscriptions, for brevity and clarity. Have a look at the solution to see how this should be done.
 
 在上面的片段里，为了简介和清晰，我省略了处理订阅的部分。可以在[演示代码](https://github.com/kaushikgopal/RxJava-Android-Samples/tree/master/app/src/main/java/com/morihacky/android/rxjava/fragments)中看到这部分应该如何做。
 
-Uhh….why not just create the observable in onResume?
+* Uhh….why not just create the observable in onResume?
 
-呃...，为什么不只是在`onResume`中创建一个Observable？
+* 呃...，为什么不只是在`onResume`中创建一个Observable？
 
 Firstly, we want to execute the call as soon as possible. onCreate is the earliest point we can do this. onResume on the other hand is the point where (A) and (B) can actually talk to each other.
 
@@ -176,24 +176,24 @@ Secondly and more importantly if you created the observable in onResume, every t
 
 其次，更重要的是，如果我们在onResume中创建observable，每次A连接回B时，你将会简单地重启队列…这样达不到目的。
 
-This works because Subjects are by default “hot”:
+* This works because Subjects are by default “hot”:
 
-因为Subjects默认是“hot”所以它才会生效：
+* 因为Subjects默认是“hot”所以它才会生效：
 
 Most observables are “cold”. For a fantastic explanation of Hot/Cold observables check out this egghead video. Essentially “cold” observables are like playing your videos from the start every time while “hot” observables are like live-streaming videos. mObservable here (despite the use of an interval operator) is “cold”, so every time you subscribe to the stream it will restart the sequence. Unlike cold observables, Subjects are “hot” by default.
 
 大多数observables是“cold”的。对于hot/cold observables的一个有意思的解释，可以参考[这个理论家的视频](https://egghead.io/lessons/rxjs-demystifying-cold-and-hot-observables-in-rxjs)。`mObservable`这里（尽管使用了一个interval操作符）是“cold”，所以每次你订阅流的时候，它就会重启序列。不像code observables，Subjects默认是“hot”的。
 
-Which Subject to use?
+* Which Subject to use?
 
-使用哪一个Subject？
+* 使用哪一个Subject？
 
 There are many kinds of subjects. For this specific requirement, a PublishSubject works well because we wish to continue the sequence from where it left off. So assuming events 1,2,3 were emitted in (B), after (A) connects back we only want to see 4, 5, 6. If we used a ReplaySubject we would see [1, 2, 3], 4, 5, 6; or if we used a BehaviorSubject we would see 3, 4, 5, 6 etc.
 
 有许[多种Subjects](http://reactivex.io/documentation/subject.html)。对于这个特殊的需求，`PublicSubject`会比较好用，因为我们希望从它离开的地方继续执行序列。所以，假设我们在B中发出了事件1，2，3，在A重新连接回来时我们只希望看到4，5，6.如果我们使用了一个`ReplaySubject`，我们将会看到[1,2,3],4,5,6;又或者我们使用了一个`BehaviorSubject`我们将会看到3，4，5，6等等。
 
-What about operators like .replay, .share or Connected observables?
-使用像.replay,.share这种操作符或者ConnectableObservable怎么样？
+* What about operators like .replay, .share or Connected observables?
+* 使用像.replay,.share这种操作符或者ConnectableObservable怎么样？
 
 A previous solution used a very similar technique. However, this is where we enter the lands of “multicasting”. Multicasting is not simple: you have to consider thread-safety or come to grips with concepts like .refCount etc. Subjects are far more simpler. As the amazing Karnok point out in this excellent series, when using Subjects you can handle complex conditions like backpressure very easily with simple operators like .onBackPressurexxx.
 
