@@ -15,7 +15,7 @@ When I first started using RxJava and heard of Subjects I envisioned them as mys
 
 We know Observables and Subscribers to be the workhorse constructs. Coupled with an operator (or two) you should be on your merry Rx way. But adding Subjects to the mix opens a whole new channel of communication between these constructs. You just have to start thinking about them differently.
 
-我们知道`Observables`和`Subscribers`是主要的组件。再加上一个（或两个）操作符你就可以开始你愉快的Rx之旅了。但是加入`Subjects`的组合在他们之间打开了一个全新的交流渠道。你只需要开始思考他们的不同。
+我们知道`Observables`和`Subscribers`是主要的组件。再加上一个（[或两个](https://github.com/ReactiveX/RxJava/wiki/Alphabetical-List-of-Observable-Operators)）操作符你就可以开始你愉快的Rx之旅了。但是加入`Subjects`的组合在他们之间打开了一个全新的交流渠道。你只需要开始思考他们的不同。
 
 The goal of this post is to help you warm up to that line of thinking.
 
@@ -23,7 +23,7 @@ The goal of this post is to help you warm up to that line of thinking.
 
 Let’s start off by looking at the textbook definition:
 
-让我们通过看课本的定义开始：    
+让我们通过看[课本的定义](https://github.com/ReactiveX/RxJava/wiki/Subject)开始：    
 
 > A Subject is a sort of bridge or proxy that acts both as a Subscriber and as an Observable. Because it is a Subscriber, it can subscribe to one or more Observables, and because it is an Observable, it can pass through the items it observes by reemitting them, and it can also emit new items.
 
@@ -43,7 +43,7 @@ What demigoddery is this?! You have a producer (Observable) on the one end sendi
 
 Let’s take a specific example. The world of Android development has this common requirement: “Resuming or continuing the work done by a long-running operation like a network call after a screen rotation or configuration change”. I took a stab at the solution using retained fragments from the Android APIs, coupled with some RxJava.
 
-举个特殊的例子吧。Android世界的开发有一个共同的需求：“恢复或者继续完成一个长时间操作的工作，比如在屏幕角度或配置变更后的网络调用”。我建议使用android 的api,再加上一些RxJava来保留fragment的解决方案。
+举个特殊的例子吧。Android世界的开发有一个共同的需求：“恢复或者继续完成一个长时间操作的工作，比如在屏幕角度或配置变更后的网络调用”。我建议使用android 的api,[再加上一些RxJava](https://github.com/kaushikgopal/RxJava-Android-Samples#rotation-persist)来[保存fragment](http://www.androiddesignpatterns.com/2013/04/retaining-objects-across-config-changes.html)的解决方案。
 
 You have a UI based fragment (A) which acts as the master. When you want to start your network call you spawn a worker fragment (B) which makes the call. Meanwhile, if (A) is rotated, recreated, destroyed etc. it wouldn’t matter. After (A) finally connects or syncs back with (B), it would only receive subsequent events from (B) without restarting the whole process. 
 
@@ -88,6 +88,8 @@ public void onCreate(Bundle savedInstanceState) {
 ```
 
 By virtue of the way Android works, only at a later point in (B) (like the onResume call) can you actually talk back to any connecting fragment such as the UI based fragment (A) :
+
+根据android的工作方式，只有在B中后面一点（比如onResume调用时）你能够真正地同任何关联的fragment，比如基于UI的fragment（A），进行通信。
 
 ```java
 @Override
@@ -148,13 +150,11 @@ public void onResume() {
 
 There you have it! A pipe connector for all your Rx streams. A complete working example can be found here.
 
-至此你有了它，一个针对你的所有Rx流的管道连接器。一个完整的可以运行的示例可以在这里找到。
+至此你有了它，一个针对你的所有Rx流的管道连接器。一个完整的可以运行的示例可以在[这里](https://github.com/kaushikgopal/RxJava-Android-Samples/tree/master/app/src/main/java/com/morihacky/android/rxjava/fragments)找到。
 
-Some considerations:
-==================
+## Some considerations:
 
-一些建议：
-==============
+## 一些建议：
 
 Dispose your subscriptions responsibly!
 
@@ -162,7 +162,7 @@ Dispose your subscriptions responsibly!
 
 In the snippets above, I’ve omitted the parts where we responsibly dispose the subscriptions, for brevity and clarity. Have a look at the solution to see how this should be done.
 
-在上面的片段里，为了简介和清晰，我省略了处理订阅的部分。可以在演示代码中看到这部分应该如何做。
+在上面的片段里，为了简介和清晰，我省略了处理订阅的部分。可以在[演示代码](https://github.com/kaushikgopal/RxJava-Android-Samples/tree/master/app/src/main/java/com/morihacky/android/rxjava/fragments)中看到这部分应该如何做。
 
 Uhh….why not just create the observable in onResume?
 
@@ -182,7 +182,7 @@ This works because Subjects are by default “hot”:
 
 Most observables are “cold”. For a fantastic explanation of Hot/Cold observables check out this egghead video. Essentially “cold” observables are like playing your videos from the start every time while “hot” observables are like live-streaming videos. mObservable here (despite the use of an interval operator) is “cold”, so every time you subscribe to the stream it will restart the sequence. Unlike cold observables, Subjects are “hot” by default.
 
-大多数observables是“冷”。对于冷/热observables的一个有趣的解释，可以参考这个理论视频。
+大多数observables是“cold”的。对于hot/cold observables的一个有意思的解释，可以参考[这个理论家的视频](https://egghead.io/lessons/rxjs-demystifying-cold-and-hot-observables-in-rxjs)。`mObservable`这里（尽管使用了一个interval操作符）是“cold”，所以每次你订阅流的时候，它就会重启序列。不像code observables，Subjects默认是“hot”的。
 
 Which Subject to use?
 
@@ -190,15 +190,19 @@ Which Subject to use?
 
 There are many kinds of subjects. For this specific requirement, a PublishSubject works well because we wish to continue the sequence from where it left off. So assuming events 1,2,3 were emitted in (B), after (A) connects back we only want to see 4, 5, 6. If we used a ReplaySubject we would see [1, 2, 3], 4, 5, 6; or if we used a BehaviorSubject we would see 3, 4, 5, 6 etc.
 
-有许多种Subjects。对于这个特殊的需求，`PublicSubject`会比较好用，因为我们希望从它离开的地方继续执行序列。所以，假设我们在B中发出了事件1，2，3，在A重新连接回来时我们只希望看到4，5，6.如果我们使用了一个`ReplaySubject`，我们将会看到[1,2,3],4,5,6;又或者我们使用了一个`BehaviorSubject`我们将会看到3，4，5，6等等。
+有许[多种Subjects](http://reactivex.io/documentation/subject.html)。对于这个特殊的需求，`PublicSubject`会比较好用，因为我们希望从它离开的地方继续执行序列。所以，假设我们在B中发出了事件1，2，3，在A重新连接回来时我们只希望看到4，5，6.如果我们使用了一个`ReplaySubject`，我们将会看到[1,2,3],4,5,6;又或者我们使用了一个`BehaviorSubject`我们将会看到3，4，5，6等等。
 
 What about operators like .replay, .share or Connected observables?
+使用像.replay,.share这种操作符或者ConnectableObservable怎么样？
 
 A previous solution used a very similar technique. However, this is where we enter the lands of “multicasting”. Multicasting is not simple: you have to consider thread-safety or come to grips with concepts like .refCount etc. Subjects are far more simpler. As the amazing Karnok point out in this excellent series, when using Subjects you can handle complex conditions like backpressure very easily with simple operators like .onBackPressurexxx.
 
+一个[以前的解决方案](https://github.com/kaushikgopal/RxJava-Android-Samples/blob/master/app/src/main/java/com/morihacky/android/rxjava/fragments/RotationPersist1WorkerFragment.java)使用了一个非常相似的技术。然而，这也是我们进入“多播”领域的地方。多播并不简单:你不得不考虑线程安全或者去掌握像`.refCount`等的概念。Subjects相比之下要简单地多。在[这个优秀的系列文章](http://akarnokd.blogspot.com/2015/06/subjects-part-1.html)中，由于Karnok惊人地指出，当使用Subjects的时候，你 能够处理复杂的条件，比如，使用像`.onBackPressurexxx`这种简单的操作符就可以很方便地处理后退键按下事件。
+
 Another wise Jedi Rxer also mentioned once that using multicasting techniques are dangerous and indications of code smells. Almost always, there’s a ready-made construct or operator that does the job for you far more easily.
 
-另一些聪明的绝地武士Rx使用者
+另一些聪明的绝地武士一样的Rxer也提到过使用多播技术是危险的，并且会使代码变质。几乎总是有一个现成的结构或操作符对你来说更容易完成任务。
 
 Stay tuned for more in this series.
 
+请继续关注本系列的更多内容。
