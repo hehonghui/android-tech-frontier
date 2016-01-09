@@ -137,9 +137,9 @@ AsyncTask是在Android里面默认的处理工具，开发者可以做里面一�
     }
 ```
 
-在旋转之后，订阅者的缓存实例就会立即发出和第一次请求相同的请求，防止真实的Web Service请求发生。
+在旋转之时,正在运行当中的Subscription(代表了事件源和订阅者之间的关系)会被缓存到一个实例,在旋转之后，这个实例就会立即发送一些和旋转之前已经发送过的事件相同的事件，从而避免了再去重复请求网络服务。
 
-如果你想要避免缓存的Fragment(并且有很充足的理由去避免它)，我们可以通过使用AsyncSubject实现缓存。无论何时被订阅，AsyncSubject 都会重新发出最后的事件。或者我们可以使用BehaviorSubject获得最后的值和新值改变整个应用程序。
+如果你想要避免缓存的Fragment(或者是由于它是一个子Fragment,你不能缓存它)，此时我们可以通过putting the same cache instance one layer down inside a service singleton,或者使用一个无论何时被订阅,都会重新发出最后的事件AsyncSubject实现缓存,或者使用可以在整个应用中获得最后的值以及由改变引起的新值的BehaviorSubject这些来完成缓存(以上这些我将会在我不久后的一篇文章里面更详细的讲明,那篇文章我将使用一种更接近事件总线的observables)。
 
 ```java
  WeatherListFragment.java 
@@ -166,7 +166,7 @@ AsyncTask是在Android里面默认的处理工具，开发者可以做里面一�
 	}
 ```
 
-因为“缓存”是由Manager单独管理的，它不会与Fragment/Activity的周期绑定，并且在Activity/Fragment中将持续存在。如果你想强迫刷新基于以类似的方式来保留Fragment缓存实例的生命周期事件，你可以这样做：
+因为“缓存”是由Manager单独管理的，它不会与Fragment/Activity的周期绑定，并且会保持与Activity/Fragment的解耦。如果你想以一种和处理保存的fragment的生命周期事件相同的手段来强制刷新这个缓存实例的话，你可以这样做：
 
 ```java
 	public void onCreate() {
@@ -177,10 +177,10 @@ AsyncTask是在Android里面默认的处理工具，开发者可以做里面一�
 	}
 ```
 
-这件事情的伟大之处在于，它不像是Loaders，我们可以很灵活的缓则缓存很多Activity和Services中的结果。只需要去掉oncreate()中的invalidate()调用，并让你的Manager对象决定何时发出新的气象数据就可以了。可能是一个Timer，或者是用户定位改变，或者是其他任何时刻，这真的没关系。你现在可以控制什么时候如何去更新缓存和重新加载。并且当你的缓存策略发生改变的时候，Fragment和你的Manager对象之间的接口不需要进行改变。它只不过是一个 List<WeatherData>的Observer。
+这件事情的伟大之处在于，它不像是Loaders，我们可以很灵活的缓存这些结果,他们来自我们选择的Activity和Services中。只需要去掉oncreate()中的invalidate()调用，并让你的Manager对象决定何时发出新的气象数据就可以了。可能是一个Timer，或者是用户定位改变，或者是其他任何时刻，这真的没关系。你现在可以控制什么时候如何去更新缓存和重新加载。并且当你的缓存策略发生改变的时候，Fragment和你的Manager对象之间的接口不需要进行改变。它只不过是一个 List<WeatherData>的Observer。
 
 ###可测试性
-测试是我们想要实现干净、简单的最后一个挑战。(让我们忽略一个事实，在测试期间,我们可能想要模拟出实际的Web服务。这样做很简单，下面通过一个接口注入到那些依赖你可能已经正在做的标准模式中。)
+测试是我们想要实现干净、简单的最后一个挑战。(我们可以不用模拟真实的网络服务来进行测试。做法很简单，下面通过一个接口注入这些依赖,这个接口你可能已经在用了。)
 
 幸运的是，Observables给我们一个简单的方式来将一个异步方法变成同步，你要做的就是使用toblocking()方法。我们看一个测试例子。
 

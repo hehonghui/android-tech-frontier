@@ -388,13 +388,13 @@ public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State 
 ---
 
 
-[part1]:https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-9/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-1.md
+[part1]:../issue-9/创建-RecyclerView-LayoutManager-Part-1.md
 [author]:http://wiresareobsolete.com/
-[part2]:https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-13/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-2.md
-[part3]:https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-13/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-3.md
+[part2]:./创建-RecyclerView-LayoutManager-Part-2.md
+[part3]:http://wiresareobsolete.com/2015/02/recyclerview-layoutmanager-3/
 [sample-github]:https://github.com/devunwired/recyclerview-playground
-[animate-01]:http://i.embed.ly/1/display/resize?url=http%3A%2F%2Fwiresareobsolete.com%2Fwordpress%2Fwp-content%2Fuploads%2F2015%2F02%2FDefaultRecyclerAnimationsSmall.gif&grow=true&key=92b31102528511e1a2ec4040d3dc5c07
-[animate-02]:http://i.embed.ly/1/display/resize?url=http%3A%2F%2Fwiresareobsolete.com%2Fwordpress%2Fwp-content%2Fuploads%2F2015%2F02%2FRecycleConceptSmall.gif&grow=true&key=92b31102528511e1a2ec4040d3dc5c07&height=400
-[animate-03]:http://i.embed.ly/1/display/resize?url=http%3A%2F%2Fwiresareobsolete.com%2Fwordpress%2Fwp-content%2Fuploads%2F2015%2F02%2FRecycleRemove.gif&grow=true&key=92b31102528511e1a2ec4040d3dc5c07&height=400
-[animate-04]:http://i.embed.ly/1/display/resize?url=http%3A%2F%2Fwiresareobsolete.com%2Fwordpress%2Fwp-content%2Fuploads%2F2015%2F02%2FPredictiveRecyclerAnimationsSmall.gif&grow=true&key=92b31102528511e1a2ec4040d3dc5c07
+[animate-01]:http://i.embed.ly/1/display/resize?url=http%3A%2F%2Fwiresareobsolete.com%2Fwp-content%2Fuploads%2F2015%2F02%2FDefaultRecyclerAnimationsSmall.gif&grow=true&key=92b31102528511e1a2ec4040d3dc5c07
+[animate-02]:http://i.embed.ly/1/display/resize?url=http%3A%2F%2Fwiresareobsolete.com%2Fwp-content%2Fuploads%2F2015%2F02%2FRecycleConceptSmall.gif&grow=true&key=92b31102528511e1a2ec4040d3dc5c07&height=400
+[animate-03]:http://i.embed.ly/1/display/resize?url=http%3A%2F%2Fwiresareobsolete.com%2Fwp-content%2Fuploads%2F2015%2F02%2FRecycleRemove.gif&grow=true&key=92b31102528511e1a2ec4040d3dc5c07&height=400
+[animate-04]:http://i.embed.ly/1/display/resize?url=http%3A%2F%2Fwiresareobsolete.com%2Fwp-content%2Fuploads%2F2015%2F02%2FPredictiveRecyclerAnimationsSmall.gif&grow=true&key=92b31102528511e1a2ec4040d3dc5c07
 [thanks]:https://plus.google.com/111851968937104436377/posts

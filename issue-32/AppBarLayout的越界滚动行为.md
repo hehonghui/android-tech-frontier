@@ -109,7 +109,7 @@ public void onStopNestedScroll(CoordinatorLayout coordinatorLayout, View child, 
 这个类实现了AppBarLayout应该如何改变它的底部以及视图应该如何改变尺寸的逻辑。大多数行为都依赖累积的未填充的像素。我们可以为最大累积值设置一个约束值，这样可以很容的找到要如何改变AppBarLayout底部和改变视图的尺寸。ParentScaler是ViewScaler的父类，它能让AppBarLayout近乎平滑的改变尺寸。我就不在这里贴大量代码了，如果你有兴趣，[可以从这里获取代码](https://gist.github.com/NikolaDespotoski/7d6a019e5aafe60ebade)。
 
 #### Bonus 
-大神们，这里有个MatrixScaler类，我没有时间去完成它。如果想要改变尺寸的视图是ImageView，并且设置了极客们，这里有个MatrixScaler类，我没有时间去完成它。如果想要改变尺寸的视图是ImageView，并且设置了ScaleType为MATRIX，这个类将可以用使用矩阵的方式来改变图像的尺寸。  
+大神们，这里有个MatrixScaler类，我没有时间去完成它。如果想要改变尺寸的视图是ImageView，并且设置了ScaleType为MATRIX，这个类将可以用使用矩阵的方式来改变图像的尺寸。  
 
 # Demo
 [Demo演示地址](https://youtu.be/2udXoC8AXSM)
