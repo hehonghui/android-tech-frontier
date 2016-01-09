@@ -1,5 +1,5 @@
-# 如何理解RxJava中的Subjects(第一部分)
-
+如何理解RxJava中的Subjects(第一部分)
+----
 
 > * 原文链接 : [How to think about Subjects in RxJava (Part 1)](https://tech.instacart.com/how-to-think-about-subjects-part-1/)
 * 原文作者 : [Kaushik Gopal](https://tech.instacart.com/)
