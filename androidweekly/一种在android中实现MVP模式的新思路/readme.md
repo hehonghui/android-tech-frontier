@@ -175,7 +175,7 @@ public class HelloActivity extends BasePresenterActivity<IHelloVu> {
     }
 
     @Override
-    protected Class<HelloVu> getVuClass() {
+    protected Class<HelloVuImpl> getVuClass() {
         return HelloVuImpl.class;
     }
 }
