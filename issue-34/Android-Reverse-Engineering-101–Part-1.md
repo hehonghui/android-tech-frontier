@@ -1,7 +1,7 @@
 #Android逆向工程101 – Part 1
 ---
 
-> * 原文链接 : [Android Reverse Engineering 101 – Part 2](http://www.fasteque.com/android-reverse-engineering-101-part-2/)
+> * 原文链接 : [Android Reverse Engineering 101 – Part 1](http://www.fasteque.com/android-reverse-engineering-101-part-1/)
 * 原文作者 : [Daniele Altomare](http://www.fasteque.com/)
 * 译文出自 : [开发技术前线 www.devtf.cn。本译文已授权开发者头条（链接：http://toutiao.io/download）享有独家转载权，未经允许，不得转载!](http://www.devtf.cn)
 * 译者 : [MiJack](https://github.com/MiJack) 
