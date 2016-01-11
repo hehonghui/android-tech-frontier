@@ -153,7 +153,7 @@ protected void onBindVu() {
 }
 
 @Override
-protected Class<MainVu> getVuClass() {
+protected Class<HelloVu> getVuClass() {
     return HelloVu.class;
 }
 
@@ -175,7 +175,7 @@ public class HelloActivity extends BasePresenterActivity<IHelloVu> {
     }
 
     @Override
-    protected Class<MainVu> getVuClass() {
+    protected Class<HelloVuImpl> getVuClass() {
         return HelloVuImpl.class;
     }
 }
