@@ -5,20 +5,16 @@ Android 开发生僻却实用的知识点 Part 3
 * 原文作者 : [Charlie](http://willowtreeapps.com/category/development-blog/)
 * 译文出自 : [开发技术前线 www.devtf.cn。未经允许，不得转载!](http://www.devtf.cn)
 * 译者 : [chaossss](https://github.com/chaossss) 
-* 校对者: 
+* 校对者: [chaossss](https://github.com/chaossss) 
 * 状态 :  完成 
 
 
-
-Hello again and welcome to the third post in the Android Development Tidbits series. We’re glad so many of you have found the series interesting so far, and thank you for expressing your support through comments and emails to us! For anyone that’s here for the first time, we (the Android team) have been sharing tidbits we learn throughout the week with each other internally for quite some time. Recently, we began sharing our tidbits with the rest of the development community on the blog. You can find our two earlier posts in the series here and here. Perhaps one of these weeks we’ll share some of our earliest tidbits for a few laughs!  Anywho, without further ado, here are this week’s tidbits.
 
 欢迎大家阅读“Android 开发生僻却实用的知识点”系列博文第三部分，非常感谢各位能够关注本系列博文，以及在邮件和留言上表达的支持！
 
 > 如果你是第一次阅读本系列博文：我们团队每周都会队内讨论、分享一些 Android 开发生僻的知识点，而最近我们决定在博客中分享我们的所见所得。在 [Part 1](https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-30/Android%E5%BC%80%E5%8F%91%E7%94%9F%E5%83%BB%E5%8D%B4%E5%AE%9E%E7%94%A8%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9Part1.md) 和 [Part 2](https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-30/Android%E5%BC%80%E5%8F%91%E7%94%9F%E5%83%BB%E5%8D%B4%E5%AE%9E%E7%94%A8%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9Part2.md) 里我们已经分享了一些知识点了，有兴趣的话你可以去看看。
 
 ##Tidbit One
-
-If you’re using QRCodeWriter by ZXing to generate qr codes, it’s rather slow to generate large image sizes. Instead, you can pass a size of 0x0 and it will then return a BitMatrix of the minimum possible size (each block is 1 pixel). Then you can write that matrix into a BitmapDrawable and set it as the background on some view. Make sure you call setFilterBitmap(false) on the drawable first, though, so it doesn’t blur when scaling.
 
 如果你正在使用由 ZXing 开发的二维码生成器库来生成二维码，你会发现用它来生成大图片有点慢。但你可以换一种办法来生成大图片，如果你传递 0 x 0 的图片大小给库，它会返回一个最小尺寸的 BitMatrix （每一个块都是1像素）。然后你可以把该 Matrix 写入 BitmapDrawable，并将它设为某些 View 的背景。使用这个办法前确保已经对 Drawable 调用 setFilterBitmap(false)，不然的话在缩放的时候图片会模糊。
 
@@ -37,15 +33,12 @@ qrCodeDrawable.setFilterBitmap(false);
 imgQrCode.setBackground(qrCodeDrawable);
 ```
 
-I used Bitmap.Config.ARGB_4444 because I needed the background of the QR code to be transparent. If you just want black and white, you could use Bitmap.Config.RGB_565. And if you want to be safe, you can change the creation of the QR code to BitMatrix matrix = new QRCodeWriter().encode("content here", BarcodeFormat.QR_CODE, 10, 10); just in case the lib stops accepting oxo in the future, as I don’t believe a QR code will ever be smaller than 10×10.
-
 由于我需要二维码的背景是透明的，所以我使用了 Bitmap.Config.ARGB_4444。如果你想让二维码只有黑白两种颜色，可以用 Bitmap.Config.RGB_565。如果你怕乱改会有什么麻烦，你可以把二维码的创建方法改为：BitMatrix matrix = new QRCodeWriter().encode("content here", BarcodeFormat.QR_CODE, 10, 10)。但有一点一定要注意，库可能在未来被更新为不接受 0 x 0 参数，毕竟二维码最小也不可能比 10 x 10 还小吧。
 
 – Tidbit contributor, James Sun
 
 ##Tidbit Two
 
-Next time you go to use “adb shell” type “adb hell” instead. Trust me.
 
 键入 adb hell 和 adb shell 的结果是一样的
 
@@ -53,15 +46,11 @@ Next time you go to use “adb shell” type “adb hell” instead. Trust me.
 
 ##Tidbit Three
 
-TextUtils.concat() will give you a CharSequence concatenating the input CharSequences, retaining their spans.
-
 TextUtils.concat() 能将连接输入的 CharSequences 连接在一起，并保持它们的间距，并且返回值仍为 CharSequences。
 
 – Tidbit contributor, Walker Hannan
 
 ##Tidbit Four
-
-“Leaf” views get first dibs on touch events, but “root” views get first dibs on intercept touch events, so if you need to use a touch event that a child view is using, use the intercept event. And if that child view is calling setRequestDisallowInterceptTouchEvent and you don’t want it to do that, just override it and don’t do anything.
 
 一般子 View 处理的点击事件都是由父 View 拦截并分发下来的，所以如果你需要使用某个子 View 正在处理的点击事件，就使用拦截事件的方法。如果子 View 调用了 setRequestDisallowInterceptTouchEvent，而你又不希望自己的拦截被禁止，那就重载 setRequestDisallowInterceptTouchEvent 这个方法吧。
 
@@ -69,23 +58,17 @@ TextUtils.concat() 能将连接输入的 CharSequences 连接在一起，并保�
 
 ##Tidbit Five
 
-When doing bulk operations you can use SqliteDatabase beginTransaction() and endTransaction() methods, but make sure to call setTransactionSuccessful() or else the changes will be rolled back on endTransaction().
-
 在执行一些耗时操作的时候可以调用 SqliteDatabase 的 beginTransaction() 和 endTransaction() 方法，但要确保调用了 setTransactionSuccessful()，要不然在调用 endTransaction() 的时候你的操作作出的改变会被回滚。
 
 – Tidbit contributor, Walker Hannan
 
 ##Tidbit Six
 
-If you’re doing tests, you should probably be wary of using static methods! Why? Well among other reasons, methods provided by the Android framework won’t work in tests, and since they’re static methods you can’t mock them out.
-
 如果你在添加测试用例，千万要小心使用静态方法！因为某些奇奇怪怪的原因，Android 框架层提供的很多方法在测试单元里根本不能用，而且由于它们是静态方法，你甚至不能模拟它们。
 
 – Tidbit contributor, Frank Doyle
 
 ##Tidbit Seven
-
-If you’re doing tests, you should try out Mockito. It lets you replace your complicated object dependencies with super-simple replacements.
 
 如果你在给应用添加测试用例，不妨试试 Mockito，它会大大简化你之前那些测试用例中复杂的对象依赖。
 
