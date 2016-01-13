@@ -7,7 +7,7 @@
 * 转载声明: 本译文已授权[开发者头条](http://toutiao.io/download)享有独家转载权，未经允许，不得转载!
 * 译者 : [rednels](https://github.com/rednels) 
 * 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  翻译中
+* 状态 :  校对中
 
 ### Disclaimer:
 
@@ -151,3 +151,76 @@ Note that everything happens far from the UI thread. This is because we are goin
 Now, given that the observable is now hot, we can’t listen for its onComplete in order to stop any progress indicators we might put in place. What we need is another subject that can be bound to the update request, so here it is the new facade class:
 
 现在，假设observable现在是hot，我们不能为了停止我们可能放在那里的任意进度指示器而监听听其的onComplete方法。我们需要的是另一个subject，让我们必定能够更新请求，所以下面是新的外观类：
+
+```java
+public class ObservableGithubRepos {
+    // ...
+
+    public Observable<List<Repo>> getDbObservable() {
+        return mDatabase.getObservable();
+    }
+
+    public Observable<String> updateRepo(String userName) {
+        BehaviorSubject<String> requestSubject = BehaviorSubject.create();
+
+        Observable<List<Repo>> observable = mClient.getRepos(userName);
+        observable.subscribeOn(Schedulers.io())
+                  .observeOn(Schedulers.io())
+                  .subscribe(l -> {
+                                    mDatabase.insertRepoList(l);
+                                    requestSubject.onNext(userName);},
+                             e -> requestSubject.onError(e),
+                             () -> requestSubject.onCompleted());
+        return requestSubject;
+    }
+}
+```
+
+In the UI client (activity or fragment) we’ll need to subscribe to the storage in order to get the data and to the request observable in order to stop the progress indicators. An observable that emits the state of the pending request is returned every time an update is being requested.
+
+在UI端（activity或者fragment）我们必须订阅存储来获取数据，同时也得订阅请求的observable以停止进度指示器。每次一个更新被请求的时候，发出挂起请求的状态的一个observable就会被返回。
+
+```java
+mObservable = mRepo.getDbObservable();
+mProgressObservable = mRepo.getProgressObservable()
+
+mObservable.subscribeOn(Schedulers.io())
+               .observeOn(AndroidSchedulers.mainThread()).subscribe(l -> {
+                mAdapter.updateData(l);
+            });
+
+Observable<List<Repo>> progressObservable = mRepo.updateRepo("fedepaol");
+progressObservable.subscribeOn(Schedulers.io())
+                       .observeOn(AndroidSchedulers.mainThread())
+                       .subscribe(s -> {},
+                                  e -> { Log.d("RX", "There has been an error");
+                                        mSwipeLayout.setRefreshing(false);
+                                  },
+                                  () -> mSwipeLayout.setRefreshing(false));
+```
+
+Please remember that the DbObservable is a hot one, so every time a call to updateRepo happens, the db will be fed with the result of the query and the ui will get subsequently notified.
+
+请记住`DbObservable`是一个hot的，所以每次调用`updateRepo`的时候，数据库将会被查询结果填充，并且UI接下来将收到通知。
+
+## SqlBrite
+## SqlBrite
+
+If all this wrapping seems too laboruous, the prolific guys from Square wrote [SqlBrite](https://github.com/square/sqlbrite) which is a super generic database wrapper that was written for this same purpouse. I am sure it’s better and more battle field tested than the poor man’s version we can write by ourselves.
+
+如果你觉得所有这些封装看起来是非常费力的，来自Square的多产的伙计写了一个SqlBrite，它是一个为了和这个相同的目的而编写的超级通用的数据库封装。我保证它更好用，并且比我们自己写的个人版本更经得起考验。
+
+## Conclusion
+## 结论
+
+I don’t know if this is an healthy way to use RxJava. Maybe I ended up with this scenario only because I am not 100% confident with RxJava and I am putting some non rx-ness in the middle to better control it. Here we need to choose where to place the operators, since we can modify the flow that feeds the storage from the http client, or the flow that comes out of the storage itself.
+
+我不知道加入这是否是一个使用RxJava的良好的方式。也许我结束这个场景只是因为我对于RxJava没有100%的信心，而且我在中间加入了一些非Rx的东西以便更好地控制它。由于我们能够修改从http客户端填充存储的流程，或者从存储本身发出的流程。
+
+In any case, having an unique source of truth seems more clear, and I feel that in this way it would be a lot easier to do stuff like prefetching, scheduling updates so the user is presented with fresh data (remember having your app work like magic?), checking if an update is worth to be done at all (such as displaying a 5 minutes old weather forecast) and stuff like that.
+
+在任何情况下，拥有一个真理之源将会看起来更加清晰，并且我觉得使用这种方式来处理像预下载、计划更新以便给用户呈现最新的数据将更加容易。
+
+Thanks to Fabio Collini for spotting a lot of mistakes in the first draft of this posts, and to Riccardo Ciovati for proof reading it.
+
+感谢Fabio Collini在这篇文章发表的第一时间指出了许多错误，并感谢Riccardo Ciovati帮我校对文章。
