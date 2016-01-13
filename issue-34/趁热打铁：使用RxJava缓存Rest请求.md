@@ -146,3 +146,8 @@ public class ObservableGithubRepos {
 
 Note that everything happens far from the UI thread. This is because we are going to subscribe to the database observable as the unique source of truth.
 
+需要注意的是一切都是从UI线程发生的。这是因为我们打算将订阅到数据库的observable作为唯一的数据源。
+
+Now, given that the observable is now hot, we can’t listen for its onComplete in order to stop any progress indicators we might put in place. What we need is another subject that can be bound to the update request, so here it is the new facade class:
+
+现在，假设observable现在是hot，我们不能为了停止我们可能放在那里的任意进度指示器而监听听其的onComplete方法。我们需要的是另一个subject，让我们必定能够更新请求，所以下面是新的外观类：
