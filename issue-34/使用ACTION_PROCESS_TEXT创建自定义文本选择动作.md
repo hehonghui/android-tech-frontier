@@ -75,7 +75,7 @@ Once you get your intent filter set up, other apps will already be able to start
 
 That’s where [_EXTRA_PROCESS_TEXT_](http://developer.android.com/reference/android/content/Intent.html#EXTRA_PROCESS_TEXT) comes in: it is a [_CharSequence_](http://developer.android.com/reference/java/lang/CharSequence.html) included in the Intent that represents what text was selected. Don’t be deceived — even though you are using a _text/plain_ intent filter, you’ll get the full _CharSequence_ with any [_Spannable_](http://developer.android.com/reference/android/text/Spannable.html)s included, so don’t be surprised if you notice some styling if you use the _CharSequence_ directly in your app (you can always call [_toString()_](http://developer.android.com/reference/java/lang/CharSequence.html#toString%28%29) to remove all formatting).
 
-[_EXTRA_PROCESS_TEXT_](http://developer.android.com/reference/android/content/Intent.html#EXTRA_PROCESS_TEXT) 的出现：它是一个包含在Intent 内的  [_CharSequence_](http://developer.android.com/reference/java/lang/CharSequence.html)表示选择的文本。不要被欺骗———尽管你使用了text/plain intent filter，你会得到包含[_Spannable_](http://developer.android.com/reference/android/text/Spannable.html)的完整CharSequence，如果你在你的应用中直接使用CharSequence，你可能会注意到一些样式，因此不必惊讶（你也可以调用[_toString()_](http://developer.android.com/reference/java/lang/CharSequence.html#toString%28%29)来移除所有格式）。
+[_EXTRA_PROCESS_TEXT_](http://developer.android.com/reference/android/content/Intent.html#EXTRA_PROCESS_TEXT) 的出现：它是一个包含在Intent 内的  [_CharSequence_](http://developer.android.com/reference/java/lang/CharSequence.html)表示选择的文本。不要被欺骗——尽管你使用了text/plain intent filter，你会得到包含[_Spannable_](http://developer.android.com/reference/android/text/Spannable.html)的完整CharSequence，如果你在你的应用中直接使用CharSequence，你可能会注意到一些样式，因此不必惊讶（你也可以调用[_toString()_](http://developer.android.com/reference/java/lang/CharSequence.html#toString%28%29)来移除所有格式）。
 
 Therefore your _onCreate()_ method may look something like:
 
@@ -92,7 +92,7 @@ protected void onCreate(Bundle savedInstanceState) {
 
 With one caveat if you are using _android:launchMode=”singleTop”_, then you’ll also want to process text in [_onNewIntent()_](http://developer.android.com/reference/android/app/Activity.html#onNewIntent%28android.content.Intent%29) as well — a common practice is to have both _onCreate()_ and _onNewIntent()_ call a single _handleIntent()_ method you create.
 
-如果你使用_android:launchMode=”singleTop”_会有一个警告，你也可以在[_onNewIntent()_](http://developer.android.com/reference/android/app/Activity.html#onNewIntent%28android.content.Intent%29)处理文本———常见的做法是在_onCreate()_ 和 _onNewIntent()_ 都调用 _handleIntent()_ 方法。
+如果你使用_android:launchMode=”singleTop”_会有一个警告，你也可以在[_onNewIntent()_](http://developer.android.com/reference/android/app/Activity.html#onNewIntent%28android.content.Intent%29)处理文本——常见的做法是在_onCreate()_ 和 _onNewIntent()_ 都调用 _handleIntent()_ 方法。
 
 And that’s about all you’d need if you are using _ACTION_PROCESS_TEXT_ as an entryway into your app: what you do with it after that point is up to you.
 
