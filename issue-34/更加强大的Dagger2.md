@@ -26,7 +26,7 @@ However, together with the apparent advantages (of which there were enough to ma
 
 
 Graph composition at runtime - hurts performance, especially in a per-request use case (backend scenario)
-图谱（Graph）是在运行时构建的    -影响性能，尤其是在单请求的用例中（后台服务器场景），
+图谱（Graph）是在运行时构建的    -影响性能，尤其是在频繁请求的用例中（后台服务器场景），
 
 Reflection (i.e. ```Class.forName()``` on generated types) - makes generated code hard to follow and ProGuard a nightmare to configure
 使用了反射（比如说  用```Class.forName()```来获取已经生成的类型） - 使得生成的代码难以跟踪，同时ProGuard配置文件的编写成了噩梦
