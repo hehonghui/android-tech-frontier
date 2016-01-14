@@ -16,11 +16,12 @@
 
 Android 6.0 Marshmallow introduced a new [floating text selection toolbar](http://www.google.com/design/spec/patterns/selection.html#selection-text-selection), which brings the standard text selection actions, like cut, copy, and paste, closer to the text you’ve selected. Even better though is the new [_ACTION_PROCESS_TEXT_](http://developer.android.com/reference/android/content/Intent.html#ACTION_PROCESS_TEXT) which makes it possible for **any app** to add custom actions to that text selection toolbar.
 
-Android 6.0棉花糖引入了一个新的[浮动文本选择工具栏](http://www.google.com/design/spec/patterns/selection.html#selection-text-selection)，带来了标准的文本选择动作，如剪切，复制，和粘贴，更方便处理你选择的文本。甚至更好的是可以通过新的[_ACTION_PROCESS_TEXT_](http://developer.android.com/reference/android/content/Intent.html#ACTION_PROCESS_TEXT) 让 **任何应用** 添加自定义actions（动作）到文本选择工具栏上成为可能。
+Android 6.0棉花糖引入了一个新的[浮动文本选择工具栏](http://www.google.com/design/spec/patterns/selection.html#selection-text-selection)，带来了标准的文本选择动作，如剪切，复制，和粘贴，可以更方便处理你选择的文本。甚至更好的是可以通过新的[_ACTION_PROCESS_TEXT_](http://developer.android.com/reference/android/content/Intent.html#ACTION_PROCESS_TEXT) 让 **任何应用** 添加自定义actions（动作）到文本选择工具栏上成为可能。
 
 ![text_selection_toolbar](https://cloud.githubusercontent.com/assets/4308480/12228682/f420cad4-b879-11e5-8f64-e8f3d34fc765.gif)
 
 The text selection toolbar in Android 6.0
+
 Android 6.0上的文本选择工具栏
 
 
@@ -74,7 +75,7 @@ Once you get your intent filter set up, other apps will already be able to start
 
 That’s where [_EXTRA_PROCESS_TEXT_](http://developer.android.com/reference/android/content/Intent.html#EXTRA_PROCESS_TEXT) comes in: it is a [_CharSequence_](http://developer.android.com/reference/java/lang/CharSequence.html) included in the Intent that represents what text was selected. Don’t be deceived — even though you are using a _text/plain_ intent filter, you’ll get the full _CharSequence_ with any [_Spannable_](http://developer.android.com/reference/android/text/Spannable.html)s included, so don’t be surprised if you notice some styling if you use the _CharSequence_ directly in your app (you can always call [_toString()_](http://developer.android.com/reference/java/lang/CharSequence.html#toString%28%29) to remove all formatting).
 
-[_EXTRA_PROCESS_TEXT_](http://developer.android.com/reference/android/content/Intent.html#EXTRA_PROCESS_TEXT) 的出现：它是一个包含在Intent 内的  [_CharSequence_](http://developer.android.com/reference/java/lang/CharSequence.html)表示选择的文本。不要被欺骗———尽管你使用了text/plain intent filter，你会得到完整的CharSequence包括[_Spannable_](http://developer.android.com/reference/android/text/Spannable.html)，如果你在你的应用中直接使用CharSequence，你可能会注意到一些样式因此不必惊讶（你也可以调用[_toString()_](http://developer.android.com/reference/java/lang/CharSequence.html#toString%28%29)来移除所有格式）。
+[_EXTRA_PROCESS_TEXT_](http://developer.android.com/reference/android/content/Intent.html#EXTRA_PROCESS_TEXT) 的出现：它是一个包含在Intent 内的  [_CharSequence_](http://developer.android.com/reference/java/lang/CharSequence.html)表示选择的文本。不要被欺骗———尽管你使用了text/plain intent filter，你会得到包含[_Spannable_](http://developer.android.com/reference/android/text/Spannable.html)的完整CharSequence，如果你在你的应用中直接使用CharSequence，你可能会注意到一些样式，因此不必惊讶（你也可以调用[_toString()_](http://developer.android.com/reference/java/lang/CharSequence.html#toString%28%29)来移除所有格式）。
 
 Therefore your _onCreate()_ method may look something like:
 
@@ -105,7 +106,7 @@ There’s one other extra included in the _ACTION_PROCESS_TEXT_ _Intent_ though:
 
 You’d retrieve the extra with code such as
 
-你可以像下面的代码一样接收额外的值
+你可以像下面的代码一样接收这个额外的值
 <pre name="a59d" id="a59d" class="graf--pre graf-after--p">boolean readonly = getIntent()
   .getBooleanExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, false);</pre>
 
