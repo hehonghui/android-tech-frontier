@@ -112,7 +112,7 @@ You’d retrieve the extra with code such as
 
 You can use this as a hint to offer the ability to **return altered text to the sending app, replacing the selected text**. This works as your Activity was actually started with [_startActivityForResult()_](http://developer.android.com/reference/android/app/Activity.html#startActivityForResult%28android.content.Intent,%20int%29) — you’ll be able to [return a result](http://developer.android.com/training/basics/intents/filters.html#ReturnResult) by calling [_setResult()_](http://developer.android.com/reference/android/app/Activity.html#setResult%28int,%20android.content.Intent%29) at any time prior to your Activity finishing:
 
-你可以使用提供**返回修改后的文本给发送的应用**的能力作为一个提示，**替换选择的文本**。当你Activity 使用[_startActivityForResult()_](http://developer.android.com/reference/android/app/Activity.html#startActivityForResult%28android.content.Intent,%20int%29)方式开启才会起作用————你可以在Activity 结束之前调用[_setResult()_](http://developer.android.com/reference/android/app/Activity.html#setResult%28int,%20android.content.Intent%29)返回[一个结果](http://developer.android.com/training/basics/intents/filters.html#ReturnResult)：
+你可以使用提供**返回修改后的文本给发送的应用**的能力作为一个提示，**替换选择的文本**。当你Activity 使用[_startActivityForResult()_](http://developer.android.com/reference/android/app/Activity.html#startActivityForResult%28android.content.Intent,%20int%29)方式开启才会起作用——你可以在Activity 结束之前调用[_setResult()_](http://developer.android.com/reference/android/app/Activity.html#setResult%28int,%20android.content.Intent%29)返回[一个结果](http://developer.android.com/training/basics/intents/filters.html#ReturnResult)：
 
 ```
 Intent intent = new Intent();
@@ -140,7 +140,7 @@ A: Not directly — the system only looks for Activities that contain the co
 
 ####Q：我能使用ACTION_PROCESS_TEXT开启一个Service 吗？
 
-A: 不能直接开启————系统只会检查包含正确的intent filter的Activities。这不意味着你不能用一个[_Theme.Translucent.NoTitleBar_](https://developer.android.com/reference/android/R.style.html#Theme_Translucent_NoTitleBar)主题或[_Theme.NoDisplay_](https://developer.android.com/reference/android/R.style.html#Theme_NoDisplay)（只要你[立即销毁Activity](https://plus.google.com/105051985738280261832/posts/LjnRzJKWPGW)）主题的Activity 开启Service ，但要确保它们的action 可以接收到一些用户可见的提示————开启一个notification ，[Toast](http://developer.android.com/reference/android/widget/Toast.html)等。
+A: 不能直接开启——系统只会检查包含正确的intent filter的Activities。这不意味着你不能用一个[_Theme.Translucent.NoTitleBar_](https://developer.android.com/reference/android/R.style.html#Theme_Translucent_NoTitleBar)主题或[_Theme.NoDisplay_](https://developer.android.com/reference/android/R.style.html#Theme_NoDisplay)（只要你[立即销毁Activity](https://plus.google.com/105051985738280261832/posts/LjnRzJKWPGW)）主题的Activity 开启Service ，但要确保它们的action 可以接收到一些用户可见的提示——开启一个notification ，[Toast](http://developer.android.com/reference/android/widget/Toast.html)等。
 
 #### Q: Can I trigger it only for certain types of text?
 
