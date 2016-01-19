@@ -49,7 +49,7 @@ If you've encountered this exception before, you've probably noticed that the mo
 
 The reason why these slight inconsistencies exist stems from a significant change to the Activity lifecycle that was made in Honeycomb. Prior to Honeycomb, activities were not considered killable until after they had been paused, meaning that onSaveInstanceState() was called immediately before onPause(). Beginning with Honeycomb, however, Activities are considered to be killable only after they have been stopped, meaning that onSaveInstanceState() will now be called before onStop() instead of immediately before onPause(). These differences are summarized in the table below:
 
-存在平台版本不一致的原因是：Google 在 Android 3.0（Honeycomb） 版本中对 Activity 的生命周期作了些许修改。在 3.0 之前，Activity 在停止之前不被看作是可被杀死的。在 3.0 中，Activity 只在暂停后被看作是可被杀死的，意味着 `onSaveInstanceState()` 将会在 `onStop()` 方法之前被调用，而不是在 `onPause()` 方法被调用前立刻被调用。其中的区别可见下表：
+存在平台版本不一致的原因是：Google 在 Android 3.0（Honeycomb） 版本中对 Activity 的生命周期作了些许修改。在 3.0 之前，Activity 在 `onPause()` 之前不被看作是可被杀死的。在 3.0 及之后，Activity 只在 `onStop` 之后被看作是可被杀死的，意味着 `onSaveInstanceState()` 将会在 `onStop()` 之前被调用，而不是在 `onPause()` 被调用前立刻被调用。其中的区别可见下表：
 
 |--------|---------|--------|
 | |pre-Honeycomb|post-Honeycomb|
