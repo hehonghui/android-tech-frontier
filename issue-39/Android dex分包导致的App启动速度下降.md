@@ -32,7 +32,8 @@ Multidex现在是一个成熟的、文档丰富的工具。我强烈推荐通过
 - 在工程文件夹下创建一个`multidex.keep`文件
 - 将`java.lang.NoClassDefFoundError`异常中报出的类列到`multidex.keep`中。（不要修改`maindexlist.txt`，这个文件每次都会重新生成，改动无效）
 - 在使用混淆的模块的gradle脚本中天下如下代码，它会每次在编译的时候将`multidex.keep`文件中的内容添加到`maindexlist.txt"中。
-    
+
+```
     android.applicationVariants.all { variant ->
         task "fix${variant.name.capitalize()}MainDexClassList" << {
             logger.info "Fixing main dex keep file for $variant.name"
@@ -57,6 +58,7 @@ Multidex现在是一个成熟的、文档丰富的工具。我强烈推荐通过
             }
         }
     }
+```
 
 ##Multidex对应用启动速度造成的影响。
 
@@ -70,9 +72,129 @@ Multidex现在是一个成熟的、文档丰富的工具。我强烈推荐通过
 
 幸运的是，在`ClassLoader`中有一个`findLoadedClass()`方法，我们的解决办法就是在启动结束的时候查看有没有不在主dex文件中却依然在启动阶段被加载的类，将它们添加到之前的`multidex.keep`文件中，手动将其加入主dex文件：
 
-- 运行`getLoadedExternalDexClasses`查看是否有一些副dex中的类在启动结束后被加载了；
+- 将下面这个类添加到代码中，运行其中的`getLoadedExternalDexClasses`查看是否有一些副dex中的类在启动结束后被加载了；
 - 将上一步检测到的类添加到我们的`multidex.keep`文件中，重新编译。
 
+```
+    public class MultiDexUtils {
+        private static final String EXTRACTED_NAME_EXT = ".classes";
+        private static final String EXTRACTED_SUFFIX = ".zip";
+     
+        private static final String SECONDARY_FOLDER_NAME = "code_cache" + File.separator +
+                "secondary-dexes";
+     
+        private static final String PREFS_FILE = "multidex.version";
+        private static final String KEY_DEX_NUMBER = "dex.number";
+     
+        private SharedPreferences getMultiDexPreferences(Context context) {
+            return context.getSharedPreferences(PREFS_FILE,
+                    Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB
+                            ? Context.MODE_PRIVATE
+                            : Context.MODE_PRIVATE | Context.MODE_MULTI_PROCESS);
+        }
+     
+        /**
+         - get all the dex path
+         *
+         - @param context the application context
+         - @return all the dex path
+         - @throws PackageManager.NameNotFoundException
+         - @throws IOException
+         */
+        public List<String> getSourcePaths(Context context) throws PackageManager.NameNotFoundException, IOException {
+            final ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), 0);
+            final File sourceApk = new File(applicationInfo.sourceDir);
+            final File dexDir = new File(applicationInfo.dataDir, SECONDARY_FOLDER_NAME);
+     
+            final List<String> sourcePaths = new ArrayList<>();
+            sourcePaths.add(applicationInfo.sourceDir); //add the default apk path
+     
+            //the prefix of extracted file, ie: test.classes
+            final String extractedFilePrefix = sourceApk.getName() + EXTRACTED_NAME_EXT;
+            //the total dex numbers
+            final int totalDexNumber = getMultiDexPreferences(context).getInt(KEY_DEX_NUMBER, 1);
+     
+            for (int secondaryNumber = 2; secondaryNumber <= totalDexNumber; secondaryNumber++) {
+                //for each dex file, ie: test.classes2.zip, test.classes3.zip...
+                final String fileName = extractedFilePrefix + secondaryNumber + EXTRACTED_SUFFIX;
+                final File extractedFile = new File(dexDir, fileName);
+                if (extractedFile.isFile()) {
+                    sourcePaths.add(extractedFile.getAbsolutePath());
+                    //we ignore the verify zip part
+                } else {
+                    throw new IOException("Missing extracted secondary dex file '" +
+                            extractedFile.getPath() + "'");
+                }
+            }
+     
+            return sourcePaths;
+        }
+     
+        /**
+         - get all the external classes name in "classes2.dex", "classes3.dex" ....
+         *
+         - @param context the application context
+         - @return all the classes name in the external dex
+         - @throws PackageManager.NameNotFoundException
+         - @throws IOException
+         */
+        public List<String> getExternalDexClasses(Context context) throws PackageManager.NameNotFoundException, IOException {
+            final List<String> paths = getSourcePaths(context);
+            if(paths.size() <= 1) {
+                // no external dex
+                return null;
+            }
+            // the first element is the main dex, remove it.
+            paths.remove(0);
+            final List<String> classNames = new ArrayList<>();
+            for (String path : paths) {
+                try {
+                    DexFile dexfile = null;
+                    if (path.endsWith(EXTRACTED_SUFFIX)) {
+                        //NOT use new DexFile(path), because it will throw "permission error in /data/dalvik-cache"
+                        dexfile = DexFile.loadDex(path, path + ".tmp", 0);
+                    } else {
+                        dexfile = new DexFile(path);
+                    }
+                    final Enumeration<String> dexEntries = dexfile.entries();
+                    while (dexEntries.hasMoreElements()) {
+                        classNames.add(dexEntries.nextElement());
+                    }
+                } catch (IOException e) {
+                    throw new IOException("Error at loading dex file '" +
+                            path + "'");
+                }
+            }
+            return classNames;
+        }
+     
+        /**
+         - Get all loaded external classes name in "classes2.dex", "classes3.dex" ....
+         - @param context
+         - @return get all loaded external classes
+         */
+        public List<String> getLoadedExternalDexClasses(Context context) {
+            try {
+                final List<String> externalDexClasses = getExternalDexClasses(context);
+                if (externalDexClasses != null && !externalDexClasses.isEmpty()) {
+                    final ArrayList<String> classList = new ArrayList<>();
+                    final java.lang.reflect.Method m = ClassLoader.class.getDeclaredMethod("findLoadedClass", new Class[]{String.class});
+                    m.setAccessible(true);
+                    final ClassLoader cl = context.getClassLoader();
+                    for (String clazz : externalDexClasses) {
+                        if (m.invoke(cl, clazz) != null) {
+                            classList.add(clazz.replaceAll("\\.", "/").replaceAll("$", ".class"));
+                        }
+                    }
+                    return classList;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+```
 ##实验结果
 
 这里是我们得出的实验结果。蓝色柱是不使用multidex时的启动时间，红色柱是使用multidex时的启动时间，你可以看到两者之间的巨大差距，仅仅是因为我们使用了multidex而已。之后我们进行了上述优化改进，得出的启动时间是绿色柱，你可以看到它回到了原先的启动速度，甚至比原先更快。你可以尝试一下，它会为你的app性能带来提升。
