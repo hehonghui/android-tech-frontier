@@ -26,13 +26,13 @@ Getting rid of the unneeded parts of the latter libraries was fairly straight fo
 
 The only choice, at this point, was to just leave this whole monster out of ProGuard’s reach, but that would have affected, if not the need for the MultiDex itself, at least the final size of the APK, bringing it to almost 50 MB. That is, for sure, not ideal: whenever we publish an update, all the users have to download the full sized APK, that will be decompressed and take even more space on each device. Space we don’t really need to take.
 
-现在唯一的选择就是让这个框架脱离ProGuard的混淆范围，但是这样一来，即便不用M ultiDex分包，至少最终APK的大小也会达到将近50MB。也就是说，这样做的效果肯定不理想：每当我们发布更新，所有用户必须下载整个APK，之后APK被解压，并在每个设备上占用更多的空间，而这些空间我们本不需要占用。
+现在唯一的选择就是让这个框架脱离ProGuard的混淆范围，但是这样一来，即便不用MultiDex分包，至少最终APK的大小也会达到将近50MB。也就是说，这样做的效果肯定不理想：每当我们发布更新，所有用户必须下载整个APK，之后APK被解压，并在每个设备上占用更多的空间，而这些空间我们本不需要占用。
 
 ## The old way of trimming
 A few weeks ago, we would have gone with the good old ApkTool, decompiling each of the libraries, finding manually all the references, browsing the single files with Atom or Sublime Text and possibly wasting a huge amount of time: while ApkTool is great when it comes to decompile APKs, for this specific task we needed something different, more flexible and, possibly, more helpful.
 
 ## 以前的处理方法
-如果放在几个星期前，我们可能会这样处理：用[ApkTool](http://ibotpeaches.github.io/Apktool/)**反编译每个引用库**，手动查找所有的引用，然后用Atom或者Sublime Text浏览每个文件。如果真的这么做了，可能会浪费大量的时间：因为在反编译APK的时候，ApkTool是一个非常棒的工具，但对于这种特殊情况，我们需要一个更灵活，可能的话，更有助于这个特定的任务的工具。
+如果放在几个星期前，我们可能会这样处理：用[ApkTool](http://ibotpeaches.github.io/Apktool/)**反编译每个引用库**，手动查找所有的引用，然后用Atom或者Sublime Text浏览每个文件。如果真的这么做了，可能会浪费大量的时间：因为在反编译APK的时候，ApkTool是一个非常棒的工具，但对于这种特殊情况，我们需要一个更灵活，可能也更有帮助的工具。
 
 ## Meeting the Shark
 Luckily, there is such a tool: ClassyShark.
