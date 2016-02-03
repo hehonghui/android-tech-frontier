@@ -2,12 +2,12 @@
 
 ---
 
->原文链接 : [Getting Started with RxJava and Android][http://www.captechconsulting.com/blogs/getting-started-with-rxjava-and-android?utm_source=Android+Weekly&utm_campaign=8b4ba9e51d-Android_Weekly_177&utm_medium=email&utm_term=0_4eb677ad19-8b4ba9e51d-337955857]
-原文作者 : [ALEX TOWNSEND][https://github.com/alex-townsend]
-译文出自 : [开发技术前线 www.devtf.cn。未经允许，不得转载!][www.devtf.cn]
-译者 : [desmond1121][https://github.com/desmond1121]
-校对者: [desmond1121][https://github.com/desmond1121]
-状态 : 完成
+- 原文链接 : [Getting Started with RxJava and Android](http://www.captechconsulting.com/blogs/getting-started-with-rxjava-and-android?utm_source=Android+Weekly&utm_campaign=8b4ba9e51d-Android_Weekly_177&utm_medium=email&utm_term=0_4eb677ad19-8b4ba9e51d-337955857)
+- 原文作者 : [ALEX TOWNSEND](https://github.com/alex-townsend)
+- 译文出自 : [开发技术前线 www.devtf.cn。未经允许，不得转载!](www.devtf.cn)
+- 译者 : [desmond1121](https://github.com/desmond1121)
+- 校对者: [desmond1121](https://github.com/desmond1121)
+- 状态 : 完成
 
 [ReactiveX](http://reactivex.io/)是专注于异步工作的API，它将异步事件的处理雨观察者模式、迭代器模式及函数式编程相结合了起来。实时地处理返回数据是在工程中经常出现的情景，所以使用高效、可拓展的方式来解决这种问题非常重要。ReactiveX通过观察者模式以及操作符来提供灵活地处理异步通信的方式，你不用再去关注线程创造与同步这些繁琐的事情。
 
