@@ -6,22 +6,16 @@
 * 译文出自 : [开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 转载声明: 本译文已授权[开发者头条](http://toutiao.io/download)享有独家转载权，未经允许，不得转载!
 * 译者 : [chaossss](https://github.com/chaossss) 
-* 校对者: [这里校对者的github用户名](github链接)  
+* 校对者: [desmond1121](https://github.com/desmond1121) 
 * 状态 :  完成 
 
 
 
-When the Android design support library dropped a few months ago, developers were given all kinds of goodies. Most of these goodies are self-explanatory: The floating action button, you’ve seen that. Snackbars and Tabs? Everyone knows what those are.
+当 Android design support library 在前几个月被发布时，Android 开发者们获得了各种各样有趣的东西，而且其中大多数东西看名字就知道是啥：FloatingActionButton(FAB)，Snackbar，Tab，这些东西都不知道的话和咸鱼有什么区别。
 
-But there is also something mysterious lurking in the design support library. Something that has its tentacles throughout. This mysterious thing is known as the CoordinatorLayout.
-
-当 Android design support library 在前几个月发布时，Android 开发者们获得了各种各样有趣的东西，而且其中大多数东西看名字就知道是啥：FloatingActionButton，Snackbar，Tab，这些东西不知道都不能算是 Android 开发者咯。
+但 Android design support library 中有一个控件 - CoordinatorLayout 有一些绝大部分开发者都没发现的秘密，接下来就让我们来研究 CoordinatorLayout 吧。
 
 ##CoordinatorLayout
-You don’t hear much about CoordinatorLayout, probably because when you use it, you generally don’t need to know many of the details. Things just work and they just work well. However, CoordinatorLayout is more powerful than it first seems.
-Take a snackbar and a floating action button as an example. Using a CoordinatorLayout, you can ensure that your floating action button will move out of the way when the snack bar pops in.
-
-Just throw a CoordinatorLayout in your layout file:
 
 但你可能很少听说 CoordinatorLayout，大概是因为当你使用它时，往往不需要知道许多与它相关的细节，就能得到你想要的效果。然而 CoordinatorLayout 比它看起来 6 得多。不妨拿 SnackBar 和 FAB 作为例子，用 CoordinatorLayout 确保 FAB 会在 SnackBar 出现的时候会向上移动：
 
@@ -48,30 +42,21 @@ xml 如下：
 </android.support.design.widget.CoordinatorLayout>
 ```
 
-Then show your snack bar:
 然后显示你的 SnackBar：
 
 ```java
 Snackbar.make(findViewById(R.id.container), "Hey there!", Snackbar.LENGTH_LONG).show();
 ```
 
-Magically, your floating action button will move when the snack bar shows up. That’s it!
-
 然后你就会发现 FAB 会在 SnackBar 出现时移动了。
 
 ![](https://www.bignerdranch.com/img/blog/2016/02/fab_normal_size.gif)
 
-Out of the box, CoordinatorLayout can also increase the size of your toolbar based on scroll position or hide your toolbar when the user is scrolling down a list. You can customize it with your own behavior, too.
-
 除此以外，CoordinatorLayout 还能基于你的滚动位置增加 ToolBar 的大小或在用户滚动列表时隐藏 Toolbar。你可以用你自己的行为自定义。
-
-So how does CoordinatorLayout know what to do with the floating action button? How does it know that it should move up the screen when the snack bar comes in?
-CoordinatorLayout makes this happen by making use of a CoordinatorLayout.Behavior implemented and declared by FloatingActionButton.
 
 那么 CoordinatorLayout 是怎么知道他需要与 FAB 交互完成的操作呢？它是怎么知道当 SnackBar 出现时 FAB 要向上移动呢？CoordinatorLayout 是通过实现 FloatingActionButton 声明的 CoordinatorLayout.Behavior 完成的。
 
 ##CoordinatorLayout.Behavior
-Views within a coordinator layout can specify a Behavior that defines how that view interacts with other views.
 
 CoordinatorLayout 中的 View 可以指定该 View 如何与其他 View 交互的行为。
 
@@ -82,24 +67,15 @@ public class FloatingActionButton extends ImageView {
 }
 ```
 
-If you look at the source for FloatingActionButton, you will see its Behavior defined with an annotation on the class declaration.
-
 如果你去看 FAB 的源码，你会发现它的行为是通过注解在类声明中定义的。
-
-FloatingActionButton uses FloatingActionButton.Behavior as its default behavior unless you set it to something else. The default knows how to get out of the way of the snackbar when it shows up.
 
 FAB 将 FloatingActionButton.Behavior 作为其默认行为，除非你将它设置为其他的 behavior，而默认的 Behavior 了解在 SnackBar 出现时如何移动到它的上面。
 
-##Custom Behavior
 ##自定义 Behavior
-So, how do you customize this behavior? You define your own Behavior subclass.
-Let’s create a Behavior that shrinks the FloatingActionButton instead of moving it up the screen when the snackbar shows up.
 
 那么你要怎么自定义 Behavior 呢？你可以创建一个 Behavior 的子类，现在我就创建一个 Behavior 在 SnackBar 出现时闪烁 FAB 而不是让它移动到 SnackBar 上面。
 
 ![](https://www.bignerdranch.com/img/blog/2016/02/fab_shrink.gif)
-
-First, in your layout file, use the app:layout_behavior attribute to point to your Behavior subclass:
 
 首先在 xml 中使用 app:layout_behavior 属性设置你的自定义 Behavior：
 
@@ -118,7 +94,6 @@ First, in your layout file, use the app:layout_behavior attribute to point to yo
 ...
 ```
 
-Then, create your class:
 然后创建你的 Behavior 类：
 
 ```java
@@ -131,8 +106,6 @@ public class ShrinkBehavior extends CoordinatorLayout.Behavior<FloatingActionBut
 }
 ```
 
-When you define your own behavior, there are many methods that you can override. For this example, there are two that are necessary:
-
 当你定义你的 Behavior，你可以重载许多方法，在这里我们只需要重载两个方法：
 
 ```java
@@ -142,13 +115,7 @@ public boolean layoutDependsOn(CoordinatorLayout parent, FloatingActionButton ch
 }
 ```
 
-The layoutDependsOn method is CoordinatorLayout’s way to see which views your floating action button are dependent on. In this case, if the view is a snackbar, set up a dependency by returning true.
-
 layoutDependsOn() 方法帮助 CoordinatorLayout 知道 FAB 依赖于哪个 View。在这里例子中，就是指 SnackBar，通过返回 true 设置依赖。
-
-The Android documentation indicates that by setting up this dependency, you will receive calls to onDependentViewChanged when a dependent view changes its size or position. This is true, but CoordinatorLayout’s source provides more detail. 
-
-onDependentViewChanged is called whenever ViewTreeObserver.OnPreDrawListener.onPreDraw is called or when a scroll or fling action occurs.
 
 Android API 文档上说，设置依赖后，当一个独立的 View 改变了它的大小或位置，你会调用到onDependentViewChanged()，你可以在 CoordinatorLayout 中看到更多的细节。
 
@@ -164,7 +131,5 @@ public boolean onDependentViewChanged(CoordinatorLayout parent, FloatingActionBu
   return false;
 }
 ```
-
-As the snackbar moves up the screen, this method is repeatedly called. You can do a little math to determine how far up the screen the snackbar is and change your floating action button’s size as a result. You can see [the full implementation of this ShrinkBehavior class](https://github.com/cstew/CustomBehavior/blob/master/app/src/main/java/com/bignerdranch/android/custombehavior/ShrinkBehavior.java) on GitHub. You can find the source for this sample and another [custom Behavior](https://github.com/cstew/CustomBehavior) that rotates the floating action button there as well.
 
 当 SnackBar 出现，该方法不断被调用，然后通过简单的数学运算你就可以判断 SnackBar 离屏幕边缘有多远，并改变你的 FAB 的大小。[ShrinkBehavior](https://github.com/cstew/CustomBehavior/blob/master/app/src/main/java/com/bignerdranch/android/custombehavior/ShrinkBehavior.java) 可以在 Github 上看到完整的实现，你也可以直接下载旋转 FAB 的[例子的源码](https://github.com/cstew/CustomBehavior)。
