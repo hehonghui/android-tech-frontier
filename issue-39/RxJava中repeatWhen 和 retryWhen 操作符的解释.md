@@ -133,7 +133,7 @@ Uses
 
 Now that you (vaguely) understand ```retryWhen``` and ```repeatWhen```, what sort of logic can you stick in the ```notificationHandler```?
 
-现在，你已经（大概）理解了```retryWhen``` 和 ```repeatWhen```，那么我们可以在```notificationHandler```里加入那些逻辑（logic）呢？
+现在，你已经（大概）理解了```retryWhen``` 和 ```repeatWhen```，那么我们可以在```notificationHandler```里加入哪些逻辑呢？
 
 **Poll for data periodically using ```repeatWhen``` + ```delay```:**
 
