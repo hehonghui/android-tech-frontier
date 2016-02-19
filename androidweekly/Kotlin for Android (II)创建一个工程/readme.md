@@ -31,7 +31,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.1.3'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:0.11.91'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.0'
     }
 }
 ```
@@ -49,7 +49,7 @@ apply plugin: 'kotlin-android'
 ```gradle
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'org.jetbrains.kotlin:kotlin-stdlib:0.11.91'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.0'
 }
 ```
 最后, 你需要添加我们在下一个步骤创建的Kotlin文件夹:
