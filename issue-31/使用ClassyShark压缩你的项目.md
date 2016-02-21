@@ -38,8 +38,6 @@ and do it with Class(yShark)](https://medium.com/@_tiwiz/shrinking-your-build-wi
 ## 结语
 不幸的是，我们无法摆脱MultiDex库，但我们的确缩小了我们的项目，并且我们**发行版本的APK大小，现在大概13 MB**，相比于初始大小减少了约75％。就算没有完美解决，也算得上是功德圆满了。
 
-Thanks to my colleague Giuseppe and to my friends Boris, Mario and Sebastiano for proofreading this article.
-
 感谢我的同事 Giuseppe和我的朋友 Boris, Mario 和 Sebastiano校对这篇文章。
 
 
