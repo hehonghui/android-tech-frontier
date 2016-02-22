@@ -1,4 +1,4 @@
-Indeterminate – Part 1
+IndeterminateProgressbar解析 – Part 1
 ---
 
 > * 原文链接 : [Indeterminate – Part 1](https://blog.stylingandroid.com/indeterminate-part-1/)
