@@ -6,8 +6,8 @@
 * 译文出自 : [开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 转载声明: 本译文已授权[开发者头条](http://toutiao.io/download)享有独家转载权，未经允许，不得转载!
 * 译者 : [yuweiguocn](https://github.com/yuweiguocn)
-* 校对者: [这里校对者的github用户名](github链接)  
-* 状态 :  未完成 / 校对中 / 完成 
+* 校对者: [chaossss](https://github.com/chaossss)  
+* 状态 :  完成 
 
 
 
