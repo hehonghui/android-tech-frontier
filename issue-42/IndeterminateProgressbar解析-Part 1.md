@@ -6,24 +6,19 @@ IndeterminateProgressbar解析 – Part 1
 * 译文出自 : [开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 转载声明: 本译文已授权[开发者头条](http://toutiao.io/download)享有独家转载权，未经允许，不得转载!
 * 译者 : [chaossss](https://github.com/chaossss) 
-* 校对者: 
+* 校对者: [desmond1121](https://github.com/desmond1121) 
 * 状态 :  完成 
 
 
 
-Indeterminate ProgressBars are a useful tool for communicating to our users that an operation is in progress when we cannot predict how long it is likely to take. Previously on Styling Android we’ve covered how to create a backwardly compatible approximation of the material styled horizontal indeterminate ProgressBar but we haven’t looked at the circular form – in this series we’ll create an approximation of the material circular indeterminate ProgressBar which will be backwardly compatible to API 11 (Honeycomb).
 
 IndeterminateProgressBar 能在用户进行某项不定时长的耗时操作时提供绝佳的用户体验，之前我有教过大家怎么创建[水平的 IndeterminateProgressBar](http://blog.csdn.net/u012403246/article/details/49582789)，今天我就来教大家实现圆形的 IndeterminateProgressBar，这个控件将支持 API 11（Honeycomb）以上的设备。
 
-This series is going to be slightly different to the normal structure on Styling Android. Initially we’re actually going to take a dive in to the Lollipop+ implementation of this control to understand precisely how it works – which is rather interesting. Then we’ll apply that knowledge and create a backwardly compatible version that is actually pretty close IMO.
+这系列博文将有别于传统的自定义控件方法，而是从 Lollipop+ 提供的 API 实现去理解其运作机制，最后我会将从中学习到的知识应用到开发中，创造一个在低版本设备中效果类似的控件。
 
-Before we begin let’s just take a look at what we’re trying to achieve:
-
-这系列博文将有别于传统的自定义控件方法，而是从 Lollipop+ 提供的 API 实现去理解其运作机制，最后我会对比这种实现和之前的实现。
+在开始研究之前可以看看我们期望实现的效果：
 
 [Youtube视频](https://youtu.be/g6Zo6WDS2Gg)
-
-So it’s a section of a circle which sweeps round suddenly while the whole thing is rotating. Let’s look at how this is actually implemented by looking at the AOSP code at https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/drawable/progress_medium_material.xml:
 
 所以我们要做的就是：进度条在旋转，然后由长变短最后消失，再出现，由短变长。不妨看看[ Google 的实现](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/drawable/progress_medium_material.xml)：
 
@@ -50,8 +45,6 @@ So it’s a section of a circle which sweeps round suddenly while the whole thin
         android:animation="@anim/progress_indeterminate_rotation_material" />
 </animated-vector>
 ```
-
-It’s no great surprise that an AnimatedVectorDrawable is used here – this is for Lollipop+, after all and a holo drawable will be used when running on older devices. So this applies two different animations – one to achieve the sweep effect, and the other to perform the overall rotation. This is performed on [res/drawable/vector_drawable_progress_bar_medium.xml](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/drawable/vector_drawable_progress_bar_medium.xml):
 
 在这里他们使用了 AnimatedVectorDrawable - Lollipop+ 才有的特性，在低版本设备中将使用 Holo 风格的 drawable 资源。因此这个效果应用了两个动画 - 一个完成进度条长度变化，另一个完成旋转，[具体实现](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/drawable/vector_drawable_progress_bar_medium.xml)可以参考：
 
@@ -93,13 +86,9 @@ It’s no great surprise that an AnimatedVectorDrawable is used here – this is
 </vector>
 ```
 
-I’m not going to do dive in to the pathData here, but this path essentially describes a circle. However nothing will actually be rendered because of the trimPath* values (actually because trimPathEnd="0" stop the path drawing at the beginning of the path).
-
 我不想在这里解释 pathData，但它确实绘制了一个圆。但控件不会被渲染成一个圆，因为 trimPath 相关的值都为 0（其实是因为 trimPathEnd="0"，使得 Path 起点处的绘制被停止）。
 
-It is worth noting the named of the path and group elements which tie in to the animators that get applied to them in the AnimatedVectorDrawable that we’ve already looked at. The rotation Animator gets applied to the group (and this is actually pretty standard stuff, so we won’t go in to any detail here – look at the AOSP source if you’re interested). But the Animators which apply the sweep animations are rather more interesting:
-
-值得一提的是 path 的命名及其成员元素都与 Animator 关联并应用于 AnimatedVectorDrawable。旋转 Animator 也被应用到其中（在这里都是很常见的方法，所以我不打算过多地解释，有兴趣的话可以[看这里]()）。但用于进度条长度变化的 Aniamtor 值得学习：
+值得一提的是 path 的命名及其成员元素都与 Animator 关联并应用于 AnimatedVectorDrawable。旋转 Animator 也被应用到其中（在这里都是很常见的方法，所以我不打算过多地解释，有兴趣的话可以[看这里](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/anim/progress_indeterminate_rotation_material.xml)）。但用于进度条长度变化的 Aniamtor 值得学习：
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -143,22 +132,12 @@ It is worth noting the named of the path and group elements which tie in to the 
 </set>
 ```
 
-There are three Animators here which will run in parallel each one will alter one of the trimPath* attributes of the path element in our. For a recap on how we can achieve some interesting effects with trimPath take a look at .
-
 在这里用了三个 Animator，三者并行运行动画效果，且每一个修改 path 元素中 trimPath 前缀的值，最终就实现了我们想要的效果。
-
-It is the first two which control the start and end points on the circle and an arc will be rendered between these points. So by varying them at different rates over the duration of the Animator the desired “sweep” effect will be achieved. But the parameters for both are almost identical with the exception of the interpolator being applied.
 
 其中第一和第二个 ObjectAnimator 控制圆的起点和终点，绘制出两点间的圆弧。所以当我们以不同的速率改变这两个 Animator 的值时，就会得到我们所说的变长变短的效果。除了应用的插值器，它们对应的参数都是相同的不同。
 
-The third animator is actually performing an offset of everything and its precise role in all of this will become clearer later on in the series when we actually come to roll our own implementation.
-
 第三个 Animator 用于显示间距，以显示长度变化时，长度渐变消失的效果。
 
-Regular readers of Styling Android will know that I love interpolators and these ones are particularly interesting. We’ll cover these in detail in the next article.
-
-关注我的读者都知道我很喜欢用插值其，因为它们实在是太好用了！在下一篇博文中我会解释其中的细节。
-
-As this series is initially an exploration of AOSP code there is no accompanying source code. Yet. It will come later in the series, I promise!
+关注我的读者都知道我很喜欢用插值器，因为它们实在是太好用了！在下一篇博文中我会解释其中的细节。
 
 因为这篇博文都是基于[ Google 源码](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/anim/progress_indeterminate_rotation_material.xml)进行的，所以我就不提供源码了，但后面的文章我保证都会有源码！
