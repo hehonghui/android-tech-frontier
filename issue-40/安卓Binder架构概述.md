@@ -35,7 +35,7 @@
 
 - 将返回值传回给客户端调用进程
 
-Intents、ContentProviders、Messenger，所有的系统服务，包括电话、震动器、Wifi、电池、通知（Notification）等，都利用了Binder提供的IPC底层框架。甚至Activity里的生命周期回调函数（例如onStart(), onResume(), onDestroy）也是由ActivityManagerServer经由Binder调用的。
+Intents、ContentProviders、Messenger，所有的系统服务，包括电话、震动器、Wifi、电池、通知等，都利用了Binder提供的IPC底层框架。甚至Activity里的生命周期回调函数（例如onStart(), onResume(), onDestroy）也是由ActivityManagerServer经由Binder调用的。
 
 
 这里将覆盖Binder的一些术语，一旦你看过怎么使用AIDLs及完成IPC，借此或许能加深印象。客户端跟服务端不想知道关于Binder协议的任何事情，因此它们使用代理（proxy，在客户端）和存根（stub，在服务端）。代理接收你的高级Java/C++方法调用（请求）并把它们分解成Parcels（Marshalling，类序列化），随后提交事务（transaction）到Binder内核驱动并阻塞。在另一边（服务端进程）存根监听Binder内核驱动，并把从回调中接收到的Parcels重组成服务端能理解的对象和数据类型。
