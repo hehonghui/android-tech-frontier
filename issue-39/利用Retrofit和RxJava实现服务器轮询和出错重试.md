@@ -27,14 +27,10 @@ Observable
 
 **takeUntil()**返回的Observable是**filter()**返回的Observable的子元素（child）。作为参数传递给**subscribe()**的Subscriber是**takeUntil()**返回的Observable的子元素（child）。
 
-Server Polling. 服务器轮询
+服务器轮询
 ---------------
 
-This is the case when you are waiting for some job to be done by the server and you have to periodically make an API call to know if it’s already done.
-
 所谓服务器轮询，也就是，当你需要等待服务器去完成某项任务时，你就要周期性地调用API接口来查询该项任务是否已经完成。
-
-Here is sample code:
 
 示例代码如下
 ```
@@ -174,7 +170,7 @@ onCompleted
     private static final int ATTEMPTS = 5;
     private static final int ORIGINAL_DELAY_IN_SECONDS = 10;
 
-    // this is new methods chain in repeatWhen predicate call function
+    // 这是链接在repeatWhen的predicate的call方法中的新的function
     repeatWhen(new Func1<Observable<? extends Void>, Observable<?>>() {
         @Override
         public Observable<?> call (Observable < ?extends Void > observable){
