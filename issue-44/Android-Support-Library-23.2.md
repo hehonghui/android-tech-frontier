@@ -21,7 +21,7 @@ When talking about the Android Support Library, it is important to realize this 
 
 Vector drawables allow you to replace multiple png assets with a single vector graphic, defined in XML. While previously limited to Lollipop and higher devices, both VectorDrawable and AnimatedVectorDrawable are now available through two new Support Libraries support-vector-drawable and animated-vector-drawable, respectively.
 
-定义在XML里的矢量图片能替换大量的png图片资源，之前只有棒棒糖以及更高版本才能支持的功能，现在通过两个新增支持库 support-vector-drawable 和 support-animated-vector-drawable，分别提供了 VectorDrawable(矢量图片) 和 AnimatedVectorDrawable(矢量图片动画) 两项功能。
+定义在XML里的矢量图片能替换大量的png图片资源，之前只有 API21 以及更高版本才能支持的功能，现在通过两个新增支持库 support-vector-drawable 和 support-animated-vector-drawable，分别提供了 VectorDrawable(矢量图片) 和 AnimatedVectorDrawable(矢量图片动画) 两项功能。
 
 Android Studio 1.4 introduced limited support for vector drawables by generating pngs at build time. To disable this functionality (and gain the true advantage and space savings of this Support Library), you need to add vectorDrawables.useSupportLibrary = true to your build.gradle file:
 
