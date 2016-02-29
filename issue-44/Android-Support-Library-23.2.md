@@ -69,7 +69,7 @@ And if you’re changing drawables at runtime, you’ll be able to use the same 
 
 You’ll find directly referencing vector drawables outside of app:srcCompat will fail prior to Lollipop. However, AppCompat does support loading vector drawables when they are referenced in another drawable container such as a StateListDrawable, InsetDrawable, LayerDrawable, LevelListDrawable, and RotateDrawable. By using this indirection, you can use vector drawables in cases such as TextView’s android:drawableLeft attribute, which wouldn’t normally be able to support vector drawables.
 
-你会发现在棒棒糖中不使用 app:srcCompat 引用矢量图的方法都会失败。然而，当矢量图被 另一个 drawable容器（例如 StateListDrawable, InsetDrawable, LayerDrawable, LevelListDrawable,和 RotateDrawable）引用时，兼容包是可以加载该矢量图的。所以，在一些无法直接使用兼容包（直接使用app:srcCompat）的地方，可以通过间接的方式来使用矢量图，例如 TextView 的 android:drawleLeft 属性。
+ 你会发现系统版本在 Android Lollipop 之前的设备中直接引用矢量图而不是使用 app:srcCompat 属性引用矢量图的话都会失败。然而，当矢量图被 另一个 drawable容器（例如 StateListDrawable, InsetDrawable, LayerDrawable, LevelListDrawable,和 RotateDrawable）引用时，兼容包是可以加载该矢量图的。所以，在一些无法直接使用兼容包（直接使用app:srcCompat）的地方，可以通过间接的方式来使用矢量图，例如 TextView 的 android:drawleLeft 属性。
 
 ###AppCompat DayNight theme
 
