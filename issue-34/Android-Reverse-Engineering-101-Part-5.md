@@ -102,7 +102,7 @@ It could take some time depending on the specific APK being decompiled: when the
 
 We can now type `a.` and then press TAB key the get the full list of APK related commands directly from the prompt.
 
-现在，我们可以输入`a.`，然后按下TAB键，我们可以得到APK想干的自动补全提示。
+现在，我们可以输入`a.`，然后按下TAB键，我们可以得到APK相关的自动补全提示。
 
 Let’s start with some simple commands, useful to get some info out of an APK.
 
@@ -212,12 +212,12 @@ Here below an example of one Fragment class: the original source code is availab
 ![](http://i0.wp.com/www.fasteque.com/wp-content/uploads/2015/12/Screen-Shot-2015-12-05-at-15.52.47.png?resize=1024%2C390)
 As we already seen during this series, don’t expect to see resource names, such as strings, layouts, arrays, colors, but what we get is the integer assigned to a specific resource at build time and stored in the `R.java` file. Here it’s represented as a decimal value, while in the original class file is in hexadecimal.
 
-正如在本系列中之前的介绍中，我们知道，我们无法找到资源名称，如字符串，布局，阵列，颜色，但是，我们可以得到的是一个整形值，在build的时候他和特定的资源相对应，并存储在`R.java`文件中。在这里，它表示为一个十进制值，而在原来的类文件是十六进制。
+正如在本系列中之前的介绍中，我们知道，我们无法找到资源名称，如字符串，布局，数组，颜色，但是，我们可以得到的是一个整形值，在build的时候他和特定的资源相对应，并存储在`R.java`文件中。在这里，它表示为一个十进制值，而在原来的类文件是十六进制。
 
 ## XML manifest
 
 Using the next tool, we can extract the manifest file, which is stored in binary format inside the APK file, in plain XML, so easily readable and viewable.
-使用下面的工具，我们可以得到manifest文件，在apk文件中，它只要是以二进制格式存在的，我们得到的是纯文本格式的xml文件，更容易阅读。
+使用下面的工具，我们可以得到manifest文件，在apk文件中，它是以二进制格式存在的。我们得到的是纯文本格式的xml文件，更容易阅读。
 
 `androaxml.py -i FILENAME.apk -o OUTPUT.xml`
 
