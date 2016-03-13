@@ -1,4 +1,4 @@
-构建Presentation层
+构建我的Presentation层
 ---
 
 > * 原文链接 : [Modeling my presentation layer](http://panavtec.me/modeling-presentation-layer/)
@@ -6,7 +6,7 @@
 * 译文出自 : [开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 转载声明: 本译文已授权[开发者头条](http://toutiao.io/download)享有独家转载权，未经允许，不得转载!
 * 译者 : [DroidWorkerLYF](https://github.com/DroidWorkerLYF) 
-* 校对者: [这里校对者的github用户名](github链接)  
+* 校对者: [这里校对者的github用户名](https://github.com/)  
 * 状态 :  完成
 
 After [modeling my domain
@@ -20,7 +20,7 @@ in a stone what is a business rule”. This is very bad if you are not
 able to recognize what belongs to your domain you are going to make
 mistakes while you separate the responsibilities. Why are you trying to
 make a Clean approach without knowing the very basics?  
-在构建domain层的文章之后，我们接下来说说构建presentation层。我之所以写这篇文章是因为看到有大量的工程从已有代码迁移到MVP结构时，对于什么该属于presentation层，什么该属于UI层的划分不清晰。我在之前的项目中看到一个评论：“” 。如果你不能区分什么是属于domain层的，那么在分离责任时，你就会犯错，这是很糟糕的事情。你为什么要在不清楚最基本逻辑的情况下去试图创建一个清晰的结构。
+在构建domain层的文章之后，我们接下来说说构建presentation层。我之所以写这篇文章是因为看到有大量的工程从已有代码迁移到MVP结构时，对于什么该属于presentation层，什么该属于UI层的划分不清晰。我在之前的项目中看到一个评论：“我不能修改业务逻辑” 。如果你不能区分什么是属于domain层的，那么在分离责任时，你就会犯错，这是很糟糕的事情。你为什么要在不清楚最基本逻辑的情况下去试图创建一个清晰的结构。
 
 I’m going to give you some examples and how I solved it. This article is
 more about to get the concepts clear, the implementation is not really
@@ -188,7 +188,7 @@ song. In this screen, we clearly have different concepts and in my way
 to see how this screen works, the concepts are not related to each
 other, so let’s consider to have a view/presenter for every concept that
 we talked about:  
-在我看来，这个界面有一个水平滚动的播放列表，然后是可选操作的菜单，底部是当前播放的歌曲。在这个界面中，我们可以清晰的看到多个概念，用我的方式来看这个界面，各个概念是没有关联的。所以让我们来考虑一下为每个概念实现一个View接口/presenter。
+在我看来，这个界面有一个水平滚动的播放列表，然后是可选操作的菜单，底部是当前播放的歌曲。在这个界面中，我们可以清晰的有多个抽象，用我的方式来看这个界面，各个抽象之间是没有关联的。所以让我们来考虑一下为每个概念实现一个View接口/presenter。
 
 ![3](http://panavtec.me/wp-content/uploads/2016/02/browse_colored.png)
 
@@ -203,7 +203,7 @@ about the browse menu? this is another concept of the view, it is just a
 menu that when you hit an item it will navigate to another screen (using
 a navigation command!). And finally, the current playing song that for
 sure it will be reused in other places.  
-那么为什么创建那样的结构，这和创建一个Presenter包含所有的行为和自定义视图有什么区别？那么考虑一下谁负责填充视图，如果你打算重用这个组件你如何才能做到。
+那么为什么创建那样的结构，这和创建一个Presenter包含所有的行为和自定义视图有什么区别？那么考虑一下谁负责填充视图，如果你打算重用这个组件你如何才能做到。RecommendedPlayLists可能需要访问网络来为当前用户获取推荐播放列表，那显然有必要为presenter创建一个自定义视图来实现它。这样就可以复用了。那么浏览菜单呢？这是另一个抽象了，他只是负责当你点击时导航到另一个界面（使用前面提到的navigation command！）最后，当前播放的歌曲也是一定会在其他地方复用的。
 
 As you can see a screen can have more than one View / Presenter because
 a screen can be a summary of other things and can have more than one
@@ -212,11 +212,11 @@ a
 [responsibility](https://blog.8thlight.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html)
 is a “reason to change”, and each of these views could change for
 several reasons)  
-如你所见，一个界面可以包含多个View/Presenter，因为界面是其他的汇总，而且会有多个责任，这完全依赖于设计。(记住一个[责任](https://blog.8thlight.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html)就是一个变化的原因，这里的视图可能因为多种原因而变化。)
+如你所见，一个界面可以包含多个View接口/Presenter，因为界面是一个汇总，而且会有多个责任，这完全依赖于设计。(记住一个[责任](https://blog.8thlight.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html)就是一个变化的原因，这里的视图可能因为多种原因而变化。)
 
 Can we have 2 implementations for the same view?
 ------------------------------------------------
-一个view可以有两种实现吗？
+一个视图可以有两种实现吗？
 ---------------------
 
 Yes! we can have multiple implementations for the same presenter view,
@@ -236,7 +236,7 @@ presenter with different actions, use two different presenters one for
 the actions and other for the presentation, or simply have one presenter
 with all the actions because it represents the same concept. Remember
 that there is no perfect solution, software is about trade-offs.  
-这两者不就是一样的但是使用了不同的展示方式吗。所以也许我们可以复用presenter，使用不同的Android组件来实现view接口。但是，这个界面
+这两者不就是使用了不同的展示方式吗。所以也许我们可以复用presenter，使用不同的Android组件来实现view接口。但是，这个界面似乎有些额外的新功能，那应不应该也添加到这个presenter中呢？根据你的实际使用情况有不同的做法：你可以用不同的行为组合成一个presenter；使用两个不同的presenter，一个用来对应行为，一个对应presentation；或者直接使用一个presenter处理所有。记住，没有完美的解决方案，软件就是要取舍。
 
 But, it’s fair to say that this is not a common case, usually, a
 Presenter has only 1 view implementation.  
@@ -261,7 +261,7 @@ To summarize what we have seen so far:
 - view接口实现和presenter一对一
 - 一个界面拥有多个views/presenters
 - 一个view接口可以有多重实现方式来对应同一个presenter
-- 一个Android组件可以实现一个视图接口。
+- 一个Android组件可以有一个视图接口实现。如果你实现了两个，那么也许是两个视图接口应该合并或者你应该分离开实现。
 
 Let’s move forward to other key concepts:  
 让我们再来看看其他的关键点
@@ -274,7 +274,7 @@ Presenter生命周期
 The following screenshot is from Citymapper, when you hit the “Get me
 somewhere” button opens a screen where you can choose the start and end
 positions of your trip:  
-下面是一张来自Citymapper的截图，当你点击“Get me somewhere”按钮后，会展示一个可以选择起点和终点的界面：
+下面是一张来自软件Citymapper的截图，当你点击“Get me somewhere”按钮后，会展示一个可以选择起点和终点的界面：
 
 ![5](http://panavtec.me/wp-content/uploads/2016/02/citymapper_getmesomewhere.png)
 
@@ -304,7 +304,7 @@ To explain that, let’s take a look at the [Selltag
 app](https://translate.google.com/translate?sl=es&tl=en&js=y&prev=_t&hl=en&ie=UTF-8&u=http%3A%2F%2Fwww.fesja.me%2Fgracias-selltag%2F),
 a second-hand application. This is how we used to create products in
 that application:  
-让我们来看一下[Selltag
+要解释生命周期，让我们来看一下[Selltag
 app](https://translate.google.com/translate?sl=es&tl=en&js=y&prev=_t&hl=en&ie=UTF-8&u=http%3A%2F%2Fwww.fesja.me%2Fgracias-selltag%2F)，一个二手交易应用。如图是我们如何创建一个商品：
 
 ![6](http://panavtec.me/wp-content/uploads/2016/02/Nuevo-Anuncio-Paso-1.png)
@@ -313,7 +313,7 @@ app](https://translate.google.com/translate?sl=es&tl=en&js=y&prev=_t&hl=en&ie=UT
 
 As you can see is a 3 steps form. Despite the Spanish words, I think is
 clear enough, “Siguiente” is “Next” and “Publicar” is “Publish”.  
-如你所见是一个3步的表单。忽视西班牙语。我想还是挺清晰的，“Siguiente”表示下一步，“Publicar”表示发布。
+如你所见是一个3步表单。忽视西班牙语。我想还是挺清晰的，“Siguiente”表示下一步，“Publicar”表示发布。
 
 In the first step, you create some pictures of the product, the second
 step is to fill the title, description, and price, lastly, you hit the
@@ -328,7 +328,7 @@ application? Will it be another approach just because at the first
 moment you see different designs? We are only changing the view layer,
 but our presentation layer should be the same because it reacts to the
 user events and makes queries to our domain.  
-我的实现思路依然是使用一个presenter-“PublishProductPresenter”。这个presenter代表着完整的发布商品流程。在平板上又会是什么样的？也许这三步会整合到一起因为你的屏幕足够大。那如果是一个web应用呢？会不会因为你看到了不同的设计就认为是不同的实现方式呢？我们只需要改变视图层，presentation层则是同一个，因为它只对用户时间响应然后调用dmain层查询。
+我的实现思路依然是使用一个presenter-“PublishProductPresenter”。这个presenter代表着完整的发布商品流程。在平板上又会是什么样的？也许这三步会整合到一起因为你的屏幕足够大。那如果是一个web应用呢？会不会因为你看到了不同的设计就认为是不同的实现方式呢？其实我们只需要改变视图层，presentation层则是同一个，因为它只对用户事件进行响应然后调用dmain层查询。
 
 But, hey! I can split it into 3 presenters and use it, in the same way,
 you are using your whole presenter. Ok, maybe you are right, but how are
@@ -338,11 +338,11 @@ reference of a presenter inside another presenter? Maybe are you going
 to create a shared object for all those three presenters and change the
 properties in every step? It sounds dangerous and hard to debug if you
 have any bugs.  
-但是！我可以把他拆成3个presenter来使用，和你使用一个presenter是同样的方式。好吧，也许你是对的，但是你如何从把信息从第一步传递到发布商品的最后一步？你要在一个presenter中持有另一个presenter的引用？也许你会创建一个共享的对象来记录每一步更改的属性？这听起来很危险并且难以debug。
+但是！我可以把他拆成3个presenter来使用，和你使用一个presenter是同样的方式。好吧，也许你是对的，但是你如何从把信息从第一步传递到发布商品的最后一步？你要在一个presenter中持有另一个presenter的引用？也许你会创建一个共享的对象来记录每一步更改的属性？这些听起来很危险并且难以debug在你出错的时候。
 
 You can create this 3 screens as an Activity with 3 fragments that will
 be replaced or 3 different activities.
-你可以创建一个拥有3个fragment的activity或者3个activity。
+你可以创建一个拥有3个fragment的activity或者3个activity来实现视图层。
 
 Presenter state
 ---------------
@@ -353,7 +353,7 @@ What about orientation changes? Your activity will be destroyed and your
 presenter too. Most of the problems that I saw regarding if a presenter
 has to be stateful or not belongs to the domain layer. I’ll explain it
 with the next example:  
-如果屏幕方向发生变化了怎么办？你的activity会被销毁，presenter同样。问题大部分是关于presenter是否该有状态或者是不应该属于domain层，下面的例子我会介绍：
+如果屏幕方向发生变化了怎么办？你的activity会被销毁，presenter同样。问题大部分是关于presenter是否该有状态或者是因为它不应该属于domain层，下面的例子我会介绍：
 
 ![9](http://panavtec.me/wp-content/uploads/2016/02/fdroid.png)
 
