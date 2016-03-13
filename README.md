@@ -42,6 +42,7 @@
 |----------|-------------|
 | [AndroidWeekly](androidweekly) | 每周更新国外的技术咨询、开源库等信息[AndroidWeekly](http://androidweekly.net/) |
 | [Android Blog](android-blog) | Android官方技术博客[Android Dev Blog](http://android-developers.blogspot.com/) |
+| [codepath](http://guides.codepath.com/android) | Android开发优秀文章 | 
 | [Others](others) | 其他来源的优秀文章 |
 
 <b id="recommend" ></b>
