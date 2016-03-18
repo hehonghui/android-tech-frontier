@@ -2,18 +2,18 @@
 
 ---
 
->原文链接 : [Getting Started with RxJava and Android][http://www.captechconsulting.com/blogs/getting-started-with-rxjava-and-android?utm_source=Android+Weekly&utm_campaign=8b4ba9e51d-Android_Weekly_177&utm_medium=email&utm_term=0_4eb677ad19-8b4ba9e51d-337955857]
-原文作者 : [ALEX TOWNSEND][https://github.com/alex-townsend]
-译文出自 : [开发技术前线 www.devtf.cn。未经允许，不得转载!][www.devtf.cn]
-译者 : [desmond1121][https://github.com/desmond1121]
-校对者: [desmond1121][https://github.com/desmond1121]
-状态 : 完成
+- 原文链接 : [Getting Started with RxJava and Android](http://www.captechconsulting.com/blogs/getting-started-with-rxjava-and-android?utm_source=Android+Weekly&utm_campaign=8b4ba9e51d-Android_Weekly_177&utm_medium=email&utm_term=0_4eb677ad19-8b4ba9e51d-337955857)
+- 原文作者 : [ALEX TOWNSEND](https://github.com/alex-townsend)
+- 译文出自 : [开发技术前线 www.devtf.cn。未经允许，不得转载!](www.devtf.cn)
+- 译者 : [desmond1121](https://github.com/desmond1121)
+- 校对者: [desmond1121](https://github.com/desmond1121)
+- 状态 : 完成
 
-[ReactiveX](http://reactivex.io/)是专注于异步工作的API，它将异步事件的处理雨观察者模式、迭代器模式及函数式编程相结合了起来。实时地处理返回数据是在工程中经常出现的情景，所以使用高效、可拓展的方式来解决这种问题非常重要。ReactiveX通过观察者模式以及操作符来提供灵活地处理异步通信的方式，你不用再去关注线程创造与同步这些繁琐的事情。
+[ReactiveX](http://reactivex.io/)是专注于异步工作的API，它将异步事件的处理与观察者模式、迭代器模式及函数式编程相结合了起来。实时地处理返回数据是在工程中经常出现的情景，所以使用高效、可拓展的方式来解决这种问题非常重要。ReactiveX通过观察者模式以及操作符来提供灵活地处理异步通信的方式，你不用再去关注线程创造与同步这些繁琐的事情。
 
 ##RxJava介绍
 
-[RxJava](https://github.com/ReactiveX/RxJava)是一个开源的实现ReactiveX的工具。这里面有两种主要的类：`Observalbe`和`Subscriber`。在RxJava中，`Observable`类产生异步数据或事件，`Subscriber`类对这些数据和事件进行操作。正常的工作流程就是`Observable`产生一系列的数据或事件，然后完成或者产生异常。一个`Observable`可以拥有多个`Subscriber`，每一个被生成的事件都会出发被绑定的`Subscriber`的`onNext()`方法。当一个`Observable`生成完所有事件后，所有绑定的`Subscriber`的`onCompleted()`方法会被调用（在发生异常时会调用`onError()`方法）。现在我们对这两个类有了初步的认识，可以开始了解如何创建与订阅一个`Observer`了：
+[RxJava](https://github.com/ReactiveX/RxJava)是一个开源的实现ReactiveX的工具。这里面有两种主要的类：`Observalbe`和`Subscriber`。在RxJava中，`Observable`类产生异步数据或事件，`Subscriber`类对这些数据和事件进行操作。正常的工作流程就是`Observable`产生一系列的数据或事件，然后完成或者产生异常。一个`Observable`可以拥有多个`Subscriber`，每一个被生成的事件都会触发被绑定的`Subscriber`的`onNext()`方法。当一个`Observable`生成完所有事件后，所有绑定的`Subscriber`的`onCompleted()`方法会被调用（在发生异常时会调用`onError()`方法）。现在我们对这两个类有了初步的认识，可以开始了解如何创建与订阅一个`Observer`了：
 
 	Observable integerObservable = Observable.create(new Observable.OnSubscribe() {
 	   @Override
@@ -47,7 +47,7 @@
 你可以看到，这个`Subscriber`将每一个收到的数据打印了出来。当你创建完`Observable`与`Subscriber`后，你需要将它们用`Observable.subscribe()`方法连接起来。
 
 	integerObservable.subscribe(integerSubscriber);
-	// Outputs:
+	// 输出:
 	// onNext: 1
 	// onNext: 2
 	// onNext: 3
@@ -125,15 +125,14 @@
 	               System.out.println("Complete!");
 	           }
 
-           @Override
-           public void onError(Throwable e) {
-           }
+               @Override
+               public void onError(Throwable e) { }
 
-           @Override
-           public void onNext(Double value) {
-               System.out.println("onNext: " + value);
-           }
-       });
+               @Override
+               public void onNext(Double value) {
+                   System.out.println("onNext: " + value);
+               }
+           });
        
 	// Outputs:
 	// onNext: 1.0
@@ -277,9 +276,9 @@ RxAndroid是RxJava的轻量级拓展工具，它提供了运行在主线程上�
 
 在订阅Single的时候，只有`onSuccess()`、`onError()`可以监听。同时你可以调用`Single.mergeWith()`操作符来将多个Single合成一个`Observable`，这个被合成的`Observable`会依次输出所有Single的结果。
 
-##防止内存溢出
+##防止内存泄露
 
-我们之前提到，使用`AsyncTask`的一大缺点就是它可能会造成内存溢出。当它们持有的Activity/Fragment的引用没有正确处理时就会这样。不幸的是，RxJava并不会自动防止这种情况发生，好在它可以很容易地防止内存泄露。`Observable.subscribe()`方法会返回一个`Subscription`对象，这个对象仅仅有两个方法：`isSbscribed()`与`unsubscribe()`。你可以在Activity/Fragment的`onDestroy`方法中调用`Subscription.isSubscribed()`检测是否这个异步任务仍在进行。如果它仍在进行，则调用`unsubscribe()`方法来结束任务，从而释放其中的强引用，防止内存泄露。如果你使用了多个`Observable`与`Subscriber`，那么你可以将它们添加到`CompositeSubscription`中，并调用`CompositeSubscription.unsubscribe()`结束所有的任务。
+我们之前提到，使用`AsyncTask`的一大缺点就是它可能会造成内存泄露。当它们持有的Activity/Fragment的引用没有正确处理时就会这样。不幸的是，RxJava并不会自动防止这种情况发生，好在它可以很容易地防止内存泄露。`Observable.subscribe()`方法会返回一个`Subscription`对象，这个对象仅仅有两个方法：`isSbscribed()`与`unsubscribe()`。你可以在Activity/Fragment的`onDestroy`方法中调用`Subscription.isSubscribed()`检测是否这个异步任务仍在进行。如果它仍在进行，则调用`unsubscribe()`方法来结束任务，从而释放其中的强引用，防止内存泄露。如果你使用了多个`Observable`与`Subscriber`，那么你可以将它们添加到`CompositeSubscription`中，并调用`CompositeSubscription.unsubscribe()`结束所有的任务。
 
 ##结束语
 
@@ -306,4 +305,4 @@ Java 8 引入了Lambda表达式，可惜的是Android不支持Java 8，所以我
 	           () -> v.setEnabled(true));
 	});
 
-Lambda表达式减少了很多RxJava的样本代码，我强烈推荐将RetroLambda引入工程中使用。它给开发带来的好处不仅仅于RxJava上（你会注意到OnCliclListener也是用Lambda表达式设置的）!
+Lambda表达式减少了很多RxJava的样本代码，我强烈推荐将RetroLambda引入工程中使用。它给开发带来的好处不仅仅于RxJava上（你会注意到`OnCliclListener`也是用Lambda表达式设置的）!
