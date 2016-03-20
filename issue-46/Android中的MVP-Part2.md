@@ -20,14 +20,17 @@ its advantages concerning Android development. In the second part of
 this series we’ll get the hands dirty and implement our own version of
 MVP, using [canonical
 form](https://en.wikipedia.org/wiki/Canonical_form) without any
-libraries from outside Android SDK/Java.
+libraries from outside Android SDK/Java.  
+在上一篇[文章](http://www.tinmegali.com/model-view-presenter-mvp-no-android-introducao/)中我们谈论了[Model View Presenter
+(MVP)](https://pt.wikipedia.org/wiki/Model-view-presenter)的概念和在Android开发中的优点。这是系列文章的第二篇，我们将使用[canonical form](https://en.wikipedia.org/wiki/Canonical_form)实现一个MVP结构，不使用任何的Android SDK或JAVA中的库。
 
 We’ll develop a simple code, but it could look a little bit complex, due
 to the amount of objects involved. Although, once you get the handle of
 it, you’ll see how this kind of pattern could help you in your projects.
 If you prefer to learn directly from code reading, you could check out
 the [final
-project](https://github.com/tinmegali/simple-mvp/tree/master/AndroidMVP/mvp/src/main/java/com/tinmegali/mvp/mvp).
+project](https://github.com/tinmegali/simple-mvp/tree/master/AndroidMVP/mvp/src/main/java/com/tinmegali/mvp/mvp).  
+我们会开发一个简单的工程，但是由于涉及对象的数量，可能看起来有些复杂。但是，一旦你掌握了，你就会看到这个模式如何帮助你。如果你想直接看代码，在这里[final project](https://github.com/tinmegali/simple-mvp/tree/master/AndroidMVP/mvp/src/main/java/com/tinmegali/mvp/mvp)。
 
 -   [Model View Presenter (MVP) in Android, part
     1](http://wp.me/p7gH7l-2x)
@@ -36,8 +39,11 @@ project](https://github.com/tinmegali/simple-mvp/tree/master/AndroidMVP/mvp/src/
 
 Planning Model Vide Presenter (MVP)
 -----------------------------------
+设计MVP
+------
 
 ##### MVP main concepts in Android
+##### MVP在Android中的主要概念
 
 > #### **Presenter**
 >
@@ -45,36 +51,46 @@ Planning Model Vide Presenter (MVP)
 > and Model**. It retrieves data from the Model and returns it formatted
 > to the View. But unlike the typical MVC, it also decides what happens
 > when you interact with the View.
+> Presenter是View和Model的中间人。它从Model层获取数据，格式化后返回给View层。
+> 但是和MVC模式不同的是，它决定如何处理你和视图的交互。
 >
 > #### **View**
 >
 > The View, usually implemented by an Activity, will contain a reference
 > to the presenter. The only thing that the view will do is to call a
 > method from the Presenter every time there is an interface action.
+> 视图层，通常是由Activity实现，其中包含有presenter的引用。视图层唯一要做的事就是响应
+> 用户的操作，调用Presenter层的操作。
 >
 > #### **Model**
 >
 > In an application with a good layered architecture, this model would
 > only be the gateway to the domain layer or business logic. See it as
 > the provider of the data we want to display in the view.
+> 在有良好分层结构的应用中，Model层只是domain层或者业务逻辑的入口把它看做我们视图层
+> 要显示的数据的提供者就好。
 >
 > *These excellent definitions above were extracted from[Antonio Leiva’s
 > article.](http://antonioleiva.com/mvp-android/)*
+> *以上优秀的定义提取自[Antonio Leiva’s article](http://antonioleiva.com/mvp-android/)*
 
 Our greatest object with MVP pattern is to increase the [separation of
 concerns](https://en.wikipedia.org/wiki/Separation_of_concerns) of our
 project. Therefore, we need to ensure the isolation between the layer
 Model, View and Presenter. In this context, **View and Model cannot
 communicate directly**, hence the **Presenter intermediates all
-relations among the layers.**
+relations among the layers.**  
+使用MVP模式的最大任务是增加我们项目的[separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns).因此我们需要确保Model层，View层和Presenter层的隔离。这种情况下，**View层和Model层无法直接通信**，因此**Presenter负责各层的通讯**
 
 ### Model View Presenter action diagram
+### Model View Presenter行动图
 
 Let’s imagine an extremely simple application, that allows the user to
 take note on a journal. Basically, the user inserts notes while the
 system saves and exhibit the data. If we trace the **insert note
 action**, considering that the app was developed using MVP pattern,
-we’ll get the following diagram:
+we’ll get the following diagram:  
+让我们设想一个简单的应用，它允许用户在旅途中做笔记。基本的，用户记录笔记，系统保存和展示数据。如果我们跟随输入比较的行为，结合我们是使用MVP模式，我们会得到下图：
 
 ![Model View Presenter (MVP) action
 diagram](http://i2.wp.com/www.tinmegali.com/wp-content/uploads/2016/03/MVP_ActionDiagram-en-1.png?resize=720%2C547)
@@ -93,9 +109,11 @@ communication process defined above could be different: with direct
 object access, using interfaces or maybe with some kind of
 EventBus. However, since our implementation respects the canonical form
 and we aim to increase the isolation of concerns, we’ll use only plain
-and simple interfaces.
+and simple interfaces.  
+
 
 ### Model View Presenter class diagram
+### Model View Presenter类图
 
 Let’s use our *action diagram* to construct a MVP [Class
 Diagram](https://en.wikipedia.org/wiki/Class_diagram). We’ll change a
@@ -563,8 +581,10 @@ object state.
 	}
 
 #### [Check the full project on GitHub](https://github.com/tinmegali/simple-mvp/tree/master/AndroidMVP/mvp/src/main/java/com/tinmegali/mvp/mvp)
+#### [源码](https://github.com/tinmegali/simple-mvp/tree/master/AndroidMVP/mvp/src/main/java/com/tinmegali/mvp/mvp)
 
 ### In the next article
+### 下一篇文章
 
 This post was a little too big, I know, sorry about that. But I really
 hope that it helped somebody out there. In the next article of the
@@ -572,6 +592,7 @@ series, we’ll discuss how to use the [final
 framework](https://github.com/tinmegali/Android-Model-View-Presenter-MVP),
 that has some abstraction to facilitate the MVP implementation, and
 we’ll also discuss some hiccups that could get on the way of the Model
-View Presenter adoption in Android.
+View Presenter adoption in Android.  
+这篇文章有一点长了，我知道，很抱歉。但我真的希望可以帮到谁。下一遍文章，我们会讨论如何使用[最终的框架](https://github.com/tinmegali/Android-Model-View-Presenter-MVP)，它包含了一些抽象可以加快MVP的实现，我们也会谈论一些小问题。
 
 See you soon!
