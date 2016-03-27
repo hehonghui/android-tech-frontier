@@ -10,7 +10,7 @@ Android中的MVP-Part2
 * 状态 :  完成
 
 ![Model View Presenter Class
-Diagram](http://i2.wp.com/www.tinmegali.com/wp-content/uploads/2016/03/MVP_ClassDiagram-en-1.png?fit=800%2C608)
+Diagram](https://github.com/DroidWorkerLYF/Translate/blob/master/Model-View-Presenter%20(MVP)/1.png?raw=true)
 
 In the [last
 article](http://www.tinmegali.com/model-view-presenter-mvp-no-android-introducao/) we
@@ -22,7 +22,7 @@ MVP, using [canonical
 form](https://en.wikipedia.org/wiki/Canonical_form) without any
 libraries from outside Android SDK/Java.  
 在上一篇[文章](http://www.tinmegali.com/model-view-presenter-mvp-no-android-introducao/)中我们谈论了[Model View Presenter
-(MVP)](https://pt.wikipedia.org/wiki/Model-view-presenter)的概念和在Android开发中的优点。这是系列文章的第二篇，我们来动手实践一下，将使用[典型的形式](https://en.wikipedia.org/wiki/Canonical_form)实现一个MVP结构，不使用任何的Android SDK或JAVA以外的库。
+(MVP)](https://pt.wikipedia.org/wiki/Model-view-presenter)的概念和在Android开发中的优点。这是系列文章的第二篇，我们来动手实践一下，将使用[典型的形式](https://en.wikipedia.org/wiki/Canonical_form)实现一个MVP结构，不使用任何Android SDK或JAVA以外的库。
 
 We’ll develop a simple code, but it could look a little bit complex, due
 to the amount of objects involved. Although, once you get the handle of
@@ -80,7 +80,7 @@ project. Therefore, we need to ensure the isolation between the layer
 Model, View and Presenter. In this context, **View and Model cannot
 communicate directly**, hence the **Presenter intermediates all
 relations among the layers.**  
-使用MVP模式的最大任务是增加我们项目的[separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns).因此我们需要确保Model层，View层和Presenter层的隔离。这种情况下，**View层和Model层无法直接通信**，因此**Presenter负责各层的通讯**
+使用MVP模式的最大任务是增加我们项目的[关注分离](https://en.wikipedia.org/wiki/Separation_of_concerns).因此我们需要确保Model层，View层和Presenter层的隔离。这种情况下，**View层和Model层无法直接通信**，因此**Presenter负责各层的通讯**
 
 ### Model View Presenter action diagram
 ### Model View Presenter行为图
@@ -93,7 +93,7 @@ we’ll get the following diagram:
 让我们设想一个简单的应用，它允许用户在旅途中做笔记。主要就是用户记录笔记，系统保存和展示数据。如果我们沿着输入笔记的行为，结合MVP模式，我们会得到下图：
 
 ![Model View Presenter (MVP) action
-diagram](http://i2.wp.com/www.tinmegali.com/wp-content/uploads/2016/03/MVP_ActionDiagram-en-1.png?resize=720%2C547)
+diagram](https://github.com/DroidWorkerLYF/Translate/blob/master/Model-View-Presenter%20(MVP)/2.png?raw=true)
 Model View Presenter (MVP) action diagram
 Model View Presenter (MVP) 行为图
 
@@ -116,7 +116,7 @@ EventBus. However, since our implementation respects the canonical form
 and we aim to increase the isolation of concerns, we’ll use only plain
 and simple interfaces.  
 
-这个映射给了我们类设计的灵感。上述不同层之间的通信过程可能会不一样：直接调用对象的方法，使用接口或者使用EventBus。然而，既然我们的实现方式遵循典型方式，并且意在增加，所以我们只是用原始简单的接口。
+这个映射给了我们类设计的灵感。上述不同层之间的通信过程可能会不一样：直接调用对象的方法，使用接口或者使用EventBus。然而，既然我们的实现方式遵循典型方式，并且意在增加关注分离，所以我们只是用原始简单的接口。
 
 ### Model View Presenter class diagram
 ### Model View Presenter类图
@@ -127,10 +127,10 @@ little bit our concept, switching from *callback* to *interface*, to
 send results back to **Presenter** from **Model**. I believe this path
 is more efficient, but some could argue that using *callbacks* the
 isolation of concerns would increase.  
-让我们使用上面的*行为图*来构造我们的MVP模式[类图](https://en.wikipedia.org/wiki/Class_diagram)。我们会对概念做一点改动，把*callback*换成*interface*，来将结果从**Model层**传回**Presenter层**。我相信这种方式更高效，但是肯定有人会对此有争议，认为*callback*会增加
+让我们使用上面的*行为图*来构造我们的MVP模式[类图](https://en.wikipedia.org/wiki/Class_diagram)。我们会对概念做一点改动，把*callback*换成*interface*，来将结果从**Model层**传回**Presenter层**。我相信这种方式更高效，但是有人会对此有争议，认为*callback*会增加关注分离。
 
 ![Model View Presenter Class
-Diagram](http://i2.wp.com/www.tinmegali.com/wp-content/uploads/2016/03/MVP_ClassDiagram-en-1.png?resize=720%2C547)
+Diagram](https://github.com/DroidWorkerLYF/Translate/blob/master/Model-View-Presenter%20(MVP)/1.png?raw=true)
 Model View Presenter Class Diagram
 Model View Presenter 类图
 
@@ -368,7 +368,7 @@ on the Activity’s lifecycle would look like this:
 这就是说，我们需要增加第四个元素**StateMaintainer**，负责在生命周期的变化中维护Presenter和Model的状态。使用retained fragment来实现这个对象，如下是
 
 ![MVP Objects destruction and reconstruction during Activity lifecycle
-changes](http://i1.wp.com/www.tinmegali.com/wp-content/uploads/2016/03/MVP_Activity_Lifecycle-en.png?resize=720%2C1253)
+changes](https://github.com/DroidWorkerLYF/Translate/blob/master/Model-View-Presenter%20(MVP)/3.png?raw=true)
 MVP Objects destruction and reconstruction during Activity lifecycle
 changes  
 Activity生命周期变化时MVP模式中对象的销毁和创建
