@@ -1,5 +1,5 @@
 Android中的MVP-Part2
----
+-------------------
 
 > * 原文链接 : [Model View Presenter (MVP) in Android, Part 2](http://www.tinmegali.com/en/model-view-presenter-mvp-in-android-part-2/)
 * 原文作者 : [TinMegali](https://medium.com/@tinmegali)
@@ -52,7 +52,7 @@ Planning Model Vide Presenter (MVP)
 > to the View. But unlike the typical MVC, it also decides what happens
 > when you interact with the View.
 > Presenter是View和Model的中间人。它从Model层获取数据，格式化后返回给View层。
-> 但是和MVC模式不同的是，它决定如何处理你和视图的交互。
+> 但是和典型的MVC模式不同的是，它还决定如何处理你和视图的交互。
 >
 > #### **View**
 >
@@ -116,7 +116,7 @@ EventBus. However, since our implementation respects the canonical form
 and we aim to increase the isolation of concerns, we’ll use only plain
 and simple interfaces.  
 
-这个映射给了我们类设计的灵感。上述不同层之间的通信过程可能会不一样：直接调用对象的方法，使用接口或者使用EventBus。然而，既然我们的实现方式遵循典型方式，并且意在增加关注分离，所以我们只是用原始简单的接口。
+这个映射给了我们对类设计的灵感。上述不同层之间的通信过程实现可能会不一样：直接调用对象的方法，使用接口或者使用EventBus。然而，既然我们的实现方式遵循典型方式，并且意在增加关注分离，所以我们只用原始简单的接口。
 
 ### Model View Presenter class diagram
 ### Model View Presenter类图
@@ -127,7 +127,7 @@ little bit our concept, switching from *callback* to *interface*, to
 send results back to **Presenter** from **Model**. I believe this path
 is more efficient, but some could argue that using *callbacks* the
 isolation of concerns would increase.  
-让我们使用上面的*行为图*来构造我们的MVP模式[类图](https://en.wikipedia.org/wiki/Class_diagram)。我们会对概念做一点改动，把*callback*换成*interface*，来将结果从**Model层**传回**Presenter层**。我相信这种方式更高效，但是有人会对此有争议，认为*callback*会增加关注分离。
+让我们根据上面的*行为图*来构造我们的MVP模式[类图](https://en.wikipedia.org/wiki/Class_diagram)。我们会对概念做一点改动，把*callback*换成*interface*，来将结果从**Model层**传回**Presenter层**。我相信这种方式更高效，但是有人会对此有争议，认为*callback*会增加关注分离。
 
 ![Model View Presenter Class
 Diagram](https://github.com/DroidWorkerLYF/Translate/blob/master/Model-View-Presenter%20(MVP)/1.png?raw=true)
@@ -147,13 +147,13 @@ Model View Presenter 类图
 8.  **Presenter** receives reference from **RequiredViewOps** to access
     **View**
 1. **Presenter层**实现**PresenterOps接口**
-2. **View层**接受**PresenterOps接口**的引用来访问**Presenter**
+2. **View层**接受**PresenterOps**的引用来访问**Presenter**
 3. **Model层**实现**ModelOps接口**
-4. **Presenter层**接受**ModelOps接口**的引用来访问**Model**
+4. **Presenter层**接受**ModelOps**的引用来访问**Model**
 5. **Presenter层**实现**RequiredPresenterOps接口**
-6. **Model层**接受**RequiredPresenterOps接口**的引用来访问**Presenter**
+6. **Model层**接受**RequiredPresenterOps**的引用来访问**Presenter**
 7. **View层**实现**RequiredViewOps接口**
-8. **Presenter层**接受**RequiredViewOps接口**的引用来访问**View**
+8. **Presenter层**接受**RequiredViewOps**的引用来访问**View**
 
 Implementing Model View Presenter on Android
 --------------------------------------------
@@ -164,7 +164,7 @@ Without further ado, let’s get to work! We’ll start defining the app
 operations. In the name of a better organization, we’ll use an
 “umbrella” class, containing all interfaces responsible to manage the
 communication between the layers.  
-事不宜迟，让我们动起来！先开始定义操作。为了更好的结构组织，我们使用一个“umbrella”类，包含所有层次间通讯的接口。
+事不宜迟，让我们动起来！先定义操作。为了更好的结构组织，我们使用一个“umbrella”类，包含所有层次间通讯的接口。
 
 > **Note**: Since MVP implementation is complex enough, **no function
 > outside the pattern scope will be developed.** I suppose that the
@@ -358,14 +358,14 @@ consider some Android specifics, specially the
 [lifecycle](http://developer.android.com/training/basics/activity-lifecycle/index.html),
 that **destroys and creates activities and its objects at any given**
 moment.  
-在我们的MVP模式中，**视图层**负责创建**Presenter层**，**Presenter层**负责实例化**Model层**对象。考虑到使用**Activity**来实现**View层**，我们需要考虑一些Android的细节，尤其是[生命周期](http://developer.android.com/training/basics/activity-lifecycle/index.html)
+在我们的MVP模式中，**视图层**负责创建**Presenter层**，**Presenter层**负责实例化**Model层**对象。考虑到使用**Activity**来实现**View层**，我们需要考虑一些Android的细节，尤其是销毁和创建activities及其对象的[生命周期](http://developer.android.com/training/basics/activity-lifecycle/index.html)。
 
 That said, we’ll need to add a fourth
 element, **the StateMaintainer**, responsible to maintain
 the Presenter and Model state during lifecycle changes. A retained
 fragment will be the base to the Object and a simplified version of MVP
 on the Activity’s lifecycle would look like this:  
-这就是说，我们需要增加第四个元素**StateMaintainer**，负责在生命周期的变化中维护Presenter和Model的状态。使用retained fragment来实现这个对象，如下是
+这就是说，我们需要增加第四个元素**StateMaintainer**，负责在生命周期的变化中维护Presenter和Model的状态。使用retained fragment来实现这个对象，如下是一个简化的MVP模式Activity生命周期：
 
 ![MVP Objects destruction and reconstruction during Activity lifecycle
 changes](https://github.com/DroidWorkerLYF/Translate/blob/master/Model-View-Presenter%20(MVP)/3.png?raw=true)
@@ -625,4 +625,5 @@ we’ll also discuss some hiccups that could get on the way of the Model
 View Presenter adoption in Android.  
 我知道这篇文章有一点长了，很抱歉。但我真的希望可以帮到谁。下一遍文章，我们会讨论如何使用[最终的框架](https://github.com/tinmegali/Android-Model-View-Presenter-MVP)，它包含了一些可以加快MVP实现的抽象，我们也会谈论一些适配的小问题。
 
-See you soon!
+See you soon!  
+回头见！
