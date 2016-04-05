@@ -6,8 +6,8 @@
 * 译文出自 : [开发技术前线 www.devtf.cn](http://www.devtf.cn)
 * 转载声明: 本译文已授权[开发者头条](http://toutiao.io/download)享有独家转载权，未经允许，不得转载!
 * 译者 : [mr_dsw](https://github.com/dengshiwei) 
-* 校对者:  
-* 状态 :  校验中
+* 校对者:[chaossss](https://github.com/chaossss)  
+* 状态 :  完成
 
 Even though Kotlin is better than Java in many points it still has significant (in my opinion) drawbacks.
 
@@ -29,13 +29,13 @@ Small project (~100 classes in total, mostly in Kotlin) takes ~1 minute to assem
 Syntax analysis and highlighting of Kotlin in IDEA (Android Studio) pretty often freezes development machine during typing, unacceptable.
 
 **2)Kotlin插件在IDEA编译器中的表现**  
-在编码过程中，语法分析和Cotlin在IDEA(Android Sutdio)中的高亮显示让开发机器经常卡顿，令人无法接受。
+在编码过程中，语法分析和Kotlin在IDEA(Android Sutdio)中的高亮显示让开发机器经常卡顿，令人无法接受。
 
 **3) Problems with annotation processing**   
 Sometimes it gives random errors and you have to do clean. Almost every day I see complaints about that on different resources. I'm not alone.
 
 **3)annotation（注解）处理有问题**
-有时它给出的错误提示太粗略，同时你又必须去解决。几乎每天我都看到关于不同资源的这类错误的抱怨。所以，在此问题上我并不孤独。
+有时它给出的错误提示太粗略，但你又不得不解决。几乎每天我都能在不同的Android开发社区上看到对此的抱怨。（这里resources应该是指不同的（信息）来源）
 
 **4) Mocking Kotlin classes with Mockito is painful**    
 Almost everything is final in Kotlin by default: classes, methods, etc. And I really like it because it forces immutability -> less bugs. But at the same time, it makes mocking via Mockito (which is kind of gold standard in JVM world) painful and goes contrary with language design.
@@ -44,8 +44,8 @@ Yes, PowerMock is possible solution, but it interferes with tools like Robolectr
 
 I understand that in Java we have that problem of everything non-final by design, but at the same time I don't want to change code just for testing.
 
-**4) Mocking Kotlin类是痛苦的**   
-在Kotlin中默认情况下，几乎所有的成员都是final类型,例如：classes, methods, 等等。而我确实喜欢因为它强制保持了不变性 ->减少bug。但是与此同时，它使mocking via Mockito（一种JVM世界的黄金标准）变的很痛苦同时它与语言设计相反。  
+**4)  通过Mockito模拟通过Kotlin创建的类是痛苦的**   
+在Kotlin中默认情况下，几乎所有的成员都是final类型,例如：classes, methods, 等等。而我确实喜欢因为它强制保持了不变性 ->减少bug。但是与此同时，它使）通过Mockito模拟通过Kotlin创建的类是痛苦的（一种JVM世界的黄金标准)同时它与语言设计相反。  
 
 是的，PowerMock是一个解决方案，但是它通过Robolectric这类工具进行交互，同时一般来说，它是一个不错的规则针对你模拟final classes和final method。
 
@@ -81,7 +81,7 @@ Imagine you're in the process of rewriting Java project to Kotlin, you will have
 
 You'll have to read and write same code that works differently from language to language. This is one of the reasons why I don't like Groovy.
 
-**6) ==使用equals()代替引用比较**     
+**6)==实现了Java的equals()方法提供的对象比较功能，而不是比较对象的引用是否相同**     
 如果Kotlin是更好的Java或"Java on steroids"，它应该变得更好，而不是去打破。
 
 想象一下你重写Java工程到Kotlin的过程，你会同时遇到Java和Kotlin代码。
