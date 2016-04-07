@@ -1,4 +1,4 @@
-How to Use Bottom Sheets With the Design Support Library
+如何使用BottomSheet
 ---
 
 > * 原文链接 : [How to Use Bottom Sheets With the Design Support Library](http://code.tutsplus.com/articles/how-to-use-bottom-sheets-with-the-design-support-library--cms-26031)
