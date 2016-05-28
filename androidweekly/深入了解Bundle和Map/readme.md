@@ -345,7 +345,7 @@ readMapInternal()这个方法只是将我们从Parcel中读取的map重新进行
 ##解决方案：
 
 好了，分析底层代码我们已经弄明白了我们的问题，现在我们定位到问题的关键位置。
-我们需要明白的是在writeValue()方法中，TreeMap没有进入“v instanceOf Map”这个分支
+我们需要明白的是在writeValue()方法中，我们的TreeMap不应该进入“v instanceOf Map”这个分支。
 
 
 当我和 Eugenio谈话时，我想到的第一个想法是将map包裹成一个Serializable的容器，这个想法是丑陋的但是有效的。
