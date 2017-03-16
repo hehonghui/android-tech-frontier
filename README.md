@@ -5,16 +5,16 @@
 
 ---------
 
-## 其他学习资源
-* [Android 源码设计模式分析 地址](https://github.com/simple-android-framework-exchange/android_design_patterns_analysis)
-* [Android优秀学习资料整理](the-bad-guys/)
-* [软件架构模式](https://raw.githubusercontent.com/bboyfeiyu/android-tech-frontier/master/software-architecture-patterns/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F.pdf)
-
 ## 目录
 
 * [文章分类](#category)
 * [优秀推荐文章](#recommend)
 * [已完成文章列表](#articles)
+
+## 其他学习资源
+* [Android 源码设计模式分析 地址](https://github.com/simple-android-framework-exchange/android_design_patterns_analysis)
+* [Android优秀学习资料整理](the-bad-guys/)
+* [软件架构模式](https://raw.githubusercontent.com/bboyfeiyu/android-tech-frontier/master/software-architecture-patterns/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F.pdf)
 
 ## 参与步骤
 
