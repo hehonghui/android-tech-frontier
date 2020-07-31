@@ -8,11 +8,18 @@
 
 ---------
 
+[Android App内存泄漏自动分析工具 - MMAT发布](https://github.com/hehonghui/mmat)
+
 ## 目录
 
 * [文章分类](#category)
 * [优秀推荐文章](#recommend)
 * [已完成文章列表](#articles)
+
+## 其他学习资源
+* [Android 源码设计模式分析 地址](https://github.com/simple-android-framework-exchange/android_design_patterns_analysis)
+* [Android优秀学习资料整理](the-bad-guys/)
+* [软件架构模式](https://raw.githubusercontent.com/bboyfeiyu/android-tech-frontier/master/software-architecture-patterns/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F.pdf)
 
 ## 参与步骤
 
@@ -78,13 +85,6 @@ https://github.com/bboyfeiyu/android-tech-frontier/issues/1
 
 ## 版权信息
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />该项目下的所有作品由<a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/bboyfeiyu/android-tech-frontier" property="cc:attributionName" rel="cc:attributionURL">Android开发技术前线</a>团队翻译，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。
-
-
-## Android优秀学习资料
-[ Android优秀学习资料整理 ](the-bad-guys/)
-
-## 免费优秀的电子书
-1. [软件架构模式 ](https://raw.githubusercontent.com/bboyfeiyu/android-tech-frontier/master/software-architecture-patterns/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F.pdf)
 
 <b id="articles" ></b>
 ## 已完成列表
