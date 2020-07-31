@@ -1,4 +1,7 @@
 # Android开发技术前线 ( android-tech-frontier )
+
+<a href="https://tracking.gitads.io/?repo=android-tech-frontier"> <img src="https://images.gitads.io/android-tech-frontier" alt="GitAds"/></a>
+
 一个定期翻译、发布国内外Android优质的技术、开源库、软件架构设计、测试等文章的开源项目,让我们的技术跟上国际步伐。        
 
 我们翻译的文章在能够联系到作者的情况下都会在获得作者授权后进行翻译，并且公开发布。发布的文章中都会保留原文链接、作者名，如有相关的版权协议我们也会一并附上。目前已经联系到的作者列表请参考[授权文档](authorization.md);
