@@ -1,6 +1,5 @@
 # Android开发技术前线 ( android-tech-frontier )
 
-<a href="https://tracking.gitads.io/?repo=android-tech-frontier"> <img src="https://images.gitads.io/android-tech-frontier" alt="GitAds"/></a>
 
 一个定期翻译、发布国内外Android优质的技术、开源库、软件架构设计、测试等文章的开源项目,让我们的技术跟上国际步伐。        
 
