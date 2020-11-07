@@ -1,7 +1,10 @@
 软件架构模式
------
+-------
 
-原书名[《Software Architecture Patterns》](http://www.oreilly.com/programming/free/software-architecture-patterns.csp) ,[软件架构模式pdf下载](http://pan.baidu.com/s/1sjAz23r)，中文版[下载地址](https://www.gitbook.com/book/bboyfeiyu/software-architecture-patterns/details)。   
+原书名[《Software Architecture Patterns》](http://www.oreilly.com/programming/free/software-architecture-patterns.csp) .
+
+* [中文版百度云盘下载](http://pan.baidu.com/s/1sjAz23r)
+* [中文版github下载地址](https://raw.githubusercontent.com/hehonghui/android-tech-frontier/master/software-architecture-patterns/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F.pdf)
 
 ## 打赏 - JUST FOR FUN
 
