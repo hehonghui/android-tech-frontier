@@ -12,14 +12,6 @@
 
 * [请移步到wiki](https://github.com/bboyfeiyu/android-tech-frontier/wiki)
 
-## 打赏 - JUST FOR FUN
-
-> * 一杯咖啡钱, 打赏金额随意，感谢大家~ :)
-
-|   支付宝   |   微信    |
-|------------|-----------|
-|<img src="https://img-blog.csdnimg.cn/20200412132734488.JPG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Jib3lmZWl5dQ==,size_16,color_FFFFFF,t_70" width="200"/>| <img src="https://img-blog.csdnimg.cn/20200911174255577.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Jib3lmZWl5dQ==,size_16,color_FFFFFF,t_70" width="200"/>  |
-
 
 ## 其他学习资源
 * [Android 源码设计模式分析 地址](https://github.com/simple-android-framework-exchange/android_design_patterns_analysis)
